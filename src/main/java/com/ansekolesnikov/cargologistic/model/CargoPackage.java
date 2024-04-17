@@ -5,24 +5,24 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Package {
+public class CargoPackage {
     private final int id = new Random().nextInt(1000000);
     private int idCargo = 0;
     private final int type;
     private final int[][] arrPackageScheme = new int[5][5];
     private int width;
 
-    public Package(int type) {
+    public CargoPackage(int type) {
         this.type = type;
 
         initArrayPackageScheme();
         initPackageWidth();
     }
 
-    public static List<Package> sortListDesc(List<Package> listPackages) {
-        return listPackages
+    public static List<CargoPackage> sortListDesc(List<CargoPackage> listCargoPackages) {
+        return listCargoPackages
                 .stream()
-                .sorted(Comparator.comparingInt(Package::getWidth).reversed())
+                .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
                 .collect(Collectors.toList());
     }
 

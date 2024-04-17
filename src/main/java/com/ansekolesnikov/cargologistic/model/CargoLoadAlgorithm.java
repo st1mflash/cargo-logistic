@@ -1,33 +1,33 @@
 package com.ansekolesnikov.cargologistic.model;
 
-public class Algorithm {
-    public static void load(String algorithm, Cargo cargo, Package pack) {
+public class CargoLoadAlgorithm {
+    public static void load(String algorithm, CargoCar cargoCar, CargoPackage pack) {
         switch (algorithm) {
             case "max":
-                loadAlgorithm(cargo, pack);
+                loadAlgorithm(cargoCar, pack);
                 break;
             case "half":
-                loadHalfAlgorithm(cargo, pack);
+                loadHalfAlgorithm(cargoCar, pack);
                 break;
             case "type":
-                loadTypeAlgorithm(cargo, pack);
+                loadTypeAlgorithm(cargoCar, pack);
                 break;
             default:
                 break;
         }
     }
 
-    private static void loadAlgorithm(Cargo cargo, Package pack) {
-        int[][] arrCargoScheme = cargo.getArrCargoScheme();
+    private static void loadAlgorithm(CargoCar cargoCar, CargoPackage pack) {
+        int[][] arrCargoScheme = cargoCar.getArrCargoScheme();
         switch (pack.getType()) {
             case 1:
-                for (int i = 0; i < Cargo.WIDTH; i++) {
-                    for (int j = 0; j < Cargo.HEIGHT; j++) {
+                for (int i = 0; i < CargoCar.WIDTH; i++) {
+                    for (int j = 0; j < CargoCar.HEIGHT; j++) {
                         if (arrCargoScheme[i][j] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             return;
                         }
@@ -35,15 +35,15 @@ public class Algorithm {
                 }
                 break;
             case 2:
-                for (int i = 0; i < Cargo.HEIGHT; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 1; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 1; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -52,17 +52,17 @@ public class Algorithm {
                 }
                 break;
             case 3:
-                for (int i = 0; i < Cargo.HEIGHT; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 2; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 2; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
                                 && arrCargoScheme[i][j + 2] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
                             arrCargoScheme[i][j + 2] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -71,19 +71,19 @@ public class Algorithm {
                 }
                 break;
             case 4:
-                for (int i = 0; i < Cargo.HEIGHT; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 3; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 3; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
                                 && arrCargoScheme[i][j + 2] == 0
                                 && arrCargoScheme[i][j + 3] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
                             arrCargoScheme[i][j + 2] = pack.getType();
                             arrCargoScheme[i][j + 3] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -92,21 +92,21 @@ public class Algorithm {
                 }
                 break;
             case 5:
-                for (int i = 0; i < Cargo.HEIGHT; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 4; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 4; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
                                 && arrCargoScheme[i][j + 2] == 0
                                 && arrCargoScheme[i][j + 3] == 0
                                 && arrCargoScheme[i][j + 4] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
                             arrCargoScheme[i][j + 2] = pack.getType();
                             arrCargoScheme[i][j + 3] = pack.getType();
                             arrCargoScheme[i][j + 4] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -115,15 +115,15 @@ public class Algorithm {
                 }
                 break;
             case 6:
-                for (int i = 0; i < Cargo.HEIGHT - 1; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 2; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT - 1; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 2; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
                                 && arrCargoScheme[i][j + 2] == 0
                                 && arrCargoScheme[i + 1][j] == 0
                                 && arrCargoScheme[i + 1][j + 1] == 0
                                 && arrCargoScheme[i + 1][j + 2] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
@@ -131,7 +131,7 @@ public class Algorithm {
                             arrCargoScheme[i + 1][j] = pack.getType();
                             arrCargoScheme[i + 1][j + 1] = pack.getType();
                             arrCargoScheme[i + 1][j + 2] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -140,8 +140,8 @@ public class Algorithm {
                 }
                 break;
             case 7:
-                for (int i = 0; i < Cargo.HEIGHT - 1; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 3; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT - 1; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 3; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
                                 && arrCargoScheme[i][j + 2] == 0
@@ -149,7 +149,7 @@ public class Algorithm {
                                 && arrCargoScheme[i + 1][j] == 0
                                 && arrCargoScheme[i + 1][j + 1] == 0
                                 && arrCargoScheme[i + 1][j + 2] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
@@ -158,7 +158,7 @@ public class Algorithm {
                             arrCargoScheme[i + 1][j] = pack.getType();
                             arrCargoScheme[i + 1][j + 1] = pack.getType();
                             arrCargoScheme[i + 1][j + 2] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -167,8 +167,8 @@ public class Algorithm {
                 }
                 break;
             case 8:
-                for (int i = 0; i < Cargo.HEIGHT - 1; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 3; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT - 1; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 3; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
                                 && arrCargoScheme[i][j + 2] == 0
@@ -177,7 +177,7 @@ public class Algorithm {
                                 && arrCargoScheme[i + 1][j + 1] == 0
                                 && arrCargoScheme[i + 1][j + 2] == 0
                                 && arrCargoScheme[i + 1][j + 3] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
@@ -187,7 +187,7 @@ public class Algorithm {
                             arrCargoScheme[i + 1][j + 1] = pack.getType();
                             arrCargoScheme[i + 1][j + 2] = pack.getType();
                             arrCargoScheme[i + 1][j + 3] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -196,8 +196,8 @@ public class Algorithm {
                 }
                 break;
             case 9:
-                for (int i = 0; i < Cargo.HEIGHT - 2; i++) {
-                    for (int j = 0; j < Cargo.WIDTH - 2; j++) {
+                for (int i = 0; i < CargoCar.HEIGHT - 2; i++) {
+                    for (int j = 0; j < CargoCar.WIDTH - 2; j++) {
                         if (arrCargoScheme[i][j] == 0
                                 && arrCargoScheme[i][j + 1] == 0
                                 && arrCargoScheme[i][j + 2] == 0
@@ -207,7 +207,7 @@ public class Algorithm {
                                 && arrCargoScheme[i + 2][j] == 0
                                 && arrCargoScheme[i + 2][j + 1] == 0
                                 && arrCargoScheme[i + 2][j + 2] == 0
-                                && cargo.checkPackageSupport(i, j, pack.getWidth())
+                                && cargoCar.checkPackageSupport(i, j, pack.getWidth())
                         ) {
                             arrCargoScheme[i][j] = pack.getType();
                             arrCargoScheme[i][j + 1] = pack.getType();
@@ -218,7 +218,7 @@ public class Algorithm {
                             arrCargoScheme[i + 2][j] = pack.getType();
                             arrCargoScheme[i + 2][j + 1] = pack.getType();
                             arrCargoScheme[i + 2][j + 2] = pack.getType();
-                            pack.setIdCargo(cargo.getId());
+                            pack.setIdCargo(cargoCar.getId());
 
                             //Log.logDebug(cargo, "Добавление груза #" + pack.getId() + " с типом '" + pack.getType() + "'");
                             return;
@@ -230,16 +230,16 @@ public class Algorithm {
         }
     }
 
-    private static void loadHalfAlgorithm(Cargo cargo, Package pack) {
-        if (cargo.getLoadPercent() + (pack.getType() * 100) / (Cargo.WIDTH * Cargo.HEIGHT) <= 50) {
-            loadAlgorithm(cargo, pack);
+    private static void loadHalfAlgorithm(CargoCar cargoCar, CargoPackage pack) {
+        if (cargoCar.getLoadPercent() + (pack.getType() * 100) / (CargoCar.WIDTH * CargoCar.HEIGHT) <= 50) {
+            loadAlgorithm(cargoCar, pack);
         }
     }
 
-    private static void loadTypeAlgorithm(Cargo cargo, Package pack) {
-        if (cargo.getArrCargoScheme()[0][0] == pack.getType()
-                || cargo.getArrCargoScheme()[0][0] == 0) {
-            loadAlgorithm(cargo, pack);
+    private static void loadTypeAlgorithm(CargoCar cargoCar, CargoPackage pack) {
+        if (cargoCar.getArrCargoScheme()[0][0] == pack.getType()
+                || cargoCar.getArrCargoScheme()[0][0] == 0) {
+            loadAlgorithm(cargoCar, pack);
         }
     }
 

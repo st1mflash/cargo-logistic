@@ -6,74 +6,67 @@ import org.json.JSONObject;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Cargo {
+public class CargoCar {
     private int id = new Random().nextInt(1000000);
     public static final int WIDTH = 6;  //  ширина кузова
     public static final int HEIGHT = 6; //  высота кузова
     private final int[][] arrCargoScheme = new int[HEIGHT][WIDTH];          //  массив содержимого кузова
     private int loadPercent = 0;            //  процент загрузки
-    private static final Logger logger = Logger.getLogger(Cargo.class);
+    private static final Logger LOGGER = Logger.getLogger(CargoCar.class);
 
-    public Cargo() {
+    public CargoCar() {
     }
 
-    public static List<Cargo> loadListCargo(List<Package> listPackages, String algorithm, int countCars) {
-        List<Cargo> listCargo = new ArrayList<>();
+    public static List<CargoCar> loadListCargo(List<CargoPackage> listCargoPackages, String algorithm, int countCars) {
+        List<CargoCar> listCargoCars = new ArrayList<>();
         do {
-            Cargo cargo = new Cargo();
-            listCargo.add(cargo);
-            listPackages = listPackages.stream()
+            CargoCar cargoCar = new CargoCar();
+            listCargoCars.add(cargoCar);
+            listCargoPackages = listCargoPackages.stream()
                     .filter(pack -> pack.getIdCargo() == 0)
                     .collect(Collectors.toList());
 
-            for (Package pack : listPackages) {
-                Algorithm.load(algorithm, cargo, pack);
+            for (CargoPackage pack : listCargoPackages) {
+                CargoLoadAlgorithm.load(algorithm, cargoCar, pack);
             }
             if (countCars > 0) {
-                if (cargo.getLoadPercent() == 0) {
-                    logger.info("Грузовик #" + cargo.getId() + " остался пустым");
+                if (cargoCar.getLoadPercent() == 0) {
+                    LOGGER.info("Грузовик #" + cargoCar.getId() + " остался пустым");
                 } else {
-                    logger.info("Грузовик #" + cargo.getId() + " успешно загружен на " + cargo.getLoadPercent() + "%");
+                    LOGGER.info("Грузовик #" + cargoCar.getId() + " успешно загружен на " + cargoCar.getLoadPercent() + "%");
                 }
             }
 
             countCars--;
         } while (
-                listPackages
+                listCargoPackages
                         .stream()
                         .anyMatch(pack -> pack.getIdCargo() == 0)
                         || countCars > 0
         );
-        return listCargo;
+        return listCargoCars;
     }
 
-    public static void printListCargo(List<Cargo> listCargo) {
-        if (listCargo != null) {
-            for (Cargo cargo : listCargo) {
-                cargo.printCargo();
+    public static void printListCargo(List<CargoCar> listCargoCars) {
+        if (listCargoCars != null) {
+            for (CargoCar cargoCar : listCargoCars) {
+                cargoCar.printCargo();
             }
         }
     }
 
-    public void printCargoFullInfo() {
-        String fullInfo;
-        fullInfo = "Идентификатор: #" + id
-                + "\nПараметры кузова: " + Cargo.WIDTH + "х" + Cargo.HEIGHT
-                + "\nЗагруженность: " + getLoadPercent() + "%"
-                + "\nСостав груза:"
-                + (countTypeLoad(1) != 0 ? "\n - тип '1': " + countTypeLoad(1) + " шт." : "")
-                + (countTypeLoad(2) != 0 ? "\n - тип '2': " + countTypeLoad(2) + " шт." : "")
-                + (countTypeLoad(3) != 0 ? "\n - тип '3': " + countTypeLoad(3) + " шт." : "")
-                + (countTypeLoad(4) != 0 ? "\n - тип '4': " + countTypeLoad(4) + " шт." : "")
-                + (countTypeLoad(5) != 0 ? "\n - тип '5': " + countTypeLoad(5) + " шт." : "")
-                + (countTypeLoad(6) != 0 ? "\n - тип '6': " + countTypeLoad(6) + " шт." : "")
-                + (countTypeLoad(7) != 0 ? "\n - тип '7': " + countTypeLoad(7) + " шт." : "")
-                + (countTypeLoad(8) != 0 ? "\n - тип '8': " + countTypeLoad(8) + " шт." : "")
-                + (countTypeLoad(9) != 0 ? "\n - тип '9': " + countTypeLoad(9) + " шт." : "")
-                + "\nСхема кузова:\n"
-                + getStringCargoScheme()
-                + "\n";
-        System.out.println(fullInfo);
+    public String getCargoCarFullInfo() {
+        StringBuilder fullInfo = new StringBuilder(
+                "Идентификатор: #" + id
+                        + "\nПараметры кузова: " + CargoCar.WIDTH + "х" + CargoCar.HEIGHT
+                        + "\nЗагруженность: " + getLoadPercent() + "%"
+                        + "\nСостав груза:"
+        );
+        for (int i = 1; i < 10; i++) {
+            fullInfo.append((countTypeLoad(i) != 0 ? "\n - тип '" + i + "': " + countTypeLoad(i) + " шт." : ""));
+        }
+        fullInfo.append("\nСхема кузова:\n").append(getStringCargoScheme()).append("\n\n");
+        return fullInfo.toString();
     }
 
     private int countTypeLoad(int type) {
@@ -107,8 +100,8 @@ public class Cargo {
         }
         Map<String, String> mapJsonCargo = new HashMap<>();
         mapJsonCargo.put("id", String.valueOf(this.id));
-        mapJsonCargo.put("width", String.valueOf(Cargo.WIDTH));
-        mapJsonCargo.put("height", String.valueOf(Cargo.HEIGHT));
+        mapJsonCargo.put("width", String.valueOf(CargoCar.WIDTH));
+        mapJsonCargo.put("height", String.valueOf(CargoCar.HEIGHT));
         mapJsonCargo.put("cargo", cargoSchemeToString.toString());
         return String.valueOf(new JSONObject(mapJsonCargo));
     }
@@ -147,17 +140,17 @@ public class Cargo {
         return arrCargoScheme;
     }
 
-    public static Cargo exportCargoFromJSON(JSONObject jsonCargo) {
-        Cargo cargo = new Cargo();
-        cargo.setId(Integer.parseInt(jsonCargo.getString("id")));
-        cargo.initCargoSchemeFromString(jsonCargo.getString("cargo"));
-        return cargo;
+    public static CargoCar exportCargoFromJSON(JSONObject jsonCargo) {
+        CargoCar cargoCar = new CargoCar();
+        cargoCar.setId(Integer.parseInt(jsonCargo.getString("id")));
+        cargoCar.initCargoSchemeFromString(jsonCargo.getString("cargo"));
+        return cargoCar;
     }
 
     public void initCargoSchemeFromString(String schemeString) {
         int index = 0;
-        for (int i = 0; i < Cargo.HEIGHT; i++) {
-            for (int j = 0; j < Cargo.WIDTH; j++) {
+        for (int i = 0; i < CargoCar.HEIGHT; i++) {
+            for (int j = 0; j < CargoCar.WIDTH; j++) {
                 arrCargoScheme[i][j] = Integer.parseInt(String.valueOf(schemeString.charAt(index++)));
             }
         }
