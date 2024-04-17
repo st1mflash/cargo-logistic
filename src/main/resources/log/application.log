@@ -1,0 +1,65 @@
+2024-04-17 12:20:45,869 [main] INFO  com.ansekolesnikov.cargologistic.CargoLogisticApplication - Запуск приложения
+2024-04-17 12:20:55,054 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос загрузки из файла 'test.txt' алгоритмом 'max' в 2 ед. транспорта.
+2024-04-17 12:20:55,059 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #773677 успешно загружен на 69%
+2024-04-17 12:20:55,059 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #380476 успешно загружен на 72%
+2024-04-17 12:20:55,060 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #351893 остался пустым
+2024-04-17 12:20:55,061 [main] ERROR com.ansekolesnikov.cargologistic.controller.Controller - Ошибка загрузки: недостаточно машин! Требуется минимум 3, а указано 2
+2024-04-17 12:21:03,169 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос загрузки из файла 'test.txt' алгоритмом 'max' в 7 ед. транспорта.
+2024-04-17 12:21:03,170 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #661011 успешно загружен на 69%
+2024-04-17 12:21:03,170 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #400818 успешно загружен на 72%
+2024-04-17 12:21:03,170 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #974685 успешно загружен на 50%
+2024-04-17 12:21:03,170 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #381020 остался пустым
+2024-04-17 12:21:03,170 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #308393 остался пустым
+2024-04-17 12:21:03,170 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #132506 остался пустым
+2024-04-17 12:21:03,170 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #737822 остался пустым
+2024-04-17 12:21:03,171 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'test.txt' прошла успешно!
+2024-04-17 12:21:03,178 [main] INFO  com.ansekolesnikov.cargologistic.model.File - Результат погрузки выгружен по пути: 'src/main/resources/export/cargo/loaded_cargo.json' в формате JSON.
+2024-04-17 12:22:53,827 [main] INFO  com.ansekolesnikov.cargologistic.CargoLogisticApplication - Запуск приложения
+2024-04-17 12:23:01,368 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос загрузки из файла 'test.txt' алгоритмом 'max' в 2 ед. транспорта.
+2024-04-17 12:23:01,373 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #994708 успешно загружен на 69%
+2024-04-17 12:23:01,373 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #231763 успешно загружен на 72%
+2024-04-17 12:23:01,375 [main] ERROR com.ansekolesnikov.cargologistic.controller.Controller - Ошибка загрузки: недостаточно машин! Требуется минимум 3, а указано 2
+2024-04-17 12:23:08,515 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос загрузки из файла 'test.txt' алгоритмом 'max' в 6 ед. транспорта.
+2024-04-17 12:23:08,516 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #235682 успешно загружен на 69%
+2024-04-17 12:23:08,516 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #658276 успешно загружен на 72%
+2024-04-17 12:23:08,516 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #348359 успешно загружен на 50%
+2024-04-17 12:23:08,516 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #612434 остался пустым
+2024-04-17 12:23:08,516 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #736952 остался пустым
+2024-04-17 12:23:08,516 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #791582 остался пустым
+2024-04-17 12:23:08,517 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'test.txt' прошла успешно!
+2024-04-17 12:23:08,522 [main] INFO  com.ansekolesnikov.cargologistic.model.File - Результат погрузки выгружен по пути: 'src/main/resources/export/cargo/loaded_cargo.json' в формате JSON.
+2024-04-17 12:25:30,153 [main] INFO  com.ansekolesnikov.cargologistic.CargoLogisticApplication - Запуск приложения
+2024-04-17 12:25:37,913 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'one.json'
+2024-04-17 12:26:15,927 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'cargo_list.json'
+2024-04-17 12:26:53,967 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'one.json'
+2024-04-17 12:27:52,557 [main] INFO  com.ansekolesnikov.cargologistic.CargoLogisticApplication - Запуск приложения
+2024-04-17 12:28:03,786 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'cargo_list.json'
+2024-04-17 12:33:32,196 [main] INFO  com.ansekolesnikov.cargologistic.CargoLogisticApplication - Запуск приложения
+2024-04-17 12:33:52,819 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'cargo_list.json'
+2024-04-17 12:33:52,852 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'cargo_list.json' прошла успешно! Получена информация о 10 грузовик(ах)
+2024-04-17 12:36:37,755 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'many.json'
+2024-04-17 12:36:37,785 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'many.json' прошла успешно! Получена информация о 6 грузовик(ах)
+2024-04-17 12:38:33,527 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'many.json'
+2024-04-17 12:38:33,574 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'many.json' прошла успешно! Получена информация о 6 грузовик(ах)
+2024-04-17 12:39:22,208 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'one.json'
+2024-04-17 12:39:22,236 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'one.json' прошла успешно! Получена информация о 1 грузовике(ах)
+2024-04-17 12:39:29,558 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'many.json'
+2024-04-17 12:39:29,565 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'many.json' прошла успешно! Получена информация о 6 грузовике(ах)
+2024-04-17 12:39:53,573 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'cargo_list.json'
+2024-04-17 12:39:53,584 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'cargo_list.json' прошла успешно! Получена информация о 10 грузовике(ах)
+2024-04-17 12:40:25,101 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'ss.json'
+2024-04-17 12:40:25,102 [main] ERROR com.ansekolesnikov.cargologistic.exception.LoadCargoException - Ошибка импорта: файл 'src/main/resources/import/cargo/ss.json' не найден.
+2024-04-17 12:43:36,110 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'many.json'
+2024-04-17 12:46:22,712 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'many.json'
+2024-04-17 12:48:11,863 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'many.json'
+2024-04-17 12:53:26,479 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'many.json'
+2024-04-17 12:53:26,511 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'many.json' прошла успешно! Получена информация о 6 грузовике(ах)
+2024-04-17 12:53:30,012 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос отображения информации о грузовиках из файла 'error.json'
+2024-04-17 12:53:30,013 [main] ERROR com.ansekolesnikov.cargologistic.model.File - Ошибка в файле 'src/main/resources/import/cargo/error.json', не удалось получить содержимое в JSON формате
+2024-04-17 14:53:57,267 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос загрузки из файла 'test1.txt' алгоритмом 'max' в null ед. транспорта.
+2024-04-17 14:54:08,159 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос загрузки из файла 'test1.txt' алгоритмом 'max' в 2 ед. транспорта.
+2024-04-17 14:54:08,161 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #570907 успешно загружен на 69%
+2024-04-17 14:54:08,162 [main] INFO  com.ansekolesnikov.cargologistic.model.Cargo - Грузовик #422921 остался пустым
+2024-04-17 14:54:08,162 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Загрузка из файла 'test1.txt' прошла успешно!
+2024-04-17 14:54:08,168 [main] INFO  com.ansekolesnikov.cargologistic.model.File - Результат погрузки выгружен по пути: 'src/main/resources/export/cargo/loaded_cargo.json' в формате JSON.
+2024-04-17 14:54:25,816 [main] INFO  com.ansekolesnikov.cargologistic.controller.Controller - Запрос загрузки из файла 'test1.txt' алгоритмом 'max' в null ед. транспорта.
