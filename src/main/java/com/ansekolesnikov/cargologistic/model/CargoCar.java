@@ -70,21 +70,23 @@ public class CargoCar {
         return (loadToString.length() - (loadToString.replace(Integer.toString(type), "").length())) / type;
     }
 
-    public void printCargo() {
-        String line;
+    public String getCargoScheme() {
+        StringBuilder scheme = new StringBuilder();
         for (int i = HEIGHT - 1; i >= 0; i--) {
-            line = "+";
+            scheme.append("+");
             for (int j = 0; j < WIDTH; j++) {
                 if (arrCargoScheme[i][j] == 0) {
-                    line = line + " ";
+                    scheme.append(" ");
                 } else {
-                    line = line + arrCargoScheme[i][j];
+                    scheme.append(arrCargoScheme[i][j]);
                 }
             }
-            line = line + "+";
-            System.out.println(line);
+            scheme.append("+\n");
+            //System.out.println(scheme);
         }
-        System.out.println("++++++++\n");
+        scheme.append("++++++++\n");
+        return scheme.toString();
+        //System.out.println("++++++++\n");
     }
 
     public String getJsonString() {

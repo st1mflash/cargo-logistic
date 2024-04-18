@@ -7,10 +7,12 @@ import java.util.List;
 
 public class CargoCarUtils {
     public static void printListCargo(List<CargoCar> listCargoCars) {
+        /*
         if (listCargoCars != null) {
             for (CargoCar cargoCar : listCargoCars) {
                 cargoCar.printCargo();
             }
         }
+        */
     }
 }

@@ -31,7 +31,7 @@ public class FileValidation {
     }
     private boolean isFormatExist() {
         if(formatFile == null) {
-            logErrorMessage = "Ошибка импорта: у файла '" + nameFile + "' не указан формат.";
+            logErrorMessage = "Ошибка импорта: у файла не указан формат.";
             userErrorMessage = "Не указан формат файла.";
             return false;
         } else {

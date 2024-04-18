@@ -10,24 +10,25 @@ import java.util.List;
 
 public class CargoViewService {
     private static final Logger LOGGER = Logger.getLogger(CargoViewService.class.getName());
-    private static final String PATH_IMPORT_JSON = "src/main/resources/import/cargo/";
+    private static final String PATH_IMPORT = "src/main/resources/import/cargo/";
     private final CargoFile cargoFile;
 
-    public CargoViewService(String fileName){
-        this.cargoFile = new CargoFile(PATH_IMPORT_JSON + fileName);
+    public CargoViewService(String fileName) {
+        this.cargoFile = new CargoFile(PATH_IMPORT + fileName);
     }
 
     public String runService() {
         FileValidation fileValidation = new FileValidation(cargoFile);
-        if(fileValidation.isValid()) {
+        if (fileValidation.isValid()) {
             return getCargoInfoFromFile();
         } else {
             LOGGER.error(fileValidation.getLogErrorMessage());
             return fileValidation.getUserErrorMessage();
         }
     }
+
     private String getCargoInfoFromFile() {
-        List<CargoCar> cargoCarList = CargoFileImportUtils.getListCargoFromJSONFile(cargoFile.getPathNameFormat());
+        List<CargoCar> cargoCarList = CargoFileImportUtils.importCarsFromFile(cargoFile);
         if (cargoCarList != null) {
             StringBuilder result = new StringBuilder();
             for (CargoCar cargoCar : cargoCarList) {
