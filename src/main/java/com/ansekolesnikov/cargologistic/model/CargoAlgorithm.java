@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.model;
 
-public class CargoLoadAlgorithm {
+public class CargoAlgorithm {
     public static void load(String algorithm, CargoCar cargoCar, CargoPackage pack) {
         switch (algorithm) {
             case "max":

@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.model.CargoCar;
 import com.ansekolesnikov.cargologistic.model.CargoFile;
-import com.ansekolesnikov.cargologistic.model.CargoLoadAlgorithm;
+import com.ansekolesnikov.cargologistic.model.CargoAlgorithm;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
 import com.ansekolesnikov.cargologistic.utils.CargoFileImportUtils;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
@@ -59,7 +59,7 @@ public class CargoLoadService {
                     .collect(Collectors.toList());
 
             for (CargoPackage pack : listCargoPackages) {
-                CargoLoadAlgorithm.load(algorithm, cargoCar, pack);
+                CargoAlgorithm.load(algorithm, cargoCar, pack);
             }
             if (localCarCount > 0) {
                 if (cargoCar.getLoadPercent() == 0) {
