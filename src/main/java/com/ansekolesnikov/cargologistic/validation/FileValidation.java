@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 public class FileValidation {
     private final String pathFile, nameFile, formatFile;
     private String userErrorMessage, logErrorMessage;
-    //private CargoFile cargoFile;
 
     public FileValidation(CargoFile cargoFile) {
         this.pathFile = cargoFile.getPath();

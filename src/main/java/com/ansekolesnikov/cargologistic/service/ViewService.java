@@ -12,7 +12,7 @@ public class ViewService {
     private static final Logger LOGGER = Logger.getLogger(ViewService.class.getName());
     private static final String PATH_IMPORT_JSON = "src/main/resources/import/cargo/";
 
-    public static String checkService(String fileName) {
+    public static String viewService(String fileName) {
         String filePath = PATH_IMPORT_JSON + fileName;
         FileValidation fileValidation = new FileValidation(new CargoFile(filePath));
         if(fileValidation.isValid()) {

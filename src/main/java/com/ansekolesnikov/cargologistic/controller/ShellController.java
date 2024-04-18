@@ -45,6 +45,6 @@ public class ShellController {
     @ShellMethod("Получение полной информации о грузовиках из JSON файла.")
     public String view(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
-        return ViewService.checkService(fileName);
+        return ViewService.viewService(fileName);
     }
 }
