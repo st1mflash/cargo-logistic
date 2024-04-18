@@ -1,14 +1,7 @@
 package com.ansekolesnikov.cargologistic.validation;
 
-import com.ansekolesnikov.cargologistic.service.ViewService;
-import org.apache.log4j.Logger;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
-
 public class LoadCargoException {
+    /*
     private static final Logger LOGGER = Logger.getLogger(ViewService.class.getName());
     public static void algorithmExistException(String algorithm) throws Exception {
         String algorithmToLowerCase = algorithm.toLowerCase();
@@ -29,4 +22,5 @@ public class LoadCargoException {
             throw new NoSuchFileException("Ошибка импорта: файл '" + filePath + "' не найден.");
         }
     }
+    */
 }

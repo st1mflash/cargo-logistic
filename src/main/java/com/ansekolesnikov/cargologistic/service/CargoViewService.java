@@ -8,22 +8,26 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class ViewService {
-    private static final Logger LOGGER = Logger.getLogger(ViewService.class.getName());
+public class CargoViewService {
+    private static final Logger LOGGER = Logger.getLogger(CargoViewService.class.getName());
     private static final String PATH_IMPORT_JSON = "src/main/resources/import/cargo/";
+    private final CargoFile cargoFile;
 
-    public static String viewService(String fileName) {
-        String filePath = PATH_IMPORT_JSON + fileName;
-        FileValidation fileValidation = new FileValidation(new CargoFile(filePath));
+    public CargoViewService(String fileName){
+        this.cargoFile = new CargoFile(PATH_IMPORT_JSON + fileName);
+    }
+
+    public String runService() {
+        FileValidation fileValidation = new FileValidation(cargoFile);
         if(fileValidation.isValid()) {
-            return getCargoFullInfoFromJSONFile(filePath);
+            return getCargoInfoFromFile();
         } else {
             LOGGER.error(fileValidation.getLogErrorMessage());
             return fileValidation.getUserErrorMessage();
         }
     }
-    private static String getCargoFullInfoFromJSONFile(String filePath) {
-        List<CargoCar> cargoCarList = CargoFileImportUtils.getListCargoFromJSONFile(filePath);
+    private String getCargoInfoFromFile() {
+        List<CargoCar> cargoCarList = CargoFileImportUtils.getListCargoFromJSONFile(cargoFile.getPathNameFormat());
         if (cargoCarList != null) {
             StringBuilder result = new StringBuilder();
             for (CargoCar cargoCar : cargoCarList) {
@@ -31,7 +35,7 @@ public class ViewService {
             }
             return result.toString();
         } else {
-            LOGGER.info("Указанный файл '" + filePath + "' не содержит информации о грузовиках");
+            LOGGER.info("Указанный файл '" + cargoFile.getPathNameFormat() + "' не содержит информации о грузовиках");
             return "Указанный файл не содержит информации о грузовиках.";
         }
     }
