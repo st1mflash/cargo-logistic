@@ -14,6 +14,7 @@ public class FileValidation {
         this.nameFile = cargoFile.getName();
         this.formatFile = cargoFile.getFormat();
     }
+
     public boolean isValid() {
         return isFormatExist()
                 && isFileExist();
@@ -29,8 +30,9 @@ public class FileValidation {
             return true;
         }
     }
+
     private boolean isFormatExist() {
-        if(formatFile == null) {
+        if (formatFile == null) {
             logErrorMessage = "Ошибка импорта: у файла не указан формат.";
             userErrorMessage = "Не указан формат файла.";
             return false;
@@ -38,9 +40,11 @@ public class FileValidation {
             return true;
         }
     }
+
     public String getLogErrorMessage() {
         return logErrorMessage;
     }
+
     public String getUserErrorMessage() {
         return userErrorMessage;
     }

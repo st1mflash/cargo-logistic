@@ -1,54 +1,22 @@
 package com.ansekolesnikov.cargologistic.model;
 
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Random;
 
 public class CargoCar {
     private int id = new Random().nextInt(1000000);
-    public static final int WIDTH = 6;  //  ширина кузова
-    public static final int HEIGHT = 6; //  высота кузова
-    private final int[][] arrCargoScheme = new int[HEIGHT][WIDTH];          //  массив содержимого кузова
-    private int loadPercent = 0;            //  процент загрузки
-    private static final Logger LOGGER = Logger.getLogger(CargoCar.class);
+    public static final int WIDTH = 6;
+    public static final int HEIGHT = 6;
+    private final int[][] arrCargoScheme = new int[HEIGHT][WIDTH];
 
     public CargoCar() {
     }
+
     public CargoCar(JSONObject JSONObj) {
         id = Integer.parseInt(JSONObj.getString("id"));
         initCargoSchemeFromString(JSONObj.getString("cargo"));
-    }
-
-    public static List<CargoCar> loadListCargo(List<CargoPackage> listCargoPackages, String algorithm, int countCars) {
-        List<CargoCar> listCargoCars = new ArrayList<>();
-        do {
-            CargoCar cargoCar = new CargoCar();
-            listCargoCars.add(cargoCar);
-            listCargoPackages = listCargoPackages.stream()
-                    .filter(pack -> pack.getIdCargo() == 0)
-                    .collect(Collectors.toList());
-
-            for (CargoPackage pack : listCargoPackages) {
-                CargoLoadAlgorithm.load(algorithm, cargoCar, pack);
-            }
-            if (countCars > 0) {
-                if (cargoCar.getLoadPercent() == 0) {
-                    LOGGER.info("Грузовик #" + cargoCar.getId() + " остался пустым");
-                } else {
-                    LOGGER.info("Грузовик #" + cargoCar.getId() + " успешно загружен на " + cargoCar.getLoadPercent() + "%");
-                }
-            }
-            countCars--;
-
-        } while (
-                listCargoPackages
-                        .stream()
-                        .anyMatch(pack -> pack.getIdCargo() == 0)
-                        || countCars > 0
-        );
-        return listCargoCars;
     }
 
     public String getCargoCarFullInfo() {
@@ -82,26 +50,9 @@ public class CargoCar {
                 }
             }
             scheme.append("+\n");
-            //System.out.println(scheme);
         }
         scheme.append("++++++++\n");
         return scheme.toString();
-        //System.out.println("++++++++\n");
-    }
-
-    public String getJsonString() {
-        StringBuilder cargoSchemeToString = new StringBuilder();
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                cargoSchemeToString.append(arrCargoScheme[i][j]);
-            }
-        }
-        Map<String, String> mapJsonCargo = new HashMap<>();
-        mapJsonCargo.put("id", String.valueOf(this.id));
-        mapJsonCargo.put("width", String.valueOf(CargoCar.WIDTH));
-        mapJsonCargo.put("height", String.valueOf(CargoCar.HEIGHT));
-        mapJsonCargo.put("cargo", cargoSchemeToString.toString());
-        return String.valueOf(new JSONObject(mapJsonCargo));
     }
 
     public boolean checkPackageSupport(int coordinateHeight, int coordinateWidth, int packageWidth) {
@@ -127,7 +78,7 @@ public class CargoCar {
                 }
             }
         }
-        return loadPercent = (fillPoints * 100) / (WIDTH * HEIGHT);
+        return (fillPoints * 100) / (WIDTH * HEIGHT);
     }
 
     public int getId() {
@@ -147,24 +98,20 @@ public class CargoCar {
         }
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getStringCargoScheme() {
-        String scheme = "";
+        StringBuilder scheme = new StringBuilder();
         for (int i = HEIGHT - 1; i >= 0; i--) {
-            scheme = scheme + "\t\t+";
+            scheme.append("\t\t+");
             for (int j = 0; j < WIDTH; j++) {
                 if (arrCargoScheme[i][j] == 0) {
-                    scheme = scheme + " ";
+                    scheme.append(" ");
                 } else {
-                    scheme = scheme + arrCargoScheme[i][j];
+                    scheme.append(arrCargoScheme[i][j]);
                 }
             }
-            scheme = scheme + "+\n";
+            scheme.append("+\n");
         }
-        scheme = scheme + "\t\t++++++++";
-        return scheme;
+        scheme.append("\t\t++++++++");
+        return scheme.toString();
     }
 }

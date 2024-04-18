@@ -28,6 +28,7 @@ public class CargoFileImportUtils {
             return null;
         }
     }
+
     public static List<CargoCar> importCarsFromFile(CargoFile cargoFile) {
         try {
             List<CargoCar> listCargoCars = new ArrayList<>();
@@ -40,6 +41,7 @@ public class CargoFileImportUtils {
             return null;
         }
     }
+
     private static List<JSONObject> parseCargoJSON(String content) {
         List<JSONObject> listJSONObj = new ArrayList<>();
         String[] arrClearContent = content
@@ -50,24 +52,4 @@ public class CargoFileImportUtils {
         }
         return listJSONObj;
     }
-
-    /*
-    public static void exportListCargoToJsonFile(List<CargoCar> listCargoCars) throws IOException {
-        StringBuilder jsonList = new StringBuilder();
-        String filePathExport = "src/main/resources/export/cargo/loaded_cargo.json";
-        for (CargoCar cargoCar : listCargoCars) {
-            jsonList.append(cargoCar.getJsonString()).append(",");
-        }
-        if (!jsonList.isEmpty()) {
-            jsonList.deleteCharAt(jsonList.length() - 1);
-        }
-
-        FileWriter writer = new FileWriter(filePathExport);
-        writer.write("[" + jsonList + "]");
-        writer.close();
-
-        logger.info("Результат погрузки выгружен по пути: '" + filePathExport + "' в формате JSON.");
-    }
-
-     */
 }

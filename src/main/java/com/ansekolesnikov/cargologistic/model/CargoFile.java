@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.model;
 
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -41,16 +40,4 @@ public class CargoFile {
     public String getPathNameFormat() {
         return pathNameFormat;
     }
-
-    /*
-    public String getExtension() {
-        return extension;
-    }
-
-    public String getPath() {
-        return path;
-    }
-     */
-
-
 }

@@ -242,32 +242,4 @@ public class CargoLoadAlgorithm {
             loadAlgorithm(cargoCar, pack);
         }
     }
-
-    public static void checkAlgorithm(String algorithm) {
-        /*
-        Logger logger = Logger.getLogger(Algorithm.class.getName());
-        switch (algorithm) {
-            case "max":
-                logger.info("Начало загрузки карго из файла '" + fileName  + "'. Алгоритм загрузки: каждый грузовик загружается максимально ('max')");
-                break;
-            case "half":
-                logger.info("Начало загрузки карго из файла '" + fileName  + "'. Алгоритм загрузки: каждый грузовик загружается не более, чем на половину ('half')");
-                break;
-            case "type":
-                logger.info("Начало загрузки карго из файла '" + fileName  + "'. Алгоритм загрузки: каждый грузовик загружается посылками одного типа ('type')");
-                break;
-            default:
-                logger.error("Ошибка ввода. Не удалось определить алгоритм '" + algorithm +"'");
-                return """
-                        
-                        Не удалось определить алгоритм загрузки.
-                        Доступные алгоритмы:
-                        \tmax \t- максимально загружать каждый грузовик
-                        \thalf \t- каждый грузовик загружается не более, чем на половину
-                        \ttype \t- каждый грузовик загружается посылками одного типа
-                        """;
-        }
-
-         */
-    }
 }

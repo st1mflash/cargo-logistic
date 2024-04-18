@@ -5,19 +5,19 @@ import com.ansekolesnikov.cargologistic.model.CargoFile;
 import com.ansekolesnikov.cargologistic.model.CargoLoadAlgorithm;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
 import com.ansekolesnikov.cargologistic.utils.CargoFileImportUtils;
+import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CargoLoadService {
     private static final Logger LOGGER = Logger.getLogger(CargoLoadService.class.getName());
     private static final String PATH_IMPORT_PACKAGES = "src/main/resources/import/packages/";
-    private static final String PATH_EXPORT_CARGO = "src/main/resources/export/cargo/loaded_cargo.json";
     private final CargoFile cargoFile;
     private final String algorithm;
     private final int countCars;
@@ -30,25 +30,25 @@ public class CargoLoadService {
 
     public String runService() {
         FileValidation fileValidation = new FileValidation(cargoFile);
-        if (fileValidation.isValid()) {
-            return getCargoCarsInfo(createLoadedCargoCars());
-        } else {
+        AlgorithmValidation algorithmValidation = new AlgorithmValidation(algorithm);
+        if (!fileValidation.isValid()) {
             LOGGER.error(fileValidation.getLogErrorMessage());
             return fileValidation.getUserErrorMessage();
+        } else if (!algorithmValidation.isValid()) {
+            LOGGER.error(algorithmValidation.getLogErrorMessage());
+            return algorithmValidation.getUserErrorMessage();
+        } else {
+            List<CargoCar> cargoCarList = createLoadedCars();
+            if (cargoCarList.size() > countCars) {
+                LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + cargoCarList.size() + ", а указано " + countCars);
+                return "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + cargoCarList.size() + "!";
+            } else {
+                return getCarsInfo(cargoCarList);
+            }
         }
     }
 
-    private List<CargoPackage> importPackagesFromFile() {
-        try {
-            return Arrays.stream(Files.readString(Paths.get(cargoFile.getPathNameFormat())).split("\\n\\s*\\n"))
-                    .map(line -> line.charAt(0) - 48)
-                    .map(CargoPackage::new)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            return null;
-        }
-    }
-    private List<CargoCar> loadCargoCars(List<CargoPackage> listCargoPackages) {
+    private List<CargoCar> loadCars(List<CargoPackage> listCargoPackages) {
         int localCarCount = countCars;
         List<CargoCar> listCargoCars = new ArrayList<>();
         do {
@@ -71,21 +71,22 @@ public class CargoLoadService {
             localCarCount--;
 
         } while (
-                listCargoPackages
-                        .stream()
+                listCargoPackages.stream()
                         .anyMatch(pack -> pack.getIdCargo() == 0)
                         || localCarCount > 0
         );
         return listCargoCars;
     }
-    private List<CargoCar> createLoadedCargoCars() {
+
+    private List<CargoCar> createLoadedCars() {
         List<CargoPackage> cargoPackageList = Objects.requireNonNull(CargoFileImportUtils.importPackagesFromFile(cargoFile))
                 .stream()
                 .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
                 .toList();
-        return loadCargoCars(cargoPackageList);
+        return loadCars(cargoPackageList);
     }
-    private String getCargoCarsInfo(List<CargoCar> listCargoCars){
+
+    private String getCarsInfo(List<CargoCar> listCargoCars) {
         StringBuilder result = new StringBuilder();
         if (listCargoCars != null) {
             for (CargoCar cargoCar : listCargoCars) {
