@@ -36,8 +36,8 @@ public class CargoCar {
                     LOGGER.info("Грузовик #" + cargoCar.getId() + " успешно загружен на " + cargoCar.getLoadPercent() + "%");
                 }
             }
-
             countCars--;
+
         } while (
                 listCargoPackages
                         .stream()

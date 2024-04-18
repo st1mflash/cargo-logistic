@@ -1,43 +1,41 @@
 package com.ansekolesnikov.cargologistic.utils;
 
 import com.ansekolesnikov.cargologistic.model.CargoCar;
-import com.ansekolesnikov.cargologistic.model.file.CargoTxtFile;
+import com.ansekolesnikov.cargologistic.model.CargoFile;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CargoFileImportUtils {
-    /*
-    public static List<CargoCar> getListCarFromJSONFile (String filePath) throws Exception {
-        List<CargoCar> listCargoCars = getListCargoFromJSONFile(filePath);
-        //for (CargoCar cargoCar : listCargoCars) {
-            //cargo.printCargoFullInfo();
-        //}
-        return null;
-    };
-    */
     private static final Logger LOGGER = Logger.getLogger(CargoFileImportUtils.class);
-    public static List<CargoCar> getListCargoFromJSONFile(String filePath) throws Exception {
-        List<CargoCar> listCargoCars = new ArrayList<>();
 
-        Scanner scanner = new Scanner(new FileReader(filePath));
-        if (scanner.hasNext()) {
-            String content = scanner.next().replaceAll("[{\\[\\]]", "");
-            String[] arrJsonObj = content.split("},");
-            try {
-                for (String s : arrJsonObj) {
-                    listCargoCars.add(CargoCar.exportCargoFromJSON(new JSONObject("{" + s + "}")));
-                }
-            } catch (Exception e) {
-                LOGGER.error("Ошибка в файле '" + filePath + "', не удалось получить содержимое в JSON формате");
-                throw new Exception("Ошибка в содержимом файла '" + filePath + "', пожалуйста, проверьте корректность формата JSON, либо используйте другой файл");
+    public static List<CargoCar> getListCargoFromJSONFile(String filePath) {
+        try {
+            List<CargoCar> listCargoCars = new ArrayList<>();
+            List<JSONObject> listJSONObj = parseJSON(new CargoFile(filePath).getContent());
+
+            for (JSONObject JSONObj : listJSONObj) {
+                listCargoCars.add(CargoCar.exportCargoFromJSON(JSONObj));
             }
+
+            return listCargoCars;
+        } catch (Exception e) {
+            LOGGER.error("Ошибка считывания JSON файла: '" + filePath + "'");
         }
-        return listCargoCars;
+        return null;
+    }
+
+    private static List<JSONObject> parseJSON(String content) {
+        List<JSONObject> listJSONObj = new ArrayList<>();
+        String[] arrClearContent = content
+                .replaceAll("[{\\[\\]]", "")
+                .split("},");
+        for (String s : arrClearContent) {
+            listJSONObj.add(new JSONObject("{" + s + "}"));
+        }
+        return listJSONObj;
     }
 
     /*

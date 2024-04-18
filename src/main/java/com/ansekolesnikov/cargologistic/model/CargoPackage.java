@@ -84,12 +84,6 @@ public class CargoPackage {
         }
     }
 
-    /*
-    public int getId() {
-        return id;
-    }
-
-     */
     public void setIdCargo(int idCargo) {
         this.idCargo = idCargo;
     }
@@ -105,10 +99,4 @@ public class CargoPackage {
     public int getType() {
         return type;
     }
-    /*
-    public int[][] getArrPackageScheme() {
-        return arrPackageScheme;
-    }
-
-     */
 }

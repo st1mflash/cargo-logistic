@@ -11,14 +11,14 @@ import java.nio.file.Paths;
 public class LoadCargoException {
     private static final Logger LOGGER = Logger.getLogger(ViewService.class.getName());
     public static void algorithmExistException(String algorithm) throws Exception {
-        algorithm = algorithm.toLowerCase();
+        String algorithmToLowerCase = algorithm.toLowerCase();
         if (
-                !algorithm.equals("max")
-                        && !algorithm.equals("half")
-                        && !algorithm.equals("type")
+                !algorithmToLowerCase.equals("max")
+                        && !algorithmToLowerCase.equals("half")
+                        && !algorithmToLowerCase.equals("type")
         ) {
-            LOGGER.error("Ошибка ввода: не удалось определить алгоритм загрузки '" + algorithm + "'");
-            throw new Exception("Ошибка ввода: не удалось определить алгоритм загрузки '" + algorithm + "'");
+            LOGGER.error("Ошибка ввода: не удалось определить алгоритм загрузки '" + algorithmToLowerCase + "'");
+            throw new Exception("Ошибка ввода: не удалось определить алгоритм загрузки '" + algorithmToLowerCase + "'");
         }
     }
 

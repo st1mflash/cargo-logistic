@@ -19,7 +19,9 @@ public class CargoFile {
         path = filePath.substring(0, filePath.lastIndexOf('/') + 1);
         content = Files.readString(Paths.get(path + name + extension));
     }
-
+    public String getContent() {
+        return content;
+    }
     /*
     public String getName() {
         return name;
@@ -32,10 +34,7 @@ public class CargoFile {
     public String getPath() {
         return path;
     }
-
-    public String getContent() {
-        return content;
-    }
-
      */
+
+
 }

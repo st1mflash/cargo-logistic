@@ -58,9 +58,8 @@ public class CargoTxtFile {
         Logger.getLogger(CargoTxtFile.class.getName()).info("Результат погрузки выгружен по пути: '" + filePathExport + "' в формате JSON.");
     }
 
-    public static List<CargoCar> importListCargoFromJsonFile(String filePath) throws Exception {
-        filePath = "src/main/resources/import/cargo/" + filePath;
-
+    public static List<CargoCar> importListCargoFromJsonFile(String fileName) throws Exception {
+        String filePath = "src/main/resources/import/cargo/" + fileName;
         List<CargoCar> listCargoCars = new ArrayList<>();
 
         Scanner scanner = new Scanner(new FileReader(filePath));
