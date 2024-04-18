@@ -14,20 +14,17 @@ public class CargoFileImportUtils {
     public static List<CargoCar> getListCargoFromJSONFile(String filePath) {
         try {
             List<CargoCar> listCargoCars = new ArrayList<>();
-            List<JSONObject> listJSONObj = parseJSON(new CargoFile(filePath).getContent());
-
-            for (JSONObject JSONObj : listJSONObj) {
-                listCargoCars.add(CargoCar.exportCargoFromJSON(JSONObj));
+            for (JSONObject JSONObj : parseCargoJSON(new CargoFile(filePath).getContent())) {
+                listCargoCars.add(new CargoCar(JSONObj));
             }
-
             return listCargoCars;
         } catch (Exception e) {
-            LOGGER.error("Ошибка считывания JSON файла: '" + filePath + "'");
+            LOGGER.error("Ошибка считывания JSON файла: '" + filePath + "': " + e);
         }
         return null;
     }
 
-    private static List<JSONObject> parseJSON(String content) {
+    private static List<JSONObject> parseCargoJSON(String content) {
         List<JSONObject> listJSONObj = new ArrayList<>();
         String[] arrClearContent = content
                 .replaceAll("[{\\[\\]]", "")

@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.model.file.CargoTxtFile;
 import com.ansekolesnikov.cargologistic.service.ViewService;
+import com.ansekolesnikov.cargologistic.utils.CargoCarUtils;
 import com.ansekolesnikov.cargologistic.validation.LoadCargoException;
 import com.ansekolesnikov.cargologistic.model.CargoCar;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ShellController {
     private static final Logger LOGGER = Logger.getLogger(ShellController.class.getName());
 
-    @ShellMethod("Load cargo from file.")
+    @ShellMethod("Формирование поставки грузами из TXT файла.")
     public void load(@ShellOption String fileName, @ShellOption String algorithm, @ShellOption String countCars) throws Exception {
         //fileName = CargoTxtFile.convertFileNameToTxtExtension(fileName);
         String algorithmToLowerCase = algorithm.toLowerCase();
@@ -34,18 +35,16 @@ public class ShellController {
             System.out.println("Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + listCargoCars.size() + "!");
             LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + listCargoCars.size() + ", а указано " + countCars);
         } else {
-            CargoCar.printListCargo(listCargoCars);
+            CargoCarUtils.printListCargo(listCargoCars);
 
             LOGGER.info("Загрузка из файла '" + fileName + "' прошла успешно!");
             CargoTxtFile.exportListCargoToJsonFile(listCargoCars);
         }
     }
 
-    @ShellMethod("Получение полной информации о грузовиках из JSON файла (входные параметры: название JSON-файла).")
+    @ShellMethod("Получение полной информации о грузовиках из JSON файла.")
     public String view(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
         return ViewService.checkService(fileName);
-
-        //logger.info("Загрузка из файла '" + fileName + "' прошла успешно! Получена информация о " + (long) listCargo.size() + " грузовике(ах)");
     }
 }

@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.model.file;
 
 import com.ansekolesnikov.cargologistic.model.CargoCar;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
+import com.ansekolesnikov.cargologistic.utils.CargoCarUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
@@ -68,7 +69,7 @@ public class CargoTxtFile {
             String[] arrJsonObj = content.split("},");
             try {
                 for (String s : arrJsonObj) {
-                    listCargoCars.add(CargoCar.exportCargoFromJSON(new JSONObject("{" + s + "}")));
+                    listCargoCars.add(new CargoCar(new JSONObject("{" + s + "}")));
                 }
             } catch (Exception e) {
                 Logger.getLogger(CargoTxtFile.class.getName()).error("Ошибка в файле '" + filePath + "', не удалось получить содержимое в JSON формате");

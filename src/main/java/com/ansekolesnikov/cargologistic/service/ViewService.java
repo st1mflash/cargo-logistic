@@ -1,8 +1,9 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.model.CargoCar;
+import com.ansekolesnikov.cargologistic.model.CargoFile;
 import com.ansekolesnikov.cargologistic.utils.CargoFileImportUtils;
-import com.ansekolesnikov.cargologistic.validation.ViewServiceValidation;
+import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -13,15 +14,14 @@ public class ViewService {
 
     public static String checkService(String fileName) {
         String filePath = PATH_IMPORT_JSON + fileName;
-        ViewServiceValidation viewServiceValidation = new ViewServiceValidation();
-        if (viewServiceValidation.isFileExist(filePath)) {
+        FileValidation fileValidation = new FileValidation(new CargoFile(filePath));
+        if(fileValidation.isValid()) {
             return getCargoFullInfoFromJSONFile(filePath);
         } else {
-            LOGGER.error(viewServiceValidation.getMessage());
-            return "Указанный файл не найден.";
+            LOGGER.error(fileValidation.getLogErrorMessage());
+            return fileValidation.getUserErrorMessage();
         }
     }
-
     private static String getCargoFullInfoFromJSONFile(String filePath) {
         List<CargoCar> cargoCarList = CargoFileImportUtils.getListCargoFromJSONFile(filePath);
         if (cargoCarList != null) {

@@ -16,6 +16,10 @@ public class CargoCar {
 
     public CargoCar() {
     }
+    public CargoCar(JSONObject JSONObj) {
+        id = Integer.parseInt(JSONObj.getString("id"));
+        initCargoSchemeFromString(JSONObj.getString("cargo"));
+    }
 
     public static List<CargoCar> loadListCargo(List<CargoPackage> listCargoPackages, String algorithm, int countCars) {
         List<CargoCar> listCargoCars = new ArrayList<>();
@@ -45,14 +49,6 @@ public class CargoCar {
                         || countCars > 0
         );
         return listCargoCars;
-    }
-
-    public static void printListCargo(List<CargoCar> listCargoCars) {
-        if (listCargoCars != null) {
-            for (CargoCar cargoCar : listCargoCars) {
-                cargoCar.printCargo();
-            }
-        }
     }
 
     public String getCargoCarFullInfo() {
@@ -138,13 +134,6 @@ public class CargoCar {
 
     public int[][] getArrCargoScheme() {
         return arrCargoScheme;
-    }
-
-    public static CargoCar exportCargoFromJSON(JSONObject jsonCargo) {
-        CargoCar cargoCar = new CargoCar();
-        cargoCar.setId(Integer.parseInt(jsonCargo.getString("id")));
-        cargoCar.initCargoSchemeFromString(jsonCargo.getString("cargo"));
-        return cargoCar;
     }
 
     public void initCargoSchemeFromString(String schemeString) {
