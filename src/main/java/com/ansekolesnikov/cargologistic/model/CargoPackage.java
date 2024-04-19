@@ -1,5 +1,4 @@
 package com.ansekolesnikov.cargologistic.model;
-
 public class CargoPackage {
     private int idCargo = 0;
     private final int type;

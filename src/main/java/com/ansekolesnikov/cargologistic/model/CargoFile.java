@@ -1,10 +1,8 @@
 package com.ansekolesnikov.cargologistic.model;
 
 import org.apache.log4j.Logger;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 public class CargoFile {
     private String name, format, path, content, pathNameFormat;
     private static final Logger LOGGER = Logger.getLogger(CargoFile.class.getName());

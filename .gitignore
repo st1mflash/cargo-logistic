@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+.idea
+target
+log
+src/main/resources/export
+src/main/resources/import

@@ -7,7 +7,6 @@ import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
 
 import java.util.List;
-
 public class CargoViewService {
     private static final Logger LOGGER = Logger.getLogger(CargoViewService.class.getName());
     private static final String PATH_IMPORT = "src/main/resources/import/cargo/";

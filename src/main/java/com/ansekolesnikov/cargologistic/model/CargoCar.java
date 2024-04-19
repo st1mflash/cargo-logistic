@@ -1,10 +1,8 @@
 package com.ansekolesnikov.cargologistic.model;
 
 import org.json.JSONObject;
-
 import java.util.Arrays;
 import java.util.Random;
-
 public class CargoCar {
     private int id = new Random().nextInt(1000000);
     public static final int WIDTH = 6;

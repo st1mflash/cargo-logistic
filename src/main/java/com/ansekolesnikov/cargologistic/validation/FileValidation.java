@@ -4,7 +4,6 @@ import com.ansekolesnikov.cargologistic.model.CargoFile;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 public class FileValidation {
     private final String pathFile, nameFile, formatFile;
     private String userErrorMessage, logErrorMessage;

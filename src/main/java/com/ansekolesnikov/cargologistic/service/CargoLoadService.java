@@ -14,7 +14,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 public class CargoLoadService {
     private static final Logger LOGGER = Logger.getLogger(CargoLoadService.class.getName());
     private static final String PATH_IMPORT_PACKAGES = "src/main/resources/import/packages/";
