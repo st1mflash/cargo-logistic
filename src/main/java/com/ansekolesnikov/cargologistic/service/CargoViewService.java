@@ -5,18 +5,19 @@ import com.ansekolesnikov.cargologistic.model.CargoFile;
 import com.ansekolesnikov.cargologistic.utils.CargoFileImportUtils;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-public class CargoViewService {
+
+@Service
+public class CargoViewService implements CargoService {
     private static final Logger LOGGER = Logger.getLogger(CargoViewService.class.getName());
     private static final String PATH_IMPORT = "src/main/resources/import/cargo/";
-    private final CargoFile cargoFile;
+    private CargoFile cargoFile;
 
-    public CargoViewService(String fileName) {
+    @Override
+    public String runService(String fileName) {
         this.cargoFile = new CargoFile(PATH_IMPORT + fileName);
-    }
-
-    public String runService() {
         FileValidation fileValidation = new FileValidation(cargoFile);
         if (fileValidation.isValid()) {
             return getCargoInfoFromFile();

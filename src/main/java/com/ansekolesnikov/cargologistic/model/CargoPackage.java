@@ -1,4 +1,5 @@
 package com.ansekolesnikov.cargologistic.model;
+
 public class CargoPackage {
     private int idCargo = 0;
     private final int type;
@@ -6,8 +7,6 @@ public class CargoPackage {
 
     public CargoPackage(int type) {
         this.type = type;
-
-        //initArrayPackageScheme();
         initPackageWidth();
     }
 

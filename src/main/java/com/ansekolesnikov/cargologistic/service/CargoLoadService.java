@@ -1,35 +1,36 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.model.CargoAlgorithm;
 import com.ansekolesnikov.cargologistic.model.CargoCar;
 import com.ansekolesnikov.cargologistic.model.CargoFile;
-import com.ansekolesnikov.cargologistic.model.CargoAlgorithm;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
 import com.ansekolesnikov.cargologistic.utils.CargoFileImportUtils;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-public class CargoLoadService {
+
+@Service
+public class CargoLoadService implements CargoService {
     private static final Logger LOGGER = Logger.getLogger(CargoLoadService.class.getName());
     private static final String PATH_IMPORT_PACKAGES = "src/main/resources/import/packages/";
-    private final CargoFile cargoFile;
-    private final String algorithm;
-    private final int countCars;
+    private CargoFile cargoFile;
+    private String algorithm;
+    private int countCars;
 
-    public CargoLoadService(String fileName, String algorithm, String countCars) {
-        this.cargoFile = new CargoFile(PATH_IMPORT_PACKAGES + fileName);
-        this.algorithm = algorithm.toLowerCase();
-        this.countCars = Integer.parseInt(countCars);
-    }
+    @Override
+    public String runService(String inputFileName, String inputAlgorithm, String inputCountCars) {
+        initParams(inputFileName, inputAlgorithm, inputCountCars);
 
-    public String runService() {
         FileValidation fileValidation = new FileValidation(cargoFile);
         AlgorithmValidation algorithmValidation = new AlgorithmValidation(algorithm);
+
         if (!fileValidation.isValid()) {
             LOGGER.error(fileValidation.getLogErrorMessage());
             return fileValidation.getUserErrorMessage();
@@ -45,6 +46,12 @@ public class CargoLoadService {
                 return getCarsInfo(cargoCarList);
             }
         }
+    }
+
+    private void initParams(String fileName, String algorithm, String countCars) {
+        this.cargoFile = new CargoFile(PATH_IMPORT_PACKAGES + fileName);
+        this.algorithm = algorithm.toLowerCase();
+        this.countCars = Integer.parseInt(countCars);
     }
 
     private List<CargoCar> loadCars(List<CargoPackage> listCargoPackages) {
