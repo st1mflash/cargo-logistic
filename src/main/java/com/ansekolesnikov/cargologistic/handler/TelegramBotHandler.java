@@ -21,10 +21,8 @@ public class TelegramBotHandler extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         // Обработка входящего сообщения
         Message message = update.getMessage();
-        //sendMessage(message.getChatId(), );
-        //sendMessage(message.getChatId(), "Привет, привет");
-        sendMessage(message.getChatId(), cargoViewService.runService("one.json"));
-        sendMessage(message.getChatId(), cargoLoadService.runService("def.txt", "max", "3"));
+        sendMessage(message.getChatId(), "```Инфо. \n"+ cargoViewService.runService("one.json") + "```");
+        sendMessage(message.getChatId(), "```Инфо. \n" + cargoLoadService.runService("def.txt", "max", "3") + "```");
     }
 
     @Override
@@ -40,6 +38,7 @@ public class TelegramBotHandler extends TelegramLongPollingBot {
     public void sendMessage(Long chatId, String text) {
         SendMessage message = new SendMessage();
 
+        message.setParseMode("Markdown");
         message.setChatId(String.valueOf(chatId));
         message.setText(text);
 
