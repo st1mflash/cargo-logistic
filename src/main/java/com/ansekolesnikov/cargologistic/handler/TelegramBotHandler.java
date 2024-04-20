@@ -1,5 +1,7 @@
 package com.ansekolesnikov.cargologistic.handler;
 
+import com.ansekolesnikov.cargologistic.model.telegram.CargoTelegramBotMessage;
+import com.ansekolesnikov.cargologistic.model.telegram.CargoTelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.CargoService;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -10,19 +12,17 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class TelegramBotHandler extends TelegramLongPollingBot {
     private static final String BOT_USER_NAME = "ansekolesnikov_cargo_bot";
     private static final String TOKEN = "7142970649:AAHAvkbzHS-P6TwL8MPo7M0dJjDNM6hbX80";
-    private final CargoService cargoViewService, cargoLoadService;
+    private Message outputMessage;
 
     public TelegramBotHandler(CargoService cargoViewService, CargoService cargoLoadService) {
-        this.cargoViewService = cargoViewService;
-        this.cargoLoadService = cargoLoadService;
+        //this.cargoViewService = cargoViewService;
+        //this.cargoLoadService = cargoLoadService;
     }
 
     @Override
     public void onUpdateReceived(Update update) {
-        // Обработка входящего сообщения
-        Message message = update.getMessage();
-        sendMessage(message.getChatId(), "```Инфо. \n"+ cargoViewService.runService("one.json") + "```");
-        sendMessage(message.getChatId(), "```Инфо. \n" + cargoLoadService.runService("def.txt", "max", "3") + "```");
+        CargoTelegramUserMessage userMessage = new CargoTelegramUserMessage(update.getMessage());
+        sendMessage(userMessage.getChatId(), new CargoTelegramBotMessage(new CargoTelegramUserMessage(update.getMessage())).getAnswer());
     }
 
     @Override
