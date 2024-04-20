@@ -14,9 +14,7 @@ public class TelegramBotHandler extends TelegramLongPollingBot {
     private static final String TOKEN = "7142970649:AAHAvkbzHS-P6TwL8MPo7M0dJjDNM6hbX80";
     private Message outputMessage;
 
-    public TelegramBotHandler(CargoService cargoViewService, CargoService cargoLoadService) {
-        //this.cargoViewService = cargoViewService;
-        //this.cargoLoadService = cargoLoadService;
+    public TelegramBotHandler() {
     }
 
     @Override

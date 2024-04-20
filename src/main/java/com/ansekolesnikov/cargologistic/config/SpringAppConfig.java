@@ -22,6 +22,6 @@ public class SpringAppConfig {
 
     @Bean
     public TelegramBotService telegramBotService() {
-        return new TelegramBotService(cargoViewService, cargoLoadService);
+        return new TelegramBotService();
     }
 }

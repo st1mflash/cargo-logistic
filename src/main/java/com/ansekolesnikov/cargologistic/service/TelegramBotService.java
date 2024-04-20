@@ -10,9 +10,9 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @Service
 public class TelegramBotService {
     @Autowired
-    public TelegramBotService(CargoService cargoViewService, CargoService cargoLoadService) {
+    public TelegramBotService() {
         try {
-            new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramBotHandler(cargoViewService, cargoLoadService));
+            new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramBotHandler());
         } catch (TelegramApiException ignored) {
         }
     }
