@@ -5,8 +5,7 @@ import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
-import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
-import com.ansekolesnikov.cargologistic.validation.FileValidation;
+import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -32,16 +31,8 @@ public class LoadCarService implements CargoService {
     public String runService(String inputFileName, String inputAlgorithm, String inputCountCars) {
         initParams(inputFileName, inputAlgorithm, inputCountCars);
 
-        FileValidation fileValidation = new FileValidation(localFile);
-        AlgorithmValidation algorithmValidation = new AlgorithmValidation(algorithm);
-
-        if (!fileValidation.isValid()) {
-            LOGGER.error(fileValidation.getLogErrorMessage());
-            return fileValidation.getUserErrorMessage();
-        } else if (!algorithmValidation.isValid()) {
-            LOGGER.error(algorithmValidation.getLogErrorMessage());
-            return algorithmValidation.getUserErrorMessage();
-        } else {
+        LoadCarServiceValidation serviceValidation = new LoadCarServiceValidation(localFile, algorithm, countCars);
+        if(serviceValidation.isValid()) {
             List<Car> carList = createLoadedCars();
             if (carList.size() > countCars) {
                 LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + carList.size() + ", а указано " + countCars);
@@ -49,6 +40,8 @@ public class LoadCarService implements CargoService {
             } else {
                 return getCarsInfo(carList);
             }
+        } else {
+            return serviceValidation.getUserErrorMessage();
         }
     }
 
