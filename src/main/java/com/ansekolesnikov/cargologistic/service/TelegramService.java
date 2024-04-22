@@ -14,6 +14,7 @@ public class TelegramService {
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
     private LoadCarService loadCarService;
     private ViewCarService viewCarService;
+
     @Autowired
     public TelegramService(LoadCarService loadCarService, ViewCarService viewCarService) {
         try {
@@ -29,16 +30,16 @@ public class TelegramService {
         switch (inputMessage.getInputCommand()) {
             case "load":
                 LOGGER.info("Запрос загрузки из файла '" + inputMessage.getInputFileName() + "' алгоритмом '" + inputMessage.getInputAlgorithm() + "' в " + inputMessage.getInputCountCars() + " ед. транспорта.");
-                return getTelegramCodeText(loadCarService.runService(
-                        inputMessage.getInputFileName(),
-                        inputMessage.getInputAlgorithm(),
-                        inputMessage.getInputCountCars()
+                return convertTextToTelegramCodeStyle(loadCarService.runService(
+                                inputMessage.getInputFileName(),
+                                inputMessage.getInputAlgorithm(),
+                                inputMessage.getInputCountCars()
                         )
                 );
             case "view":
                 LOGGER.info("Запрос отображения информации о грузовиках из файла '" + inputMessage.getInputFileName() + "'");
-                return getTelegramCodeText(viewCarService.runService(
-                        inputMessage.getInputFileName()
+                return convertTextToTelegramCodeStyle(viewCarService.runService(
+                                inputMessage.getInputFileName()
                         )
                 );
 
@@ -48,7 +49,7 @@ public class TelegramService {
         }
     }
 
-    private String getTelegramCodeText(String text) {
+    private String convertTextToTelegramCodeStyle(String text) {
         return "```Ответ:\n" + text + "```";
     }
 }
