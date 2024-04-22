@@ -3,7 +3,8 @@ package com.ansekolesnikov.cargologistic.model.telegram;
 import com.ansekolesnikov.cargologistic.service.LoadCarService;
 import com.ansekolesnikov.cargologistic.service.ViewCarService;
 import org.apache.log4j.Logger;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 public class TelegramMessageBot {
     private static final Logger LOGGER = Logger.getLogger(TelegramMessageBot.class.getName());
@@ -34,6 +35,7 @@ public class TelegramMessageBot {
                                 userMessage.getInputFileName()
                         )
                 );
+
             default:
                 LOGGER.error("Не удалось определить введенную команду");
                 return "Не удалось определить введенную команду";
