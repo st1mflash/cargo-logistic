@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.handler;
 
-import com.ansekolesnikov.cargologistic.model.telegram.BotTelegramMessage;
-import com.ansekolesnikov.cargologistic.model.telegram.UserTelegramMessage;
+import com.ansekolesnikov.cargologistic.model.telegram.TelegramMessageByBot;
+import com.ansekolesnikov.cargologistic.model.telegram.TelegramMessageByUser;
 import org.apache.log4j.Logger;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -15,9 +15,9 @@ public class TelegramHandler extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        UserTelegramMessage userMessage = new UserTelegramMessage(update.getMessage());
-        sendMessage(userMessage.getChatId(), new BotTelegramMessage(
-                new UserTelegramMessage(update.getMessage())).getAnswer()
+        TelegramMessageByUser userMessage = new TelegramMessageByUser(update.getMessage());
+        sendMessage(userMessage.getChatId(), new TelegramMessageByBot(
+                new TelegramMessageByUser(update.getMessage())).getAnswer()
         );
     }
 

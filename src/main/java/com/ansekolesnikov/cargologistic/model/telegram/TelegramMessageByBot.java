@@ -5,13 +5,13 @@ import com.ansekolesnikov.cargologistic.service.ViewCarService;
 import org.apache.log4j.Logger;
 
 
-public class BotTelegramMessage {
-    private static final Logger LOGGER = Logger.getLogger(BotTelegramMessage.class.getName());
-    private final UserTelegramMessage userMessage;
+public class TelegramMessageByBot {
+    private static final Logger LOGGER = Logger.getLogger(TelegramMessageByBot.class.getName());
+    private final TelegramMessageByUser userMessage;
     private Long chatId;
     private String userText;
 
-    public BotTelegramMessage(UserTelegramMessage userMessage) {
+    public TelegramMessageByBot(TelegramMessageByUser userMessage) {
         this.userMessage = userMessage;
         this.chatId = userMessage.getChatId();
         this.userText = userMessage.getText();

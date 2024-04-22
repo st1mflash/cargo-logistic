@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.telegram;
 
-public class CargoTelegramUtils {
+public class TelegramUtils {
     public static String getCommandByUserString(String userText) {
         return userText.toLowerCase().split(" ")[0];
     }
