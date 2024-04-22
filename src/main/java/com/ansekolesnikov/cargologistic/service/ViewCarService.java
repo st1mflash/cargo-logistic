@@ -32,7 +32,7 @@ public class ViewCarService implements CargoService {
     }
 
     private String getCargoInfoFromFile() {
-        List<CargoCar> cargoCarList = CargoFileImportUtils.importCarsFromFile(cargoFile);
+        List<CargoCar> cargoCarList = new CargoFileImportUtils().importCarsFromFile(cargoFile);
         if (cargoCarList != null) {
             StringBuilder result = new StringBuilder();
             for (CargoCar cargoCar : cargoCarList) {

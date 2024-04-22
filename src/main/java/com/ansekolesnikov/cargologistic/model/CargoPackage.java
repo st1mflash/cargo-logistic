@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.model;
 
 public class CargoPackage {
-    private int idCargo = 0;
+    private int carId = 0;
     private final int type;
     private int width;
 
@@ -26,16 +26,16 @@ public class CargoPackage {
         }
     }
 
-    public void setIdCargo(int idCargo) {
-        this.idCargo = idCargo;
+    public void setCarId(int carId) {
+        this.carId = carId;
     }
 
     public int getWidth() {
         return width;
     }
 
-    public int getIdCargo() {
-        return idCargo;
+    public int getCarId() {
+        return carId;
     }
 
     public int getType() {

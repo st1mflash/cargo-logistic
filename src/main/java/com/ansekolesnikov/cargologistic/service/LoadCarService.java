@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.model.car_load.CarLoader;
+import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
 import com.ansekolesnikov.cargologistic.model.CargoCar;
 import com.ansekolesnikov.cargologistic.model.CargoFile;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
@@ -65,11 +65,11 @@ public class LoadCarService implements CargoService {
             CargoCar cargoCar = new CargoCar();
             listCargoCars.add(cargoCar);
             listCargoPackages = listCargoPackages.stream()
-                    .filter(pack -> pack.getIdCargo() == 0)
+                    .filter(pack -> pack.getCarId() == 0)
                     .collect(Collectors.toList());
 
             for (CargoPackage cargoPackage : listCargoPackages) {
-                new CarLoader().load(algorithm, cargoCar, cargoPackage);
+                new LoadCar().loadPackage(algorithm, cargoCar, cargoPackage);
             }
             if (localCarCount > 0) {
                 if (cargoCar.getLoadPercent() == 0) {
@@ -82,14 +82,14 @@ public class LoadCarService implements CargoService {
 
         } while (
                 listCargoPackages.stream()
-                        .anyMatch(pack -> pack.getIdCargo() == 0)
+                        .anyMatch(pack -> pack.getCarId() == 0)
                         || localCarCount > 0
         );
         return listCargoCars;
     }
 
     private List<CargoCar> createLoadedCars() {
-        List<CargoPackage> cargoPackageList = Objects.requireNonNull(CargoFileImportUtils.importPackagesFromFile(cargoFile))
+        List<CargoPackage> cargoPackageList = Objects.requireNonNull(new CargoFileImportUtils().importPackagesFromFile(cargoFile))
                 .stream()
                 .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
                 .toList();
@@ -100,7 +100,7 @@ public class LoadCarService implements CargoService {
         StringBuilder result = new StringBuilder();
         if (listCargoCars != null) {
             for (CargoCar cargoCar : listCargoCars) {
-                result.append(cargoCar.getCargoScheme()).append("\n");
+                result.append(cargoCar.getCarScheme()).append("\n");
             }
         }
         return result.toString();

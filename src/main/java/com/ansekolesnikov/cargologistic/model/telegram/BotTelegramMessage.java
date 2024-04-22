@@ -16,7 +16,7 @@ public class BotTelegramMessage {
     }
 
     public String getAnswer() {
-        String command = getCommand();
+        String command = getUserCommand();
         switch (command) {
             case "load":
                 return getTelegramCodeText(new LoadCarService().runService(
@@ -35,7 +35,7 @@ public class BotTelegramMessage {
         }
     }
 
-    private String getCommand() {
+    private String getUserCommand() {
         return userMessage.getInputCommand();
     }
 

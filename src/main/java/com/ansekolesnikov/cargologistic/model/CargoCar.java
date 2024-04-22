@@ -9,14 +9,14 @@ public class CargoCar {
     private int id = new Random().nextInt(1000000);
     public static final int WIDTH = 6;
     public static final int HEIGHT = 6;
-    private final int[][] arrCargoScheme = new int[HEIGHT][WIDTH];
+    private final int[][] arrCarScheme = new int[HEIGHT][WIDTH];
 
     public CargoCar() {
     }
 
     public CargoCar(JSONObject JSONObj) {
         id = Integer.parseInt(JSONObj.getString("id"));
-        initCargoSchemeFromString(JSONObj.getString("cargo"));
+        setArrCarSchemeFromString(JSONObj.getString("cargo"));
     }
 
     public String getCargoCarFullInfo() {
@@ -27,26 +27,26 @@ public class CargoCar {
                         + "\nСостав груза:"
         );
         for (int i = 1; i < 10; i++) {
-            fullInfo.append((countTypeLoad(i) != 0 ? "\n - тип '" + i + "': " + countTypeLoad(i) + " шт." : ""));
+            fullInfo.append((calcPackageCountByType(i) != 0 ? "\n - тип '" + i + "': " + calcPackageCountByType(i) + " шт." : ""));
         }
         fullInfo.append("\nСхема кузова:\n").append(getStringCargoScheme()).append("\n\n");
         return fullInfo.toString();
     }
 
-    private int countTypeLoad(int type) {
-        String loadToString = Arrays.deepToString(arrCargoScheme).replaceAll("\\D", "");
-        return (loadToString.length() - (loadToString.replace(Integer.toString(type), "").length())) / type;
+    private int calcPackageCountByType(int cargoPackageType) {
+        String loadToString = Arrays.deepToString(arrCarScheme).replaceAll("\\D", "");
+        return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;
     }
 
-    public String getCargoScheme() {
+    public String getCarScheme() {
         StringBuilder scheme = new StringBuilder();
         for (int i = HEIGHT - 1; i >= 0; i--) {
             scheme.append("+");
             for (int j = 0; j < WIDTH; j++) {
-                if (arrCargoScheme[i][j] == 0) {
+                if (arrCarScheme[i][j] == 0) {
                     scheme.append(" ");
                 } else {
-                    scheme.append(arrCargoScheme[i][j]);
+                    scheme.append(arrCarScheme[i][j]);
                 }
             }
             scheme.append("+\n");
@@ -61,7 +61,7 @@ public class CargoCar {
         } else {
             int sumPackageSupport = 0;
             for (int j = coordinateWidth; j < coordinateWidth + packageWidth; j++) {
-                if (arrCargoScheme[coordinateHeight - 1][j] != 0) {
+                if (arrCarScheme[coordinateHeight - 1][j] != 0) {
                     sumPackageSupport = sumPackageSupport + 1;
                 }
             }
@@ -73,7 +73,7 @@ public class CargoCar {
         int fillPoints = 0;
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                if (arrCargoScheme[i][j] != 0) {
+                if (arrCarScheme[i][j] != 0) {
                     fillPoints++;
                 }
             }
@@ -85,15 +85,15 @@ public class CargoCar {
         return id;
     }
 
-    public int[][] getArrCargoScheme() {
-        return arrCargoScheme;
+    public int[][] getArrCarScheme() {
+        return arrCarScheme;
     }
 
-    public void initCargoSchemeFromString(String schemeString) {
+    public void setArrCarSchemeFromString(String schemeString) {
         int index = 0;
         for (int i = 0; i < CargoCar.HEIGHT; i++) {
             for (int j = 0; j < CargoCar.WIDTH; j++) {
-                arrCargoScheme[i][j] = Integer.parseInt(String.valueOf(schemeString.charAt(index++)));
+                arrCarScheme[i][j] = Integer.parseInt(String.valueOf(schemeString.charAt(index++)));
             }
         }
     }
@@ -103,10 +103,10 @@ public class CargoCar {
         for (int i = HEIGHT - 1; i >= 0; i--) {
             scheme.append("\t\t+");
             for (int j = 0; j < WIDTH; j++) {
-                if (arrCargoScheme[i][j] == 0) {
+                if (arrCarScheme[i][j] == 0) {
                     scheme.append(" ");
                 } else {
-                    scheme.append(arrCargoScheme[i][j]);
+                    scheme.append(arrCarScheme[i][j]);
                 }
             }
             scheme.append("+\n");

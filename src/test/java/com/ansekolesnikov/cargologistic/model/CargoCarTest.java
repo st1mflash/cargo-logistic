@@ -10,7 +10,7 @@ public class CargoCarTest {
     @Test
     void getCargoScheme() {
         CargoCar cargoCar = new CargoCar();
-        cargoCar.initCargoSchemeFromString("5555500000000000000000000000000000000000");
+        cargoCar.setArrCarSchemeFromString("5555500000000000000000000000000000000000");
         String expectedScheme =
                         "+      +\n" +
                         "+      +\n" +
@@ -19,9 +19,9 @@ public class CargoCarTest {
                         "+      +\n" +
                         "+55555 +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, cargoCar.getCargoScheme());
+        assertEquals(expectedScheme, cargoCar.getCarScheme());
 
-        cargoCar.initCargoSchemeFromString("5555504444007777007770000000000000000000");
+        cargoCar.setArrCarSchemeFromString("5555504444007777007770000000000000000000");
         expectedScheme =
                         "+      +\n" +
                         "+      +\n" +
@@ -30,9 +30,9 @@ public class CargoCarTest {
                         "+4444  +\n" +
                         "+55555 +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, cargoCar.getCargoScheme());
+        assertEquals(expectedScheme, cargoCar.getCarScheme());
 
-        cargoCar.initCargoSchemeFromString("0000000000000000000000000000000000000000");
+        cargoCar.setArrCarSchemeFromString("0000000000000000000000000000000000000000");
         expectedScheme =
                 "+      +\n" +
                         "+      +\n" +
@@ -41,13 +41,13 @@ public class CargoCarTest {
                         "+      +\n" +
                         "+      +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, cargoCar.getCargoScheme());
+        assertEquals(expectedScheme, cargoCar.getCarScheme());
     }
 
     @Test
     void checkPackageSupport() {
         CargoCar cargoCar = new CargoCar();
-        cargoCar.initCargoSchemeFromString("2200000000000000000000000000000000000000");
+        cargoCar.setArrCarSchemeFromString("2200000000000000000000000000000000000000");
         assertEquals(true, cargoCar.checkPackageSupport(0, 0, 3));
         assertEquals(true, cargoCar.checkPackageSupport(0, 0, 5));
         assertEquals(false, cargoCar.checkPackageSupport(1, 0, 5));
@@ -57,13 +57,13 @@ public class CargoCarTest {
     @Test
     void getLoadPercent() {
         CargoCar cargoCar = new CargoCar();
-        cargoCar.initCargoSchemeFromString("5555504444100000000000000000000000000");
+        cargoCar.setArrCarSchemeFromString("5555504444100000000000000000000000000");
         assertEquals(27, cargoCar.getLoadPercent());
 
-        cargoCar.initCargoSchemeFromString("0000000000000000000000000000000000000");
+        cargoCar.setArrCarSchemeFromString("0000000000000000000000000000000000000");
         assertEquals(0, cargoCar.getLoadPercent());
 
-        cargoCar.initCargoSchemeFromString("1111111111111111111111111111111111111");
+        cargoCar.setArrCarSchemeFromString("1111111111111111111111111111111111111");
         assertEquals(100, cargoCar.getLoadPercent());
     }
 
@@ -79,10 +79,10 @@ public class CargoCarTest {
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0}
         };
-        cargoCar.initCargoSchemeFromString(cargoSchemeString);
+        cargoCar.setArrCarSchemeFromString(cargoSchemeString);
         for (int i = 0; i < CargoCar.HEIGHT; i++) {
             for (int j = 0; j < CargoCar.WIDTH; j++) {
-                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCargoScheme()[i][j]);
+                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCarScheme()[i][j]);
             }
         }
 
@@ -95,10 +95,10 @@ public class CargoCarTest {
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0}
         };
-        cargoCar.initCargoSchemeFromString(cargoSchemeString);
+        cargoCar.setArrCarSchemeFromString(cargoSchemeString);
         for (int i = 0; i < CargoCar.HEIGHT; i++) {
             for (int j = 0; j < CargoCar.WIDTH; j++) {
-                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCargoScheme()[i][j]);
+                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCarScheme()[i][j]);
             }
         }
 
@@ -111,10 +111,10 @@ public class CargoCarTest {
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0}
         };
-        cargoCar.initCargoSchemeFromString(cargoSchemeString);
+        cargoCar.setArrCarSchemeFromString(cargoSchemeString);
         for (int i = 0; i < CargoCar.HEIGHT; i++) {
             for (int j = 0; j < CargoCar.WIDTH; j++) {
-                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCargoScheme()[i][j]);
+                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCarScheme()[i][j]);
             }
         }
     }

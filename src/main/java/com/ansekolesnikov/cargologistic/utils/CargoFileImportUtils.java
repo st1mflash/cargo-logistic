@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class CargoFileImportUtils {
     private static final Logger LOGGER = Logger.getLogger(CargoFileImportUtils.class);
 
-    public static List<CargoPackage> importPackagesFromFile(CargoFile cargoFile) {
+    public List<CargoPackage> importPackagesFromFile(CargoFile cargoFile) {
         try {
             return Arrays.stream(Files.readString(Paths.get(cargoFile.getPathNameFormat())).split("\\n\\s*\\n"))
                     .map(line -> line.charAt(0) - 48)
@@ -29,10 +29,10 @@ public class CargoFileImportUtils {
         }
     }
 
-    public static List<CargoCar> importCarsFromFile(CargoFile cargoFile) {
+    public List<CargoCar> importCarsFromFile(CargoFile cargoFile) {
         try {
             List<CargoCar> listCargoCars = new ArrayList<>();
-            for (JSONObject JSONObj : parseCargoJSON(new CargoFile(cargoFile.getPathNameFormat()).getContent())) {
+            for (JSONObject JSONObj : parseJSONCar(new CargoFile(cargoFile.getPathNameFormat()).getContent())) {
                 listCargoCars.add(new CargoCar(JSONObj));
             }
             return listCargoCars;
@@ -42,7 +42,7 @@ public class CargoFileImportUtils {
         }
     }
 
-    private static List<JSONObject> parseCargoJSON(String content) {
+    private List<JSONObject> parseJSONCar(String content) {
         List<JSONObject> listJSONObj = new ArrayList<>();
         String[] arrClearContent = content
                 .replaceAll("[{\\[\\]]", "")
