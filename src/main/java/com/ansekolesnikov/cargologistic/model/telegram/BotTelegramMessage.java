@@ -2,16 +2,14 @@ package com.ansekolesnikov.cargologistic.model.telegram;
 
 import com.ansekolesnikov.cargologistic.service.CargoLoadService;
 import com.ansekolesnikov.cargologistic.service.CargoViewService;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
 
 
-public class CargoTelegramBotMessage {
-    private CargoTelegramUserMessage userMessage;
+public class BotTelegramMessage {
+    private UserTelegramMessage userMessage;
     private Long chatId;
     private String userText;
 
-    public CargoTelegramBotMessage(CargoTelegramUserMessage userMessage) {
+    public BotTelegramMessage(UserTelegramMessage userMessage) {
         this.userMessage = userMessage;
         this.chatId = userMessage.getChatId();
         this.userText = userMessage.getText();

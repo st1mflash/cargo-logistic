@@ -11,8 +11,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @Service
 public class TelegramBotService {
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
-    private CargoLoadService cargoLoadService;
-    private CargoViewService cargoViewService;
     @Autowired
     public TelegramBotService() {
         try {
