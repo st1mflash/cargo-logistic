@@ -17,7 +17,7 @@ public class LocalFile {
             pathNameFormat = path + name + format;
             content = Files.readString(Paths.get(path + name + format));
         } catch (Exception e) {
-            LOGGER.error("Ошибка считывания содержимого файла '" + filePath + "'");
+            LOGGER.error("Ошибка считывания содержимого файла '" + filePath + "'. Подробнее: " + e);
         }
     }
 
