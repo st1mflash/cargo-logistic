@@ -24,6 +24,10 @@ public class CargoLoadService implements CargoService {
     private String algorithm;
     private int countCars;
 
+    public CargoLoadService() {
+        LOGGER.info("Сервис формирования поставки грузами из файла - успешно запущен!");
+    }
+
     @Override
     public String runService(String inputFileName, String inputAlgorithm, String inputCountCars) {
         initParams(inputFileName, inputAlgorithm, inputCountCars);

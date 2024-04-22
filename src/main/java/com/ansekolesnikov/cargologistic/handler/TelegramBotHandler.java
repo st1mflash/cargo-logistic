@@ -2,7 +2,10 @@ package com.ansekolesnikov.cargologistic.handler;
 
 import com.ansekolesnikov.cargologistic.model.telegram.CargoTelegramBotMessage;
 import com.ansekolesnikov.cargologistic.model.telegram.CargoTelegramUserMessage;
+import com.ansekolesnikov.cargologistic.service.CargoLoadService;
 import com.ansekolesnikov.cargologistic.service.CargoService;
+import com.ansekolesnikov.cargologistic.service.CargoViewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -12,15 +15,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class TelegramBotHandler extends TelegramLongPollingBot {
     private static final String BOT_USER_NAME = "ansekolesnikov_cargo_bot";
     private static final String TOKEN = "7142970649:AAHAvkbzHS-P6TwL8MPo7M0dJjDNM6hbX80";
-    private Message outputMessage;
-
-    public TelegramBotHandler() {
-    }
 
     @Override
     public void onUpdateReceived(Update update) {
         CargoTelegramUserMessage userMessage = new CargoTelegramUserMessage(update.getMessage());
-        sendMessage(userMessage.getChatId(), new CargoTelegramBotMessage(new CargoTelegramUserMessage(update.getMessage())).getAnswer());
+        sendMessage(userMessage.getChatId(), new CargoTelegramBotMessage(
+                new CargoTelegramUserMessage(update.getMessage())).getAnswer()
+        );
     }
 
     @Override

@@ -15,6 +15,10 @@ public class CargoViewService implements CargoService {
     private static final String PATH_IMPORT = "src/main/resources/import/cargo/";
     private CargoFile cargoFile;
 
+    public CargoViewService() {
+        LOGGER.info("Сервис получения полной информации о грузовиках - успешно запущен!");
+    }
+
     @Override
     public String runService(String fileName) {
         this.cargoFile = new CargoFile(PATH_IMPORT + fileName);
