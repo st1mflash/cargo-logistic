@@ -32,7 +32,7 @@ public class SpringAppConfig {
 
     @Bean
     public TelegramService telegramService() {
-        TelegramService telegramService = new TelegramService();
+        TelegramService telegramService = new TelegramService(loadCarService, viewCarService);
         LOGGER.info("Сервис работы телеграм бота - успешно запущен!");
         return telegramService;
     }

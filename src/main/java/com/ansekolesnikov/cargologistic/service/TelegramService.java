@@ -12,9 +12,9 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class TelegramService {
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
     @Autowired
-    public TelegramService() {
+    public TelegramService(LoadCarService loadCarService, ViewCarService viewCarService) {
         try {
-            new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler());
+            new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler(loadCarService, viewCarService));
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
         }

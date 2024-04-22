@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.telegram;
 
+import com.ansekolesnikov.cargologistic.service.CargoService;
 import com.ansekolesnikov.cargologistic.service.LoadCarService;
 import com.ansekolesnikov.cargologistic.service.ViewCarService;
 import org.apache.log4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 public class TelegramMessageBot {
     private static final Logger LOGGER = Logger.getLogger(TelegramMessageBot.class.getName());
+    private CargoService service;
     private final TelegramMessageUser userMessage;
     private Long chatId;
     private String userText;
@@ -16,6 +18,7 @@ public class TelegramMessageBot {
         this.userMessage = userMessage;
         this.chatId = userMessage.getChatId();
         this.userText = userMessage.getText();
+        //this.service = service;
     }
 
     public String getAnswer() {
