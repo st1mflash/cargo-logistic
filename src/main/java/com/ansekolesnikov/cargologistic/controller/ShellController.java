@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.service.CargoLoadService;
+import com.ansekolesnikov.cargologistic.service.LoadCarService;
 import com.ansekolesnikov.cargologistic.service.CargoService;
-import com.ansekolesnikov.cargologistic.service.CargoViewService;
+import com.ansekolesnikov.cargologistic.service.ViewCarService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -15,9 +15,9 @@ public class ShellController {
     private final CargoService cargoViewService, cargoLoadService;
 
     @Autowired
-    public ShellController(CargoViewService cargoViewService, CargoLoadService cargoLoadService) {
-        this.cargoViewService = cargoViewService;
-        this.cargoLoadService = cargoLoadService;
+    public ShellController(ViewCarService viewCarService, LoadCarService loadCarService) {
+        this.cargoViewService = viewCarService;
+        this.cargoLoadService = loadCarService;
     }
 
     @ShellMethod("Формирование поставки грузами из .txt файла.")

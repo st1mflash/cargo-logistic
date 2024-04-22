@@ -1,28 +1,28 @@
 package com.ansekolesnikov.cargologistic.config;
 
-import com.ansekolesnikov.cargologistic.service.CargoLoadService;
-import com.ansekolesnikov.cargologistic.service.CargoViewService;
-import com.ansekolesnikov.cargologistic.service.TelegramBotService;
+import com.ansekolesnikov.cargologistic.service.LoadCarService;
+import com.ansekolesnikov.cargologistic.service.ViewCarService;
+import com.ansekolesnikov.cargologistic.service.TelegramService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringAppConfig {
-    private CargoLoadService cargoLoadService;
-    private CargoViewService cargoViewService;
+    private LoadCarService loadCarService;
+    private ViewCarService viewCarService;
 
     @Bean
-    public CargoViewService cargoViewService() {
-        return cargoViewService = new CargoViewService();
+    public ViewCarService viewCarService() {
+        return viewCarService = new ViewCarService();
     }
 
     @Bean
-    public CargoLoadService cargoLoadService() {
-        return cargoLoadService = new CargoLoadService();
+    public LoadCarService loadCarService() {
+        return loadCarService = new LoadCarService();
     }
 
     @Bean
-    public TelegramBotService telegramBotService() {
-        return new TelegramBotService();
+    public TelegramService telegramService() {
+        return new TelegramService();
     }
 }

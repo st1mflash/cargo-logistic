@@ -17,14 +17,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class CargoLoadService implements CargoService {
-    private static final Logger LOGGER = Logger.getLogger(CargoLoadService.class.getName());
+public class LoadCarService implements CargoService {
+    private static final Logger LOGGER = Logger.getLogger(LoadCarService.class.getName());
     private static final String PATH_IMPORT_PACKAGES = "src/main/resources/import/packages/";
     private CargoFile cargoFile;
     private String algorithm;
     private int countCars;
 
-    public CargoLoadService() {
+    public LoadCarService() {
         LOGGER.info("Сервис формирования поставки грузами из файла - успешно запущен!");
     }
 

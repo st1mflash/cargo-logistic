@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CargoViewService implements CargoService {
-    private static final Logger LOGGER = Logger.getLogger(CargoViewService.class.getName());
+public class ViewCarService implements CargoService {
+    private static final Logger LOGGER = Logger.getLogger(ViewCarService.class.getName());
     private static final String PATH_IMPORT = "src/main/resources/import/cargo/";
     private CargoFile cargoFile;
 
-    public CargoViewService() {
+    public ViewCarService() {
         LOGGER.info("Сервис получения полной информации о грузовиках - успешно запущен!");
     }
 
