@@ -12,6 +12,7 @@ public class SpringAppConfig {
     private static final Logger LOGGER = Logger.getLogger(SpringAppConfig.class.getName());
     private LoadCarService loadCarService;
     private ViewCarService viewCarService;
+    private TelegramService telegramService;
 
     @Bean
     public ViewCarService viewCarService() {
@@ -29,7 +30,7 @@ public class SpringAppConfig {
 
     @Bean
     public TelegramService telegramService() {
-        TelegramService telegramService = new TelegramService(loadCarService, viewCarService);
+        telegramService = new TelegramService(loadCarService, viewCarService);
         LOGGER.info("Сервис работы телеграм бота - успешно запущен!");
         return telegramService;
     }

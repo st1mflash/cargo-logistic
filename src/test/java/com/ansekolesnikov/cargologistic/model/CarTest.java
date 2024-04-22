@@ -35,7 +35,7 @@ public class CarTest {
 
         car.setArrCarSchemeFromString("0000000000000000000000000000000000000000");
         expectedScheme =
-                "+      +\n" +
+                        "+      +\n" +
                         "+      +\n" +
                         "+      +\n" +
                         "+      +\n" +
