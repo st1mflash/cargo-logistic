@@ -25,7 +25,7 @@ public class LoadCarService implements CargoService {
     private int countCars;
 
     public LoadCarService() {
-        LOGGER.info("Сервис формирования поставки грузами из файла - успешно запущен!");
+
     }
 
     @Override

@@ -17,7 +17,7 @@ public class ViewCarService implements CargoService {
     private CargoFile cargoFile;
 
     public ViewCarService() {
-        LOGGER.info("Сервис получения полной информации о грузовиках - успешно запущен!");
+
     }
 
     @Override

@@ -15,7 +15,6 @@ public class TelegramService {
     public TelegramService() {
         try {
             new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler());
-            LOGGER.info("Сервис работы телеграм бота - успешно запущен!");
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
         }
