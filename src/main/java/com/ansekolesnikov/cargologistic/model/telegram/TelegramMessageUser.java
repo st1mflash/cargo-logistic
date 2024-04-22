@@ -2,12 +2,12 @@ package com.ansekolesnikov.cargologistic.model.telegram;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class TelegramMessageByUser {
+public class TelegramMessageUser {
     private final Message message;
     private final Long chatId;
     private final String text;
 
-    public TelegramMessageByUser(Message message) {
+    public TelegramMessageUser(Message message) {
         this.message = message;
         this.chatId = message.getChatId();
         this.text = message.getText();

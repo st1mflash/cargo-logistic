@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.validation;
 
-import com.ansekolesnikov.cargologistic.model.file.CargoFile;
+import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,10 +9,10 @@ public class FileValidation {
     private final String pathFile, nameFile, formatFile;
     private String userErrorMessage, logErrorMessage;
 
-    public FileValidation(CargoFile cargoFile) {
-        this.pathFile = cargoFile.getPath();
-        this.nameFile = cargoFile.getName();
-        this.formatFile = cargoFile.getFormat();
+    public FileValidation(LocalFile localFile) {
+        this.pathFile = localFile.getPath();
+        this.nameFile = localFile.getName();
+        this.formatFile = localFile.getFormat();
     }
 
     public boolean isValid() {

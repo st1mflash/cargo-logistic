@@ -1,10 +1,10 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
+import com.ansekolesnikov.cargologistic.model.file.LocalFile;
+import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
-import com.ansekolesnikov.cargologistic.model.file.CargoFile;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
-import com.ansekolesnikov.cargologistic.model.file.CargoFileImportUtils;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class LoadCarService implements CargoService {
     private static final Logger LOGGER = Logger.getLogger(LoadCarService.class.getName());
     private static final String PATH_IMPORT_PACKAGES = "src/main/resources/import/packages/";
-    private CargoFile cargoFile;
+    private LocalFile localFile;
     private String algorithm;
     private int countCars;
 
@@ -32,7 +32,7 @@ public class LoadCarService implements CargoService {
     public String runService(String inputFileName, String inputAlgorithm, String inputCountCars) {
         initParams(inputFileName, inputAlgorithm, inputCountCars);
 
-        FileValidation fileValidation = new FileValidation(cargoFile);
+        FileValidation fileValidation = new FileValidation(localFile);
         AlgorithmValidation algorithmValidation = new AlgorithmValidation(algorithm);
 
         if (!fileValidation.isValid()) {
@@ -53,7 +53,7 @@ public class LoadCarService implements CargoService {
     }
 
     private void initParams(String fileName, String algorithm, String countCars) {
-        this.cargoFile = new CargoFile(PATH_IMPORT_PACKAGES + fileName);
+        this.localFile = new LocalFile(PATH_IMPORT_PACKAGES + fileName);
         this.algorithm = algorithm.toLowerCase();
         this.countCars = Integer.parseInt(countCars);
     }
@@ -89,7 +89,7 @@ public class LoadCarService implements CargoService {
     }
 
     private List<Car> createLoadedCars() {
-        List<CargoPackage> cargoPackageList = Objects.requireNonNull(new CargoFileImportUtils().importPackagesFromFile(cargoFile))
+        List<CargoPackage> cargoPackageList = Objects.requireNonNull(new LocalFileImportUtils().importPackagesFromFile(localFile))
                 .stream()
                 .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
                 .toList();

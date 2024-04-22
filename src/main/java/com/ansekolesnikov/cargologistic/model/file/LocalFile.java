@@ -5,11 +5,11 @@ import org.apache.log4j.Logger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class CargoFile {
+public class LocalFile {
     private String name, format, path, content, pathNameFormat;
-    private static final Logger LOGGER = Logger.getLogger(CargoFile.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());
 
-    public CargoFile(String filePath) {
+    public LocalFile(String filePath) {
         try {
             name = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.lastIndexOf('.'));
             format = filePath.substring(filePath.lastIndexOf('.'));
