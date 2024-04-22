@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.handler;
 
-import com.ansekolesnikov.cargologistic.model.telegram.TelegramMessageBot;
-import com.ansekolesnikov.cargologistic.model.telegram.TelegramMessageUser;
+import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.LoadCarService;
+import com.ansekolesnikov.cargologistic.service.TelegramService;
 import com.ansekolesnikov.cargologistic.service.ViewCarService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -13,22 +13,21 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
 public class TelegramHandler extends TelegramLongPollingBot {
-    private ViewCarService viewCarService;
-    private LoadCarService loadCarService;
+    private final TelegramService telegramService;
     private static final Logger LOGGER = Logger.getLogger(TelegramHandler.class.getName());
     private static final String BOT_USER_NAME = "ansekolesnikov_cargo_bot";
     private static final String TOKEN = "7142970649:AAHAvkbzHS-P6TwL8MPo7M0dJjDNM6hbX80";
 
-    public TelegramHandler (LoadCarService loadCarService, ViewCarService viewCarService) {
-        this.loadCarService = loadCarService;
-        this.viewCarService = viewCarService;
+    public TelegramHandler (TelegramService telegramService) {
+        this.telegramService = telegramService;
     }
 
     @Override
     public void onUpdateReceived(Update update) {
-        TelegramMessageUser userMessage = new TelegramMessageUser(update.getMessage());
-        sendMessage(userMessage.getChatId(), new TelegramMessageBot(
-                new TelegramMessageUser(update.getMessage())).getAnswer()
+        TelegramUserMessage userMessage = new TelegramUserMessage(update.getMessage());
+        sendMessage(
+                userMessage.getChatId(),
+                telegramService.getAnswer(userMessage)
         );
     }
 

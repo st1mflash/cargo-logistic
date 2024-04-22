@@ -1,12 +1,10 @@
 package com.ansekolesnikov.cargologistic.config;
 
-import com.ansekolesnikov.cargologistic.model.telegram.TelegramMessageBot;
 import com.ansekolesnikov.cargologistic.service.LoadCarService;
 import com.ansekolesnikov.cargologistic.service.ViewCarService;
 import com.ansekolesnikov.cargologistic.service.TelegramService;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -19,7 +17,6 @@ public class SpringAppConfig {
     public ViewCarService viewCarService() {
         viewCarService = new ViewCarService();
         LOGGER.info("Сервис получения полной информации о грузовиках - успешно запущен!");
-        LOGGER.info(viewCarService);
         return viewCarService;
     }
 
