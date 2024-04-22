@@ -45,7 +45,7 @@ public class TelegramService {
 
             default:
                 LOGGER.error("Не удалось определить введенную команду");
-                return "Не удалось определить введенную команду";
+                return convertTextToTelegramCodeStyle("Не удалось определить введенную команду");
         }
     }
 

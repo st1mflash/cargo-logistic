@@ -30,15 +30,15 @@ public class LoadCarService implements CargoService {
     @Override
     public String runService(String inputFileName, String inputAlgorithm, String inputCountCars) {
         initParams(inputFileName, inputAlgorithm, inputCountCars);
-
         LoadCarServiceValidation serviceValidation = new LoadCarServiceValidation(localFile, algorithm, countCars);
+
         if(serviceValidation.isValid()) {
-            List<Car> carList = createLoadedCars();
-            if (carList.size() > countCars) {
-                LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + carList.size() + ", а указано " + countCars);
-                return "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + carList.size() + "!";
+            List<Car> loadedCarList = loadCarsFromFile();
+            if (loadedCarList.size() > countCars) {
+                LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + loadedCarList.size() + ", а указано " + countCars);
+                return "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + loadedCarList.size() + "!";
             } else {
-                return getCarsInfo(carList);
+                return getCarsInfo(loadedCarList);
             }
         } else {
             return serviceValidation.getUserErrorMessage();
@@ -51,17 +51,22 @@ public class LoadCarService implements CargoService {
         this.countCars = Integer.parseInt(countCars);
     }
 
-    private List<Car> loadCars(List<CargoPackage> listCargoPackages) {
+    private List<Car> loadCarsFromFile() {
+        List<CargoPackage> packageList = Objects.requireNonNull(new LocalFileImportUtils().importPackagesFromFile(localFile))
+                .stream()
+                .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
+                .toList();
+
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
         do {
             Car car = new Car();
             listCars.add(car);
-            listCargoPackages = listCargoPackages.stream()
+            packageList = packageList.stream()
                     .filter(pack -> pack.getCarId() == 0)
                     .collect(Collectors.toList());
 
-            for (CargoPackage cargoPackage : listCargoPackages) {
+            for (CargoPackage cargoPackage : packageList) {
                 new LoadCar().loadPackage(algorithm, car, cargoPackage);
             }
             if (localCarCount > 0) {
@@ -74,19 +79,11 @@ public class LoadCarService implements CargoService {
             localCarCount--;
 
         } while (
-                listCargoPackages.stream()
+                packageList.stream()
                         .anyMatch(pack -> pack.getCarId() == 0)
                         || localCarCount > 0
         );
         return listCars;
-    }
-
-    private List<Car> createLoadedCars() {
-        List<CargoPackage> cargoPackageList = Objects.requireNonNull(new LocalFileImportUtils().importPackagesFromFile(localFile))
-                .stream()
-                .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
-                .toList();
-        return loadCars(cargoPackageList);
     }
 
     private String getCarsInfo(List<Car> listCars) {
