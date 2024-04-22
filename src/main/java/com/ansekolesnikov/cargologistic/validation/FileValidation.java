@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.validation;
 
-import com.ansekolesnikov.cargologistic.model.CargoFile;
+import com.ansekolesnikov.cargologistic.model.file.CargoFile;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

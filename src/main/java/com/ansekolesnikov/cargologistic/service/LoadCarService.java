@@ -2,9 +2,9 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
-import com.ansekolesnikov.cargologistic.model.CargoFile;
+import com.ansekolesnikov.cargologistic.model.file.CargoFile;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
-import com.ansekolesnikov.cargologistic.utils.CargoFileImportUtils;
+import com.ansekolesnikov.cargologistic.model.file.CargoFileImportUtils;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;

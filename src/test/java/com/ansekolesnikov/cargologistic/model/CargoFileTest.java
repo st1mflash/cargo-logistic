@@ -1,4 +1,5 @@
 package com.ansekolesnikov.cargologistic.model;
+import com.ansekolesnikov.cargologistic.model.file.CargoFile;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

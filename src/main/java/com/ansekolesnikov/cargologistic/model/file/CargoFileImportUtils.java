@@ -1,7 +1,6 @@
-package com.ansekolesnikov.cargologistic.utils;
+package com.ansekolesnikov.cargologistic.model.file;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.CargoFile;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;

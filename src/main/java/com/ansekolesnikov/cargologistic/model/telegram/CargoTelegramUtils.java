@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.utils;
+package com.ansekolesnikov.cargologistic.model.telegram;
 
 public class CargoTelegramUtils {
     public static String getCommandByUserString(String userText) {

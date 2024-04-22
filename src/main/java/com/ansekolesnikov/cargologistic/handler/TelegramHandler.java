@@ -2,12 +2,14 @@ package com.ansekolesnikov.cargologistic.handler;
 
 import com.ansekolesnikov.cargologistic.model.telegram.BotTelegramMessage;
 import com.ansekolesnikov.cargologistic.model.telegram.UserTelegramMessage;
+import org.apache.log4j.Logger;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramHandler extends TelegramLongPollingBot {
+    private static final Logger LOGGER = Logger.getLogger(TelegramHandler.class.getName());
     private static final String BOT_USER_NAME = "ansekolesnikov_cargo_bot";
     private static final String TOKEN = "7142970649:AAHAvkbzHS-P6TwL8MPo7M0dJjDNM6hbX80";
 
@@ -39,7 +41,7 @@ public class TelegramHandler extends TelegramLongPollingBot {
         try {
             execute(message);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            LOGGER.error("Ошибка отправки сообщения. Подробнее: " + e);
         }
     }
 }

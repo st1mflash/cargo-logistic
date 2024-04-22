@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 public class BotTelegramMessage {
     private static final Logger LOGGER = Logger.getLogger(BotTelegramMessage.class.getName());
-    private UserTelegramMessage userMessage;
+    private final UserTelegramMessage userMessage;
     private Long chatId;
     private String userText;
 

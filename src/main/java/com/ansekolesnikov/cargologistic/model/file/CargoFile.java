@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.model;
+package com.ansekolesnikov.cargologistic.model.file;
 
 import org.apache.log4j.Logger;
 
