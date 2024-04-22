@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ansekolesnikov</groupId>
-	<artifactId>cargoCar-logistic</artifactId>
+	<artifactId>car-logistic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cargoCar-logistic</name>
+	<name>car-logistic</name>
 	<description>Cargo Logistic</description>
 	<properties>
 		<java.version>17</java.version>

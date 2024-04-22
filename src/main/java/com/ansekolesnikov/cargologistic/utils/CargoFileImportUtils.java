@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.utils;
 
-import com.ansekolesnikov.cargologistic.model.CargoCar;
+import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.CargoFile;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
 import org.apache.log4j.Logger;
@@ -29,13 +29,13 @@ public class CargoFileImportUtils {
         }
     }
 
-    public List<CargoCar> importCarsFromFile(CargoFile cargoFile) {
+    public List<Car> importCarsFromFile(CargoFile cargoFile) {
         try {
-            List<CargoCar> listCargoCars = new ArrayList<>();
+            List<Car> listCars = new ArrayList<>();
             for (JSONObject JSONObj : parseJSONCar(new CargoFile(cargoFile.getPathNameFormat()).getContent())) {
-                listCargoCars.add(new CargoCar(JSONObj));
+                listCars.add(new Car(JSONObj));
             }
-            return listCargoCars;
+            return listCars;
         } catch (Exception e) {
             LOGGER.error("Ошибка импорта грузовиков из файла: '" + cargoFile.getPathNameFormat() + "': " + e);
             return null;

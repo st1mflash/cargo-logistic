@@ -1,41 +1,21 @@
-package com.ansekolesnikov.cargologistic.model;
+package com.ansekolesnikov.cargologistic.model.car;
 
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.Random;
 
-public class CargoCar {
+public class Car {
     private int id = new Random().nextInt(1000000);
     public static final int WIDTH = 6;
     public static final int HEIGHT = 6;
     private final int[][] arrCarScheme = new int[HEIGHT][WIDTH];
 
-    public CargoCar() {
+    public Car() {
     }
 
-    public CargoCar(JSONObject JSONObj) {
+    public Car(JSONObject JSONObj) {
         id = Integer.parseInt(JSONObj.getString("id"));
         setArrCarSchemeFromString(JSONObj.getString("cargo"));
-    }
-
-    public String getCargoCarFullInfo() {
-        StringBuilder fullInfo = new StringBuilder(
-                "Идентификатор: #" + id
-                        + "\nПараметры кузова: " + CargoCar.WIDTH + "х" + CargoCar.HEIGHT
-                        + "\nЗагруженность: " + getLoadPercent() + "%"
-                        + "\nСостав груза:"
-        );
-        for (int i = 1; i < 10; i++) {
-            fullInfo.append((calcPackageCountByType(i) != 0 ? "\n - тип '" + i + "': " + calcPackageCountByType(i) + " шт." : ""));
-        }
-        fullInfo.append("\nСхема кузова:\n").append(getStringCargoScheme()).append("\n\n");
-        return fullInfo.toString();
-    }
-
-    private int calcPackageCountByType(int cargoPackageType) {
-        String loadToString = Arrays.deepToString(arrCarScheme).replaceAll("\\D", "");
-        return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;
     }
 
     public String getCarScheme() {
@@ -91,27 +71,10 @@ public class CargoCar {
 
     public void setArrCarSchemeFromString(String schemeString) {
         int index = 0;
-        for (int i = 0; i < CargoCar.HEIGHT; i++) {
-            for (int j = 0; j < CargoCar.WIDTH; j++) {
+        for (int i = 0; i < Car.HEIGHT; i++) {
+            for (int j = 0; j < Car.WIDTH; j++) {
                 arrCarScheme[i][j] = Integer.parseInt(String.valueOf(schemeString.charAt(index++)));
             }
         }
-    }
-
-    public String getStringCargoScheme() {
-        StringBuilder scheme = new StringBuilder();
-        for (int i = HEIGHT - 1; i >= 0; i--) {
-            scheme.append("\t\t+");
-            for (int j = 0; j < WIDTH; j++) {
-                if (arrCarScheme[i][j] == 0) {
-                    scheme.append(" ");
-                } else {
-                    scheme.append(arrCarScheme[i][j]);
-                }
-            }
-            scheme.append("+\n");
-        }
-        scheme.append("\t\t++++++++");
-        return scheme.toString();
     }
 }

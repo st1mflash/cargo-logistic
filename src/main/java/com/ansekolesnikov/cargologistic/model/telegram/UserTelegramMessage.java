@@ -25,7 +25,7 @@ public class UserTelegramMessage {
         return this.text.toLowerCase().split(" ")[2];
     }
 
-    public String getInputCountCards() {
+    public String getInputCountCars() {
         return this.text.toLowerCase().split(" ")[3];
     }
 

@@ -1,16 +1,17 @@
 package com.ansekolesnikov.cargologistic.model;
 
+import com.ansekolesnikov.cargologistic.model.car.Car;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CargoCarTest {
+public class CarTest {
 
 
     @Test
     void getCargoScheme() {
-        CargoCar cargoCar = new CargoCar();
-        cargoCar.setArrCarSchemeFromString("5555500000000000000000000000000000000000");
+        Car car = new Car();
+        car.setArrCarSchemeFromString("5555500000000000000000000000000000000000");
         String expectedScheme =
                         "+      +\n" +
                         "+      +\n" +
@@ -19,9 +20,9 @@ public class CargoCarTest {
                         "+      +\n" +
                         "+55555 +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, cargoCar.getCarScheme());
+        assertEquals(expectedScheme, car.getCarScheme());
 
-        cargoCar.setArrCarSchemeFromString("5555504444007777007770000000000000000000");
+        car.setArrCarSchemeFromString("5555504444007777007770000000000000000000");
         expectedScheme =
                         "+      +\n" +
                         "+      +\n" +
@@ -30,9 +31,9 @@ public class CargoCarTest {
                         "+4444  +\n" +
                         "+55555 +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, cargoCar.getCarScheme());
+        assertEquals(expectedScheme, car.getCarScheme());
 
-        cargoCar.setArrCarSchemeFromString("0000000000000000000000000000000000000000");
+        car.setArrCarSchemeFromString("0000000000000000000000000000000000000000");
         expectedScheme =
                 "+      +\n" +
                         "+      +\n" +
@@ -41,35 +42,35 @@ public class CargoCarTest {
                         "+      +\n" +
                         "+      +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, cargoCar.getCarScheme());
+        assertEquals(expectedScheme, car.getCarScheme());
     }
 
     @Test
     void checkPackageSupport() {
-        CargoCar cargoCar = new CargoCar();
-        cargoCar.setArrCarSchemeFromString("2200000000000000000000000000000000000000");
-        assertEquals(true, cargoCar.checkPackageSupport(0, 0, 3));
-        assertEquals(true, cargoCar.checkPackageSupport(0, 0, 5));
-        assertEquals(false, cargoCar.checkPackageSupport(1, 0, 5));
-        assertEquals(true, cargoCar.checkPackageSupport(1, 0, 3));
+        Car car = new Car();
+        car.setArrCarSchemeFromString("2200000000000000000000000000000000000000");
+        assertEquals(true, car.checkPackageSupport(0, 0, 3));
+        assertEquals(true, car.checkPackageSupport(0, 0, 5));
+        assertEquals(false, car.checkPackageSupport(1, 0, 5));
+        assertEquals(true, car.checkPackageSupport(1, 0, 3));
     }
 
     @Test
     void getLoadPercent() {
-        CargoCar cargoCar = new CargoCar();
-        cargoCar.setArrCarSchemeFromString("5555504444100000000000000000000000000");
-        assertEquals(27, cargoCar.getLoadPercent());
+        Car car = new Car();
+        car.setArrCarSchemeFromString("5555504444100000000000000000000000000");
+        assertEquals(27, car.getLoadPercent());
 
-        cargoCar.setArrCarSchemeFromString("0000000000000000000000000000000000000");
-        assertEquals(0, cargoCar.getLoadPercent());
+        car.setArrCarSchemeFromString("0000000000000000000000000000000000000");
+        assertEquals(0, car.getLoadPercent());
 
-        cargoCar.setArrCarSchemeFromString("1111111111111111111111111111111111111");
-        assertEquals(100, cargoCar.getLoadPercent());
+        car.setArrCarSchemeFromString("1111111111111111111111111111111111111");
+        assertEquals(100, car.getLoadPercent());
     }
 
     @Test
     void initCargoSchemeFromString() {
-        CargoCar cargoCar = new CargoCar();
+        Car car = new Car();
         String cargoSchemeString = "5555500000000000000000000000000000000000";
         int[][] expectedArrCargoScheme = new int[][]{
                 {5, 5, 5, 5, 5, 0},
@@ -79,10 +80,10 @@ public class CargoCarTest {
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0}
         };
-        cargoCar.setArrCarSchemeFromString(cargoSchemeString);
-        for (int i = 0; i < CargoCar.HEIGHT; i++) {
-            for (int j = 0; j < CargoCar.WIDTH; j++) {
-                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCarScheme()[i][j]);
+        car.setArrCarSchemeFromString(cargoSchemeString);
+        for (int i = 0; i < Car.HEIGHT; i++) {
+            for (int j = 0; j < Car.WIDTH; j++) {
+                assertEquals(expectedArrCargoScheme[i][j], car.getArrCarScheme()[i][j]);
             }
         }
 
@@ -95,10 +96,10 @@ public class CargoCarTest {
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0}
         };
-        cargoCar.setArrCarSchemeFromString(cargoSchemeString);
-        for (int i = 0; i < CargoCar.HEIGHT; i++) {
-            for (int j = 0; j < CargoCar.WIDTH; j++) {
-                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCarScheme()[i][j]);
+        car.setArrCarSchemeFromString(cargoSchemeString);
+        for (int i = 0; i < Car.HEIGHT; i++) {
+            for (int j = 0; j < Car.WIDTH; j++) {
+                assertEquals(expectedArrCargoScheme[i][j], car.getArrCarScheme()[i][j]);
             }
         }
 
@@ -111,10 +112,10 @@ public class CargoCarTest {
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0}
         };
-        cargoCar.setArrCarSchemeFromString(cargoSchemeString);
-        for (int i = 0; i < CargoCar.HEIGHT; i++) {
-            for (int j = 0; j < CargoCar.WIDTH; j++) {
-                assertEquals(expectedArrCargoScheme[i][j], cargoCar.getArrCarScheme()[i][j]);
+        car.setArrCarSchemeFromString(cargoSchemeString);
+        for (int i = 0; i < Car.HEIGHT; i++) {
+            for (int j = 0; j < Car.WIDTH; j++) {
+                assertEquals(expectedArrCargoScheme[i][j], car.getArrCarScheme()[i][j]);
             }
         }
     }

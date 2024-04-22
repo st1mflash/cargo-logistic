@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
-import com.ansekolesnikov.cargologistic.model.CargoCar;
 import com.ansekolesnikov.cargologistic.model.CargoFile;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
 import com.ansekolesnikov.cargologistic.utils.CargoFileImportUtils;
@@ -42,12 +42,12 @@ public class LoadCarService implements CargoService {
             LOGGER.error(algorithmValidation.getLogErrorMessage());
             return algorithmValidation.getUserErrorMessage();
         } else {
-            List<CargoCar> cargoCarList = createLoadedCars();
-            if (cargoCarList.size() > countCars) {
-                LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + cargoCarList.size() + ", а указано " + countCars);
-                return "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + cargoCarList.size() + "!";
+            List<Car> carList = createLoadedCars();
+            if (carList.size() > countCars) {
+                LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + carList.size() + ", а указано " + countCars);
+                return "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + carList.size() + "!";
             } else {
-                return getCarsInfo(cargoCarList);
+                return getCarsInfo(carList);
             }
         }
     }
@@ -58,24 +58,24 @@ public class LoadCarService implements CargoService {
         this.countCars = Integer.parseInt(countCars);
     }
 
-    private List<CargoCar> loadCars(List<CargoPackage> listCargoPackages) {
+    private List<Car> loadCars(List<CargoPackage> listCargoPackages) {
         int localCarCount = countCars;
-        List<CargoCar> listCargoCars = new ArrayList<>();
+        List<Car> listCars = new ArrayList<>();
         do {
-            CargoCar cargoCar = new CargoCar();
-            listCargoCars.add(cargoCar);
+            Car car = new Car();
+            listCars.add(car);
             listCargoPackages = listCargoPackages.stream()
                     .filter(pack -> pack.getCarId() == 0)
                     .collect(Collectors.toList());
 
             for (CargoPackage cargoPackage : listCargoPackages) {
-                new LoadCar().loadPackage(algorithm, cargoCar, cargoPackage);
+                new LoadCar().loadPackage(algorithm, car, cargoPackage);
             }
             if (localCarCount > 0) {
-                if (cargoCar.getLoadPercent() == 0) {
-                    LOGGER.info("Грузовик #" + cargoCar.getId() + " остался пустым");
+                if (car.getLoadPercent() == 0) {
+                    LOGGER.info("Грузовик #" + car.getId() + " остался пустым");
                 } else {
-                    LOGGER.info("Грузовик #" + cargoCar.getId() + " успешно загружен на " + cargoCar.getLoadPercent() + "%");
+                    LOGGER.info("Грузовик #" + car.getId() + " успешно загружен на " + car.getLoadPercent() + "%");
                 }
             }
             localCarCount--;
@@ -85,10 +85,10 @@ public class LoadCarService implements CargoService {
                         .anyMatch(pack -> pack.getCarId() == 0)
                         || localCarCount > 0
         );
-        return listCargoCars;
+        return listCars;
     }
 
-    private List<CargoCar> createLoadedCars() {
+    private List<Car> createLoadedCars() {
         List<CargoPackage> cargoPackageList = Objects.requireNonNull(new CargoFileImportUtils().importPackagesFromFile(cargoFile))
                 .stream()
                 .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
@@ -96,11 +96,11 @@ public class LoadCarService implements CargoService {
         return loadCars(cargoPackageList);
     }
 
-    private String getCarsInfo(List<CargoCar> listCargoCars) {
+    private String getCarsInfo(List<Car> listCars) {
         StringBuilder result = new StringBuilder();
-        if (listCargoCars != null) {
-            for (CargoCar cargoCar : listCargoCars) {
-                result.append(cargoCar.getCarScheme()).append("\n");
+        if (listCars != null) {
+            for (Car car : listCars) {
+                result.append(car.getCarScheme()).append("\n");
             }
         }
         return result.toString();
