@@ -6,7 +6,7 @@ import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
-import com.ansekolesnikov.cargologistic.model.CargoPackage;
+import com.ansekolesnikov.cargologistic.model.Pack;
 import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -54,9 +54,9 @@ public class LoadCarService implements CargoService {
     }
 
     private List<Car> loadCarsFromFile() {
-        List<CargoPackage> packageList = Objects.requireNonNull(new LocalFileImportUtils().importPackagesFromFile(localFile))
+        List<Pack> packageList = Objects.requireNonNull(new LocalFileImportUtils().importPackagesFromFile(localFile))
                 .stream()
-                .sorted(Comparator.comparingInt(CargoPackage::getWidth).reversed())
+                .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();
 
         int localCarCount = countCars;
@@ -68,8 +68,8 @@ public class LoadCarService implements CargoService {
                     .filter(pack -> pack.getCarId() == 0)
                     .collect(Collectors.toList());
 
-            for (CargoPackage cargoPackage : packageList) {
-                new LoadCar().loadPackage(algorithm, car, cargoPackage);
+            for (Pack pack : packageList) {
+                new LoadCar().loadPackage(algorithm, car, pack);
             }
             if (localCarCount > 0) {
                 if (new CarUtils().calcPercentLoad(car) == 0) {

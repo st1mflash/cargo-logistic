@@ -1,11 +1,11 @@
 package com.ansekolesnikov.cargologistic.model;
 
-public class CargoPackage {
+public class Pack {
     private int carId = 0;
     private final int type;
     private int width;
 
-    public CargoPackage(int type) {
+    public Pack(int type) {
         this.type = type;
         initPackageWidth();
     }

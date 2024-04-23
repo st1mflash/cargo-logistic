@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
-import com.ansekolesnikov.cargologistic.model.CargoPackage;
+import com.ansekolesnikov.cargologistic.model.Pack;
 
 public class CarUtils {
     public int calcPercentLoad(Car car) {
@@ -16,20 +16,20 @@ public class CarUtils {
         }
         return (countFilledPoints * 100) / (Car.WIDTH * Car.HEIGHT);
     }
-    public boolean isCanLoadPackageOnCargoPosition(Car car, CargoPackage cargoPackage, int posHeight, int posWidth) {
+    public boolean isCanLoadPackOnCargoPosition(Car car, Pack pack, int startHeightPos, int startWidthPos) {
         int[][] cargo = car.getCargo();
-        int packageWidth = cargoPackage.getWidth();
+        int packWidth = pack.getWidth();
 
-        if (posHeight == 0) {
+        if (startHeightPos == 0) {
             return true;
         } else {
-            int sumPackageSupport = 0;
-            for (int j = posWidth; j < posWidth + packageWidth; j++) {
-                if (cargo[posHeight - 1][j] != 0) {
-                    sumPackageSupport = sumPackageSupport + 1;
+            int sumPackWidthSupport = 0;
+            for (int j = startWidthPos; j < startWidthPos + packWidth; j++) {
+                if (cargo[startHeightPos - 1][j] != 0) {
+                    sumPackWidthSupport = sumPackWidthSupport + 1;
                 }
             }
-            return sumPackageSupport > packageWidth / 2;
+            return sumPackWidthSupport > packWidth / 2;
         }
     }
 }
