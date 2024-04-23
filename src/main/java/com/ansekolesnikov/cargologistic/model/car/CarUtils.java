@@ -2,6 +2,8 @@ package com.ansekolesnikov.cargologistic.model.car;
 
 import com.ansekolesnikov.cargologistic.model.Pack;
 
+import java.util.Arrays;
+
 public class CarUtils {
     public int calcPercentLoad(Car car) {
         int[][] cargo = car.getCargo();
@@ -16,6 +18,7 @@ public class CarUtils {
         }
         return (countFilledPoints * 100) / (Car.WIDTH * Car.HEIGHT);
     }
+
     public boolean isCanLoadPackOnCargoPosition(Car car, Pack pack, int startHeightPos, int startWidthPos) {
         int[][] cargo = car.getCargo();
         int packWidth = pack.getWidth();
@@ -31,5 +34,10 @@ public class CarUtils {
             }
             return sumPackWidthSupport > packWidth / 2;
         }
+    }
+
+    public int calcCountThisTypePackOnCar(Car car, int cargoPackageType) {
+        String loadToString = Arrays.deepToString(car.getCargo()).replaceAll("\\D", "");
+        return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;
     }
 }

@@ -1,7 +1,5 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
-import java.util.Arrays;
-
 public class CarStringInfo {
     public String getCargo(Car car) {
         int[][] cargo = car.getCargo();
@@ -21,6 +19,7 @@ public class CarStringInfo {
         cargoInfo.append("++++++++\n");
         return cargoInfo.toString();
     }
+
     public String getFullInfo(Car car) {
         StringBuilder fullInfoString = new StringBuilder(
                 "Идентификатор: #" + car.getId()
@@ -30,14 +29,10 @@ public class CarStringInfo {
         );
 
         for (int i = 1; i < 10; i++) {
-            int countPackages = calcPackageCountByType(car, i);
+            int countPackages = new CarUtils().calcCountThisTypePackOnCar(car, i);
             fullInfoString.append((countPackages != 0 ? "\n- тип '" + i + "': " + countPackages + " шт." : ""));
         }
         fullInfoString.append("\nСхема:\n").append(new CarStringInfo().getCargo(car)).append("\n\n");
         return fullInfoString.toString();
-    }
-    private int calcPackageCountByType(Car car, int cargoPackageType) {
-        String loadToString = Arrays.deepToString(car.getCargo()).replaceAll("\\D", "");
-        return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;
     }
 }
