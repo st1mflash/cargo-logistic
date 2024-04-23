@@ -1,7 +1,9 @@
-package com.ansekolesnikov.cargologistic.service;
+package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.service.main.load.LoadCarService;
+import com.ansekolesnikov.cargologistic.service.main.view.ViewCarService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

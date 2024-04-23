@@ -1,10 +1,11 @@
-package com.ansekolesnikov.cargologistic.service;
+package com.ansekolesnikov.cargologistic.service.main.view;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileUtils;
+import com.ansekolesnikov.cargologistic.service.main.CargoService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;

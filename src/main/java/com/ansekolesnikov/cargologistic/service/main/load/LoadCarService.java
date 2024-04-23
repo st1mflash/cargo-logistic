@@ -1,11 +1,12 @@
-package com.ansekolesnikov.cargologistic.service;
+package com.ansekolesnikov.cargologistic.service.main.load;
 
+import com.ansekolesnikov.cargologistic.model.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
 import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
-import com.ansekolesnikov.cargologistic.model.Pack;
+import com.ansekolesnikov.cargologistic.service.main.CargoService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class LoadCarService implements CargoService {
         initParams(inputFileName, inputAlgorithm, inputCountCars);
         LoadCarServiceValidation serviceValidation = new LoadCarServiceValidation(localFile, algorithm, countCars);
 
-        if(serviceValidation.isValid()) {
+        if (serviceValidation.isValid()) {
             List<Car> loadedCarList = loadCarsFromFile();
             if (loadedCarList.size() > countCars) {
                 LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + loadedCarList.size() + ", а указано " + countCars);
@@ -53,7 +54,7 @@ public class LoadCarService implements CargoService {
     }
 
     private List<Car> loadCarsFromFile() {
-        List<Pack> packageList = Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(localFile))
+        List<Pack> packList = Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(localFile))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();
@@ -63,13 +64,12 @@ public class LoadCarService implements CargoService {
         do {
             Car car = new Car();
             listCars.add(car);
-            packageList = packageList.stream()
+            packList = packList.stream()
                     .filter(pack -> pack.getCarId() == 0)
                     .collect(Collectors.toList());
 
-            for (Pack pack : packageList) {
+            for (Pack pack : packList) {
                 car.loadPack(pack, algorithm);
-                //new AlgorithmLoadPackToCar().load(algorithm, car, pack);
             }
             if (localCarCount > 0) {
                 if (new CarUtils().calcPercentLoad(car) == 0) {
@@ -81,7 +81,7 @@ public class LoadCarService implements CargoService {
             localCarCount--;
 
         } while (
-                packageList.stream()
+                packList.stream()
                         .anyMatch(pack -> pack.getCarId() == 0)
                         || localCarCount > 0
         );

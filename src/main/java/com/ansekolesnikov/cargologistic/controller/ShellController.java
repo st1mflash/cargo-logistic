@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.service.LoadCarService;
-import com.ansekolesnikov.cargologistic.service.CargoService;
-import com.ansekolesnikov.cargologistic.service.ViewCarService;
+import com.ansekolesnikov.cargologistic.service.main.load.LoadCarService;
+import com.ansekolesnikov.cargologistic.service.main.CargoService;
+import com.ansekolesnikov.cargologistic.service.main.view.ViewCarService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;

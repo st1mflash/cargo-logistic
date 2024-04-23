@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service;
+package com.ansekolesnikov.cargologistic.service.main;
 
 public interface CargoService {
 

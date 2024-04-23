@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.handler;
 
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
-import com.ansekolesnikov.cargologistic.service.TelegramService;
+import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

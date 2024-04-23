@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.config;
 
-import com.ansekolesnikov.cargologistic.service.LoadCarService;
-import com.ansekolesnikov.cargologistic.service.ViewCarService;
-import com.ansekolesnikov.cargologistic.service.TelegramService;
+import com.ansekolesnikov.cargologistic.service.main.load.LoadCarService;
+import com.ansekolesnikov.cargologistic.service.main.view.ViewCarService;
+import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
