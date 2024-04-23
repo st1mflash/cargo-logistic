@@ -16,8 +16,8 @@ public class TelegramService {
     private String BOT_USER_NAME;
     private String BOT_TOKEN;
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
-    private LoadCarService loadCarService;
-    private ViewCarService viewCarService;
+    private final LoadCarService loadCarService;
+    private final ViewCarService viewCarService;
 
     @Autowired
     public TelegramService(LoadCarService loadCarService, ViewCarService viewCarService) {
