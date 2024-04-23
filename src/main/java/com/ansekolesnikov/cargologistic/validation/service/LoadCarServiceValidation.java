@@ -1,9 +1,12 @@
 package com.ansekolesnikov.cargologistic.validation.service;
 
+import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 public class LoadCarServiceValidation {
     private static final Logger LOGGER = Logger.getLogger(LoadCarServiceValidation.class.getName());
@@ -33,6 +36,15 @@ public class LoadCarServiceValidation {
             return false;
         }
         return true;
+    }
+    public boolean isValidCountCars(List<Car> listCar) {
+        if(listCar.size() > countCars) {
+            LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + listCar.size() + ", а указано " + countCars);
+            userErrorMessage = "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + listCar.size() + "!";
+            return false;
+        } else {
+            return true;
+        }
     }
     public String getUserErrorMessage() {
         return userErrorMessage;

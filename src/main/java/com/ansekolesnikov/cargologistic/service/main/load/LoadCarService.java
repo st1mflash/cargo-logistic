@@ -36,11 +36,10 @@ public class LoadCarService implements CargoService {
 
         if (serviceValidation.isValid()) {
             List<Car> loadedCarList = loadCarsFromFile();
-            if (loadedCarList.size() > countCars) {
-                LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + loadedCarList.size() + ", а указано " + countCars);
-                return "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + loadedCarList.size() + "!";
-            } else {
+            if (serviceValidation.isValidCountCars(loadedCarList)) {
                 return getCarsInfo(loadedCarList);
+            } else {
+                return serviceValidation.getUserErrorMessage();
             }
         } else {
             return serviceValidation.getUserErrorMessage();
