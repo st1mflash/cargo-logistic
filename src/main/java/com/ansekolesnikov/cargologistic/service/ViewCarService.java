@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
-import com.ansekolesnikov.cargologistic.model.car.CarInfo;
+import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
@@ -36,7 +36,7 @@ public class ViewCarService implements CargoService {
         if (carList != null) {
             StringBuilder result = new StringBuilder();
             for (Car car : carList) {
-                result.append(new CarInfo().getCarFullInfo(car));
+                result.append(new CarStringInfo().getFullInfo(car));
             }
             return result.toString();
         } else {

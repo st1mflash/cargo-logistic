@@ -1,6 +1,8 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
+import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
+import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
@@ -70,10 +72,10 @@ public class LoadCarService implements CargoService {
                 new LoadCar().loadPackage(algorithm, car, cargoPackage);
             }
             if (localCarCount > 0) {
-                if (car.getLoadPercent() == 0) {
+                if (new CarUtils().calcPercentLoad(car) == 0) {
                     LOGGER.info("Грузовик #" + car.getId() + " остался пустым");
                 } else {
-                    LOGGER.info("Грузовик #" + car.getId() + " успешно загружен на " + car.getLoadPercent() + "%");
+                    LOGGER.info("Грузовик #" + car.getId() + " успешно загружен на " + new CarUtils().calcPercentLoad(car) + "%");
                 }
             }
             localCarCount--;
@@ -90,7 +92,7 @@ public class LoadCarService implements CargoService {
         StringBuilder result = new StringBuilder();
         if (listCars != null) {
             for (Car car : listCars) {
-                result.append(car.getCarScheme()).append("\n");
+                result.append(new CarStringInfo().getCargo(car)).append("\n");
             }
         }
         return result.toString();
