@@ -54,7 +54,7 @@ public class LoadCarService implements CargoService {
     }
 
     private List<Car> loadCarsFromFile() {
-        List<Pack> packageList = Objects.requireNonNull(new LocalFileImportUtils().importPackagesFromFile(localFile))
+        List<Pack> packageList = Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(localFile))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();

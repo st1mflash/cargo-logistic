@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class LocalFile {
-    private String name, format, path, content;// pathNameFormat;
+    private String name, format, path, content;
     private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());
 
     public LocalFile(String filePath) {
@@ -14,7 +14,6 @@ public class LocalFile {
             name = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.lastIndexOf('.'));
             format = filePath.substring(filePath.lastIndexOf('.'));
             path = filePath.substring(0, filePath.lastIndexOf('/') + 1);
-            //pathNameFormat = path + name + format;
             content = Files.readString(Paths.get(path + name + format));
         } catch (Exception e) {
             LOGGER.error("Ошибка считывания содержимого файла '" + filePath + "'. Подробнее: " + e);
