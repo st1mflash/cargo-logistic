@@ -3,11 +3,13 @@ package com.ansekolesnikov.cargologistic.service.main.view;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.main.CargoService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ViewCarService implements CargoService {
-    private static final String PATH_IMPORT = "src/main/resources/import/cargo/";
+    @Value("${directory.car.import}")
+    private String PATH_IMPORT_CAR;
 
     public ViewCarService() {
 
@@ -15,7 +17,7 @@ public class ViewCarService implements CargoService {
 
     @Override
     public String runService(String fileName) {
-        LocalFile localFile = new LocalFile(PATH_IMPORT + fileName);
+        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + fileName);
         FileValidation fileValidation = new FileValidation(localFile);
 
         if (fileValidation.isValid()) {

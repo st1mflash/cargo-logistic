@@ -5,13 +5,15 @@ import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.main.CargoService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class LoadCarService implements CargoService {
-    private static final String PATH_IMPORT_PACKAGES = "src/main/resources/import/packages/";
+    @Value("${directory.pack.import}")
+    private String PATH_IMPORT_PACKAGE;
 
     public LoadCarService() {
 
@@ -19,7 +21,7 @@ public class LoadCarService implements CargoService {
 
     @Override
     public String runService(String inputFileName, String inputAlgorithm, String inputCountCars) {
-        LocalFile localFile = new LocalFile(PATH_IMPORT_PACKAGES + inputFileName);
+        LocalFile localFile = new LocalFile(PATH_IMPORT_PACKAGE + inputFileName);
         String algorithm = inputAlgorithm.toLowerCase();
         int countCars = Integer.parseInt(inputCountCars);
 
