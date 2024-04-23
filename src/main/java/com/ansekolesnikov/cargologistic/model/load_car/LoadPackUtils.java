@@ -4,42 +4,42 @@ import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.Pack;
 import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 
-public class LoadPackageInCar {
-    public void loadPackageInCar(Car car, Pack pack) {
+public class LoadPackUtils {
+    public void loadPackInCar(Car car, Pack pack) {
         switch (pack.getType()) {
             case 1:
-                loadPackageWithType1ToCar(car, pack);
+                loadPackWithType1ToCar(car, pack);
                 break;
             case 2:
-                loadPackageWithType2ToCar(car, pack);
+                loadPackWithType2ToCar(car, pack);
                 break;
             case 3:
-                loadPackageWithType3ToCar(car, pack);
+                loadPackWithType3ToCar(car, pack);
                 break;
             case 4:
-                loadPackageWithType4ToCar(car, pack);
+                loadPackWithType4ToCar(car, pack);
                 break;
             case 5:
-                loadPackageWithType5ToCar(car, pack);
+                loadPackWithType5ToCar(car, pack);
                 break;
             case 6:
-                loadPackageWithType6ToCar(car, pack);
+                loadPackWithType6ToCar(car, pack);
                 break;
             case 7:
-                loadPackageWithType7ToCar(car, pack);
+                loadPackWithType7ToCar(car, pack);
                 break;
             case 8:
-                loadPackageWithType8ToCar(car, pack);
+                loadPackWithType8ToCar(car, pack);
                 break;
             case 9:
-                loadPackageWithType9ToCar(car, pack);
+                loadPackWithType9ToCar(car, pack);
                 break;
             default:
                 break;
         }
     }
 
-    private void loadPackageWithType1ToCar(Car car, Pack pack) {
+    private void loadPackWithType1ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.WIDTH; i++) {
             for (int j = 0; j < Car.HEIGHT; j++) {
@@ -54,7 +54,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType2ToCar(Car car, Pack pack) {
+    private void loadPackWithType2ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT; i++) {
             for (int j = 0; j < Car.WIDTH - 1; j++) {
@@ -71,7 +71,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType3ToCar(Car car, Pack pack) {
+    private void loadPackWithType3ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT; i++) {
             for (int j = 0; j < Car.WIDTH - 2; j++) {
@@ -90,7 +90,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType4ToCar(Car car, Pack pack) {
+    private void loadPackWithType4ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT; i++) {
             for (int j = 0; j < Car.WIDTH - 3; j++) {
@@ -111,7 +111,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType5ToCar(Car car, Pack pack) {
+    private void loadPackWithType5ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT; i++) {
             for (int j = 0; j < Car.WIDTH - 4; j++) {
@@ -135,7 +135,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType6ToCar(Car car, Pack pack) {
+    private void loadPackWithType6ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT - 1; i++) {
             for (int j = 0; j < Car.WIDTH - 2; j++) {
@@ -160,7 +160,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType7ToCar(Car car, Pack pack) {
+    private void loadPackWithType7ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT - 1; i++) {
             for (int j = 0; j < Car.WIDTH - 3; j++) {
@@ -187,7 +187,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType8ToCar(Car car, Pack pack) {
+    private void loadPackWithType8ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT - 1; i++) {
             for (int j = 0; j < Car.WIDTH - 3; j++) {
@@ -217,7 +217,7 @@ public class LoadPackageInCar {
         }
     }
 
-    private void loadPackageWithType9ToCar(Car car, Pack pack) {
+    private void loadPackWithType9ToCar(Car car, Pack pack) {
         int[][] arrCargoScheme = car.getCargo();
         for (int i = 0; i < Car.HEIGHT - 2; i++) {
             for (int j = 0; j < Car.WIDTH - 2; j++) {
