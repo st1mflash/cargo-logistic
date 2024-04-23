@@ -18,12 +18,12 @@ public class LocalFileImportUtils {
 
     public List<Pack> importPackagesFromFile(LocalFile localFile) {
         try {
-            return Arrays.stream(Files.readString(Paths.get(localFile.getPathNameFormat())).split("\\n\\s*\\n"))
+            return Arrays.stream(Files.readString(Paths.get(new LocalFileUtils().getFullAddress(localFile))).split("\\n\\s*\\n"))
                     .map(line -> line.charAt(0) - 48)
                     .map(Pack::new)
                     .collect(Collectors.toList());
         } catch (IOException e) {
-            LOGGER.error("Ошибка ошибка импорта грузов из файла: '" + localFile.getPathNameFormat() + "': " + e);
+            LOGGER.error("Ошибка ошибка импорта грузов из файла: '" + new LocalFileUtils().getFullAddress(localFile) + "': " + e);
             return null;
         }
     }
@@ -31,12 +31,12 @@ public class LocalFileImportUtils {
     public List<Car> importCarsFromFile(LocalFile localFile) {
         try {
             List<Car> listCars = new ArrayList<>();
-            for (JSONObject JSONObj : parseJSONCar(new LocalFile(localFile.getPathNameFormat()).getContent())) {
+            for (JSONObject JSONObj : parseJSONCar(new LocalFile(new LocalFileUtils().getFullAddress(localFile)).getContent())) {
                 listCars.add(new Car(JSONObj));
             }
             return listCars;
         } catch (Exception e) {
-            LOGGER.error("Ошибка импорта грузовиков из файла: '" + localFile.getPathNameFormat() + "': " + e);
+            LOGGER.error("Ошибка импорта грузовиков из файла: '" + new LocalFileUtils().getFullAddress(localFile) + "': " + e);
             return null;
         }
     }

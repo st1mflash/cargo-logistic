@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.model;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
+import com.ansekolesnikov.cargologistic.model.file.LocalFileUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class LocalFileTest {
     void testGetPathNameFormat() throws IOException {
         LocalFile localFile = new LocalFile("src/test/resources/testfile.txt");
         String expectedPathNameFormat = "src/test/resources/testfile.txt";
-        assertEquals(expectedPathNameFormat, localFile.getPathNameFormat());
+        assertEquals(expectedPathNameFormat, new LocalFileUtils().getFullAddress(localFile));
     }
 
 }

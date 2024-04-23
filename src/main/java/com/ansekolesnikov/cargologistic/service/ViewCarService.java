@@ -4,6 +4,7 @@ import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
+import com.ansekolesnikov.cargologistic.model.file.LocalFileUtils;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class ViewCarService implements CargoService {
             }
             return result.toString();
         } else {
-            LOGGER.info("Указанный файл '" + localFile.getPathNameFormat() + "' не содержит информации о грузовиках");
+            LOGGER.info("Указанный файл '" + new LocalFileUtils().getFullAddress(localFile) + "' не содержит информации о грузовиках");
             return "Указанный файл не содержит информации о грузовиках.";
         }
     }
