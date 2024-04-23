@@ -9,7 +9,8 @@ public class LocalFileUtils {
     public String getFullAddress(LocalFile localFile) {
         return localFile.getPath() + localFile.getName() + localFile.getFormat();
     }
-    public List<JSONObject> getListJSONCars(String content) {
+    public List<JSONObject> getListJSONCars(LocalFile localFile) {
+        String content = localFile.getContent();
         List<JSONObject> listJSONObj = new ArrayList<>();
         String[] arrClearContent = content
                 .replaceAll("[{\\[\\]]", "")
