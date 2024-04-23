@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.main.view;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
+import com.ansekolesnikov.cargologistic.model.car.CarStringInfoUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileUtils;
@@ -14,7 +14,7 @@ public class ViewCarServiceUtils {
     public String getListCarsResultString(List<Car> carList) {
         StringBuilder result = new StringBuilder();
         for (Car car : carList) {
-            result.append(new CarStringInfo().getFullInfo(car));
+            result.append(new CarStringInfoUtils().getFullInfo(car));
         }
         return result.toString();
     }

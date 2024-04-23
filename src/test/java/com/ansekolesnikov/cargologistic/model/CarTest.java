@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.model;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
+import com.ansekolesnikov.cargologistic.model.car.CarStringInfoUtils;
 import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class CarTest {
                         "+      +\n" +
                         "+55555 +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, new CarStringInfo().getCargo(car));
+        assertEquals(expectedScheme, new CarStringInfoUtils().getCargo(car));
 
         car.initCargoFromString("5555504444007777007770000000000000000000");
         expectedScheme =
@@ -33,7 +33,7 @@ public class CarTest {
                         "+4444  +\n" +
                         "+55555 +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, new CarStringInfo().getCargo(car));
+        assertEquals(expectedScheme, new CarStringInfoUtils().getCargo(car));
 
         car.initCargoFromString("0000000000000000000000000000000000000000");
         expectedScheme =
@@ -44,7 +44,7 @@ public class CarTest {
                         "+      +\n" +
                         "+      +\n" +
                         "++++++++\n";
-        assertEquals(expectedScheme, new CarStringInfo().getCargo(car));
+        assertEquals(expectedScheme, new CarStringInfoUtils().getCargo(car));
     }
 
     @Test

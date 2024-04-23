@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.main.load;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
+import com.ansekolesnikov.cargologistic.model.car.CarStringInfoUtils;
 import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
@@ -21,7 +21,7 @@ public class LoadCarServiceUtils {
         StringBuilder result = new StringBuilder();
         if (listCars != null) {
             for (Car car : listCars) {
-                result.append(new CarStringInfo().getCargo(car)).append("\n");
+                result.append(new CarStringInfoUtils().getCargo(car)).append("\n");
             }
         }
         return result.toString();
