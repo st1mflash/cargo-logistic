@@ -24,7 +24,6 @@ public class ShellController {
     public String load(@ShellOption String fileName, @ShellOption String algorithm, @ShellOption String countCars) {
         LOGGER.info("Запрос загрузки из файла '" + fileName + "' алгоритмом '" + algorithm.toLowerCase() + "' в " + countCars + " ед. транспорта.");
         return cargoLoadService.runService(fileName, algorithm, countCars);
-
     }
 
     @ShellMethod("Получение полной информации о грузовиках из .json файла.")

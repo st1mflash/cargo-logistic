@@ -8,7 +8,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-//@Service
 public class TelegramHandler extends TelegramLongPollingBot {
     private static final Logger LOGGER = Logger.getLogger(TelegramHandler.class.getName());
     private final TelegramService telegramService;
