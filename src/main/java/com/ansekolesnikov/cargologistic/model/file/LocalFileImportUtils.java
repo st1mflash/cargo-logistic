@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.model.file;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;

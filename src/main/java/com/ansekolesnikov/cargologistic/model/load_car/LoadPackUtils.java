@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.model.load_car;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 
 public class LoadPackUtils {

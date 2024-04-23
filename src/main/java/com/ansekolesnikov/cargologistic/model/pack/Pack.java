@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.model;
+package com.ansekolesnikov.cargologistic.model.pack;
 
 public class Pack {
     private int carId = 0;

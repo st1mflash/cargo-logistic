@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
-import com.ansekolesnikov.cargologistic.model.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
 
 import java.util.Arrays;
 
