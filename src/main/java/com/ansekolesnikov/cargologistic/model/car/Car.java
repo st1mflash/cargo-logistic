@@ -15,6 +15,7 @@ public class Car {
         id = Integer.parseInt(JSONObj.getString("id"));
         initCargoFromString(JSONObj.getString("cargo"));
     }
+    /*
     public boolean checkPackageSupport(int coordinateHeight, int coordinateWidth, int packageWidth) {
         if (coordinateHeight == 0) {
             return true;
@@ -28,6 +29,7 @@ public class Car {
             return sumPackageSupport > packageWidth / 2;
         }
     }
+    */
     public int getId() {
         return id;
     }

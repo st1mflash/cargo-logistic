@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.model.load_car;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.CargoPackage;
+import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 
 public class LoadPackageInCar {
     public void loadPackageInCar(Car car, CargoPackage cargoPackage) {
@@ -43,7 +44,7 @@ public class LoadPackageInCar {
         for (int i = 0; i < Car.WIDTH; i++) {
             for (int j = 0; j < Car.HEIGHT; j++) {
                 if (arrCargoScheme[i][j] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     cargoPackage.setCarId(car.getId());
@@ -59,7 +60,7 @@ public class LoadPackageInCar {
             for (int j = 0; j < Car.WIDTH - 1; j++) {
                 if (arrCargoScheme[i][j] == 0
                         && arrCargoScheme[i][j + 1] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
@@ -77,7 +78,7 @@ public class LoadPackageInCar {
                 if (arrCargoScheme[i][j] == 0
                         && arrCargoScheme[i][j + 1] == 0
                         && arrCargoScheme[i][j + 2] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
@@ -97,7 +98,7 @@ public class LoadPackageInCar {
                         && arrCargoScheme[i][j + 1] == 0
                         && arrCargoScheme[i][j + 2] == 0
                         && arrCargoScheme[i][j + 3] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
@@ -119,7 +120,7 @@ public class LoadPackageInCar {
                         && arrCargoScheme[i][j + 2] == 0
                         && arrCargoScheme[i][j + 3] == 0
                         && arrCargoScheme[i][j + 4] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
@@ -144,7 +145,7 @@ public class LoadPackageInCar {
                         && arrCargoScheme[i + 1][j] == 0
                         && arrCargoScheme[i + 1][j + 1] == 0
                         && arrCargoScheme[i + 1][j + 2] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
@@ -170,7 +171,7 @@ public class LoadPackageInCar {
                         && arrCargoScheme[i + 1][j] == 0
                         && arrCargoScheme[i + 1][j + 1] == 0
                         && arrCargoScheme[i + 1][j + 2] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
@@ -198,7 +199,7 @@ public class LoadPackageInCar {
                         && arrCargoScheme[i + 1][j + 1] == 0
                         && arrCargoScheme[i + 1][j + 2] == 0
                         && arrCargoScheme[i + 1][j + 3] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
@@ -229,7 +230,7 @@ public class LoadPackageInCar {
                         && arrCargoScheme[i + 2][j] == 0
                         && arrCargoScheme[i + 2][j + 1] == 0
                         && arrCargoScheme[i + 2][j + 2] == 0
-                        && car.checkPackageSupport(i, j, cargoPackage.getWidth())
+                        && new CarUtils().isCanLoadPackageOnCargoPosition(car, cargoPackage, i, j)
                 ) {
                     arrCargoScheme[i][j] = cargoPackage.getType();
                     arrCargoScheme[i][j + 1] = cargoPackage.getType();
