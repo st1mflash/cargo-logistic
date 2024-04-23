@@ -5,7 +5,6 @@ import com.ansekolesnikov.cargologistic.model.car.CarStringInfo;
 import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
-import com.ansekolesnikov.cargologistic.model.load_car.LoadCar;
 import com.ansekolesnikov.cargologistic.model.Pack;
 import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
 import org.apache.log4j.Logger;
@@ -69,7 +68,8 @@ public class LoadCarService implements CargoService {
                     .collect(Collectors.toList());
 
             for (Pack pack : packageList) {
-                new LoadCar().loadPackage(algorithm, car, pack);
+                car.loadPack(pack, algorithm);
+                //new AlgorithmLoadPackToCar().load(algorithm, car, pack);
             }
             if (localCarCount > 0) {
                 if (new CarUtils().calcPercentLoad(car) == 0) {

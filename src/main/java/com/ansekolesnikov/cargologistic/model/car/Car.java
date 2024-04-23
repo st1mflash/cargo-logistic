@@ -1,5 +1,9 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
+import com.ansekolesnikov.cargologistic.model.Pack;
+import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmHalf;
+import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmMax;
+import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmType;
 import org.json.JSONObject;
 
 import java.util.Random;
@@ -18,6 +22,22 @@ public class Car {
         initCargoFromString(JSONObj.getString("cargo"));
     }
 
+    public void loadPack(Pack pack, String algorithm) {
+        switch (algorithm) {
+            case "max":
+                new LoadAlgorithmMax().load(this, pack);
+                break;
+            case "half":
+                new LoadAlgorithmHalf().load(this, pack);
+                break;
+            case "type":
+                new LoadAlgorithmType().load(this, pack);
+                break;
+            default:
+                break;
+        }
+    }
+
     public int getId() {
         return id;
     }
@@ -34,4 +54,5 @@ public class Car {
             }
         }
     }
+
 }
