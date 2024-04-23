@@ -23,7 +23,6 @@ public class LoadCarServiceValidation {
         FileValidation fileValidation = new FileValidation(localFile);
         AlgorithmValidation algorithmValidation = new AlgorithmValidation(algorithm);
         if (!fileValidation.isValid()) {
-            LOGGER.error(fileValidation.getLogErrorMessage());
             userErrorMessage = fileValidation.getUserErrorMessage();
             return false;
         } else if (!algorithmValidation.isValid()) {

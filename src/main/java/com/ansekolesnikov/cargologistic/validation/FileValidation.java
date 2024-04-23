@@ -1,13 +1,15 @@
 package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
+import org.apache.log4j.Logger;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class FileValidation {
+    private static final Logger LOGGER = Logger.getLogger(FileValidation.class.getName());
     private final String pathFile, nameFile, formatFile;
-    private String userErrorMessage, logErrorMessage;
+    private String userErrorMessage;
 
     public FileValidation(LocalFile localFile) {
         this.pathFile = localFile.getPath();
@@ -23,7 +25,7 @@ public class FileValidation {
     private boolean isFileExist() {
         String fileFullPathNameFormat = pathFile + nameFile + formatFile;
         if (!Files.exists(Paths.get(fileFullPathNameFormat))) {
-            logErrorMessage = "Ошибка импорта: файл '" + fileFullPathNameFormat + "' не найден.";
+            LOGGER.error("Ошибка импорта: файл '" + fileFullPathNameFormat + "' не найден.");
             userErrorMessage = "Указанный файл не найден. Убедитесь в корректности указанного формата и наличии файла.";
             return false;
         } else {
@@ -33,16 +35,12 @@ public class FileValidation {
 
     private boolean isFormatExist() {
         if (formatFile == null) {
-            logErrorMessage = "Ошибка импорта: у файла не указан формат.";
+            LOGGER.error("Ошибка импорта: у файла не указан формат.");
             userErrorMessage = "Не указан формат файла.";
             return false;
         } else {
             return true;
         }
-    }
-
-    public String getLogErrorMessage() {
-        return logErrorMessage;
     }
 
     public String getUserErrorMessage() {
