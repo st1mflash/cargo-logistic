@@ -17,8 +17,6 @@ public class TelegramService {
     private LoadCarService loadCarService;
     @Autowired
     private ViewCarService viewCarService;
-    private String BOT_USER_NAME;
-    private String BOT_TOKEN;
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
 
 
@@ -27,9 +25,7 @@ public class TelegramService {
 
     public void runBot(String bot_token, String bot_username) {
         try {
-            this.BOT_TOKEN = bot_token;
-            this.BOT_USER_NAME = bot_username;
-            new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler(this));
+            new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler(this, bot_token, bot_username));
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
         }
@@ -60,13 +56,5 @@ public class TelegramService {
 
     private String convertTextToTelegramCodeStyle(String text) {
         return "```Ответ:\n" + text + "```";
-    }
-
-    public String getBotUserName() {
-        return BOT_USER_NAME;
-    }
-
-    public String getBotToken() {
-        return BOT_TOKEN;
     }
 }

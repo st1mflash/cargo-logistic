@@ -40,7 +40,7 @@ public class SpringAppConfig {
 
         telegramService.runBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
 
-        LOGGER.info("Сервис работы телеграм бота - успешно запущен!");
+        LOGGER.info("Сервис работы телеграм ботов - успешно запущен!");
         return telegramService;
     }
 }
