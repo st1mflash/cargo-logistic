@@ -50,7 +50,7 @@ public class TelegramService {
                 return serviceUtils.formatToCodeStyle(viewCargoService.runService(params));
 
             default:
-                LOGGER.error("Не удалось определить введенную команду");
+                LOGGER.error("Не удалось определить введенную команду. Telegram ID пользователя: '" + inputMessage.getChatId() + "', текст сообщения: '" + inputMessage.getText() + "'");
 
                 return serviceUtils.formatToCodeStyle("Не удалось определить введенную команду");
         }
