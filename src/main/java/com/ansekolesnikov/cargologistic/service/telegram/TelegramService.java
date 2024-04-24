@@ -13,13 +13,13 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Service
 public class TelegramService {
-    private String BOT_USER_NAME;
-    private String BOT_TOKEN;
-    private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
     @Autowired
     private LoadCarService loadCarService;
     @Autowired
     private ViewCarService viewCarService;
+    private String BOT_USER_NAME;
+    private String BOT_TOKEN;
+    private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
 
 
     public TelegramService() {
@@ -29,7 +29,6 @@ public class TelegramService {
         try {
             this.BOT_TOKEN = bot_token;
             this.BOT_USER_NAME = bot_username;
-
             new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler(this));
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
