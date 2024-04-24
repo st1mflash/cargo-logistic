@@ -2,8 +2,9 @@ package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
-import com.ansekolesnikov.cargologistic.service.main.load.LoadCarService;
-import com.ansekolesnikov.cargologistic.service.main.view.ViewCarService;
+import com.ansekolesnikov.cargologistic.service.utils.TelegramServiceUtils;
+import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @Service
 public class TelegramService {
     @Autowired
-    private LoadCarService loadCarService;
+    private LoadCargoService loadCargoService;
     @Autowired
-    private ViewCarService viewCarService;
+    private ViewCargoService viewCargoService;
+    @Autowired
+    private TelegramServiceUtils serviceUtils;
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
 
 
@@ -32,29 +35,24 @@ public class TelegramService {
     }
 
     public String getAnswer(TelegramUserMessage inputMessage) {
+        String params;
         switch (inputMessage.getInputCommand()) {
             case "load":
                 LOGGER.info("Запрос загрузки из файла '" + inputMessage.getInputFileName() + "' алгоритмом '" + inputMessage.getInputAlgorithm() + "' в " + inputMessage.getInputCountCars() + " ед. транспорта.");
-                return convertTextToTelegramCodeStyle(loadCarService.runService(
-                                inputMessage.getInputFileName(),
-                                inputMessage.getInputAlgorithm(),
-                                inputMessage.getInputCountCars()
-                        )
-                );
+
+                params = serviceUtils.getStringParams(inputMessage);
+                return serviceUtils.formatToCodeStyle(loadCargoService.runService(params));
+
             case "view":
                 LOGGER.info("Запрос отображения информации о грузовиках из файла '" + inputMessage.getInputFileName() + "'");
-                return convertTextToTelegramCodeStyle(viewCarService.runService(
-                                inputMessage.getInputFileName()
-                        )
-                );
+
+                params = inputMessage.getInputFileName();
+                return serviceUtils.formatToCodeStyle(viewCargoService.runService(params));
 
             default:
                 LOGGER.error("Не удалось определить введенную команду");
-                return convertTextToTelegramCodeStyle("Не удалось определить введенную команду");
-        }
-    }
 
-    private String convertTextToTelegramCodeStyle(String text) {
-        return "```Ответ:\n" + text + "```";
+                return serviceUtils.formatToCodeStyle("Не удалось определить введенную команду");
+        }
     }
 }

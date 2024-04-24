@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.main.load;
+package com.ansekolesnikov.cargologistic.service.utils;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarStringInfoUtils;
@@ -7,6 +7,7 @@ import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,8 +15,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class LoadCarServiceUtils {
-    private static final Logger LOGGER = Logger.getLogger(LoadCarServiceUtils.class.getName());
+@Component
+public class LoadCargoServiceUtils extends ServiceUtils {
+    private static final Logger LOGGER = Logger.getLogger(LoadCargoServiceUtils.class.getName());
 
     public String getCarsInfo(List<Car> listCars) {
         StringBuilder result = new StringBuilder();

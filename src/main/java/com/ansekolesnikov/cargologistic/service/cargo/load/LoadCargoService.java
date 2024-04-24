@@ -1,32 +1,35 @@
-package com.ansekolesnikov.cargologistic.service.main.load;
+package com.ansekolesnikov.cargologistic.service.cargo.load;
 
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
-import com.ansekolesnikov.cargologistic.service.main.CargoService;
+import com.ansekolesnikov.cargologistic.service.utils.LoadCargoServiceUtils;
+import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class LoadCarService implements CargoService {
+public class LoadCargoService implements CargoService {
     @Value("${directory.pack.import}")
     private String PATH_IMPORT_PACKAGE;
+    @Autowired
+    LoadCargoServiceUtils serviceUtils;
 
-    public LoadCarService() {
+    public LoadCargoService() {
 
     }
 
     @Override
-    public String runService(String inputFileName, String inputAlgorithm, String inputCountCars) {
-        LocalFile localFile = new LocalFile(PATH_IMPORT_PACKAGE + inputFileName);
-        String algorithm = inputAlgorithm.toLowerCase();
-        int countCars = Integer.parseInt(inputCountCars);
+    public String runService(String params) {
+        LocalFile localFile = new LocalFile(PATH_IMPORT_PACKAGE + serviceUtils.getFileNameFromStringParams(params));
+        String algorithm = serviceUtils.getAlgorithmFromStringParams(params);
+        int countCars = serviceUtils.getCountCarsFromStringParams(params);
 
         LoadCarServiceValidation serviceValidation = new LoadCarServiceValidation(localFile, algorithm, countCars);
-        LoadCarServiceUtils serviceUtils = new LoadCarServiceUtils();
 
         if (serviceValidation.isValid()) {
             List<Pack> importedPackList = serviceUtils.getListPacksFromFile(localFile);
