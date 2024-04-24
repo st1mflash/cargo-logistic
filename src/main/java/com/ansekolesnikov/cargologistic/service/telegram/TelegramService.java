@@ -23,7 +23,7 @@ public class TelegramService {
     public TelegramService() {
     }
 
-    public void runBot(String bot_token, String bot_username) {
+    public void startBot(String bot_token, String bot_username) {
         try {
             new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler(this, bot_token, bot_username));
         } catch (TelegramApiException e) {
