@@ -20,8 +20,8 @@ public class ViewCargoService implements CargoService {
     }
 
     @Override
-    public String runService(String fileName) {
-        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + fileName);
+    public String runService(String params) {
+        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + params);
         FileValidation fileValidation = new FileValidation(localFile);
 
         if (fileValidation.isValid()) {
