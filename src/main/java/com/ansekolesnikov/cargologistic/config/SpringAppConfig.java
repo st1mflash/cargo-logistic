@@ -36,7 +36,7 @@ public class SpringAppConfig {
 
     @Bean
     public TelegramService telegramService() {
-        telegramService = new TelegramService(loadCarService, viewCarService);
+        telegramService = new TelegramService();
         telegramService.runBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
         LOGGER.info("Сервис работы телеграм бота - успешно запущен!");
         return telegramService;

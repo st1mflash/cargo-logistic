@@ -16,13 +16,13 @@ public class TelegramService {
     private String BOT_USER_NAME;
     private String BOT_TOKEN;
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
-    private final LoadCarService loadCarService;
-    private final ViewCarService viewCarService;
-
     @Autowired
-    public TelegramService(LoadCarService loadCarService, ViewCarService viewCarService) {
-        this.loadCarService = loadCarService;
-        this.viewCarService = viewCarService;
+    private LoadCarService loadCarService;
+    @Autowired
+    private ViewCarService viewCarService;
+
+
+    public TelegramService() {
     }
 
     public void runBot(String bot_token, String bot_username) {
