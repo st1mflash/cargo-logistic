@@ -39,6 +39,7 @@ public class LoadCargoServiceUtils extends ServiceUtils {
     public List<Car> loadCars(List<Pack> packList, int countCars, String algorithm) {
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
+        CarUtils carUtils = new CarUtils();
         do {
             Car car = new Car();
             listCars.add(car);
@@ -47,7 +48,7 @@ public class LoadCargoServiceUtils extends ServiceUtils {
                     .collect(Collectors.toList());
 
             for (Pack pack : packList) {
-                car.loadPack(pack, algorithm);
+                carUtils.loadPackToCar(car, pack, algorithm);
             }
             if (localCarCount > 0) {
                 if (new CarUtils().calcPercentLoad(car) == 0) {

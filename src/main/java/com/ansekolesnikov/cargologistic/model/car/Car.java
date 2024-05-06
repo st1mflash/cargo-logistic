@@ -23,22 +23,6 @@ public class Car {
         initCargoFromString(JSONObj.getString("cargo"));
     }
 
-    public void loadPack(Pack pack, String algorithm) {
-        switch (algorithm) {
-            case "max":
-                new LoadAlgorithmMax().load(this, pack);
-                break;
-            case "half":
-                new LoadAlgorithmHalf().load(this, pack);
-                break;
-            case "type":
-                new LoadAlgorithmType().load(this, pack);
-                break;
-            default:
-                break;
-        }
-    }
-
     public void initCargoFromString(String schemeString) {
         int index = 0;
         for (int i = 0; i < Car.HEIGHT; i++) {

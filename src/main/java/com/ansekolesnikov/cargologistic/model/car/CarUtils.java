@@ -1,5 +1,8 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
+import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmHalf;
+import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmMax;
+import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmType;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 
 import java.util.Arrays;
@@ -39,5 +42,21 @@ public class CarUtils {
     public int calcCountThisTypePackOnCar(Car car, int cargoPackageType) {
         String loadToString = Arrays.deepToString(car.getCargo()).replaceAll("\\D", "");
         return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;
+    }
+
+    public void loadPackToCar(Car car, Pack pack, String algorithm) {
+        switch (algorithm) {
+            case "max":
+                new LoadAlgorithmMax().load(car, pack);
+                break;
+            case "half":
+                new LoadAlgorithmHalf().load(car, pack);
+                break;
+            case "type":
+                new LoadAlgorithmType().load(car, pack);
+                break;
+            default:
+                break;
+        }
     }
 }
