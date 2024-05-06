@@ -8,29 +8,41 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LoadAlgorithmMaxTest {
+public class LoadAlgorithmTypeTest {
     @Test
-    public void testLoad() {
+    public void testLoad_emptyCar() {
         Car car = new Car();
-        car.initCargoFromString("555551000000000000000000000000000000");
         CarUtils carUtils = new CarUtils();
         Pack pack = new Pack(3);
         int carPercentLoadBeforeTryLoad = carUtils.calcPercentLoad(car);
-        LoadAlgorithmMax loadAlgorithmMax = new LoadAlgorithmMax();
-        loadAlgorithmMax.load(car, pack);
+        LoadAlgorithmType loadAlgorithmType = new LoadAlgorithmType();
+        loadAlgorithmType.load(car, pack);
 
         assertTrue(carPercentLoadBeforeTryLoad < carUtils.calcPercentLoad(car));
     }
 
     @Test
-    public void testLoad_fullCar() {
+    public void testLoad_successfully() {
         Car car = new Car();
-        car.initCargoFromString("555551999666999666999333111111111111");
+        car.initCargoFromString("333000000000000000000000000000000000");
         CarUtils carUtils = new CarUtils();
         Pack pack = new Pack(3);
         int carPercentLoadBeforeTryLoad = carUtils.calcPercentLoad(car);
-        LoadAlgorithmMax loadAlgorithmMax = new LoadAlgorithmMax();
-        loadAlgorithmMax.load(car, pack);
+        LoadAlgorithmType loadAlgorithmType = new LoadAlgorithmType();
+        loadAlgorithmType.load(car, pack);
+
+        assertTrue(carPercentLoadBeforeTryLoad < carUtils.calcPercentLoad(car));
+    }
+
+    @Test
+    public void testLoad_notSuccessfully() {
+        Car car = new Car();
+        car.initCargoFromString("333000000000000000000000000000000000");
+        CarUtils carUtils = new CarUtils();
+        Pack pack = new Pack(4);
+        int carPercentLoadBeforeTryLoad = carUtils.calcPercentLoad(car);
+        LoadAlgorithmType loadAlgorithmType = new LoadAlgorithmType();
+        loadAlgorithmType.load(car, pack);
 
         assertEquals(carPercentLoadBeforeTryLoad, carUtils.calcPercentLoad(car));
     }
