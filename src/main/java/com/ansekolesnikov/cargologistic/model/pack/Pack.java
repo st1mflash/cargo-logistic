@@ -3,27 +3,11 @@ package com.ansekolesnikov.cargologistic.model.pack;
 public class Pack {
     private int carId = 0;
     private final int type;
-    private int width;
+    private final int width;
 
     public Pack(int type) {
         this.type = type;
-        initPackageWidth();
-    }
-
-    private void initPackageWidth() {
-        switch (type) {
-            case 1, 2, 3, 4, 5:
-                width = type;
-                break;
-            case 6, 9:
-                width = 3;
-                break;
-            case 7, 8:
-                width = 4;
-                break;
-            default:
-                break;
-        }
+        this.width = new PackUtils().calcPackageWidthByType(type);
     }
 
     public void setCarId(int carId) {
