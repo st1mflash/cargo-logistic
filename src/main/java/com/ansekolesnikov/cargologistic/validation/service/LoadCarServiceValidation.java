@@ -4,6 +4,7 @@ import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
+import lombok.Getter;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class LoadCarServiceValidation {
     private final LocalFile localFile;
     private final String algorithm;
     private final int countCars;
+    @Getter
     private String userErrorMessage;
     public LoadCarServiceValidation (LocalFile localFile, String algorithm, int countCars) {
         this.localFile = localFile;
@@ -44,8 +46,5 @@ public class LoadCarServiceValidation {
         } else {
             return true;
         }
-    }
-    public String getUserErrorMessage() {
-        return userErrorMessage;
     }
 }

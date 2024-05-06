@@ -1,5 +1,8 @@
 package com.ansekolesnikov.cargologistic.model.pack;
 
+import lombok.Getter;
+
+@Getter
 public class Pack {
     private int carId = 0;
     private final int type;
@@ -14,15 +17,4 @@ public class Pack {
         this.carId = carId;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public int getType() {
-        return type;
-    }
 }

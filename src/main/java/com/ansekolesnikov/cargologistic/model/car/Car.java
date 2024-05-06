@@ -4,18 +4,19 @@ import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmHalf;
 import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmMax;
 import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmType;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 
 import java.util.Random;
 
+@Getter
+@NoArgsConstructor
 public class Car {
     public static final int WIDTH = 6;
     public static final int HEIGHT = 6;
     private final int[][] cargo = new int[HEIGHT][WIDTH];
     private int id = new Random().nextInt(1000000);
-
-    public Car() {
-    }
 
     public Car(JSONObject JSONObj) {
         id = Integer.parseInt(JSONObj.getString("id"));
@@ -38,14 +39,6 @@ public class Car {
         }
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int[][] getCargo() {
-        return cargo;
-    }
-
     public void initCargoFromString(String schemeString) {
         int index = 0;
         for (int i = 0; i < Car.HEIGHT; i++) {
@@ -54,5 +47,4 @@ public class Car {
             }
         }
     }
-
 }

@@ -1,8 +1,11 @@
 package com.ansekolesnikov.cargologistic.validation;
 
+import lombok.Getter;
+
 public class AlgorithmValidation {
-    private final String algorithm;
+    @Getter
     private String userErrorMessage, logErrorMessage;
+    private final String algorithm;
 
     public AlgorithmValidation(String algorithm) {
         this.algorithm = algorithm.toLowerCase();
@@ -25,11 +28,4 @@ public class AlgorithmValidation {
         }
     }
 
-    public String getUserErrorMessage() {
-        return userErrorMessage;
-    }
-
-    public String getLogErrorMessage() {
-        return logErrorMessage;
-    }
 }

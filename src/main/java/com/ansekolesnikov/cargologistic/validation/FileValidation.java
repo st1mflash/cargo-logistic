@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
+import lombok.Getter;
 import org.apache.log4j.Logger;
 
 import java.nio.file.Files;
@@ -9,6 +10,7 @@ import java.nio.file.Paths;
 public class FileValidation {
     private static final Logger LOGGER = Logger.getLogger(FileValidation.class.getName());
     private final String pathFile, nameFile, formatFile;
+    @Getter
     private String userErrorMessage;
 
     public FileValidation(LocalFile localFile) {
@@ -43,7 +45,4 @@ public class FileValidation {
         }
     }
 
-    public String getUserErrorMessage() {
-        return userErrorMessage;
-    }
 }

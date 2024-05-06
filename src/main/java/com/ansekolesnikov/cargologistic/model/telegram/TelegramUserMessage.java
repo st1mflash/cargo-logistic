@@ -1,7 +1,9 @@
 package com.ansekolesnikov.cargologistic.model.telegram;
 
+import lombok.Getter;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+@Getter
 public class TelegramUserMessage {
     private final Message message;
     private final Long chatId;
@@ -29,15 +31,4 @@ public class TelegramUserMessage {
         return this.text.toLowerCase().split(" ")[3];
     }
 
-    public Message getMessage() {
-        return message;
-    }
-
-    public Long getChatId() {
-        return chatId;
-    }
-
-    public String getText() {
-        return text;
-    }
 }
