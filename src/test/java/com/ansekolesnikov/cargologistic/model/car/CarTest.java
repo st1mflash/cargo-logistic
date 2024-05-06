@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.model;
+package com.ansekolesnikov.cargologistic.model.car;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarStringInfoUtils;
