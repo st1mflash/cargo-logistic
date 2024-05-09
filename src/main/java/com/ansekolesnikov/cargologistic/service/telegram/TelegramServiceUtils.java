@@ -1,6 +1,7 @@
-package com.ansekolesnikov.cargologistic.service.utils;
+package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.service.ServiceUtils;
 import org.springframework.stereotype.Component;
 
 @Component

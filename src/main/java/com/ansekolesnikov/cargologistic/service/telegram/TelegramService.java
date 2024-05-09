@@ -2,8 +2,9 @@ package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
-import com.ansekolesnikov.cargologistic.service.utils.TelegramServiceUtils;
+import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
@@ -20,6 +21,8 @@ public class TelegramService {
     private LoadCargoService loadCargoService;
     @Autowired
     private ViewCargoService viewCargoService;
+    @Autowired
+    private PackService packService;
     @Autowired
     private TelegramServiceUtils serviceUtils;
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
@@ -46,6 +49,10 @@ public class TelegramService {
 
                 params = inputMessage.getInputFileName();
                 return serviceUtils.formatToCodeStyle(viewCargoService.runService(params));
+
+            case "pack":
+                params = serviceUtils.getStringParams(inputMessage);
+                return serviceUtils.formatToCodeStyle(packService.runService(params));
 
             default:
                 LOGGER.error("Не удалось определить введенную команду. Telegram ID пользователя: '" + inputMessage.getChatId() + "', текст сообщения: '" + inputMessage.getText() + "'");

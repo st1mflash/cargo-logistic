@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.service.cargo.view;
 
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
-import com.ansekolesnikov.cargologistic.service.utils.ViewCargoServiceUtils;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.utils;
+package com.ansekolesnikov.cargologistic.service;
 
 import org.springframework.stereotype.Component;
 

@@ -1,14 +1,16 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
+import java.util.Objects;
+
 public class CarStringInfoUtils {
     public String getCargo(Car car) {
-        int[][] cargo = car.getCargo();
+        String[][] cargo = car.getCargo();
         StringBuilder cargoInfo = new StringBuilder();
 
         for (int i = Car.HEIGHT - 1; i >= 0; i--) {
             cargoInfo.append("+");
             for (int j = 0; j < Car.WIDTH; j++) {
-                if (cargo[i][j] == 0) {
+                if (Objects.equals(cargo[i][j], "0")) {
                     cargoInfo.append(" ");
                 } else {
                     cargoInfo.append(cargo[i][j]);

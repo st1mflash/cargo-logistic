@@ -5,7 +5,6 @@ import com.ansekolesnikov.cargologistic.database.pack.QueryPackDatabase;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
-import com.ansekolesnikov.cargologistic.service.utils.LoadCargoServiceUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
 import lombok.NoArgsConstructor;

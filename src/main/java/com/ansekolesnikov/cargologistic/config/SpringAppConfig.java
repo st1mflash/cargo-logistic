@@ -3,6 +3,7 @@ package com.ansekolesnikov.cargologistic.config;
 import com.ansekolesnikov.cargologistic.database.car.QueryCarDatabase;
 import com.ansekolesnikov.cargologistic.database.pack.QueryPackDatabase;
 import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
@@ -31,6 +32,7 @@ public class SpringAppConfig {
     private DatabaseService databaseService;
     private QueryCarDatabase queryCarDatabase;
     private QueryPackDatabase queryPackDatabase;
+    private PackService packService;
 
 
     @Bean
@@ -44,18 +46,6 @@ public class SpringAppConfig {
 
         LOGGER.info("Сервис работы базы данных - успешно запущен.");
         return databaseService;
-    }
-
-    @Bean
-    public ViewCargoService viewCargoService() {
-        LOGGER.info("Сервис получения полной информации о грузовиках - успешно запущен.");
-        return viewCargoService;
-    }
-
-    @Bean
-    public LoadCargoService loadCargoService() {
-        LOGGER.info("Сервис формирования поставки грузами из файла - успешно запущен.");
-        return loadCargoService;
     }
 
     @Bean

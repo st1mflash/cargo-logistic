@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.utils;
+package com.ansekolesnikov.cargologistic.service.cargo.load;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarStringInfoUtils;
@@ -6,6 +6,7 @@ import com.ansekolesnikov.cargologistic.model.car.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.service.ServiceUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -58,7 +59,6 @@ public class LoadCargoServiceUtils extends ServiceUtils {
                 }
             }
             localCarCount--;
-
         } while (
                 packList.stream()
                         .anyMatch(pack -> pack.getCarId() == 0)
