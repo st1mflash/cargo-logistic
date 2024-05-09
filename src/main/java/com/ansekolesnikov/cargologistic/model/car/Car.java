@@ -1,9 +1,5 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
-import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmHalf;
-import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmMax;
-import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
