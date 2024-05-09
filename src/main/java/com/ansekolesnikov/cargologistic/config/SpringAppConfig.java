@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.database.car.QueryCarDatabase;
+import com.ansekolesnikov.cargologistic.database.pack.InsertPackDatabase;
 import com.ansekolesnikov.cargologistic.database.pack.QueryPackDatabase;
 import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
@@ -29,10 +30,11 @@ public class SpringAppConfig {
     private LoadCargoService loadCargoService = new LoadCargoService();
     private ViewCargoService viewCargoService = new ViewCargoService();
     private TelegramService telegramService = new TelegramService();
+    private PackService packService = new PackService();
     private DatabaseService databaseService;
     private QueryCarDatabase queryCarDatabase;
     private QueryPackDatabase queryPackDatabase;
-    private PackService packService;
+    private InsertPackDatabase insertPackDatabase;
 
 
     @Bean
@@ -41,8 +43,13 @@ public class SpringAppConfig {
         queryPackDatabase = new QueryPackDatabase(databaseService);
         queryCarDatabase = new QueryCarDatabase(databaseService);
 
+        insertPackDatabase = new InsertPackDatabase(databaseService);
+        //packService = new PackService(insertPackDatabase);
+
         loadCargoService.setQueryPackDatabase(queryPackDatabase);
         loadCargoService.setQueryCarDatabase(queryCarDatabase);
+
+        packService.setInsertPackDatabase(insertPackDatabase);
 
         LOGGER.info("Сервис работы базы данных - успешно запущен.");
         return databaseService;
@@ -51,7 +58,14 @@ public class SpringAppConfig {
     @Bean
     public TelegramService telegramService() {
         telegramService.startBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
+        //telegramService.setPackService(packService);
         LOGGER.info("Сервис работы телеграм ботов - успешно запущен.");
         return telegramService;
+    }
+
+    @Bean
+    public PackService packService() {
+        packService = new PackService(insertPackDatabase);
+        return packService;
     }
 }

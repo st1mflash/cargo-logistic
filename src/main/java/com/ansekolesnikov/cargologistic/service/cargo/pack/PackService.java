@@ -1,12 +1,26 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
+import com.ansekolesnikov.cargologistic.database.pack.InsertPackDatabase;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+@NoArgsConstructor
 @Service
+@Getter
+@Setter
 public class PackService implements CargoService {
+    InsertPackDatabase insertPackDatabase;
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
+    public PackService(
+            InsertPackDatabase insertPackDatabase
+    ) {
+        this.insertPackDatabase = insertPackDatabase;
+    }
     @Override
     public String runService(String params) {
         String operation = packServiceUtils.getPackOperationFromStringParams(params);
@@ -30,7 +44,7 @@ public class PackService implements CargoService {
         return null;
     }
 
-    private String createPack(
+    private void createPack(
             String namePack,
             String widthPack,
             String heightPack,
@@ -44,7 +58,6 @@ public class PackService implements CargoService {
                 schemePack,
                 codePack.charAt(0)
         );
-        System.out.println("WOOOOOOW");
-        return "";
+        insertPackDatabase.insert(pack);
     }
 }

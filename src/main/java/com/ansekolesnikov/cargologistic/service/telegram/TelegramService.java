@@ -7,6 +7,7 @@ import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @NoArgsConstructor
+@Setter
 @Service
 public class TelegramService {
     @Autowired
@@ -51,7 +53,7 @@ public class TelegramService {
                 return serviceUtils.formatToCodeStyle(viewCargoService.runService(params));
 
             case "pack":
-                params = serviceUtils.getStringParams(inputMessage);
+                params = serviceUtils.getPackParamsFromString(inputMessage);
                 return serviceUtils.formatToCodeStyle(packService.runService(params));
 
             default:

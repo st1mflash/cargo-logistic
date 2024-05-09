@@ -12,4 +12,13 @@ public class TelegramServiceUtils extends ServiceUtils {
     public String formatToCodeStyle(String text) {
         return "```Ответ:\n" + text + "```";
     }
+
+    public String getPackParamsFromString(TelegramUserMessage message){
+        return message.getInputOperation()
+                + " " + message.getInputPackName()
+                + " " + message.getInputPackCode()
+                + " " + message.getInputPackWidth()
+                + " " + message.getInputPackHeight()
+                + " " + message.getInputPackScheme();
+    }
 }
