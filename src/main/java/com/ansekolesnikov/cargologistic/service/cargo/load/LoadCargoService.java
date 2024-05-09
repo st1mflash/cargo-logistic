@@ -1,17 +1,23 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load;
 
+import com.ansekolesnikov.cargologistic.database.car.QueryCarDatabase;
+import com.ansekolesnikov.cargologistic.database.pack.QueryPackDatabase;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.utils.LoadCargoServiceUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@NoArgsConstructor
+@Setter
 @Service
 public class LoadCargoService implements CargoService {
     @Value("${directory.pack.import}")
@@ -19,9 +25,8 @@ public class LoadCargoService implements CargoService {
     @Autowired
     LoadCargoServiceUtils serviceUtils;
 
-    public LoadCargoService() {
-
-    }
+    QueryPackDatabase queryPackDatabase;
+    QueryCarDatabase queryCarDatabase;
 
     @Override
     public String runService(String params) {
