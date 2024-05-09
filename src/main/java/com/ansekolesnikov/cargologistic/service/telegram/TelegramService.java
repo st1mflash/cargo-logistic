@@ -5,6 +5,7 @@ import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.utils.TelegramServiceUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
+import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+@NoArgsConstructor
 @Service
 public class TelegramService {
     @Autowired
@@ -21,10 +23,6 @@ public class TelegramService {
     @Autowired
     private TelegramServiceUtils serviceUtils;
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
-
-
-    public TelegramService() {
-    }
 
     public void startBot(String bot_token, String bot_username) {
         try {

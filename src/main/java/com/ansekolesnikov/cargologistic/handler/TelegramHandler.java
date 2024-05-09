@@ -14,12 +14,16 @@ public class TelegramHandler extends TelegramLongPollingBot {
     private final String TOKEN;
     private final String BOT_USER_NAME;
 
-    public TelegramHandler(TelegramService telegramService, String bot_token, String bot_username) {
+    public TelegramHandler(
+            TelegramService telegramService,
+            String bot_token,
+            String bot_username
+    ) {
         this.telegramService = telegramService;
         this.BOT_USER_NAME = bot_username;
         this.TOKEN = bot_token;
 
-        LOGGER.info("Телеграм бот @" + this.BOT_USER_NAME + " запущен и готов принимать запросы!");
+        LOGGER.info("Телеграм бот @" + this.BOT_USER_NAME + " запущен и готов принимать запросы.");
     }
 
     @Override
