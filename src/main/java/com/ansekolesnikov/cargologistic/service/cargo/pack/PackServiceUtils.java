@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
+import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 
 public class PackServiceUtils {
@@ -8,33 +9,40 @@ public class PackServiceUtils {
         return inputParams.split(" ")[0];
     }
 
-    public String getPackNameFromStringParams(String inputParams){
-        return inputParams.split(" ")[1];
-    }
-
-    public String getPackCodeFromStringParams(String inputParams){
+    private String getPackNameFromStringParams(String inputParams){
         return inputParams.split(" ")[2];
     }
 
-    public String getPackWidthFromStringParams(String inputParams){
+    private String getPackCodeFromStringParams(String inputParams){
         return inputParams.split(" ")[3];
     }
 
-    public String getPackHeightFromStringParams(String inputParams){
+    private String getPackWidthFromStringParams(String inputParams){
         return inputParams.split(" ")[4];
     }
 
-    public String getPackSchemeFromStringParams(String inputParams){
+    private String getPackHeightFromStringParams(String inputParams){
         return inputParams.split(" ")[5];
     }
 
-    public Pack createPackFromParams(String params){
+    private String getPackSchemeFromStringParams(String inputParams){
+        return inputParams.split(" ")[6];
+    }
+
+    public Pack createPackFromCommand(PackCommandLine command){
         return new Pack(
+                command.getNamePack(),
+                command.getWidthSchemePack(),
+                command.getHeightSchemePack(),
+                command.getSchemePack(),
+                command.getCodePack()
+                /*
                 this.getPackNameFromStringParams(params),
                 Integer.parseInt(this.getPackWidthFromStringParams(params)),
                 Integer.parseInt(this.getPackHeightFromStringParams(params)),
                 this.getPackSchemeFromStringParams(params),
                 this.getPackCodeFromStringParams(params).charAt(0)
+                */
         );
     }
 }

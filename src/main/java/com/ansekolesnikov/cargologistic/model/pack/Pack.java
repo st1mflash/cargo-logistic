@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@Setter
 public class Pack {
-    @Setter
     private int carId = 0;
     private int id = 0;
     private String type;

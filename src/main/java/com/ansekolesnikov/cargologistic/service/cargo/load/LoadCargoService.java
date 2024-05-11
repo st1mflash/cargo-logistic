@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load;
 
+import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
@@ -45,5 +46,10 @@ public class LoadCargoService implements CargoService {
         } else {
             return serviceValidation.getUserErrorMessage();
         }
+    }
+
+    @Override
+    public String runService(CommandLine commandLine) {
+        return null;
     }
 }

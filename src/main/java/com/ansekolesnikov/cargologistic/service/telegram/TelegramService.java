@@ -1,6 +1,8 @@
 package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
+import com.ansekolesnikov.cargologistic.model.command.CommandLine;
+import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
@@ -53,8 +55,9 @@ public class TelegramService {
                 return serviceUtils.formatToCodeStyle(viewCargoService.runService(params));
 
             case "pack":
-                params = serviceUtils.getPackParamsFromString(inputMessage);
-                return serviceUtils.formatToCodeStyle(packService.runService(params));
+                //params = serviceUtils.getPackParamsFromString(inputMessage);
+                CommandLine commandLine = new CommandLine(inputMessage.getText());
+                return serviceUtils.formatToCodeStyle(packService.runService(commandLine));
 
             default:
                 LOGGER.error("Не удалось определить введенную команду. Telegram ID пользователя: '" + inputMessage.getChatId() + "', текст сообщения: '" + inputMessage.getText() + "'");

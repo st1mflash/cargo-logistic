@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.cargo.view;
 
+import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
@@ -28,5 +29,10 @@ public class ViewCargoService implements CargoService {
         } else {
             return fileValidation.getUserErrorMessage();
         }
+    }
+
+    @Override
+    public String runService(CommandLine commandLine) {
+        return null;
     }
 }
