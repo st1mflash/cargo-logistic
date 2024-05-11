@@ -1,5 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
+
 public class PackServiceUtils {
 
     public String getPackOperationFromStringParams(String inputParams){
@@ -24,5 +26,15 @@ public class PackServiceUtils {
 
     public String getPackSchemeFromStringParams(String inputParams){
         return inputParams.split(" ")[5];
+    }
+
+    public Pack createPackFromParams(String params){
+        return new Pack(
+                this.getPackNameFromStringParams(params),
+                Integer.parseInt(this.getPackWidthFromStringParams(params)),
+                Integer.parseInt(this.getPackHeightFromStringParams(params)),
+                this.getPackSchemeFromStringParams(params),
+                this.getPackCodeFromStringParams(params).charAt(0)
+        );
     }
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 public class Pack {
     @Setter
     private int carId = 0;
+    private int id;
     private String type;
     private String name;
     private int width;

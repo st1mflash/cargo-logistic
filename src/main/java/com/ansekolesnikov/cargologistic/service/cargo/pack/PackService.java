@@ -1,12 +1,11 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
-import com.ansekolesnikov.cargologistic.database.pack.InsertPackDatabase;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
+import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
@@ -14,26 +13,21 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 public class PackService implements CargoService {
-    InsertPackDatabase insertPackDatabase;
+    DatabaseService databaseService;
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
     public PackService(
-            InsertPackDatabase insertPackDatabase
+            DatabaseService databaseService
     ) {
-        this.insertPackDatabase = insertPackDatabase;
+        this.databaseService = databaseService;
     }
     @Override
     public String runService(String params) {
         String operation = packServiceUtils.getPackOperationFromStringParams(params);
         switch (operation) {
             case "insert":
-                createPack(
-                        packServiceUtils.getPackNameFromStringParams(params),
-                        packServiceUtils.getPackWidthFromStringParams(params),
-                        packServiceUtils.getPackHeightFromStringParams(params),
-                        packServiceUtils.getPackSchemeFromStringParams(params),
-                        packServiceUtils.getPackCodeFromStringParams(params)
+                return insertPackToDatabase(
+                       packServiceUtils.createPackFromParams(params)
                 );
-                break;
             case "update":
                 break;
             case "delete":
@@ -44,20 +38,12 @@ public class PackService implements CargoService {
         return null;
     }
 
-    private void createPack(
-            String namePack,
-            String widthPack,
-            String heightPack,
-            String schemePack,
-            String codePack
-            ){
-        Pack pack = new Pack(
-                namePack,
-                Integer.parseInt(widthPack),
-                Integer.parseInt(heightPack),
-                schemePack,
-                codePack.charAt(0)
-        );
-        insertPackDatabase.insert(pack);
+    private String insertPackToDatabase(Pack pack){
+        databaseService.getOperationsDatabase().getPackOperations().insert(pack);
+        return "Посылка '" + pack.getName() + "' успешно создана.";
+    }
+
+    private String deletePackFromDatabase(Pack pack){
+        return "Посылка '" + pack.getName() + "' успешно удалена.";
     }
 }

@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.car;
 
+import com.ansekolesnikov.cargologistic.database.OperationsDatabase;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

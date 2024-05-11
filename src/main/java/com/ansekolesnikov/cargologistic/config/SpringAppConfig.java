@@ -32,24 +32,11 @@ public class SpringAppConfig {
     private TelegramService telegramService = new TelegramService();
     private PackService packService = new PackService();
     private DatabaseService databaseService;
-    private QueryCarDatabase queryCarDatabase;
-    private QueryPackDatabase queryPackDatabase;
-    private InsertPackDatabase insertPackDatabase;
 
 
     @Bean
     public DatabaseService databaseService() {
         databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
-        queryPackDatabase = new QueryPackDatabase(databaseService);
-        queryCarDatabase = new QueryCarDatabase(databaseService);
-
-        insertPackDatabase = new InsertPackDatabase(databaseService);
-        //packService = new PackService(insertPackDatabase);
-
-        loadCargoService.setQueryPackDatabase(queryPackDatabase);
-        loadCargoService.setQueryCarDatabase(queryCarDatabase);
-
-        packService.setInsertPackDatabase(insertPackDatabase);
 
         LOGGER.info("Сервис работы базы данных - успешно запущен.");
         return databaseService;
@@ -65,7 +52,7 @@ public class SpringAppConfig {
 
     @Bean
     public PackService packService() {
-        packService = new PackService(insertPackDatabase);
+        packService = new PackService(databaseService);
         return packService;
     }
 }

@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.pack;
 
+import com.ansekolesnikov.cargologistic.database.OperationsDatabase;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
@@ -11,15 +12,17 @@ import java.sql.Statement;
 
 @NoArgsConstructor
 @Getter
-@Component
+//@Component
 public class InsertPackDatabase {
     private DatabaseService databaseService;
     private Statement statement;
+
 
     public InsertPackDatabase(DatabaseService databaseService) {
         this.databaseService = databaseService;
         this.statement = databaseService.getStatement();
     }
+
     public void insert(Pack pack) {
         try {
             statement.executeUpdate(

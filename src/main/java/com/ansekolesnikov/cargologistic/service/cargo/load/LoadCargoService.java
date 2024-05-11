@@ -24,8 +24,8 @@ public class LoadCargoService implements CargoService {
     @Autowired
     LoadCargoServiceUtils serviceUtils;
 
-    QueryPackDatabase queryPackDatabase;
-    QueryCarDatabase queryCarDatabase;
+    //QueryPackDatabase queryPackDatabase;
+    //QueryCarDatabase queryCarDatabase;
 
     @Override
     public String runService(String params) {

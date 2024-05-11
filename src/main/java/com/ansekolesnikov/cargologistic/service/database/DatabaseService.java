@@ -1,7 +1,15 @@
 package com.ansekolesnikov.cargologistic.service.database;
 
+import com.ansekolesnikov.cargologistic.database.OperationsDatabase;
+import com.ansekolesnikov.cargologistic.database.car.DeleteCarDatabase;
+import com.ansekolesnikov.cargologistic.database.car.InsertCarDatabase;
+import com.ansekolesnikov.cargologistic.database.car.QueryCarDatabase;
+import com.ansekolesnikov.cargologistic.database.pack.DeletePackDatabase;
+import com.ansekolesnikov.cargologistic.database.pack.InsertPackDatabase;
+import com.ansekolesnikov.cargologistic.database.pack.QueryPackDatabase;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +21,13 @@ import java.sql.Statement;
 @NoArgsConstructor
 @Service
 @Getter
+@Setter
 public class DatabaseService {
     private String connection_url;
     private String connection_username;
     private String connection_password;
+
+    private OperationsDatabase operationsDatabase;
 
     private Connection connection;
     public Statement statement;
@@ -34,6 +45,9 @@ public class DatabaseService {
         try {
             connection = DriverManager.getConnection(connection_url, connection_username, connection_password);
             statement = connection.createStatement();
+
+            operationsDatabase = new OperationsDatabase(this);
+
         } catch (SQLException e) {
             LOGGER.error("Ошибка подключения к базе данных " + e);
             throw new RuntimeException(e);
