@@ -28,6 +28,8 @@ public class TelegramService {
     @Autowired
     private PackService packService;
     @Autowired
+    private CarService carService;
+    @Autowired
     private TelegramServiceUtils serviceUtils;
     private static final Logger LOGGER = Logger.getLogger(TelegramService.class.getName());
 
@@ -41,6 +43,7 @@ public class TelegramService {
 
     public String getAnswer(TelegramUserMessage inputMessage) {
         String params;
+        CommandLine commandLine;
         switch (inputMessage.getInputCommand()) {
             case "load":
                 LOGGER.info("Запрос загрузки из файла '" + inputMessage.getInputFileName() + "' алгоритмом '" + inputMessage.getInputAlgorithm() + "' в " + inputMessage.getInputCountCars() + " ед. транспорта.");
@@ -54,10 +57,13 @@ public class TelegramService {
                 params = inputMessage.getInputFileName();
                 return serviceUtils.formatToCodeStyle(viewCargoService.runService(params));
 
+            case "car":
+                commandLine = new CommandLine(inputMessage.getText());
+                //return serviceUtils.formatToCodeStyle()
+
             case "pack":
-                //params = serviceUtils.getPackParamsFromString(inputMessage);
-                CommandLine commandLine = new CommandLine(inputMessage.getText());
-                return serviceUtils.formatToCodeStyle(packService.runService(commandLine));
+                commandLine = new CommandLine(inputMessage.getText());
+                return serviceUtils.formatToCodeStyle(carService.runService(commandLine));
 
             default:
                 LOGGER.error("Не удалось определить введенную команду. Telegram ID пользователя: '" + inputMessage.getChatId() + "', текст сообщения: '" + inputMessage.getText() + "'");

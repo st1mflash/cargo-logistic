@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CarStringInfoUtilsTest {
+public class CarToStringUtilsTest {
     @Test
     void testGetCargo() {
         Car car = new Car();
         car.initCargoFromString("5555514444223330000000000000000000000000");
-        CarStringInfoUtils carStringInfoUtils = new CarStringInfoUtils();
+        CarToStringUtils carToStringUtils = new CarToStringUtils();
 
         String expected =
                   "+      +" +
@@ -20,7 +20,7 @@ public class CarStringInfoUtilsTest {
                 "\n+555551+" +
                 "\n++++++++\n"
                 ;
-        String actual = carStringInfoUtils.getCargo(car);
+        String actual = carToStringUtils.toStringCarCargoScheme(car);
         assertEquals(expected, actual);
 
         car.initCargoFromString("0000000000000000000000000000000000000000");
@@ -33,7 +33,7 @@ public class CarStringInfoUtilsTest {
                         "\n+      +" +
                         "\n++++++++\n"
         ;
-        actual = carStringInfoUtils.getCargo(car);
+        actual = carToStringUtils.toStringCarCargoScheme(car);
         assertEquals(expected, actual);
 
         car.initCargoFromString("555550555550555550555550555550555550");
@@ -46,7 +46,7 @@ public class CarStringInfoUtilsTest {
                         "\n+55555 +" +
                         "\n++++++++\n"
         ;
-        actual = carStringInfoUtils.getCargo(car);
+        actual = carToStringUtils.toStringCarCargoScheme(car);
         assertEquals(expected, actual);
     }
 
@@ -54,7 +54,7 @@ public class CarStringInfoUtilsTest {
     void testGetFullInfo() {
         Car car = new Car();
         car.initCargoFromString("5555514444223330000000000000000000000000");
-        CarStringInfoUtils carStringInfoUtils = new CarStringInfoUtils();
+        CarToStringUtils carToStringUtils = new CarToStringUtils();
 
         String expected = "Идентификатор: #" + car.getId() + "\n" +
                 "Параметры кузова: 6х6\n" +
@@ -75,7 +75,7 @@ public class CarStringInfoUtilsTest {
                 "++++++++\n" +
                 "\n\n";
 
-        String actual = carStringInfoUtils.getFullInfo(car);
+        String actual = carToStringUtils.toStringCarInfo(car);
         System.out.println(expected);
         System.out.println(actual);
 

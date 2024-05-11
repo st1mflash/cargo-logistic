@@ -21,7 +21,7 @@ public class PackDatabaseOperations {
     }
 
     public Pack queryById(int id) {
-        return queryPackDatabaseOperation.queryPackById(id);
+        return queryPackDatabaseOperation.queryById(id);
     }
 
     public void insert(Pack pack) {

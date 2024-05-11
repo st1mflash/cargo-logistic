@@ -20,6 +20,6 @@ public class OperationsDatabase {
         this.databaseService = databaseService;
 
         this.packOperations = new PackDatabaseOperations(databaseService);
-        this.carOperations = new CarDatabaseOperations();
+        this.carOperations = new CarDatabaseOperations(databaseService);
     }
 }

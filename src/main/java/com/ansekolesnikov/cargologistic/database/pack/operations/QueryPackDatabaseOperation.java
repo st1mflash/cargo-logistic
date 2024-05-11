@@ -22,10 +22,10 @@ public class QueryPackDatabaseOperation {
         this.statement = databaseService.getStatement();
     }
 
-    public Pack queryPackById(int id) {
+    public Pack queryById(int id) {
         try {
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM pack WHERE id = " + id
+                    "SELECT * FROM pack_model WHERE id = " + id
             );
             if (resultSet.next()) {
                 return new Pack(

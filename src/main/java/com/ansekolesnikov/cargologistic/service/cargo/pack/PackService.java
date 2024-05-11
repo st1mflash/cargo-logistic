@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 @Setter
 public class PackService implements CargoService {
     DatabaseService databaseService;
+    private PackCommandLine packCommandLine;
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
     private PackUtils packUtils = new PackUtils();
-    private PackCommandLine packCommandLine;
 
     public PackService(
             DatabaseService databaseService

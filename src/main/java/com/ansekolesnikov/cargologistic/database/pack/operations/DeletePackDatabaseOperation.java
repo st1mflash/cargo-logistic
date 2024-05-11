@@ -22,7 +22,7 @@ public class DeletePackDatabaseOperation {
     public void delete(Pack pack) {
         try {
             statement.executeUpdate(
-                    "DELETE FROM pack WHERE id = '" + pack.getId() + "';");
+                    "DELETE FROM pack_model WHERE id = '" + pack.getId() + "';");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

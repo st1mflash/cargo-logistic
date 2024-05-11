@@ -23,7 +23,7 @@ public class InsertPackDatabaseOperation {
     public void insert(Pack pack) {
         try {
             ResultSet resultSet = statement.executeQuery(
-                    "INSERT INTO pack (name, code, scheme, scheme_width, scheme_height) " +
+                    "INSERT INTO pack_model (name, code, scheme, scheme_width, scheme_height) " +
                             "VALUES (" +
                             "'" + pack.getName() + "', " +
                             "'" + pack.getCode() + "'," +

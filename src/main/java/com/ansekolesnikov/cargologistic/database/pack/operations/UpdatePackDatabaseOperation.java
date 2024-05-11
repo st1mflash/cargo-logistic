@@ -22,7 +22,7 @@ public class UpdatePackDatabaseOperation {
     public void update(Pack pack) {
         try {
             statement.executeUpdate(
-                    "UPDATE pack SET " +
+                    "UPDATE pack_model SET " +
                             "name = '" + pack.getName() + "', " +
                             "code = '" + pack.getCode() + "', " +
                             "scheme = '" + pack.getScheme() + "', " +

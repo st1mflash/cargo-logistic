@@ -36,7 +36,6 @@ public class PackUtils {
                 } else {
                     packSchemeToString.append(pack.getCode());
                 }
-                System.out.println(j + " " + i + " - " + packScheme.charAt(i * pack.getWidth() + j));
             }
             packSchemeToString.append("+\n");
         }

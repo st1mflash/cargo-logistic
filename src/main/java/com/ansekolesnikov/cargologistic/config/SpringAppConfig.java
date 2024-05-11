@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.config;
 
+import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
@@ -27,6 +28,7 @@ public class SpringAppConfig {
     private LoadCargoService loadCargoService = new LoadCargoService();
     private ViewCargoService viewCargoService = new ViewCargoService();
     private TelegramService telegramService = new TelegramService();
+    private CarService carService = new CarService();
     private PackService packService = new PackService();
     private DatabaseService databaseService;
 
@@ -51,5 +53,11 @@ public class SpringAppConfig {
     public PackService packService() {
         packService = new PackService(databaseService);
         return packService;
+    }
+
+    @Bean
+    public CarService carService() {
+        carService = new CarService(databaseService);
+        return carService;
     }
 }

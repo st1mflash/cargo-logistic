@@ -1,9 +1,14 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
-public class CarStringInfoUtils {
-    public String getCargo(Car car) {
+@NoArgsConstructor
+@Component
+public class CarToStringUtils {
+    public String toStringCarCargoScheme(Car car) {
         String[][] cargo = car.getCargo();
         StringBuilder cargoInfo = new StringBuilder();
 
@@ -22,7 +27,7 @@ public class CarStringInfoUtils {
         return cargoInfo.toString();
     }
 
-    public String getFullInfo(Car car) {
+    public String toStringCarInfo(Car car) {
         StringBuilder fullInfoString = new StringBuilder(
                 "Идентификатор: #" + car.getId()
                         + "\nПараметры кузова: " + Car.WIDTH + "х" + Car.HEIGHT
@@ -34,7 +39,7 @@ public class CarStringInfoUtils {
             int countPackages = new CarUtils().calcCountThisTypePackOnCar(car, i);
             fullInfoString.append((countPackages != 0 ? "\n- тип '" + i + "': " + countPackages + " шт." : ""));
         }
-        fullInfoString.append("\nСхема:\n").append(new CarStringInfoUtils().getCargo(car)).append("\n\n");
+        fullInfoString.append("\nСхема:\n").append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n\n");
         return fullInfoString.toString();
     }
 }
