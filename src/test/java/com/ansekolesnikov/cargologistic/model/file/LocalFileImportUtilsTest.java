@@ -53,7 +53,7 @@ public class LocalFileImportUtilsTest {
 
         assertNotNull(cars);
         assertEquals(1, cars.size());
-        assertEquals(952472, cars.get(0).getId());
+        assertEquals(952472, cars.get(0).getIdModel());
         for (int i = 0; i < Car.HEIGHT; i++) {
             for (int j = 0; j < Car.WIDTH; j++) {
                 assertEquals(expectedArrCargo[i][j], cars.get(0).getCargo()[i][j]);

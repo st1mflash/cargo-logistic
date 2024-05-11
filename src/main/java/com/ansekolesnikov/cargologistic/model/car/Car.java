@@ -8,18 +8,27 @@ import java.util.Random;
 
 @Getter
 @Setter
-public class Car {
+public class Car extends CarModel {
     public static final int WIDTH = 6;
     public static final int HEIGHT = 6;
     private final String[][] cargo = new String[HEIGHT][WIDTH];
-    private int id;
-    private String name;
-    private String cargoScheme;
-    private int width;
-    private int height;
+    private int idCar;
+    //private int idModel;
+    //private String name;
+    //private String cargoScheme;
+    //private int cargoWidth;
+    //private int cargoHeight;
 
     public Car() {
-        id = new Random().nextInt(1000000);
+        //super();
+        /*
+        idModel = 0;
+        nameModel = "";
+        cargoWidthModel = 0;
+        cargoHeightModel = 0;
+        */
+
+        idCar = new Random().nextInt(1000000);
         for (int i = 0; i < Car.HEIGHT; i++) {
             for (int j = 0; j < Car.WIDTH; j++) {
                 cargo[i][j] = "0";
@@ -27,30 +36,34 @@ public class Car {
         }
     }
 
+    /*
     public Car(
             String name,
-            int width,
-            int height
+            int cargoWidth,
+            int cargoHeight
     ) {
-        this.name = name;
-        this.width = width;
-        this.height = height;
+        this.nameModel = name;
+        this.cargoWidthModel = cargoWidth;
+        this.cargoHeightModel = cargoHeight;
     }
+    */
 
+    /*
     public Car(
-            int id,
+            int idModel,
             String name,
-            int width,
-            int height
+            int cargoWidth,
+            int cargoHeight
     ) {
-        this.id = id;
-        this.name = name;
-        this.width = width;
-        this.height = height;
+        this.idModel = idModel;
+        this.nameModel = name;
+        this.cargoWidthModel = cargoWidth;
+        this.cargoHeightModel = cargoHeight;
     }
+    */
 
     public Car(JSONObject JSONObj) {
-        id = Integer.parseInt(JSONObj.getString("id"));
+        idCar = Integer.parseInt(JSONObj.getString("id"));
         initCargoFromString(JSONObj.getString("cargo"));
     }
 

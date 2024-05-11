@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.model.load_car;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
-import com.ansekolesnikov.cargologistic.model.car.CarUtils;
+import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 
 import java.util.Objects;
 
@@ -49,7 +49,7 @@ public class LoadPackUtils {
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
                     arrCargoScheme[i][j] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
                     return;
                 }
             }
@@ -66,7 +66,7 @@ public class LoadPackUtils {
                 ) {
                     arrCargoScheme[i][j] = pack.getType();
                     arrCargoScheme[i][j + 1] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
                     return;
                 }
             }
@@ -85,7 +85,7 @@ public class LoadPackUtils {
                     arrCargoScheme[i][j] = pack.getType();
                     arrCargoScheme[i][j + 1] = pack.getType();
                     arrCargoScheme[i][j + 2] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
                     return;
                 }
             }
@@ -106,7 +106,7 @@ public class LoadPackUtils {
                     arrCargoScheme[i][j + 1] = pack.getType();
                     arrCargoScheme[i][j + 2] = pack.getType();
                     arrCargoScheme[i][j + 3] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
                     return;
                 }
             }
@@ -129,7 +129,7 @@ public class LoadPackUtils {
                     arrCargoScheme[i][j + 2] = pack.getType();
                     arrCargoScheme[i][j + 3] = pack.getType();
                     arrCargoScheme[i][j + 4] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
 
                     return;
                 }
@@ -155,7 +155,7 @@ public class LoadPackUtils {
                     arrCargoScheme[i + 1][j] = pack.getType();
                     arrCargoScheme[i + 1][j + 1] = pack.getType();
                     arrCargoScheme[i + 1][j + 2] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
                     return;
                 }
             }
@@ -182,7 +182,7 @@ public class LoadPackUtils {
                     arrCargoScheme[i + 1][j] = pack.getType();
                     arrCargoScheme[i + 1][j + 1] = pack.getType();
                     arrCargoScheme[i + 1][j + 2] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
                     return;
                 }
             }
@@ -211,7 +211,7 @@ public class LoadPackUtils {
                     arrCargoScheme[i + 1][j + 1] = pack.getType();
                     arrCargoScheme[i + 1][j + 2] = pack.getType();
                     arrCargoScheme[i + 1][j + 3] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
 
                     return;
                 }
@@ -243,7 +243,7 @@ public class LoadPackUtils {
                     arrCargoScheme[i + 2][j] = pack.getType();
                     arrCargoScheme[i + 2][j + 1] = pack.getType();
                     arrCargoScheme[i + 2][j + 2] = pack.getType();
-                    pack.setCarId(car.getId());
+                    pack.setCarId(car.getIdCar());
                     return;
                 }
             }

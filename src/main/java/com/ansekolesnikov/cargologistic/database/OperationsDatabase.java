@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.database;
 
-import com.ansekolesnikov.cargologistic.database.car.CarDatabaseOperations;
+import com.ansekolesnikov.cargologistic.database.car_model.CarModelDatabaseOperations;
 import com.ansekolesnikov.cargologistic.database.pack.PackDatabaseOperations;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
@@ -14,12 +14,12 @@ public class OperationsDatabase {
     private DatabaseService databaseService;
 
     private PackDatabaseOperations packOperations;
-    private CarDatabaseOperations carOperations;
+    private CarModelDatabaseOperations carOperations;
 
     public OperationsDatabase(DatabaseService databaseService){
         this.databaseService = databaseService;
 
         this.packOperations = new PackDatabaseOperations(databaseService);
-        this.carOperations = new CarDatabaseOperations(databaseService);
+        this.carOperations = new CarModelDatabaseOperations(databaseService);
     }
 }

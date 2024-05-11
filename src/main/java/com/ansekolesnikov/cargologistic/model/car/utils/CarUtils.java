@@ -1,5 +1,6 @@
-package com.ansekolesnikov.cargologistic.model.car;
+package com.ansekolesnikov.cargologistic.model.car.utils;
 
+import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmHalf;
 import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmMax;
 import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmType;

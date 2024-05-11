@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
+import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,7 +57,7 @@ public class CarToStringUtilsTest {
         car.initCargoFromString("5555514444223330000000000000000000000000");
         CarToStringUtils carToStringUtils = new CarToStringUtils();
 
-        String expected = "Идентификатор: #" + car.getId() + "\n" +
+        String expected = "Идентификатор: #" + car.getIdModel() + "\n" +
                 "Параметры кузова: 6х6\n" +
                 "Загруженность: 41%\n" +
                 "Состав груза:\n" +

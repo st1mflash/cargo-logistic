@@ -1,7 +1,7 @@
-package com.ansekolesnikov.cargologistic.database.car.operations;
+package com.ansekolesnikov.cargologistic.database.car_model.operations;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,28 +12,29 @@ import java.sql.Statement;
 
 @NoArgsConstructor
 @Getter
-public class InsertCarDatabaseOperation {
+public class QueryCarModelDatabaseOperation {
     private DatabaseService databaseService;
     private Statement statement;
 
-    public InsertCarDatabaseOperation(DatabaseService databaseService) {
+    public QueryCarModelDatabaseOperation(DatabaseService databaseService) {
         this.databaseService = databaseService;
         this.statement = databaseService.getStatement();
     }
 
-
-    public void insert(Car car) {
+    public CarModel queryById(int id) {
         try {
             ResultSet resultSet = statement.executeQuery(
-                    "INSERT INTO car_model (name, cargo_width, cargo_height) " +
-                            "VALUES (" +
-                            "'" + car.getName() + "', " +
-                            "'" + car.getWidth() + "', " +
-                            "'" + car.getHeight() + "') " +
-                            "RETURNING id;"
+                    "SELECT * FROM car_model WHERE id = " + id
             );
             if (resultSet.next()) {
-                car.setId(Integer.parseInt(resultSet.getString(1)));
+                return new CarModel(
+                        Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        Integer.parseInt(resultSet.getString(3)),
+                        Integer.parseInt(resultSet.getString(4))
+                );
+            } else {
+                return null;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

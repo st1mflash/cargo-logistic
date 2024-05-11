@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.car.CarToStringUtils;
-import com.ansekolesnikov.cargologistic.model.car.CarUtils;
+import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
+import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
@@ -53,9 +53,9 @@ public class LoadCargoServiceUtils extends ServiceUtils {
             }
             if (localCarCount > 0) {
                 if (new CarUtils().calcPercentLoad(car) == 0) {
-                    LOGGER.info("Грузовик #" + car.getId() + " остался пустым");
+                    LOGGER.info("Грузовик #" + car.getIdModel() + " остался пустым");
                 } else {
-                    LOGGER.info("Грузовик #" + car.getId() + " успешно загружен на " + new CarUtils().calcPercentLoad(car) + "%");
+                    LOGGER.info("Грузовик #" + car.getIdModel() + " успешно загружен на " + new CarUtils().calcPercentLoad(car) + "%");
                 }
             }
             localCarCount--;

@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.model.load_car.algorithm;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
-import com.ansekolesnikov.cargologistic.model.car.CarUtils;
+import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.load_car.LoadPackUtils;
 
 public class LoadAlgorithmHalf implements LoadAlgorithm {

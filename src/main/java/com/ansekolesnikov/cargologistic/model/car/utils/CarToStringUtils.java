@@ -1,5 +1,6 @@
-package com.ansekolesnikov.cargologistic.model.car;
+package com.ansekolesnikov.cargologistic.model.car.utils;
 
+import com.ansekolesnikov.cargologistic.model.car.Car;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,7 @@ public class CarToStringUtils {
 
     public String toStringCarInfo(Car car) {
         StringBuilder fullInfoString = new StringBuilder(
-                "Идентификатор: #" + car.getId()
+                "Идентификатор: #" + car.getIdModel()
                         + "\nПараметры кузова: " + Car.WIDTH + "х" + Car.HEIGHT
                         + "\nЗагруженность: " + new CarUtils().calcPercentLoad(car) + "%"
                         + "\nСостав груза:"

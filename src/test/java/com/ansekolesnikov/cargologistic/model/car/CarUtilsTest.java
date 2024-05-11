@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
+import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import org.junit.jupiter.api.Test;
 

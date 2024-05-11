@@ -1,11 +1,11 @@
 package com.ansekolesnikov.cargologistic.service.cargo.car;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.car.CarToStringUtils;
-import com.ansekolesnikov.cargologistic.model.car.CarUtils;
+import com.ansekolesnikov.cargologistic.model.car.CarModel;
+import com.ansekolesnikov.cargologistic.model.car.utils.CarModelToStringUtils;
+import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.car.CarCommandLine;
-import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class CarService implements CargoService {
     private DatabaseService databaseService;
     private CarCommandLine carCommandLine;
     private CarServiceUtils carServiceUtils = new CarServiceUtils();
-    private CarToStringUtils carToStringUtils = new CarToStringUtils();
+    private CarModelToStringUtils carModelToStringUtils = new CarModelToStringUtils();
     private CarUtils carUtils = new CarUtils();
 
     public CarService(DatabaseService databaseService) {
@@ -37,7 +37,7 @@ public class CarService implements CargoService {
         carCommandLine = command.getCarCommandLine();
         return switch (carCommandLine.getOperation()) {
             case "insert" -> insertCarIntoDatabase(
-                    carServiceUtils.createPackFromCommand(carCommandLine)
+                    carServiceUtils.createCarModelFromCommand(carCommandLine)
             );
             case "update" -> updateCarInDatabase(
                     findCarByIdInDatabase(
@@ -54,7 +54,7 @@ public class CarService implements CargoService {
         };
     }
 
-    private Car findCarByIdInDatabase(int id) {
+    private CarModel findCarByIdInDatabase(int id) {
         return databaseService
                 .getOperationsDatabase()
                 .getCarOperations()
@@ -62,34 +62,34 @@ public class CarService implements CargoService {
                 ;
     }
 
-    private String insertCarIntoDatabase(Car car) {
-        databaseService.getOperationsDatabase().getCarOperations().insert(car);
-        return "Грузовик '" + car.getName() + "' успешно создан.\n\n"
-                + carToStringUtils.toStringCarInfo(car);
+    private String insertCarIntoDatabase(CarModel carModel) {
+        databaseService.getOperationsDatabase().getCarOperations().insert(carModel);
+        return "Грузовик '" + carModel.getNameModel() + "' успешно создан.\n\n"
+                + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
 
-    private String updateCarInDatabase(Car car, CarCommandLine command) {
-        Car updatedCar = car;
+    private String updateCarInDatabase(CarModel carModel, CarCommandLine command) {
+        CarModel updatedCarModel = carModel;
         switch (command.getParamName()) {
             case "name":
-                updatedCar.setName(command.getParamValue());
+                updatedCarModel.setNameModel(command.getParamValue());
                 break;
             case "cargo_width":
-                updatedCar.setWidth(Integer.parseInt(command.getParamValue()));
+                updatedCarModel.setCargoWidthModel(Integer.parseInt(command.getParamValue()));
                 break;
             case "cargo_height":
-                updatedCar.setHeight(Integer.parseInt(command.getParamValue()));
+                updatedCarModel.setCargoHeightModel(Integer.parseInt(command.getParamValue()));
                 break;
             default:
                 break;
         }
-        databaseService.getOperationsDatabase().getCarOperations().update(updatedCar);
-        return "Грузовик '" + car.getName() + "' успешно обновлен.\n\n"
-                + carToStringUtils.toStringCarInfo(car);
+        databaseService.getOperationsDatabase().getCarOperations().update(updatedCarModel);
+        return "Грузовик '" + carModel.getNameModel() + "' успешно обновлен.\n\n"
+                + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
 
-    private String deleteCarFromDatabase(Car car) {
-        databaseService.getOperationsDatabase().getCarOperations().delete(car);
-        return "Грузовик '" + car.getName() + "' успешно удален.";
+    private String deleteCarFromDatabase(CarModel carModel) {
+        databaseService.getOperationsDatabase().getCarOperations().delete(carModel);
+        return "Грузовик '" + carModel.getNameModel() + "' успешно удален.";
     }
 }
