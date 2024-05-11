@@ -10,12 +10,22 @@ public class PackDatabaseOperations {
     private InsertPackDatabaseOperation insertPackDatabaseOperation;
     private QueryPackDatabaseOperation queryPackDatabaseOperation;
     private DeletePackDatabaseOperation deletePackDatabaseOperation;
-    public PackDatabaseOperations(DatabaseService databaseService){
+
+    public PackDatabaseOperations(DatabaseService databaseService) {
         this.insertPackDatabaseOperation = new InsertPackDatabaseOperation(databaseService);
         this.queryPackDatabaseOperation = new QueryPackDatabaseOperation(databaseService);
-        this.deletePackDatabaseOperation = new DeletePackDatabaseOperation();
+        this.deletePackDatabaseOperation = new DeletePackDatabaseOperation(databaseService);
     }
-    public void insert(Pack pack){
+
+    public Pack query(String name) {
+        return queryPackDatabaseOperation.queryPackByName(name);
+    }
+
+    public void insert(Pack pack) {
         insertPackDatabaseOperation.insert(pack);
+    }
+
+    public void delete(Pack pack) {
+        deletePackDatabaseOperation.delete(pack);
     }
 }

@@ -10,11 +10,9 @@ import java.sql.Statement;
 
 @NoArgsConstructor
 @Getter
-//@Component
 public class InsertPackDatabaseOperation {
     private DatabaseService databaseService;
     private Statement statement;
-
 
     public InsertPackDatabaseOperation(DatabaseService databaseService) {
         this.databaseService = databaseService;

@@ -25,25 +25,38 @@ public class PackService implements CargoService {
         String operation = packServiceUtils.getPackOperationFromStringParams(params);
         switch (operation) {
             case "insert":
-                return insertPackToDatabase(
+                return insertPackIntoDatabase(
                        packServiceUtils.createPackFromParams(params)
                 );
             case "update":
                 break;
             case "delete":
-                break;
+                return deletePackFromDatabase(
+                        findPackInDatabase(
+                                packServiceUtils.getPackNameFromStringParams(params)
+                        )
+                );
             default:
                 break;
         }
         return null;
     }
 
-    private String insertPackToDatabase(Pack pack){
+    private Pack findPackInDatabase(String name) {
+        return databaseService
+                .getOperationsDatabase()
+                .getPackOperations()
+                .query(name)
+                ;
+    }
+
+    private String insertPackIntoDatabase(Pack pack){
         databaseService.getOperationsDatabase().getPackOperations().insert(pack);
         return "Посылка '" + pack.getName() + "' успешно создана.";
     }
 
     private String deletePackFromDatabase(Pack pack){
+        databaseService.getOperationsDatabase().getPackOperations().delete(pack);
         return "Посылка '" + pack.getName() + "' успешно удалена.";
     }
 }

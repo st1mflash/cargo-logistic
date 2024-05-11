@@ -7,7 +7,7 @@ import lombok.Setter;
 public class Pack {
     @Setter
     private int carId = 0;
-    private int id;
+    private int id = 0;
     private String type;
     private String name;
     private int width;
@@ -76,6 +76,22 @@ public class Pack {
                 break;
 
         }
+    }
+
+    public Pack(
+            int id,
+            String name,
+            Character code,
+            String scheme,
+            int width,
+            int height
+    ) {
+        this.id = id;
+        this.name = name;
+        this.width = width;
+        this.height = height;
+        this.scheme = scheme;
+        this.code = code;
     }
 
     public Pack(
