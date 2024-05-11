@@ -1,4 +1,4 @@
 package com.ansekolesnikov.cargologistic.database.car;
 
-public class CarOperationsDatabase {
+public class CarDatabaseOperations {
 }

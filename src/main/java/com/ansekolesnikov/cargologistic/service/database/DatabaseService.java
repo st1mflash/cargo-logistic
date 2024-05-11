@@ -1,12 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.database;
 
 import com.ansekolesnikov.cargologistic.database.OperationsDatabase;
-import com.ansekolesnikov.cargologistic.database.car.DeleteCarDatabase;
-import com.ansekolesnikov.cargologistic.database.car.InsertCarDatabase;
-import com.ansekolesnikov.cargologistic.database.car.QueryCarDatabase;
-import com.ansekolesnikov.cargologistic.database.pack.DeletePackDatabase;
-import com.ansekolesnikov.cargologistic.database.pack.InsertPackDatabase;
-import com.ansekolesnikov.cargologistic.database.pack.QueryPackDatabase;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

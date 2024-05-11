@@ -1,8 +1,5 @@
 package com.ansekolesnikov.cargologistic.config;
 
-import com.ansekolesnikov.cargologistic.database.car.QueryCarDatabase;
-import com.ansekolesnikov.cargologistic.database.pack.InsertPackDatabase;
-import com.ansekolesnikov.cargologistic.database.pack.QueryPackDatabase;
 import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;

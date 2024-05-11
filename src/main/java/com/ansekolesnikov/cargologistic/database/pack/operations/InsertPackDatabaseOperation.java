@@ -1,11 +1,9 @@
-package com.ansekolesnikov.cargologistic.database.pack;
+package com.ansekolesnikov.cargologistic.database.pack.operations;
 
-import com.ansekolesnikov.cargologistic.database.OperationsDatabase;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,12 +11,12 @@ import java.sql.Statement;
 @NoArgsConstructor
 @Getter
 //@Component
-public class InsertPackDatabase {
+public class InsertPackDatabaseOperation {
     private DatabaseService databaseService;
     private Statement statement;
 
 
-    public InsertPackDatabase(DatabaseService databaseService) {
+    public InsertPackDatabaseOperation(DatabaseService databaseService) {
         this.databaseService = databaseService;
         this.statement = databaseService.getStatement();
     }
