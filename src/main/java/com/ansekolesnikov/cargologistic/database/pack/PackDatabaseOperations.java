@@ -20,12 +20,8 @@ public class PackDatabaseOperations {
         this.deletePackDatabaseOperation = new DeletePackDatabaseOperation(databaseService);
     }
 
-    public Pack queryById(String id) {
+    public Pack queryById(int id) {
         return queryPackDatabaseOperation.queryPackById(id);
-    }
-
-    public Pack queryByName(String name) {
-        return queryPackDatabaseOperation.queryPackByName(name);
     }
 
     public void insert(Pack pack) {

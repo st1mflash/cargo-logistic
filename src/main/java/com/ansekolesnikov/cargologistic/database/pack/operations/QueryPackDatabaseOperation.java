@@ -22,10 +22,10 @@ public class QueryPackDatabaseOperation {
         this.statement = databaseService.getStatement();
     }
 
-    public Pack queryPackById(String id) {
+    public Pack queryPackById(int id) {
         try {
             ResultSet resultSet = statement.executeQuery(
-                    "select * from pack where id = '" + id + "'"
+                    "SELECT * FROM pack WHERE id = " + id
             );
             if (resultSet.next()) {
                 return new Pack(
@@ -38,41 +38,6 @@ public class QueryPackDatabaseOperation {
                 );
             } else {
                 return null;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Pack queryPackByName(String name) {
-        try {
-            ResultSet resultSet = statement.executeQuery(
-                    "select * from pack where name = '" + name + "'"
-            );
-            if (resultSet.next()) {
-                return new Pack(
-                        Integer.parseInt(resultSet.getString(1)),
-                        resultSet.getString(2),
-                        resultSet.getString(3).charAt(0),
-                        resultSet.getString(4),
-                        Integer.parseInt(resultSet.getString(5)),
-                        Integer.parseInt(resultSet.getString(6))
-                );
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public String queryCarNameById(int carId) {
-        try {
-            ResultSet resultSet = statement.executeQuery("select name from car where id = '" + carId + "'");
-            if (resultSet.next()) {
-                return resultSet.getString(1);
-            } else {
-                return "";
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

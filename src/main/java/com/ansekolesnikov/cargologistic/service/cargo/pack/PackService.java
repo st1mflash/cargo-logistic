@@ -3,6 +3,7 @@ package com.ansekolesnikov.cargologistic.service.cargo.pack;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class PackService implements CargoService {
     DatabaseService databaseService;
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
+    private PackUtils packUtils = new PackUtils();
     private PackCommandLine packCommandLine;
 
     public PackService(
@@ -33,45 +35,37 @@ public class PackService implements CargoService {
     @Override
     public String runService(CommandLine command) {
         packCommandLine = command.getPackCommandLine();
-        switch (packCommandLine.getOperation()) {
-            case "insert":
-                return insertPackIntoDatabase(
-                        packServiceUtils.createPackFromCommand(packCommandLine)
-                );
-
-            case "update":
-                return updatePackInDatabase(
-                        findPackByIdInDatabase(
-                                packCommandLine.getIdPack()
-                        ),
-                        packCommandLine
-                );
-
-
-            case "delete":
-                return deletePackFromDatabase(
-                        findPackByIdInDatabase(
-                                packCommandLine.getIdPack()
-                        )
-                );
-
-            default:
-                break;
-        }
-        return null;
+        return switch (packCommandLine.getOperation()) {
+            case "insert" -> insertPackIntoDatabase(
+                    packServiceUtils.createPackFromCommand(packCommandLine)
+            );
+            case "update" -> updatePackInDatabase(
+                    findPackByIdInDatabase(
+                            packCommandLine.getIdPack()
+                    ),
+                    packCommandLine
+            );
+            case "delete" -> deletePackFromDatabase(
+                    findPackByIdInDatabase(
+                            packCommandLine.getIdPack()
+                    )
+            );
+            default -> null;
+        };
     }
 
     private Pack findPackByIdInDatabase(int id) {
         return databaseService
                 .getOperationsDatabase()
                 .getPackOperations()
-                .queryById(String.valueOf(id))
+                .queryById(id)
                 ;
     }
 
     private String insertPackIntoDatabase(Pack pack) {
         databaseService.getOperationsDatabase().getPackOperations().insert(pack);
-        return "Посылка '" + pack.getName() + "' успешно создана.";
+        return "Посылка '" + pack.getName() + "' успешно создана.\n\n"
+                + packUtils.toStringPackInfo(pack);
     }
 
     private String updatePackInDatabase(Pack pack, PackCommandLine command) {
@@ -96,7 +90,8 @@ public class PackService implements CargoService {
                 break;
         }
         databaseService.getOperationsDatabase().getPackOperations().update(updatedPack);
-        return "Посылка '" + pack.getName() + "' успешно обновлена.";
+        return "Посылка '" + pack.getName() + "' успешно обновлена.\n\n"
+                + packUtils.toStringPackInfo(pack);
     }
 
     private String deletePackFromDatabase(Pack pack) {

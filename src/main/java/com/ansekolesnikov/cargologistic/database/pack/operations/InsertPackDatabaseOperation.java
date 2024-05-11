@@ -5,6 +5,7 @@ import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,15 +22,19 @@ public class InsertPackDatabaseOperation {
 
     public void insert(Pack pack) {
         try {
-            statement.executeUpdate(
-                    "insert into pack (name, code, scheme, scheme_width, scheme_height) " +
-                            "values (" +
+            ResultSet resultSet = statement.executeQuery(
+                    "INSERT INTO pack (name, code, scheme, scheme_width, scheme_height) " +
+                            "VALUES (" +
                             "'" + pack.getName() + "', " +
                             "'" + pack.getCode() + "'," +
                             "'" + pack.getScheme() + "', " +
-                            "'" + pack.getWidth() + "'," +
-                            "'" + pack.getHeight() + "');"
+                            "'" + pack.getWidth() + "', " +
+                            "'" + pack.getHeight() + "') " +
+                            "RETURNING id;"
             );
+            if(resultSet.next()) {
+                pack.setId(Integer.parseInt(resultSet.getString(1)));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
