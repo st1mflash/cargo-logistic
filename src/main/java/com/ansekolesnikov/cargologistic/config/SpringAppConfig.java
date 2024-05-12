@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
@@ -26,6 +27,7 @@ public class SpringAppConfig {
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
     private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
+    private LoadListCargoService loadListCargoService = new LoadListCargoService();
     private ViewFileCargoService viewFileCargoService = new ViewFileCargoService();
     private TelegramService telegramService = new TelegramService();
     private CarService carService = new CarService();
@@ -57,5 +59,11 @@ public class SpringAppConfig {
     public CarService carService() {
         carService = new CarService(databaseService);
         return carService;
+    }
+
+    @Bean
+    public LoadListCargoService loadListCargoService() {
+        loadListCargoService = new LoadListCargoService(databaseService);
+        return loadListCargoService;
     }
 }

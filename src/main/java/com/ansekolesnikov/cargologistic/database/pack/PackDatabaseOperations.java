@@ -24,6 +24,10 @@ public class PackDatabaseOperations {
         return queryPackDatabaseOperation.queryById(id);
     }
 
+    public Pack queryByName(String name) {
+        return queryPackDatabaseOperation.queryByName(name);
+    }
+
     public void insert(Pack pack) {
         insertPackDatabaseOperation.insert(pack);
     }

@@ -25,6 +25,10 @@ public class CarModelDatabaseOperations {
         return queryCarModelDatabaseOperation.queryById(id);
     }
 
+    public CarModel queryByName(String name) {
+        return queryCarModelDatabaseOperation.queryByName(name);
+    }
+
     public void insert(CarModel carModel) {
         insertCarModelDatabaseOperation.insert(carModel);
     }

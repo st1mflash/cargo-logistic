@@ -43,4 +43,26 @@ public class QueryPackDatabaseOperation {
             throw new RuntimeException(e);
         }
     }
+
+    public Pack queryByName(String name) {
+        try {
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM pack_model WHERE name = '" + name + "'"
+            );
+            if (resultSet.next()) {
+                return new Pack(
+                        Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        resultSet.getString(3).charAt(0),
+                        resultSet.getString(4),
+                        Integer.parseInt(resultSet.getString(5)),
+                        Integer.parseInt(resultSet.getString(6))
+                );
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

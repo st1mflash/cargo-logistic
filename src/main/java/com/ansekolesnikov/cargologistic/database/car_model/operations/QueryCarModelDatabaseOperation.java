@@ -40,4 +40,25 @@ public class QueryCarModelDatabaseOperation {
             throw new RuntimeException(e);
         }
     }
+
+
+    public CarModel queryByName(String name) {
+        try {
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM car_model WHERE name = '" + name + "'"
+            );
+            if (resultSet.next()) {
+                return new CarModel(
+                        Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        Integer.parseInt(resultSet.getString(3)),
+                        Integer.parseInt(resultSet.getString(4))
+                );
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

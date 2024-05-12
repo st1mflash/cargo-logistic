@@ -2,9 +2,11 @@ package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
+import com.ansekolesnikov.cargologistic.model.command.load_list.LoadListCommandLine;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,8 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class TelegramService {
     @Autowired
     private LoadFileCargoService loadFileCargoService;
+    @Autowired
+    private LoadListCargoService loadListCargoService;
     @Autowired
     private ViewFileCargoService viewFileCargoService;
     @Autowired
@@ -49,6 +53,10 @@ public class TelegramService {
 
                 commandLine = new CommandLine(inputMessage.getText());
                 return serviceUtils.formatToCodeStyle(loadFileCargoService.runService(commandLine));
+
+            case "load_list":
+                commandLine = new CommandLine(inputMessage.getText());
+                return serviceUtils.formatToCodeStyle(loadListCargoService.runService(commandLine));
 
             case "view_file":
                 LOGGER.info("Запрос отображения информации о грузовиках из файла '" + inputMessage.getInputFileName() + "'");
