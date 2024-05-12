@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.config;
 
+import com.ansekolesnikov.cargologistic.database.FlywayMigration;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoService;
@@ -26,7 +27,8 @@ public class SpringAppConfig {
     private String DB_USERNAME;
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
-    private LoadFileCargoService loadFileCargoService; //= new LoadFileCargoService();
+    private FlywayMigration flywayMigration;
+    private LoadFileCargoService loadFileCargoService;
     private LoadListCargoService loadListCargoService = new LoadListCargoService();
     private ViewFileCargoService viewFileCargoService = new ViewFileCargoService();
     private TelegramService telegramService = new TelegramService();
@@ -38,7 +40,7 @@ public class SpringAppConfig {
     @Bean
     public DatabaseService databaseService() {
         databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
-        //loadFileCargoService = new LoadFileCargoService(databaseService);
+        flywayMigration = new FlywayMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
         LOGGER.info("Сервис работы базы данных - успешно запущен.");
         return databaseService;
     }
@@ -61,14 +63,6 @@ public class SpringAppConfig {
         carService = new CarService(databaseService);
         return carService;
     }
-
-    /*
-    @Bean
-    public LoadFileCargoService loadFileCargoService() {
-        loadFileCargoService = new LoadFileCargoService(databaseService);
-        return loadFileCargoService;
-    }
-    */
 
     @Bean
     public LoadListCargoService loadListCargoService() {
