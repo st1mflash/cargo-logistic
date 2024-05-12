@@ -18,7 +18,6 @@ public class Pack {
 
     public Pack(int code) {
         this.code = Integer.toString(code).charAt(0);
-        this.width = new PackUtils().calcPackageWidthByType(code);
         initArrScheme();
     }
 
