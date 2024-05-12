@@ -30,8 +30,8 @@ public class CarToStringUtils {
 
     public String toStringCarInfo(Car car) {
         StringBuilder fullInfoString = new StringBuilder(
-                "Идентификатор: #" + car.getIdModel()
-                        + "\nПараметры кузова: " + Car.WIDTH + "х" + Car.HEIGHT
+                "Идентификатор: #" + car.getIdCar()
+                        + "\nПараметры кузова: " + car.getCargoWidthModel() + "х" + car.getCargoHeightModel()
                         + "\nЗагруженность: " + new CarUtils().calcPercentLoad(car) + "%"
                         + "\nСостав груза:"
         );

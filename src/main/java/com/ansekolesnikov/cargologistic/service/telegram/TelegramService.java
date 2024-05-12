@@ -2,10 +2,9 @@ package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
-import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load.LoadFileCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @Service
 public class TelegramService {
     @Autowired
-    private LoadCargoService loadCargoService;
+    private LoadFileCargoService loadFileCargoService;
     @Autowired
     private ViewCargoService viewCargoService;
     @Autowired
@@ -45,11 +44,12 @@ public class TelegramService {
         String params;
         CommandLine commandLine;
         switch (inputMessage.getInputCommand()) {
-            case "load":
+            case "load_file":
                 LOGGER.info("Запрос загрузки из файла '" + inputMessage.getInputFileName() + "' алгоритмом '" + inputMessage.getInputAlgorithm() + "' в " + inputMessage.getInputCountCars() + " ед. транспорта.");
 
-                params = serviceUtils.getStringParams(inputMessage);
-                return serviceUtils.formatToCodeStyle(loadCargoService.runService(params));
+                //params = serviceUtils.getStringParams(inputMessage);
+                commandLine = new CommandLine(inputMessage.getText());
+                return serviceUtils.formatToCodeStyle(loadFileCargoService.runService(commandLine));
 
             case "view":
                 LOGGER.info("Запрос отображения информации о грузовиках из файла '" + inputMessage.getInputFileName() + "'");

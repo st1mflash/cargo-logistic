@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
-import com.ansekolesnikov.cargologistic.service.cargo.load.LoadCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load.LoadFileCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
@@ -25,7 +25,7 @@ public class SpringAppConfig {
     private String DB_USERNAME;
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
-    private LoadCargoService loadCargoService = new LoadCargoService();
+    private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
     private ViewCargoService viewCargoService = new ViewCargoService();
     private TelegramService telegramService = new TelegramService();
     private CarService carService = new CarService();
@@ -36,7 +36,6 @@ public class SpringAppConfig {
     @Bean
     public DatabaseService databaseService() {
         databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
-
         LOGGER.info("Сервис работы базы данных - успешно запущен.");
         return databaseService;
     }
@@ -44,7 +43,6 @@ public class SpringAppConfig {
     @Bean
     public TelegramService telegramService() {
         telegramService.startBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
-        //telegramService.setPackService(packService);
         LOGGER.info("Сервис работы телеграм ботов - успешно запущен.");
         return telegramService;
     }

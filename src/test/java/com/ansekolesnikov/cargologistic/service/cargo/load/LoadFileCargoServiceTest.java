@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service.cargo.load;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
-import com.ansekolesnikov.cargologistic.validation.service.LoadCarServiceValidation;
+import com.ansekolesnikov.cargologistic.validation.service.LoadFileCargoServiceValidation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,15 +20,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 //@ContextConfiguration("src/main/java/com/ansekolesnikov/cargologistic/config/SpringAppConfig.java")
-public class LoadCargoServiceTest {
+public class LoadFileCargoServiceTest {
     private static final String PATH_IMPORT_PACKAGE = "src/main/resources/import/packages/";
     //@InjectMocks
     //@Autowired
-    private LoadCargoService loadCargoService = new LoadCargoService();
+    private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
 
     //@Mock
     //@Autowired
-    private LoadCargoServiceUtils serviceUtils = new LoadCargoServiceUtils();
+    private LoadFileCargoServiceUtils serviceUtils = new LoadFileCargoServiceUtils();
 
     //@Mock
     //@Autowired
@@ -51,7 +51,7 @@ public class LoadCargoServiceTest {
         List<Pack> importedPackList = new ArrayList<>();
         List<Car> loadedCarList = new ArrayList<>();
 
-        LoadCarServiceValidation serviceValidation = new LoadCarServiceValidation(localFile,serviceUtils.getAlgorithmFromStringParams(params), serviceUtils.getCountCarsFromStringParams(params));
+        LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile,serviceUtils.getAlgorithmFromStringParams(params), serviceUtils.getCountCarsFromStringParams(params));
 
         System.out.println(serviceUtils.getFileNameFromStringParams(params));
         Mockito.when(serviceUtils.getFileNameFromStringParams(params)).thenReturn("def.txt");
@@ -64,7 +64,7 @@ public class LoadCargoServiceTest {
         Mockito.when(serviceUtils.getCarsInfo(loadedCarList)).thenReturn(expectedOutput);
 
         // Act
-        String result = loadCargoService.runService(params);
+        String result = loadFileCargoService.runService(params);
 
         // Assert
         assertEquals(expectedOutput, result);

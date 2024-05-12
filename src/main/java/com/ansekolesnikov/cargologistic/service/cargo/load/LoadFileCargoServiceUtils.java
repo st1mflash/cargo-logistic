@@ -17,8 +17,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class LoadCargoServiceUtils extends ServiceUtils {
-    private static final Logger LOGGER = Logger.getLogger(LoadCargoServiceUtils.class.getName());
+public class LoadFileCargoServiceUtils extends ServiceUtils {
+    private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceUtils.class.getName());
 
     public String getCarsInfo(List<Car> listCars) {
         StringBuilder result = new StringBuilder();

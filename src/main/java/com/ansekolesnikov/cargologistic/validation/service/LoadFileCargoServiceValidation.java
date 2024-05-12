@@ -9,14 +9,14 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class LoadCarServiceValidation {
-    private static final Logger LOGGER = Logger.getLogger(LoadCarServiceValidation.class.getName());
+public class LoadFileCargoServiceValidation {
+    private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceValidation.class.getName());
     private final LocalFile localFile;
     private final String algorithm;
     private final int countCars;
     @Getter
     private String userErrorMessage;
-    public LoadCarServiceValidation (LocalFile localFile, String algorithm, int countCars) {
+    public LoadFileCargoServiceValidation(LocalFile localFile, String algorithm, int countCars) {
         this.localFile = localFile;
         this.algorithm = algorithm;
         this.countCars = countCars;
