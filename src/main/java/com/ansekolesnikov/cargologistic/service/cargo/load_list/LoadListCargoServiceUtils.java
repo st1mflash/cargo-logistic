@@ -14,24 +14,19 @@ import java.util.stream.Collectors;
 @Component
 public class LoadListCargoServiceUtils {
     public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPacks, int inputCountCars, String inputAlgorithm) {
-        CarModel carModel = inputCarModel;
-        List<Pack> packs = inputPacks;
-        int amountCars = inputCountCars;
-        String algorithm = inputAlgorithm;
-
         List<Car> listCars = new ArrayList<>();
         CarUtils carUtils = new CarUtils();
 
-        for (int i = 0; i < amountCars; i++) {
-            Car car = new Car(carModel);
+        for (int i = 0; i < inputCountCars; i++) {
+            Car car = new Car(inputCarModel);
             listCars.add(car);
 
-            List<Pack> filteredPackList = packs.stream()
+            List<Pack> filteredPackList = inputPacks.stream()
                     .filter(pack -> pack.getCarId() == 0)
                     .toList();
 
             for (Pack pack : filteredPackList) {
-                carUtils.loadPackToCar(car, pack, algorithm);
+                carUtils.loadPackToCar(car, pack, inputAlgorithm);
             }
         }
         return listCars;

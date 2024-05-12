@@ -14,59 +14,12 @@ public class Pack {
     private int height;
     private String scheme;
     private Character code;
+    private String[][] arrScheme;
 
     public Pack(int code) {
         this.code = Integer.toString(code).charAt(0);
         this.width = new PackUtils().calcPackageWidthByType(code);
-
-        switch (this.code) {
-            case '1':
-                scheme = "1";
-                width = 1;
-                height = 1;
-                break;
-            case '2':
-                scheme = "11";
-                width = 2;
-                height = 2;
-                break;
-            case '3':
-                scheme = "111";
-                width = 3;
-                height = 1;
-                break;
-            case '4':
-                scheme = "1111";
-                width = 4;
-                height = 1;
-                break;
-            case '5':
-                scheme = "11111";
-                width = 5;
-                height = 1;
-                break;
-            case '6':
-                scheme = "111111";
-                width = 3;
-                height = 2;
-                break;
-            case '7':
-                scheme = "11111110";
-                width = 4;
-                height = 2;
-                break;
-            case '8':
-                scheme = "11111111";
-                width = 4;
-                height = 2;
-                break;
-            case '9':
-                scheme = "111111111";
-                width = 3;
-                height = 3;
-                break;
-
-        }
+        initArrScheme();
     }
 
     public Pack(
@@ -83,6 +36,7 @@ public class Pack {
         this.height = height;
         this.scheme = scheme;
         this.code = code;
+        initArrScheme();
     }
 
     public Pack(
@@ -97,9 +51,23 @@ public class Pack {
         this.height = height;
         this.scheme = scheme;
         this.code = code;
+        initArrScheme();
     }
 
-    public int calculateElements(){
+    public int calculateElements() {
         return scheme.replaceAll("0", "").length();
+    }
+
+    public void initArrScheme() {
+        arrScheme = new String[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (scheme.charAt(i * width + j) == '1') {
+                    arrScheme[i][j] = String.valueOf(code);
+                } else {
+                    arrScheme[i][j] = "0";
+                }
+            }
+        }
     }
 }

@@ -17,11 +17,10 @@ public class LoadListCommandLine {
     private String[] packs;
 
     public LoadListCommandLine(String command) {
-        System.out.println(command);
         this.carModel = command.split(" ")[1];
         this.algorithm = command.split(" ")[2].toLowerCase();
         this.countCars = Integer.parseInt(
-                command.split(" ")[3]
+                command.split(" ")[3].split("[^0-9]")[0]
                         .replaceAll("[^0-9]", "")
         );
         this.packs = command

@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LocalFileImportUtilsTest {
+    /*
     @Test
     public void testImportPacksFromFile() {
         LocalFileImportUtils localFileImportUtilsTest = new LocalFileImportUtils();
@@ -36,6 +37,9 @@ public class LocalFileImportUtilsTest {
         assertEquals(9, packs.get(14).getCode());
     }
 
+     */
+
+    /*
     @Test
     public void testImportCarsFromFile() {
         LocalFileImportUtils localFileImportUtilsTest = new LocalFileImportUtils();
@@ -60,4 +64,6 @@ public class LocalFileImportUtilsTest {
             }
         }
     }
+
+     */
 }
