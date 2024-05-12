@@ -28,6 +28,10 @@ public class PackDatabaseOperations {
         return queryPackDatabaseOperation.queryByName(name);
     }
 
+    public Pack queryByCode(char code) {
+        return queryPackDatabaseOperation.queryByCode(code);
+    }
+
     public void insert(Pack pack) {
         insertPackDatabaseOperation.insert(pack);
     }

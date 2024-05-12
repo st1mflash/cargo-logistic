@@ -6,6 +6,7 @@ import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
+import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadFileCargoServiceValidation;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,14 @@ public class LoadFileCargoService implements CargoService {
     @Autowired
     LoadFileCargoServiceUtils serviceUtils;
     private LoadFileCommandLine loadFileCommandLine;
+    @Autowired
+    DatabaseService databaseService;
+
+    /*
+    public LoadFileCargoService(DatabaseService databaseService) {
+        this.databaseService = databaseService;
+    }
+    */
 
     @Override
     public String runService(CommandLine commandLine) {
@@ -35,7 +44,7 @@ public class LoadFileCargoService implements CargoService {
         LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);
 
         if (serviceValidation.isValid()) {
-            List<Pack> importedPackList = serviceUtils.getListPacksFromFile(localFile);
+            List<Pack> importedPackList = serviceUtils.getListPacksFromFile(databaseService, localFile);
             List<Car> loadedCarList = serviceUtils.loadCars(importedPackList, countCars, algorithm);
 
             if (serviceValidation.isValidCountCars(loadedCarList)) {

@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.model.file;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
@@ -11,11 +12,15 @@ import java.util.stream.Collectors;
 public class LocalFileImportUtils {
     private static final Logger LOGGER = Logger.getLogger(LocalFileImportUtils.class);
 
-    public List<Pack> importPacksFromFile(LocalFile localFile) {
+    public List<Pack> importPacksFromFile(DatabaseService databaseService, LocalFile localFile) {
         try {
             return Arrays.stream(localFile.getContent().split("\\n\\s*\\n"))
-                    .map(line -> line.charAt(0) - 48)
-                    .map(Pack::new)
+                    .map(line -> String.valueOf(line.charAt(0) - 48))
+                    .map(code -> databaseService
+                            .getOperationsDatabase()
+                            .getPackOperations()
+                            .queryByCode(code.charAt(0))
+                    )
                     .collect(Collectors.toList());
         } catch (Exception e) {
             LOGGER.error("Ошибка ошибка импорта грузов из файла: '" + new LocalFileUtils().getFullAddress(localFile) + "': " + e);

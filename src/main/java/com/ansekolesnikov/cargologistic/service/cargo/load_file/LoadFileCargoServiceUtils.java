@@ -6,6 +6,8 @@ import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoServiceUtils;
+import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +31,12 @@ public class LoadFileCargoServiceUtils {
         return result.toString();
     }
 
-    public List<Pack> getListPacksFromFile(LocalFile localFile) {
-        return Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(localFile))
+    public List<Pack> getListPacksFromFile(DatabaseService databaseService, LocalFile localFile) {
+        //LoadListCargoServiceUtils loadListCargoServiceUtils = new LoadListCargoServiceUtils();
+        //loadListCargoServiceUtils.createPacksByNameFromDatabase()
+
+        //System.out.println(databaseService);
+        return Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(databaseService, localFile))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();
