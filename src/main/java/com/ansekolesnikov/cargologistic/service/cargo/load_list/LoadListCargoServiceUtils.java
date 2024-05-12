@@ -32,8 +32,14 @@ public class LoadListCargoServiceUtils {
         return listCars;
     }
 
-    public String toStringCarsInfo(List<Car> listCars) {
+    public String toStringCarsInfo(List<Car> listCars, List<Pack> packs) {
         StringBuilder result = new StringBuilder();
+
+        for (Pack pack: packs) {
+            result.append(pack.getCode()).append(" -- ").append(pack.getName()).append("\n");
+        }
+        result.append("\n");
+
         if (listCars != null) {
             for (Car car : listCars) {
                 result.append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n");

@@ -45,20 +45,11 @@ public class LoadListCargoService implements CargoService {
                 )
                 .toList();
 
-        //loadListCargoServiceUtils.loadCars(carModel, packs, countCars, algorithm);
         return loadListCargoServiceUtils.toStringCarsInfo(
                 loadListCargoServiceUtils.loadCars(
                         carModel, packs, countCars, algorithm
-                )
+                ),
+                packs
         );
-
-        /*
-        System.out.println(carModel.getIdModel() + " - " + carModel.getNameModel());
-        for(Pack pack: packs) {
-            System.out.println(pack.getId() + " - " + pack.getName());
-        }
-
-        return null;
-        */
     }
 }
