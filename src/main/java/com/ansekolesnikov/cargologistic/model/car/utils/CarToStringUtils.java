@@ -13,9 +13,9 @@ public class CarToStringUtils {
         String[][] cargo = car.getCargo();
         StringBuilder cargoInfo = new StringBuilder();
 
-        for (int i = Car.HEIGHT - 1; i >= 0; i--) {
+        for (int i = car.getCargoHeightModel() - 1; i >= 0; i--) {
             cargoInfo.append("+");
-            for (int j = 0; j < Car.WIDTH; j++) {
+            for (int j = 0; j < car.getCargoWidthModel(); j++) {
                 if (Objects.equals(cargo[i][j], "0")) {
                     cargoInfo.append(" ");
                 } else {
@@ -24,7 +24,7 @@ public class CarToStringUtils {
             }
             cargoInfo.append("+\n");
         }
-        cargoInfo.append("++++++++\n");
+        cargoInfo.append("+".repeat(Math.max(0, car.getCargoWidthModel() + 2))).append("\n");
         return cargoInfo.toString();
     }
 

@@ -8,7 +8,7 @@ import com.ansekolesnikov.cargologistic.model.load_car.LoadPackUtils;
 public class LoadAlgorithmHalf implements LoadAlgorithm {
     @Override
     public void load(Car car, Pack pack) {
-        if (new CarUtils().calcPercentLoad(car) + (pack.calculateElements() * 100) / (Car.WIDTH * Car.HEIGHT) <= 50) {
+        if (new CarUtils().calcPercentLoad(car) + (pack.calculateElements() * 100) / (car.getCargoWidthModel() * car.getCargoHeightModel()) <= 50) {
             new LoadPackUtils().loadPackInCar(car, pack);
         }
     }

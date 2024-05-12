@@ -15,7 +15,6 @@ public class CarModel {
     protected int cargoWidthModel;
     protected int cargoHeightModel;
 
-
     public CarModel(
             String name,
             int cargoWidth,

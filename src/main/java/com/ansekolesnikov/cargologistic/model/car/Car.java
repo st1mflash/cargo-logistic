@@ -9,14 +9,17 @@ import java.util.Random;
 @Getter
 @Setter
 public class Car extends CarModel {
-    public static final int WIDTH = 6;
-    public static final int HEIGHT = 6;
-    private final String[][] cargo = new String[HEIGHT][WIDTH];
+    //public static final int WIDTH = 6;
+    //public static final int HEIGHT = 6;
+    private String[][] cargo;
     private int idCar = new Random().nextInt(1000000);
 
     public Car() {
-        for (int i = 0; i < Car.HEIGHT; i++) {
-            for (int j = 0; j < Car.WIDTH; j++) {
+        this.cargoWidthModel = 6;
+        this.cargoHeightModel = 6;
+        cargo = new String[cargoHeightModel][cargoWidthModel];
+        for (int i = 0; i < cargoHeightModel; i++) {
+            for (int j = 0; j < cargoWidthModel; j++) {
                 cargo[i][j] = "0";
             }
         }
@@ -27,17 +30,25 @@ public class Car extends CarModel {
         this.nameModel = carModel.getNameModel();
         this.cargoWidthModel = carModel.getCargoWidthModel();
         this.cargoHeightModel = carModel.getCargoHeightModel();
+        this.cargo = new String[cargoHeightModel][cargoWidthModel];
+        for (int i = 0; i < cargoHeightModel; i++) {
+            for (int j = 0; j < cargoWidthModel; j++) {
+                cargo[i][j] = "0";
+            }
+        }
     }
 
     public Car(JSONObject JSONObj) {
-        idCar = Integer.parseInt(JSONObj.getString("id"));
+        this.idCar = Integer.parseInt(JSONObj.getString("id"));
+        this.cargoWidthModel = 6;
+        this.cargoHeightModel = 6;
         initCargoFromString(JSONObj.getString("cargo"));
     }
 
     public void initCargoFromString(String schemeString) {
         int index = 0;
-        for (int i = 0; i < Car.HEIGHT; i++) {
-            for (int j = 0; j < Car.WIDTH; j++) {
+        for (int i = 0; i < cargoHeightModel; i++) {
+            for (int j = 0; j < cargoWidthModel; j++) {
                 cargo[i][j] = String.valueOf(schemeString.charAt(index++));
             }
         }

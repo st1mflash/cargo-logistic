@@ -43,8 +43,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType1ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.WIDTH; i++) {
-            for (int j = 0; j < Car.HEIGHT; j++) {
+        for (int i = 0; i < car.getCargoWidthModel(); i++) {
+            for (int j = 0; j < car.getCargoHeightModel(); j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
@@ -58,8 +58,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType2ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT; i++) {
-            for (int j = 0; j < Car.WIDTH - 1; j++) {
+        for (int i = 0; i < car.getCargoHeightModel(); i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 1; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
@@ -75,8 +75,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType3ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT; i++) {
-            for (int j = 0; j < Car.WIDTH - 2; j++) {
+        for (int i = 0; i < car.getCargoHeightModel(); i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 2; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
@@ -94,8 +94,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType4ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT; i++) {
-            for (int j = 0; j < Car.WIDTH - 3; j++) {
+        for (int i = 0; i < car.getCargoHeightModel(); i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 3; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
@@ -115,8 +115,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType5ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT; i++) {
-            for (int j = 0; j < Car.WIDTH - 4; j++) {
+        for (int i = 0; i < car.getCargoHeightModel(); i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 4; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
@@ -139,8 +139,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType6ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT - 1; i++) {
-            for (int j = 0; j < Car.WIDTH - 2; j++) {
+        for (int i = 0; i < car.getCargoHeightModel() - 1; i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 2; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
@@ -164,8 +164,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType7ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT - 1; i++) {
-            for (int j = 0; j < Car.WIDTH - 3; j++) {
+        for (int i = 0; i < car.getCargoHeightModel() - 1; i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 3; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
@@ -191,8 +191,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType8ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT - 1; i++) {
-            for (int j = 0; j < Car.WIDTH - 3; j++) {
+        for (int i = 0; i < car.getCargoHeightModel() - 1; i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 3; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
@@ -221,8 +221,8 @@ public class LoadPackUtils {
 
     private void loadPackWithType9ToCar(Car car, Pack pack) {
         String[][] arrCargoScheme = car.getCargo();
-        for (int i = 0; i < Car.HEIGHT - 2; i++) {
-            for (int j = 0; j < Car.WIDTH - 2; j++) {
+        for (int i = 0; i < car.getCargoHeightModel() - 2; i++) {
+            for (int j = 0; j < car.getCargoWidthModel() - 2; j++) {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
