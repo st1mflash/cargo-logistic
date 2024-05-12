@@ -28,12 +28,6 @@ public class LoadFileCargoService implements CargoService {
     @Autowired
     DatabaseService databaseService;
 
-    /*
-    public LoadFileCargoService(DatabaseService databaseService) {
-        this.databaseService = databaseService;
-    }
-    */
-
     @Override
     public String runService(CommandLine commandLine) {
         loadFileCommandLine = commandLine.getLoadFileCommandLine();

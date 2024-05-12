@@ -5,7 +5,9 @@ import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileUtils;
+import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

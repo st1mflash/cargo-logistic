@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
@@ -42,6 +43,7 @@ public class Car extends CarModel {
         this.idCar = Integer.parseInt(JSONObj.getString("id"));
         this.cargoWidthModel = 6;
         this.cargoHeightModel = 6;
+        this.cargo = new String[cargoHeightModel][cargoWidthModel];
         initCargoFromString(JSONObj.getString("cargo"));
     }
 
