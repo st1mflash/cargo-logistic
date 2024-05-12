@@ -5,14 +5,13 @@ import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileUtils;
-import com.ansekolesnikov.cargologistic.service.ServiceUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class ViewFileCargoServiceUtils extends ServiceUtils {
+public class ViewFileCargoServiceUtils {
     private static final Logger LOGGER = Logger.getLogger(ViewFileCargoServiceUtils.class.getName());
 
     public String getListCarsResultString(List<Car> carList) {

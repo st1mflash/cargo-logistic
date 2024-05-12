@@ -6,7 +6,6 @@ import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
-import com.ansekolesnikov.cargologistic.service.ServiceUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class LoadFileCargoServiceUtils extends ServiceUtils {
+public class LoadFileCargoServiceUtils {
     private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceUtils.class.getName());
 
     public String getCarsInfo(List<Car> listCars) {
