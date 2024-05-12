@@ -28,11 +28,6 @@ public class PackService implements CargoService {
     }
 
     @Override
-    public String runService(String params) {
-        return null;
-    }
-
-    @Override
     public String runService(CommandLine command) {
         packCommandLine = command.getPackCommandLine();
         return switch (packCommandLine.getOperation()) {

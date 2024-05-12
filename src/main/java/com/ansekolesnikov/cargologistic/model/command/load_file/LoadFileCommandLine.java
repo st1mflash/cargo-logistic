@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.model.command.load;
+package com.ansekolesnikov.cargologistic.model.command.load_file;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

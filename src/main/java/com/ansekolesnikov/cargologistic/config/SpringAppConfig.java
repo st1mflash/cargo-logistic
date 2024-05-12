@@ -1,9 +1,9 @@
 package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
-import com.ansekolesnikov.cargologistic.service.cargo.load.LoadFileCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
-import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
 import org.apache.log4j.Logger;
@@ -26,7 +26,7 @@ public class SpringAppConfig {
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
     private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
-    private ViewCargoService viewCargoService = new ViewCargoService();
+    private ViewFileCargoService viewFileCargoService = new ViewFileCargoService();
     private TelegramService telegramService = new TelegramService();
     private CarService carService = new CarService();
     private PackService packService = new PackService();

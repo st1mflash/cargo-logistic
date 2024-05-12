@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.cargo.view;
+package com.ansekolesnikov.cargologistic.service.cargo.view_file;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ViewCargoServiceUtils extends ServiceUtils {
-    private static final Logger LOGGER = Logger.getLogger(ViewCargoServiceUtils.class.getName());
+public class ViewFileCargoServiceUtils extends ServiceUtils {
+    private static final Logger LOGGER = Logger.getLogger(ViewFileCargoServiceUtils.class.getName());
 
     public String getListCarsResultString(List<Car> carList) {
         StringBuilder result = new StringBuilder();
@@ -26,7 +26,7 @@ public class ViewCargoServiceUtils extends ServiceUtils {
     public String getCarsInfoFromFile(LocalFile localFile) {
         List<Car> importedCarList = new LocalFileImportUtils().importCarsFromFile(localFile);
         if (importedCarList != null) {
-            return new ViewCargoServiceUtils().getListCarsResultString(importedCarList);
+            return new ViewFileCargoServiceUtils().getListCarsResultString(importedCarList);
         } else {
             LOGGER.info("Указанный файл '" + new LocalFileUtils().getFullAddress(localFile) + "' не содержит информации о грузовиках");
             return "Указанный файл не содержит информации о грузовиках.";

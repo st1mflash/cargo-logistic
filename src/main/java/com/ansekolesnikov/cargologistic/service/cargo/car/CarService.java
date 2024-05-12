@@ -28,10 +28,6 @@ public class CarService implements CargoService {
         this.databaseService = databaseService;
     }
 
-    public String runService(String params) {
-        return "";
-    }
-
     @Override
     public String runService(CommandLine command) {
         carCommandLine = command.getCarCommandLine();

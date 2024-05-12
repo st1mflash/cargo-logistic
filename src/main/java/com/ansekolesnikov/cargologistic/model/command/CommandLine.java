@@ -1,8 +1,9 @@
 package com.ansekolesnikov.cargologistic.model.command;
 
 import com.ansekolesnikov.cargologistic.model.command.car.CarCommandLine;
-import com.ansekolesnikov.cargologistic.model.command.load.LoadFileCommandLine;
+import com.ansekolesnikov.cargologistic.model.command.load_file.LoadFileCommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
+import com.ansekolesnikov.cargologistic.model.command.view_file.ViewFileCommandLine;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Setter
 public class CommandLine {
     private LoadFileCommandLine loadFileCommandLine;
+    private ViewFileCommandLine viewFileCommandLine;
     private CarCommandLine carCommandLine;
     private PackCommandLine packCommandLine;
 
@@ -20,9 +22,10 @@ public class CommandLine {
             case "load_file":
                 loadFileCommandLine = new LoadFileCommandLine(command);
                 break;
-            case "load":
+            case "view_file":
+                viewFileCommandLine = new ViewFileCommandLine(command);
                 break;
-            case "view":
+            case "load":
                 break;
             case "car":
                 carCommandLine = new CarCommandLine(command);

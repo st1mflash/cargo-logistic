@@ -1,7 +1,7 @@
-package com.ansekolesnikov.cargologistic.service.cargo.load;
+package com.ansekolesnikov.cargologistic.service.cargo.load_file;
 
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.command.load.LoadFileCommandLine;
+import com.ansekolesnikov.cargologistic.model.command.load_file.LoadFileCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
@@ -24,28 +24,6 @@ public class LoadFileCargoService implements CargoService {
     @Autowired
     LoadFileCargoServiceUtils serviceUtils;
     private LoadFileCommandLine loadFileCommandLine;
-
-    @Override
-    public String runService(String params) {
-        LocalFile localFile = new LocalFile(PATH_IMPORT_PACKAGE + serviceUtils.getFileNameFromStringParams(params));
-        String algorithm = serviceUtils.getAlgorithmFromStringParams(params);
-        int countCars = serviceUtils.getCountCarsFromStringParams(params);
-
-        LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);
-
-        if (serviceValidation.isValid()) {
-            List<Pack> importedPackList = serviceUtils.getListPacksFromFile(localFile);
-            List<Car> loadedCarList = serviceUtils.loadCars(importedPackList, countCars, algorithm);
-
-            if (serviceValidation.isValidCountCars(loadedCarList)) {
-                return serviceUtils.getCarsInfo(loadedCarList);
-            } else {
-                return serviceValidation.getUserErrorMessage();
-            }
-        } else {
-            return serviceValidation.getUserErrorMessage();
-        }
-    }
 
     @Override
     public String runService(CommandLine commandLine) {

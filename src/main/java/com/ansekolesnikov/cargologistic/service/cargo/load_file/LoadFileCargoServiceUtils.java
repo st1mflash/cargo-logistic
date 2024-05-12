@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.cargo.load;
+package com.ansekolesnikov.cargologistic.service.cargo.load_file;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;

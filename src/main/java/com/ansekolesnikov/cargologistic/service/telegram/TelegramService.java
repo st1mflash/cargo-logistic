@@ -4,9 +4,9 @@ import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
-import com.ansekolesnikov.cargologistic.service.cargo.load.LoadFileCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
-import com.ansekolesnikov.cargologistic.service.cargo.view.ViewCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -23,7 +23,7 @@ public class TelegramService {
     @Autowired
     private LoadFileCargoService loadFileCargoService;
     @Autowired
-    private ViewCargoService viewCargoService;
+    private ViewFileCargoService viewFileCargoService;
     @Autowired
     private PackService packService;
     @Autowired
@@ -47,15 +47,14 @@ public class TelegramService {
             case "load_file":
                 LOGGER.info("Запрос загрузки из файла '" + inputMessage.getInputFileName() + "' алгоритмом '" + inputMessage.getInputAlgorithm() + "' в " + inputMessage.getInputCountCars() + " ед. транспорта.");
 
-                //params = serviceUtils.getStringParams(inputMessage);
                 commandLine = new CommandLine(inputMessage.getText());
                 return serviceUtils.formatToCodeStyle(loadFileCargoService.runService(commandLine));
 
-            case "view":
+            case "view_file":
                 LOGGER.info("Запрос отображения информации о грузовиках из файла '" + inputMessage.getInputFileName() + "'");
 
-                params = inputMessage.getInputFileName();
-                return serviceUtils.formatToCodeStyle(viewCargoService.runService(params));
+                commandLine = new CommandLine(inputMessage.getText());
+                return serviceUtils.formatToCodeStyle(viewFileCargoService.runService(commandLine));
 
             case "car":
                 commandLine = new CommandLine(inputMessage.getText());
