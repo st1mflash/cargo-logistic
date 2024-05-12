@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @NoArgsConstructor
 @Service
@@ -30,26 +28,27 @@ public class LoadListCargoService implements CargoService {
     @Override
     public String runService(CommandLine commandLine) {
         loadListCommandLine = commandLine.getLoadListCommandLine();
-        CarModel carModel = databaseService
-                .getOperationsDatabase()
-                .getCarOperations()
-                .queryByName(loadListCommandLine.getCarModel());
-        String algorithm = loadListCommandLine.getAlgorithm();
-        int countCars = loadListCommandLine.getCountCars();
-        List<Pack> packs = Arrays
-                .stream(loadListCommandLine.getPacks())
-                .map(p -> databaseService
-                        .getOperationsDatabase()
-                        .getPackOperations()
-                        .queryByName(p)
-                )
-                .toList();
+        CarModel carModel =
+                loadListCargoServiceUtils
+                        .createCarModelByNameFromDatabase(
+                                databaseService,
+                                loadListCommandLine.getCarModel()
+                        );
+        List<Pack> packs =
+                loadListCargoServiceUtils
+                        .createPacksByNameFromDatabase(
+                                databaseService,
+                                loadListCommandLine.getPacks()
+                        );
 
-        return loadListCargoServiceUtils.toStringCarsInfo(
+        return loadListCargoServiceUtils.toStringCarsPacksInfo(
+                packs,
                 loadListCargoServiceUtils.loadCars(
-                        carModel, packs, countCars, algorithm
-                ),
-                packs
+                        carModel,
+                        packs,
+                        loadListCommandLine.getCountCars(),
+                        loadListCommandLine.getAlgorithm()
+                )
         );
     }
 }

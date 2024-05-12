@@ -5,9 +5,11 @@ import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +34,7 @@ public class LoadListCargoServiceUtils {
         return listCars;
     }
 
-    public String toStringCarsInfo(List<Car> listCars, List<Pack> packs) {
+    public String toStringCarsPacksInfo(List<Pack> packs, List<Car> listCars) {
         StringBuilder result = new StringBuilder();
 
         for (Pack pack: packs) {
@@ -46,5 +48,29 @@ public class LoadListCargoServiceUtils {
             }
         }
         return result.toString();
+    }
+
+    public CarModel createCarModelByNameFromDatabase(
+            DatabaseService databaseService,
+            String name
+    ) {
+        return databaseService
+                .getOperationsDatabase()
+                .getCarOperations()
+                .queryByName(name);
+    }
+
+    public List<Pack> createPacksByNameFromDatabase(
+            DatabaseService databaseService,
+            String[] packNames
+    ) {
+        return Arrays
+                .stream(packNames)
+                .map(p -> databaseService
+                        .getOperationsDatabase()
+                        .getPackOperations()
+                        .queryByName(p)
+                )
+                .toList();
     }
 }
