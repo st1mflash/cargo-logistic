@@ -12,12 +12,10 @@ public class FlywayMigration {
             String username,
             String password
     ) {
-
-        Flyway flyway = Flyway
-                .configure()
+        Flyway.configure()
                 .initSql("SET search_path = public")
                 .dataSource(url, username, password)
-                .load();
-        flyway.migrate();
+                .load()
+                .migrate();
     }
 }
