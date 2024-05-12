@@ -7,6 +7,7 @@ import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -19,6 +20,8 @@ import java.util.stream.Stream;
 public class LoadListCargoService implements CargoService {
     private DatabaseService databaseService;
     private LoadListCommandLine loadListCommandLine;
+    @Autowired
+    private LoadListCargoServiceUtils loadListCargoServiceUtils;
 
     public LoadListCargoService(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -42,11 +45,20 @@ public class LoadListCargoService implements CargoService {
                 )
                 .toList();
 
+        //loadListCargoServiceUtils.loadCars(carModel, packs, countCars, algorithm);
+        return loadListCargoServiceUtils.toStringCarsInfo(
+                loadListCargoServiceUtils.loadCars(
+                        carModel, packs, countCars, algorithm
+                )
+        );
+
+        /*
         System.out.println(carModel.getIdModel() + " - " + carModel.getNameModel());
         for(Pack pack: packs) {
             System.out.println(pack.getId() + " - " + pack.getName());
         }
 
         return null;
+        */
     }
 }

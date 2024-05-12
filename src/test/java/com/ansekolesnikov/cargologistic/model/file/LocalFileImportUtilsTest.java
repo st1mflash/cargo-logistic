@@ -19,21 +19,21 @@ public class LocalFileImportUtilsTest {
 
         assertNotNull(packs);
         assertEquals(15, packs.size());
-        assertEquals(9, packs.get(0).getType());
-        assertEquals(6, packs.get(1).getType());
-        assertEquals(5, packs.get(2).getType());
-        assertEquals(1, packs.get(3).getType());
-        assertEquals(1, packs.get(4).getType());
-        assertEquals(3, packs.get(5).getType());
-        assertEquals(1, packs.get(6).getType());
-        assertEquals(2, packs.get(7).getType());
-        assertEquals(3, packs.get(8).getType());
-        assertEquals(4, packs.get(9).getType());
-        assertEquals(5, packs.get(10).getType());
-        assertEquals(6, packs.get(11).getType());
-        assertEquals(7, packs.get(12).getType());
-        assertEquals(8, packs.get(13).getType());
-        assertEquals(9, packs.get(14).getType());
+        assertEquals(9, packs.get(0).getCode());
+        assertEquals(6, packs.get(1).getCode());
+        assertEquals(5, packs.get(2).getCode());
+        assertEquals(1, packs.get(3).getCode());
+        assertEquals(1, packs.get(4).getCode());
+        assertEquals(3, packs.get(5).getCode());
+        assertEquals(1, packs.get(6).getCode());
+        assertEquals(2, packs.get(7).getCode());
+        assertEquals(3, packs.get(8).getCode());
+        assertEquals(4, packs.get(9).getCode());
+        assertEquals(5, packs.get(10).getCode());
+        assertEquals(6, packs.get(11).getCode());
+        assertEquals(7, packs.get(12).getCode());
+        assertEquals(8, packs.get(13).getCode());
+        assertEquals(9, packs.get(14).getCode());
     }
 
     @Test

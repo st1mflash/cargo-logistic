@@ -51,6 +51,6 @@ public class PackTest {
     @Test
     void testGetType() {
         Pack pack = new Pack(2);
-        assertEquals(2, pack.getType());
+        assertEquals(2, pack.getCode());
     }
 }

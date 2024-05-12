@@ -8,32 +8,32 @@ import java.util.Objects;
 
 public class LoadPackUtils {
     public void loadPackInCar(Car car, Pack pack) {
-        switch (pack.getType()) {
-            case "1":
+        switch (pack.getCode()) {
+            case '1':
                 loadPackWithType1ToCar(car, pack);
                 break;
-            case "2":
+            case '2':
                 loadPackWithType2ToCar(car, pack);
                 break;
-            case "3":
+            case '3':
                 loadPackWithType3ToCar(car, pack);
                 break;
-            case "4":
+            case '4':
                 loadPackWithType4ToCar(car, pack);
                 break;
-            case "5":
+            case '5':
                 loadPackWithType5ToCar(car, pack);
                 break;
-            case "6":
+            case '6':
                 loadPackWithType6ToCar(car, pack);
                 break;
-            case "7":
+            case '7':
                 loadPackWithType7ToCar(car, pack);
                 break;
-            case "8":
+            case '8':
                 loadPackWithType8ToCar(car, pack);
                 break;
-            case "9":
+            case '9':
                 loadPackWithType9ToCar(car, pack);
                 break;
             default:
@@ -48,7 +48,7 @@ public class LoadPackUtils {
                 if (Objects.equals(arrCargoScheme[i][j], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
                     return;
                 }
@@ -64,8 +64,8 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i][j + 1], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
                     return;
                 }
@@ -82,9 +82,9 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i][j + 2], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
-                    arrCargoScheme[i][j + 2] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 2] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
                     return;
                 }
@@ -102,10 +102,10 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i][j + 3], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
-                    arrCargoScheme[i][j + 2] = pack.getType();
-                    arrCargoScheme[i][j + 3] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 3] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
                     return;
                 }
@@ -124,11 +124,11 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i][j + 4], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
-                    arrCargoScheme[i][j + 2] = pack.getType();
-                    arrCargoScheme[i][j + 3] = pack.getType();
-                    arrCargoScheme[i][j + 4] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 3] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 4] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
 
                     return;
@@ -149,12 +149,12 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i + 1][j + 2], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
-                    arrCargoScheme[i][j + 2] = pack.getType();
-                    arrCargoScheme[i + 1][j] = pack.getType();
-                    arrCargoScheme[i + 1][j + 1] = pack.getType();
-                    arrCargoScheme[i + 1][j + 2] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 2] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
                     return;
                 }
@@ -175,13 +175,13 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i + 1][j + 2], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
-                    arrCargoScheme[i][j + 2] = pack.getType();
-                    arrCargoScheme[i][j + 3] = pack.getType();
-                    arrCargoScheme[i + 1][j] = pack.getType();
-                    arrCargoScheme[i + 1][j + 1] = pack.getType();
-                    arrCargoScheme[i + 1][j + 2] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 3] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 2] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
                     return;
                 }
@@ -203,14 +203,14 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i + 1][j + 3], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
-                    arrCargoScheme[i][j + 2] = pack.getType();
-                    arrCargoScheme[i][j + 3] = pack.getType();
-                    arrCargoScheme[i + 1][j] = pack.getType();
-                    arrCargoScheme[i + 1][j + 1] = pack.getType();
-                    arrCargoScheme[i + 1][j + 2] = pack.getType();
-                    arrCargoScheme[i + 1][j + 3] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 3] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 3] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
 
                     return;
@@ -234,15 +234,15 @@ public class LoadPackUtils {
                         && Objects.equals(arrCargoScheme[i + 2][j + 2], "0")
                         && new CarUtils().isCanLoadPackOnCargoPosition(car, pack, i, j)
                 ) {
-                    arrCargoScheme[i][j] = pack.getType();
-                    arrCargoScheme[i][j + 1] = pack.getType();
-                    arrCargoScheme[i][j + 2] = pack.getType();
-                    arrCargoScheme[i + 1][j] = pack.getType();
-                    arrCargoScheme[i + 1][j + 1] = pack.getType();
-                    arrCargoScheme[i + 1][j + 2] = pack.getType();
-                    arrCargoScheme[i + 2][j] = pack.getType();
-                    arrCargoScheme[i + 2][j + 1] = pack.getType();
-                    arrCargoScheme[i + 2][j + 2] = pack.getType();
+                    arrCargoScheme[i][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 1][j + 2] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 2][j] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 2][j + 1] = String.valueOf(pack.getCode());
+                    arrCargoScheme[i + 2][j + 2] = String.valueOf(pack.getCode());
                     pack.setCarId(car.getIdCar());
                     return;
                 }

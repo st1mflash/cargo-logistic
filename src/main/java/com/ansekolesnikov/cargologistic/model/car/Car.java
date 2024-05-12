@@ -12,15 +12,21 @@ public class Car extends CarModel {
     public static final int WIDTH = 6;
     public static final int HEIGHT = 6;
     private final String[][] cargo = new String[HEIGHT][WIDTH];
-    private int idCar;
+    private int idCar = new Random().nextInt(1000000);
 
     public Car() {
-        idCar = new Random().nextInt(1000000);
         for (int i = 0; i < Car.HEIGHT; i++) {
             for (int j = 0; j < Car.WIDTH; j++) {
                 cargo[i][j] = "0";
             }
         }
+    }
+
+    public Car(CarModel carModel) {
+        this.idModel = carModel.getIdModel();
+        this.nameModel = carModel.getNameModel();
+        this.cargoWidthModel = carModel.getCargoWidthModel();
+        this.cargoHeightModel = carModel.getCargoHeightModel();
     }
 
     public Car(JSONObject JSONObj) {
