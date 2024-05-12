@@ -1,5 +1,6 @@
-package com.ansekolesnikov.cargologistic.model.pack;
+package com.ansekolesnikov.cargologistic.model.pack.utils;
 
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 

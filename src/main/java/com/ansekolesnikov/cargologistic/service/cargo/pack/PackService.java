@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service.cargo.pack;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
-import com.ansekolesnikov.cargologistic.model.pack.PackUtils;
+import com.ansekolesnikov.cargologistic.model.pack.utils.PackUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
