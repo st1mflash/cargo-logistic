@@ -8,10 +8,10 @@ import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 
 public class PackDatabaseOperations {
-    private QueryPackDatabaseOperation queryPackDatabaseOperation;
-    private InsertPackDatabaseOperation insertPackDatabaseOperation;
-    private UpdatePackDatabaseOperation updatePackDatabaseOperation;
-    private DeletePackDatabaseOperation deletePackDatabaseOperation;
+    private final QueryPackDatabaseOperation queryPackDatabaseOperation;
+    private final InsertPackDatabaseOperation insertPackDatabaseOperation;
+    private final UpdatePackDatabaseOperation updatePackDatabaseOperation;
+    private final DeletePackDatabaseOperation deletePackDatabaseOperation;
 
     public PackDatabaseOperations(DatabaseService databaseService) {
         this.queryPackDatabaseOperation = new QueryPackDatabaseOperation(databaseService);

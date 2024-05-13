@@ -24,23 +24,6 @@ public class CarUtils {
         return (countFilledPoints * 100) / (car.getCargoWidthModel() * car.getCargoHeightModel());
     }
 
-    public boolean isCanLoadPackOnCargoPosition(Car car, Pack pack, int startHeightPos, int startWidthPos) {
-        String[][] cargo = car.getCargo();
-        int packWidth = pack.getWidth();
-
-        if (startHeightPos == 0) {
-            return true;
-        } else {
-            int sumPackWidthSupport = 0;
-            for (int j = startWidthPos; j < startWidthPos + packWidth; j++) {
-                if (!Objects.equals(cargo[startHeightPos - 1][j], "0")) {
-                    sumPackWidthSupport = sumPackWidthSupport + 1;
-                }
-            }
-            return sumPackWidthSupport > packWidth / 2;
-        }
-    }
-
     public int calcCountThisTypePackOnCar(Car car, int cargoPackageType) {
         String loadToString = Arrays.deepToString(car.getCargo()).replaceAll("\\D", "");
         return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;

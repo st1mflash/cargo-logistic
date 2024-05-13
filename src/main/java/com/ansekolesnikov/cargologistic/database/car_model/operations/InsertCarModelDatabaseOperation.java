@@ -21,7 +21,6 @@ public class InsertCarModelDatabaseOperation {
         this.statement = databaseService.getStatement();
     }
 
-
     public void insert(CarModel carModel) {
         try {
             ResultSet resultSet = statement.executeQuery(

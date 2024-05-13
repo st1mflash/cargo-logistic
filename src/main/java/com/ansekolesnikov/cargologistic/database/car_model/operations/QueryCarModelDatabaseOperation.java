@@ -41,7 +41,6 @@ public class QueryCarModelDatabaseOperation {
         }
     }
 
-
     public CarModel queryByName(String name) {
         try {
             ResultSet resultSet = statement.executeQuery(
