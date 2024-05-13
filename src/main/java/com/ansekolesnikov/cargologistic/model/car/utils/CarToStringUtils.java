@@ -33,14 +33,14 @@ public class CarToStringUtils {
                 "Идентификатор: #" + car.getIdCar()
                         + "\nПараметры кузова: " + car.getCargoWidthModel() + "х" + car.getCargoHeightModel()
                         + "\nЗагруженность: " + new CarUtils().calcPercentLoad(car) + "%"
-                        + "\nСостав груза:"
+                        + "\nСостав кузова:"
         );
 
         for (int i = 1; i < 10; i++) {
             int countPackages = new CarUtils().calcCountThisTypePackOnCar(car, i);
-            fullInfoString.append((countPackages != 0 ? "\n- тип '" + i + "': " + countPackages + " шт." : ""));
+            fullInfoString.append((countPackages != 0 ? "\n- посылка '" + i + "': " + countPackages + " шт." : ""));
         }
-        fullInfoString.append("\nСхема:\n").append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n\n");
+        fullInfoString.append("\nСхема кузова:\n").append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n\n");
         return fullInfoString.toString();
     }
 }
