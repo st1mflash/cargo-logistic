@@ -4,7 +4,6 @@ import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.view_file.ViewFileCommandLine;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

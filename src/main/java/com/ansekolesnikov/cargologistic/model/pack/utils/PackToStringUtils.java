@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @NoArgsConstructor
 @Component
-public class PackUtils {
+public class PackToStringUtils {
     public String toStringPackInfo(Pack pack) {
         return "Идентификатор: #" + pack.getId()
                 + "\nНазвание посылки: " + pack.getName()

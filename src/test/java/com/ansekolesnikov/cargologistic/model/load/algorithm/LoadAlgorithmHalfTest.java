@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.model.load_car.algorithm;
+package com.ansekolesnikov.cargologistic.model.load.algorithm;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
@@ -8,29 +8,29 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LoadAlgorithmMaxTest {
+public class LoadAlgorithmHalfTest {
     @Test
-    public void testLoad() {
+    public void testLoad_underFiftyPercent() {
         Car car = new Car();
         car.initCargoFromString("555551000000000000000000000000000000");
         CarUtils carUtils = new CarUtils();
         Pack pack = new Pack(3);
         int carPercentLoadBeforeTryLoad = carUtils.calcPercentLoad(car);
-        LoadAlgorithmMax loadAlgorithmMax = new LoadAlgorithmMax();
-        loadAlgorithmMax.load(car, pack);
+        LoadAlgorithmHalf loadAlgorithmHalf = new LoadAlgorithmHalf();
+        loadAlgorithmHalf.load(car, pack);
 
         assertTrue(carPercentLoadBeforeTryLoad < carUtils.calcPercentLoad(car));
     }
 
     @Test
-    public void testLoad_fullCar() {
+    public void testLoad_overFiftyPercent() {
         Car car = new Car();
-        car.initCargoFromString("555551999666999666999333111111111111");
+        car.initCargoFromString("555551999666999666999333100000000000");
         CarUtils carUtils = new CarUtils();
         Pack pack = new Pack(3);
         int carPercentLoadBeforeTryLoad = carUtils.calcPercentLoad(car);
-        LoadAlgorithmMax loadAlgorithmMax = new LoadAlgorithmMax();
-        loadAlgorithmMax.load(car, pack);
+        LoadAlgorithmHalf loadAlgorithmHalf = new LoadAlgorithmHalf();
+        loadAlgorithmHalf.load(car, pack);
 
         assertEquals(carPercentLoadBeforeTryLoad, carUtils.calcPercentLoad(car));
     }

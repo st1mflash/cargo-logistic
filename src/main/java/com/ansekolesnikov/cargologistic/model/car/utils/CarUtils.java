@@ -1,9 +1,9 @@
 package com.ansekolesnikov.cargologistic.model.car.utils;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmHalf;
-import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmMax;
-import com.ansekolesnikov.cargologistic.model.load_car.algorithm.LoadAlgorithmType;
+import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmHalf;
+import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmMax;
+import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmType;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 
 import java.util.Arrays;

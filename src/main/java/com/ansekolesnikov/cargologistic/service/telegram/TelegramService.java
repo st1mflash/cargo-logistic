@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.command.load_list.LoadListCommandLine;
 import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
@@ -45,11 +44,10 @@ public class TelegramService {
     }
 
     public String getAnswer(TelegramUserMessage inputMessage) {
-        String params;
         CommandLine commandLine;
         switch (inputMessage.getInputCommand()) {
             case "load_file":
-                LOGGER.info("Запрос загрузки из файла '" + inputMessage.getInputFileName() + "' алгоритмом '" + inputMessage.getInputAlgorithm() + "' в " + inputMessage.getInputCountCars() + " ед. транспорта.");
+                //LOGGER.info("Запрос загрузки из файла '" + inputMessage.getInputFileName() + "' алгоритмом '" + inputMessage.getInputAlgorithm() + "' в " + inputMessage.getInputCountCars() + " ед. транспорта.");
 
                 commandLine = new CommandLine(inputMessage.getText());
                 return serviceUtils.formatToCodeStyle(loadFileCargoService.runService(commandLine));
@@ -59,21 +57,21 @@ public class TelegramService {
                 return serviceUtils.formatToCodeStyle(loadListCargoService.runService(commandLine));
 
             case "view_file":
-                LOGGER.info("Запрос отображения информации о грузовиках из файла '" + inputMessage.getInputFileName() + "'");
+                //LOGGER.info("Запрос отображения информации о грузовиках из файла '" + inputMessage.getInputFileName() + "'");
 
                 commandLine = new CommandLine(inputMessage.getText());
                 return serviceUtils.formatToCodeStyle(viewFileCargoService.runService(commandLine));
 
             case "car":
                 commandLine = new CommandLine(inputMessage.getText());
-                //return serviceUtils.formatToCodeStyle()
+                return serviceUtils.formatToCodeStyle(carService.runService(commandLine));
 
             case "pack":
                 commandLine = new CommandLine(inputMessage.getText());
-                return serviceUtils.formatToCodeStyle(carService.runService(commandLine));
+                return serviceUtils.formatToCodeStyle(packService.runService(commandLine));
 
             default:
-                LOGGER.error("Не удалось определить введенную команду. Telegram ID пользователя: '" + inputMessage.getChatId() + "', текст сообщения: '" + inputMessage.getText() + "'");
+                //LOGGER.error("Не удалось определить введенную команду. Telegram ID пользователя: '" + inputMessage.getChatId() + "', текст сообщения: '" + inputMessage.getText() + "'");
 
                 return serviceUtils.formatToCodeStyle("Не удалось определить введенную команду");
         }

@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.model.command.pack;
 
-import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

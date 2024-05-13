@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.model.load_car.algorithm;
+package com.ansekolesnikov.cargologistic.model.load.algorithm;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;

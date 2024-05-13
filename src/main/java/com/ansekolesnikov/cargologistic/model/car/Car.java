@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
@@ -56,7 +55,7 @@ public class Car extends CarModel {
         }
     }
 
-    public void loadPackOnAddress(Pack pack, int height, int width) {
+    public void loadPackOnCargoAddress(Pack pack, int height, int width) {
         for (int i = 0; i < pack.getHeight(); i++) {
             for (int j = 0; j < pack.getWidth(); j++) {
                 if (!Objects.equals(pack.getArrScheme()[i][j], "0")) {
@@ -66,10 +65,10 @@ public class Car extends CarModel {
         }
     }
 
-    public String findLoadAddress(Pack pack) {
+    public String findLoadPackAddress(Pack pack) {
         for (int i = 0; i < cargoHeightModel; i++) {
             for (int j = 0; j < cargoWidthModel; j++) {
-                if (isCanLoadOnThisAddress(pack, i, j)
+                if (isCanLoadPackOnCargoAddress(pack, i, j)
                         && Objects.equals(cargo[i][j], "0")) {
                     return i + " " + j;
                 }
@@ -78,7 +77,7 @@ public class Car extends CarModel {
         return "not";
     }
 
-    private boolean isCanLoadOnThisAddress(Pack pack, int height, int width) {
+    private boolean isCanLoadPackOnCargoAddress(Pack pack, int height, int width) {
         for (int i = 0; i < pack.getHeight(); i++) {
             for (int j = 0; j < pack.getWidth(); j++) {
                 if (i + height >= this.cargoHeightModel

@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.model.pack;
 
-import com.ansekolesnikov.cargologistic.model.pack.utils.PackUtils;
 import lombok.Getter;
 import lombok.Setter;
 

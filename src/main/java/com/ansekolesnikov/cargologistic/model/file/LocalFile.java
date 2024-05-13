@@ -21,5 +21,4 @@ public class LocalFile {
             LOGGER.error("Ошибка считывания содержимого файла '" + filePath + "'. Подробнее: " + e);
         }
     }
-
 }

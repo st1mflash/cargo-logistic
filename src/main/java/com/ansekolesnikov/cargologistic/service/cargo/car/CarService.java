@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.service.cargo.car;
 
-import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarModelToStringUtils;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
