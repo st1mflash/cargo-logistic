@@ -34,11 +34,12 @@ public class LoadFileCargoServiceTest {
     //@Autowired
     //private LoadCarServiceValidation serviceValidation = new LoadCarServiceValidation();
 
-
+/*
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
     }
+    */
 
 
     @Test
