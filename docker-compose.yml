@@ -1,22 +1,33 @@
-version: '3'
+version: '3.1'
+
+volumes:
+  cargo-logistic:
+
 services:
-  postgres:
+  postgres-db:
     image: postgres:16.1
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: db_cargo_logistic
+    volumes:
+      - cargo-logistic:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
   java-app:
+    restart: always
     build: .
-    environment:
-      - PORT=8080
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/db_cargo_logistic
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - postgres-db
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres-db:5432/db_cargo_logistic'
+      JAVA_OPTS: '-Xmx512m'
+      #SPRING_APPLICATION_JSON: '{
+      #        "spring.datasource.url": "jdbc:postgresql://postgres-db:5432/db_cargo_logistic",
+      #      }'
 #  pgadmin:
 #    image: dpage/pgadmin4
 #    restart: always
