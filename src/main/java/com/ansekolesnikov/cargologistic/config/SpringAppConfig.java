@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+        //@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public class SpringAppConfig {
     private static final Logger LOGGER = Logger.getLogger(SpringAppConfig.class.getName());
 

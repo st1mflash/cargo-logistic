@@ -37,6 +37,7 @@ public class DatabaseService {
         this.connection_password = password;
 
         try {
+            //Class.forName("org.postgresql.Driver").newInstance();
             connection = DriverManager.getConnection(connection_url, connection_username, connection_password);
             statement = connection.createStatement();
 
