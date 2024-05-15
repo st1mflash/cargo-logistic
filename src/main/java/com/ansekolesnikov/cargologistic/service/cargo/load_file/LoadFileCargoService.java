@@ -20,29 +20,36 @@ import java.util.List;
 @Setter
 @Service
 public class LoadFileCargoService implements CargoService {
-    @Value("${directory.pack.import}")
-    private String PATH_IMPORT_PACKAGE;
-    @Autowired
-    LoadFileCargoServiceUtils serviceUtils;
+    private String pathImportPackage;
+    LoadFileCargoServiceUtils loadFileCargoServiceUtils;
     private LoadFileCommandLine loadFileCommandLine;
-    @Autowired
     DatabaseService databaseService;
+
+    public LoadFileCargoService(
+            DatabaseService databaseService,
+            LoadFileCargoServiceUtils loadFileCargoServiceUtils,
+            String pathImportPackage
+    ) {
+        this.databaseService = databaseService;
+        this.loadFileCargoServiceUtils = loadFileCargoServiceUtils;
+        this.pathImportPackage = pathImportPackage;
+    }
 
     @Override
     public String runService(CommandLine commandLine) {
         loadFileCommandLine = commandLine.getLoadFileCommandLine();
-        LocalFile localFile = new LocalFile(PATH_IMPORT_PACKAGE + loadFileCommandLine.getFileName());
+        LocalFile localFile = new LocalFile(pathImportPackage + loadFileCommandLine.getFileName());
         String algorithm = loadFileCommandLine.getAlgorithm();
         int countCars = loadFileCommandLine.getCountCars();
 
         LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);
 
         if (serviceValidation.isValid()) {
-            List<Pack> importedPackList = serviceUtils.getListPacksFromFile(databaseService, localFile);
-            List<Car> loadedCarList = serviceUtils.loadCars(importedPackList, countCars, algorithm);
+            List<Pack> importedPackList = loadFileCargoServiceUtils.getListPacksFromFile(databaseService, localFile);
+            List<Car> loadedCarList = loadFileCargoServiceUtils.loadCars(importedPackList, countCars, algorithm);
 
             if (serviceValidation.isValidCountCars(loadedCarList)) {
-                return serviceUtils.getCarsInfo(loadedCarList);
+                return loadFileCargoServiceUtils.getCarsInfo(loadedCarList);
             } else {
                 return serviceValidation.getUserErrorMessage();
             }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 @Service
 public class ViewFileCargoService implements CargoService {
-    //@Value("${directory.car.import}")
     private String pathImportCar;
     @Autowired
     ViewFileCargoServiceUtils serviceUtils;

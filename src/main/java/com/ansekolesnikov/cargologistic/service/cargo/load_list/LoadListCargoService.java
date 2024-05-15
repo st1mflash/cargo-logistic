@@ -16,14 +16,16 @@ import java.util.List;
 @NoArgsConstructor
 @Service
 public class LoadListCargoService implements CargoService {
-    @Autowired
     private DatabaseService databaseService;
     private LoadListCommandLine loadListCommandLine;
-    @Autowired
     private LoadListCargoServiceUtils loadListCargoServiceUtils;
 
-    public LoadListCargoService(DatabaseService databaseService) {
+    public LoadListCargoService(
+            DatabaseService databaseService,
+            LoadListCargoServiceUtils loadListCargoServiceUtils
+    ) {
         this.databaseService = databaseService;
+        this.loadListCargoServiceUtils = loadListCargoServiceUtils;
     }
 
     @Override

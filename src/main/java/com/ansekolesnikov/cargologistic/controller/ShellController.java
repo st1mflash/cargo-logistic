@@ -12,9 +12,7 @@ import org.springframework.shell.standard.ShellOption;
 @NoArgsConstructor
 @ShellComponent
 public class ShellController {
-    //@Autowired
     private ViewFileCargoService viewFileCargoService;
-    //@Autowired
     private LoadFileCargoService loadFileCargoService;
 
     private static final Logger LOGGER = Logger.getLogger(ShellController.class.getName());

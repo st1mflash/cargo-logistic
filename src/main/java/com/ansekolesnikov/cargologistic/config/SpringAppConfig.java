@@ -4,7 +4,9 @@ import com.ansekolesnikov.cargologistic.controller.ShellController;
 import com.ansekolesnikov.cargologistic.database.FlywayMigration;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoServiceUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoServiceUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
@@ -32,16 +34,21 @@ public class SpringAppConfig {
     private String DB_PASSWORD;
     @Value("${directory.car.import}")
     private String PATH_IMPORT_CAR;
+    @Value("${directory.pack.import}")
+    private String PATH_IMPORT_PACKAGE;
 
     private ShellController shellController;
     private FlywayMigration flywayMigration;
     private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
-    private LoadListCargoService loadListCargoService = new LoadListCargoService();
+    private LoadListCargoService loadListCargoService;
     private ViewFileCargoService viewFileCargoService;
     private TelegramService telegramService = new TelegramService();
     private CarService carService = new CarService();
     private PackService packService = new PackService();
     private DatabaseService databaseService;
+
+    private LoadListCargoServiceUtils loadListCargoServiceUtils = new LoadListCargoServiceUtils();
+    private LoadFileCargoServiceUtils loadFileCargoServiceUtils = new LoadFileCargoServiceUtils();
 
 
     @Bean
@@ -83,11 +90,23 @@ public class SpringAppConfig {
         return viewFileCargoService;
     }
 
-    /*
     @Bean
     public LoadListCargoService loadListCargoService() {
-        loadListCargoService = new LoadListCargoService(databaseService);
+        loadListCargoService = new LoadListCargoService(
+                databaseService,
+                loadListCargoServiceUtils
+        );
         return loadListCargoService;
     }
-    */
+
+    @Bean
+    public LoadFileCargoService loadFileCargoService() {
+        loadFileCargoService = new LoadFileCargoService(
+                databaseService,
+                loadFileCargoServiceUtils,
+                PATH_IMPORT_PACKAGE
+        );
+        return loadFileCargoService;
+    }
+
 }
