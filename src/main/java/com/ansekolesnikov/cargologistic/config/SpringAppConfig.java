@@ -11,16 +11,19 @@ import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
 import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
-import org.apache.log4j.Logger;
+import lombok.NoArgsConstructor;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+//@NoArgsConstructor
 @Configuration
-@ComponentScan("com.ansekolesnikov.cargologistic")
+//@ComponentScan
+//@ComponentScan("com.ansekolesnikov.cargologistic")
 public class SpringAppConfig {
-    private static final Logger LOGGER = Logger.getLogger(SpringAppConfig.class.getName());
+    //private static final Logger LOGGER = Logger.getLogger(SpringAppConfig.class.getName());
 
     @Value("${telegram.bot.username}")
     private String TELEGRAM_BOT_USERNAME;
@@ -39,7 +42,7 @@ public class SpringAppConfig {
 
     private ShellController shellController;
     private FlywayMigration flywayMigration;
-    private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
+    private LoadFileCargoService loadFileCargoService;
     private LoadListCargoService loadListCargoService;
     private ViewFileCargoService viewFileCargoService;
     private TelegramService telegramService = new TelegramService();
@@ -55,14 +58,14 @@ public class SpringAppConfig {
     public DatabaseService databaseService() {
         databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
         flywayMigration = new FlywayMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
-        LOGGER.info("Сервис работы базы данных - успешно запущен.");
+        //LOGGER.info("Сервис работы базы данных - успешно запущен.");
         return databaseService;
     }
 
     @Bean
     public TelegramService telegramService() {
         telegramService.startBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
-        LOGGER.info("Сервис работы телеграм ботов - успешно запущен.");
+        //LOGGER.info("Сервис работы телеграм ботов - успешно запущен.");
         return telegramService;
     }
 
