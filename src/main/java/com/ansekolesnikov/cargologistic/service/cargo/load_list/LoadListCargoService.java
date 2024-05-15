@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Service
 public class LoadListCargoService implements CargoService {
+    @Autowired
     private DatabaseService databaseService;
     private LoadListCommandLine loadListCommandLine;
     @Autowired

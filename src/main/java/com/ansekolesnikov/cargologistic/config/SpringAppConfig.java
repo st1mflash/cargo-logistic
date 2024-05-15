@@ -30,7 +30,7 @@ public class SpringAppConfig {
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
     private FlywayMigration flywayMigration;
-    private LoadFileCargoService loadFileCargoService;
+    private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
     private LoadListCargoService loadListCargoService = new LoadListCargoService();
     private ViewFileCargoService viewFileCargoService = new ViewFileCargoService();
     private TelegramService telegramService = new TelegramService();
@@ -66,9 +66,11 @@ public class SpringAppConfig {
         return carService;
     }
 
+    /*
     @Bean
     public LoadListCargoService loadListCargoService() {
         loadListCargoService = new LoadListCargoService(databaseService);
         return loadListCargoService;
     }
+    */
 }
