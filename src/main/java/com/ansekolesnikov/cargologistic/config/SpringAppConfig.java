@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.config;
 
+import com.ansekolesnikov.cargologistic.controller.ShellController;
 import com.ansekolesnikov.cargologistic.database.FlywayMigration;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
@@ -29,10 +30,14 @@ public class SpringAppConfig {
     private String DB_USERNAME;
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
+    @Value("${directory.car.import}")
+    private String PATH_IMPORT_CAR;
+
+    private ShellController shellController;
     private FlywayMigration flywayMigration;
     private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
     private LoadListCargoService loadListCargoService = new LoadListCargoService();
-    private ViewFileCargoService viewFileCargoService = new ViewFileCargoService();
+    private ViewFileCargoService viewFileCargoService;
     private TelegramService telegramService = new TelegramService();
     private CarService carService = new CarService();
     private PackService packService = new PackService();
@@ -64,6 +69,18 @@ public class SpringAppConfig {
     public CarService carService() {
         carService = new CarService(databaseService);
         return carService;
+    }
+
+    @Bean
+    public ShellController shellController() {
+        shellController = new ShellController(loadFileCargoService, viewFileCargoService);
+        return shellController;
+    }
+
+    @Bean
+    public ViewFileCargoService viewFileCargoService() {
+        viewFileCargoService = new ViewFileCargoService(PATH_IMPORT_CAR);
+        return viewFileCargoService;
     }
 
     /*

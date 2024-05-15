@@ -5,7 +5,6 @@ import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoSer
 import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -13,12 +12,20 @@ import org.springframework.shell.standard.ShellOption;
 @NoArgsConstructor
 @ShellComponent
 public class ShellController {
-    @Autowired
-    private ViewFileCargoService viewService;
-    @Autowired
+    //@Autowired
+    private ViewFileCargoService viewFileCargoService;
+    //@Autowired
     private LoadFileCargoService loadFileCargoService;
 
     private static final Logger LOGGER = Logger.getLogger(ShellController.class.getName());
+
+    public ShellController(
+            LoadFileCargoService loadFileCargoService,
+            ViewFileCargoService viewFileCargoService
+    ) {
+        this.loadFileCargoService = loadFileCargoService;
+        this.viewFileCargoService = viewFileCargoService;
+    }
 
     @ShellMethod("Формирование поставки грузами из .txt файла.")
     public String load_file(
@@ -40,7 +47,7 @@ public class ShellController {
     @ShellMethod("Получение полной информации о грузовиках из .json файла.")
     public String view_file(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
-        return viewService.runService(
+        return viewFileCargoService.runService(
                 new CommandLine(
                         Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
                                 fileName

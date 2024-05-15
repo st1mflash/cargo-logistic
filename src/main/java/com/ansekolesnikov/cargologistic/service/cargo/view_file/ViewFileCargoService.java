@@ -7,22 +7,25 @@ import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @Service
 public class ViewFileCargoService implements CargoService {
-    @Value("${directory.car.import}")
-    private String PATH_IMPORT_CAR;
+    //@Value("${directory.car.import}")
+    private String pathImportCar;
     @Autowired
     ViewFileCargoServiceUtils serviceUtils;
     private ViewFileCommandLine viewFileCommandLine;
 
+    public ViewFileCargoService(String pathImportCar) {
+        this.pathImportCar = pathImportCar;
+    }
+
     @Override
     public String runService(CommandLine commandLine) {
         viewFileCommandLine = commandLine.getViewFileCommandLine();
-        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + viewFileCommandLine.getFileName());
+        LocalFile localFile = new LocalFile(pathImportCar + viewFileCommandLine.getFileName());
         FileValidation fileValidation = new FileValidation(localFile);
 
         if (fileValidation.isValid()) {
