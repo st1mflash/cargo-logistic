@@ -5,7 +5,7 @@ volumes:
 
 services:
   postgres-db:
-    image: postgres:16.1
+    image: postgres:16.1-alpine
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -14,16 +14,17 @@ services:
     volumes:
       - cargo-logistic:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5432:5432"
+      - "5432:5432"
   java-app:
+    image: st1mul003/cargo-logistic:lasted
     restart: always
     build: .
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres-db
-    environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres-db:5432/db_cargo_logistic'
+    #depends_on:
+    #  - postgres-db
+    #environment:
+      #SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres-db:5432/db_cargo_logistic'
       #SPRING_APPLICATION_JSON: '{ "spring.datasource.url": "jdbc:postgresql://postgres-db:5432/db_cargo_logistic" }'
       #JAVA_OPTS: '-Xmx512m'
       #SPRING_APPLICATION_JSON: '{
