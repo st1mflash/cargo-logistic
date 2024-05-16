@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service.cargo.pack;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.PackModel;
-import com.ansekolesnikov.cargologistic.model.pack.utils.PackToStringUtils;
+import com.ansekolesnikov.cargologistic.model.pack.utils.PackModelToStringUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class PackService implements CargoService {
     DatabaseService databaseService;
     private PackCommandLine packCommandLine;
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
-    private PackToStringUtils packToStringUtils = new PackToStringUtils();
+    private PackModelToStringUtils packModelToStringUtils = new PackModelToStringUtils();
 
     public PackService(
             DatabaseService databaseService
@@ -60,7 +60,7 @@ public class PackService implements CargoService {
     private String insertPackIntoDatabase(PackModel packModel) {
         databaseService.getOperationsDatabase().getPackOperations().insert(packModel);
         return "Посылка '" + packModel.getName() + "' успешно создана.\n\n"
-                + packToStringUtils.toStringPackInfo(packModel);
+                + packModelToStringUtils.toStringPackInfo(packModel);
     }
 
     private String updatePackInDatabase(PackModel packModel, PackCommandLine command) {
@@ -86,7 +86,7 @@ public class PackService implements CargoService {
         }
         databaseService.getOperationsDatabase().getPackOperations().update(updatedPackModel);
         return "Посылка '" + packModel.getName() + "' успешно обновлена.\n\n"
-                + packToStringUtils.toStringPackInfo(packModel);
+                + packModelToStringUtils.toStringPackInfo(packModel);
     }
 
     private String deletePackFromDatabase(PackModel packModel) {
