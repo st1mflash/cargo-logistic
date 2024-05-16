@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.service.cargo.load_file;
 
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.load_file.LoadFileCommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
@@ -10,8 +10,6 @@ import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadFileCargoServiceValidation;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,8 +43,8 @@ public class LoadFileCargoService implements CargoService {
         LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);
 
         if (serviceValidation.isValid()) {
-            List<Pack> importedPackList = loadFileCargoServiceUtils.getListPacksFromFile(databaseService, localFile);
-            List<Car> loadedCarList = loadFileCargoServiceUtils.loadCars(importedPackList, countCars, algorithm);
+            List<PackModel> importedPackListModel = loadFileCargoServiceUtils.getListPacksFromFile(databaseService, localFile);
+            List<Car> loadedCarList = loadFileCargoServiceUtils.loadCars(importedPackListModel, countCars, algorithm);
 
             if (serviceValidation.isValidCountCars(loadedCarList)) {
                 return loadFileCargoServiceUtils.getCarsInfo(loadedCarList);

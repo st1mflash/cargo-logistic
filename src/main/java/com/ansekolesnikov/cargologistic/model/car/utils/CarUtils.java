@@ -4,7 +4,7 @@ import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmHalf;
 import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmMax;
 import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmType;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -29,16 +29,16 @@ public class CarUtils {
         return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;
     }
 
-    public void loadPackToCar(Car car, Pack pack, String algorithm) {
+    public void loadPackToCar(Car car, PackModel packModel, String algorithm) {
         switch (algorithm) {
             case "max":
-                new LoadAlgorithmMax().load(car, pack);
+                new LoadAlgorithmMax().load(car, packModel);
                 break;
             case "half":
-                new LoadAlgorithmHalf().load(car, pack);
+                new LoadAlgorithmHalf().load(car, packModel);
                 break;
             case "type":
-                new LoadAlgorithmType().load(car, pack);
+                new LoadAlgorithmType().load(car, packModel);
                 break;
             default:
                 break;

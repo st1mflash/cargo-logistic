@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.pack.operations;
 
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +19,10 @@ public class DeletePackDatabaseOperation {
         this.statement = databaseService.getStatement();
     }
 
-    public void delete(Pack pack) {
+    public void delete(PackModel packModel) {
         try {
             statement.executeUpdate(
-                    "DELETE FROM pack_model WHERE id = '" + pack.getId() + "';");
+                    "DELETE FROM pack_model WHERE id = '" + packModel.getId() + "';");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

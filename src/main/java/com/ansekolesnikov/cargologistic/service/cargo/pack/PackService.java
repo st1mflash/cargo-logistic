@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.model.pack.utils.PackToStringUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
@@ -49,7 +49,7 @@ public class PackService implements CargoService {
         };
     }
 
-    private Pack findPackByIdInDatabase(int id) {
+    private PackModel findPackByIdInDatabase(int id) {
         return databaseService
                 .getOperationsDatabase()
                 .getPackOperations()
@@ -57,40 +57,40 @@ public class PackService implements CargoService {
                 ;
     }
 
-    private String insertPackIntoDatabase(Pack pack) {
-        databaseService.getOperationsDatabase().getPackOperations().insert(pack);
-        return "Посылка '" + pack.getName() + "' успешно создана.\n\n"
-                + packToStringUtils.toStringPackInfo(pack);
+    private String insertPackIntoDatabase(PackModel packModel) {
+        databaseService.getOperationsDatabase().getPackOperations().insert(packModel);
+        return "Посылка '" + packModel.getName() + "' успешно создана.\n\n"
+                + packToStringUtils.toStringPackInfo(packModel);
     }
 
-    private String updatePackInDatabase(Pack pack, PackCommandLine command) {
-        Pack updatedPack = pack;
+    private String updatePackInDatabase(PackModel packModel, PackCommandLine command) {
+        PackModel updatedPackModel = packModel;
         switch (command.getParamName()) {
             case "name":
-                updatedPack.setName(command.getParamValue());
+                updatedPackModel.setName(command.getParamValue());
                 break;
             case "code":
-                updatedPack.setCode(command.getParamValue().charAt(0));
+                updatedPackModel.setCode(command.getParamValue().charAt(0));
                 break;
             case "scheme":
-                updatedPack.setScheme(command.getParamValue());
+                updatedPackModel.setScheme(command.getParamValue());
                 break;
             case "scheme_width":
-                updatedPack.setWidth(Integer.parseInt(command.getParamValue()));
+                updatedPackModel.setWidth(Integer.parseInt(command.getParamValue()));
                 break;
             case "scheme_height":
-                updatedPack.setHeight(Integer.parseInt(command.getParamValue()));
+                updatedPackModel.setHeight(Integer.parseInt(command.getParamValue()));
                 break;
             default:
                 break;
         }
-        databaseService.getOperationsDatabase().getPackOperations().update(updatedPack);
-        return "Посылка '" + pack.getName() + "' успешно обновлена.\n\n"
-                + packToStringUtils.toStringPackInfo(pack);
+        databaseService.getOperationsDatabase().getPackOperations().update(updatedPackModel);
+        return "Посылка '" + packModel.getName() + "' успешно обновлена.\n\n"
+                + packToStringUtils.toStringPackInfo(packModel);
     }
 
-    private String deletePackFromDatabase(Pack pack) {
-        databaseService.getOperationsDatabase().getPackOperations().delete(pack);
-        return "Посылка '" + pack.getName() + "' успешно удалена.";
+    private String deletePackFromDatabase(PackModel packModel) {
+        databaseService.getOperationsDatabase().getPackOperations().delete(packModel);
+        return "Посылка '" + packModel.getName() + "' успешно удалена.";
     }
 }

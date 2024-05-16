@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.pack.utils;
 
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,29 +9,29 @@ import java.util.Objects;
 @NoArgsConstructor
 @Component
 public class PackToStringUtils {
-    public String toStringPackInfo(Pack pack) {
-        return "Идентификатор: #" + pack.getId()
-                + "\nНазвание посылки: " + pack.getName()
-                + "\nПараметры посылки: " + pack.getWidth() + "x" + pack.getHeight()
+    public String toStringPackInfo(PackModel packModel) {
+        return "Идентификатор: #" + packModel.getId()
+                + "\nНазвание посылки: " + packModel.getName()
+                + "\nПараметры посылки: " + packModel.getWidth() + "x" + packModel.getHeight()
                 + "\nСхема посылки:\n"
-                + toStringPackScheme(pack);
+                + toStringPackScheme(packModel);
     }
 
-    public String toStringPackScheme(Pack pack) {
+    public String toStringPackScheme(PackModel packModel) {
         StringBuilder packSchemeToString = new StringBuilder();
-        String packScheme = pack.getScheme();
-        for (int i = pack.getHeight() - 1; i >= 0; i--) {
+        String packScheme = packModel.getScheme();
+        for (int i = packModel.getHeight() - 1; i >= 0; i--) {
             packSchemeToString.append("+");
-            for (int j = 0; j < pack.getWidth(); j++) {
-                if (Objects.equals("" + packScheme.charAt(i * pack.getWidth() + j), "0")) {
+            for (int j = 0; j < packModel.getWidth(); j++) {
+                if (Objects.equals("" + packScheme.charAt(i * packModel.getWidth() + j), "0")) {
                     packSchemeToString.append(" ");
                 } else {
-                    packSchemeToString.append(pack.getCode());
+                    packSchemeToString.append(packModel.getCode());
                 }
             }
             packSchemeToString.append("+\n");
         }
-        packSchemeToString.append("+".repeat(Math.max(0, pack.getWidth() + 2)));
+        packSchemeToString.append("+".repeat(Math.max(0, packModel.getWidth() + 2)));
         return packSchemeToString.toString();
     }
 }

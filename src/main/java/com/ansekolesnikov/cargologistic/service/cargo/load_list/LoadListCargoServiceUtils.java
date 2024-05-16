@@ -4,7 +4,7 @@ import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class LoadListCargoServiceUtils {
-    public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPacks, int inputCountCars, String inputAlgorithm) {
+    public List<Car> loadCars(CarModel inputCarModel, List<PackModel> inputPackModels, int inputCountCars, String inputAlgorithm) {
         List<Car> listCars = new ArrayList<>();
         CarUtils carUtils = new CarUtils();
 
@@ -22,22 +22,22 @@ public class LoadListCargoServiceUtils {
             Car car = new Car(inputCarModel);
             listCars.add(car);
 
-            List<Pack> filteredPackList = inputPacks.stream()
+            List<PackModel> filteredPackListModel = inputPackModels.stream()
                     .filter(pack -> pack.getCarId() == 0)
                     .toList();
 
-            for (Pack pack : filteredPackList) {
-                carUtils.loadPackToCar(car, pack, inputAlgorithm);
+            for (PackModel packModel : filteredPackListModel) {
+                carUtils.loadPackToCar(car, packModel, inputAlgorithm);
             }
         }
         return listCars;
     }
 
-    public String toStringCarsPacksInfo(List<Pack> packs, List<Car> listCars) {
+    public String toStringCarsPacksInfo(List<PackModel> packModels, List<Car> listCars) {
         StringBuilder result = new StringBuilder();
 
-        for (Pack pack: packs) {
-            result.append(pack.getCode()).append(" -- ").append(pack.getName()).append("\n");
+        for (PackModel packModel : packModels) {
+            result.append(packModel.getCode()).append(" -- ").append(packModel.getName()).append("\n");
         }
         result.append("\n");
 
@@ -59,7 +59,7 @@ public class LoadListCargoServiceUtils {
                 .queryByName(name);
     }
 
-    public List<Pack> createPacksByNameFromDatabase(
+    public List<PackModel> createPacksByNameFromDatabase(
             DatabaseService databaseService,
             String[] packNames
     ) {

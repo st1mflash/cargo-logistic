@@ -3,14 +3,12 @@ package com.ansekolesnikov.cargologistic.service.cargo.load_list;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.load_list.LoadListCommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @NoArgsConstructor
@@ -37,7 +35,7 @@ public class LoadListCargoService implements CargoService {
                                 databaseService,
                                 loadListCommandLine.getCarModel()
                         );
-        List<Pack> packs =
+        List<PackModel> packModels =
                 loadListCargoServiceUtils
                         .createPacksByNameFromDatabase(
                                 databaseService,
@@ -45,10 +43,10 @@ public class LoadListCargoService implements CargoService {
                         );
 
         return loadListCargoServiceUtils.toStringCarsPacksInfo(
-                packs,
+                packModels,
                 loadListCargoServiceUtils.loadCars(
                         carModel,
-                        packs,
+                        packModels,
                         loadListCommandLine.getCountCars(),
                         loadListCommandLine.getAlgorithm()
                 )

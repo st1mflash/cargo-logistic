@@ -5,7 +5,7 @@ import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -30,26 +30,26 @@ public class LoadFileCargoServiceUtils {
         return result.toString();
     }
 
-    public List<Pack> getListPacksFromFile(DatabaseService databaseService, LocalFile localFile) {
+    public List<PackModel> getListPacksFromFile(DatabaseService databaseService, LocalFile localFile) {
         return Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(databaseService, localFile))
                 .stream()
-                .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
+                .sorted(Comparator.comparingInt(PackModel::getWidth).reversed())
                 .toList();
     }
 
-    public List<Car> loadCars(List<Pack> packList, int countCars, String algorithm) {
+    public List<Car> loadCars(List<PackModel> packModelList, int countCars, String algorithm) {
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
         CarUtils carUtils = new CarUtils();
         do {
             Car car = new Car();
             listCars.add(car);
-            packList = packList.stream()
+            packModelList = packModelList.stream()
                     .filter(pack -> pack.getCarId() == 0)
                     .collect(Collectors.toList());
 
-            for (Pack pack : packList) {
-                carUtils.loadPackToCar(car, pack, algorithm);
+            for (PackModel packModel : packModelList) {
+                carUtils.loadPackToCar(car, packModel, algorithm);
             }
             if (localCarCount > 0) {
                 if (new CarUtils().calcPercentLoad(car) == 0) {
@@ -60,7 +60,7 @@ public class LoadFileCargoServiceUtils {
             }
             localCarCount--;
         } while (
-                packList.stream()
+                packModelList.stream()
                         .anyMatch(pack -> pack.getCarId() == 0)
                         || localCarCount > 0
         );

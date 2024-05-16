@@ -6,18 +6,23 @@ import com.ansekolesnikov.cargologistic.database.car_model.operations.QueryCarMo
 import com.ansekolesnikov.cargologistic.database.car_model.operations.UpdateCarModelDatabaseOperation;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
+//import org.hibernate.*;
 
-public class CarModelDatabaseOperations {
+public class CarModelDao {
     private final QueryCarModelDatabaseOperation queryCarModelDatabaseOperation;
     private final InsertCarModelDatabaseOperation insertCarModelDatabaseOperation;
     private final UpdateCarModelDatabaseOperation updateCarModelDatabaseOperation;
     private final DeleteCarModelDatabaseOperation deleteCarModelDatabaseOperation;
 
-    public CarModelDatabaseOperations(DatabaseService databaseService) {
+    public CarModelDao(DatabaseService databaseService) {
         this.queryCarModelDatabaseOperation = new QueryCarModelDatabaseOperation(databaseService);
         this.insertCarModelDatabaseOperation = new InsertCarModelDatabaseOperation(databaseService);
         this.updateCarModelDatabaseOperation = new UpdateCarModelDatabaseOperation(databaseService);
         this.deleteCarModelDatabaseOperation = new DeleteCarModelDatabaseOperation(databaseService);
+    }
+
+    public void save(CarModel carModel) {
+
     }
 
     public CarModel queryById(int id) {

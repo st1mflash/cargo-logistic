@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.pack.operations;
 
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,20 +20,20 @@ public class InsertPackDatabaseOperation {
         this.statement = databaseService.getStatement();
     }
 
-    public void insert(Pack pack) {
+    public void insert(PackModel packModel) {
         try {
             ResultSet resultSet = statement.executeQuery(
                     "INSERT INTO pack_model (name, code, scheme, scheme_width, scheme_height) " +
                             "VALUES (" +
-                            "'" + pack.getName() + "', " +
-                            "'" + pack.getCode() + "'," +
-                            "'" + pack.getScheme() + "', " +
-                            "'" + pack.getWidth() + "', " +
-                            "'" + pack.getHeight() + "') " +
+                            "'" + packModel.getName() + "', " +
+                            "'" + packModel.getCode() + "'," +
+                            "'" + packModel.getScheme() + "', " +
+                            "'" + packModel.getWidth() + "', " +
+                            "'" + packModel.getHeight() + "') " +
                             "RETURNING id;"
             );
             if(resultSet.next()) {
-                pack.setId(Integer.parseInt(resultSet.getString(1)));
+                packModel.setId(Integer.parseInt(resultSet.getString(1)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

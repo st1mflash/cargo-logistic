@@ -31,9 +31,12 @@ public class CarService implements CargoService {
     public String runService(CommandLine command) {
         carCommandLine = command.getCarCommandLine();
         return switch (carCommandLine.getOperation()) {
+
             case "insert" -> insertCarIntoDatabase(
                     carServiceUtils.createCarModelFromCommand(carCommandLine)
             );
+
+            //case "insert_h2" ->
             case "update" -> updateCarInDatabase(
                     findCarByIdInDatabase(
                             carCommandLine.getIdCar()

@@ -1,11 +1,11 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 
 public class PackServiceUtils {
-    public Pack createPackFromCommand(PackCommandLine command){
-        return new Pack(
+    public PackModel createPackFromCommand(PackCommandLine command){
+        return new PackModel(
                 command.getNamePack(),
                 command.getWidthSchemePack(),
                 command.getHeightSchemePack(),

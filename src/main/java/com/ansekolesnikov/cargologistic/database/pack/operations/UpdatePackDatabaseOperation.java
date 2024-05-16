@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.pack.operations;
 
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,16 +19,16 @@ public class UpdatePackDatabaseOperation {
         this.statement = databaseService.getStatement();
     }
 
-    public void update(Pack pack) {
+    public void update(PackModel packModel) {
         try {
             statement.executeUpdate(
                     "UPDATE pack_model SET " +
-                            "name = '" + pack.getName() + "', " +
-                            "code = '" + pack.getCode() + "', " +
-                            "scheme = '" + pack.getScheme() + "', " +
-                            "scheme_width = " + pack.getWidth() + ", " +
-                            "scheme_height = " + pack.getHeight() + " " +
-                            "WHERE id = " + pack.getId() + ";"
+                            "name = '" + packModel.getName() + "', " +
+                            "code = '" + packModel.getCode() + "', " +
+                            "scheme = '" + packModel.getScheme() + "', " +
+                            "scheme_width = " + packModel.getWidth() + ", " +
+                            "scheme_height = " + packModel.getHeight() + " " +
+                            "WHERE id = " + packModel.getId() + ";"
             );
         } catch (SQLException e) {
             throw new RuntimeException(e);

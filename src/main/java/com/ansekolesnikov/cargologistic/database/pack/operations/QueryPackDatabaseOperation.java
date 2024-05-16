@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.pack.operations;
 
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,13 +22,13 @@ public class QueryPackDatabaseOperation {
         this.statement = databaseService.getStatement();
     }
 
-    public Pack queryById(int id) {
+    public PackModel queryById(int id) {
         try {
             ResultSet resultSet = statement.executeQuery(
                     "SELECT * FROM pack_model WHERE id = " + id
             );
             if (resultSet.next()) {
-                return new Pack(
+                return new PackModel(
                         Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
                         resultSet.getString(3).charAt(0),
@@ -44,13 +44,13 @@ public class QueryPackDatabaseOperation {
         }
     }
 
-    public Pack queryByName(String name) {
+    public PackModel queryByName(String name) {
         try {
             ResultSet resultSet = statement.executeQuery(
                     "SELECT * FROM pack_model WHERE name = '" + name + "'"
             );
             if (resultSet.next()) {
-                return new Pack(
+                return new PackModel(
                         Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
                         resultSet.getString(3).charAt(0),
@@ -66,13 +66,13 @@ public class QueryPackDatabaseOperation {
         }
     }
 
-    public Pack queryByCode(char code) {
+    public PackModel queryByCode(char code) {
         try {
             ResultSet resultSet = statement.executeQuery(
                     "SELECT * FROM pack_model WHERE code = '" + code + "'"
             );
             if (resultSet.next()) {
-                return new Pack(
+                return new PackModel(
                         Integer.parseInt(resultSet.getString(1)),
                         resultSet.getString(2),
                         resultSet.getString(3).charAt(0),

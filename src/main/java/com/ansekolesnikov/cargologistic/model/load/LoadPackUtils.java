@@ -1,21 +1,21 @@
 package com.ansekolesnikov.cargologistic.model.load;
 
 import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 
 import java.util.Objects;
 
 public class LoadPackUtils {
-    public void loadPackInCar(Car car, Pack pack) {
-        if (car.getCargoWidthModel() >= pack.getWidth()) {
-            String stringLoadAddress = car.findLoadPackAddress(pack);
+    public void loadPackInCar(Car car, PackModel packModel) {
+        if (car.getCargoWidthModel() >= packModel.getWidth()) {
+            String stringLoadAddress = car.findLoadPackAddress(packModel);
             if (!Objects.equals(stringLoadAddress.split(" ")[0], "not")) {
                 car.loadPackOnCargoAddress(
-                        pack,
+                        packModel,
                         Integer.parseInt(stringLoadAddress.split(" ")[0]),
                         Integer.parseInt(stringLoadAddress.split(" ")[1])
                 );
-                pack.setCarId(car.getIdCar());
+                packModel.setCarId(car.getIdCar());
             }
         }
     }
