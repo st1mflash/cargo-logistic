@@ -1,47 +1,36 @@
 package com.ansekolesnikov.cargologistic.database.car_model;
 
-import com.ansekolesnikov.cargologistic.database.car_model.operations.DeleteCarModelDatabaseOperation;
-import com.ansekolesnikov.cargologistic.database.car_model.operations.InsertCarModelDatabaseOperation;
-import com.ansekolesnikov.cargologistic.database.car_model.operations.QueryCarModelDatabaseOperation;
-import com.ansekolesnikov.cargologistic.database.car_model.operations.UpdateCarModelDatabaseOperation;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
-//import org.hibernate.*;
+import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+@NoArgsConstructor
+@Component
+@Transactional
 public class CarModelDao {
-    private final QueryCarModelDatabaseOperation queryCarModelDatabaseOperation;
-    private final InsertCarModelDatabaseOperation insertCarModelDatabaseOperation;
-    private final UpdateCarModelDatabaseOperation updateCarModelDatabaseOperation;
-    private final DeleteCarModelDatabaseOperation deleteCarModelDatabaseOperation;
+    @Autowired
+    private CarModelRepository carModelRepository;
 
-    public CarModelDao(DatabaseService databaseService) {
-        this.queryCarModelDatabaseOperation = new QueryCarModelDatabaseOperation(databaseService);
-        this.insertCarModelDatabaseOperation = new InsertCarModelDatabaseOperation(databaseService);
-        this.updateCarModelDatabaseOperation = new UpdateCarModelDatabaseOperation(databaseService);
-        this.deleteCarModelDatabaseOperation = new DeleteCarModelDatabaseOperation(databaseService);
+    public CarModel findById(int id) {
+        return carModelRepository.findById(id).orElse(null);
     }
 
-    public void save(CarModel carModel) {
-
-    }
-
-    public CarModel queryById(int id) {
-        return queryCarModelDatabaseOperation.queryById(id);
-    }
-
-    public CarModel queryByName(String name) {
-        return queryCarModelDatabaseOperation.queryByName(name);
+    public CarModel findByName(String name) {
+        return carModelRepository.findByNameModel(name);
     }
 
     public void insert(CarModel carModel) {
-        insertCarModelDatabaseOperation.insert(carModel);
+        carModelRepository.save(carModel);
     }
 
     public void update(CarModel carModel) {
-        updateCarModelDatabaseOperation.update(carModel);
+        carModelRepository.save(carModel);
     }
 
     public void delete(CarModel carModel) {
-        deleteCarModelDatabaseOperation.delete(carModel);
+        carModelRepository.delete(carModel);
     }
 }

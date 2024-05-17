@@ -14,12 +14,10 @@ public class OperationsDatabase {
     private DatabaseService databaseService;
 
     private PackModelDao packOperations;
-    private CarModelDao carOperations;
 
     public OperationsDatabase(DatabaseService databaseService){
         this.databaseService = databaseService;
 
         this.packOperations = new PackModelDao(databaseService);
-        this.carOperations = new CarModelDao(databaseService);
     }
 }

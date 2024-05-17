@@ -9,20 +9,20 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "pack_model")
+//@Entity
+//@Table(name = "pack_model")
 public class PackModel {
-    @Id
+    //@Id
     private int id = 0;
-    @Column(name = "name")
+    //@Column(name = "name")
     private String name;
-    @Column(name = "code")
+    //@Column(name = "code")
     private Character code;
-    @Column(name = "scheme")
+    //@Column(name = "scheme")
     private String scheme;
-    @Column(name = "scheme_width")
+    //@Column(name = "scheme_width")
     private int width;
-    @Column(name = "scheme_height")
+    //@Column(name = "scheme_height")
     private int height;
 
     private int carId = 0;

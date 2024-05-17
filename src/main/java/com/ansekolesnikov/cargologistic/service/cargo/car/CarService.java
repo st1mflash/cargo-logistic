@@ -1,15 +1,16 @@
 package com.ansekolesnikov.cargologistic.service.cargo.car;
 
+import com.ansekolesnikov.cargologistic.database.car_model.CarModelDao;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarModelToStringUtils;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.car.CarCommandLine;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
@@ -17,15 +18,12 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 public class CarService implements CargoService {
-    private DatabaseService databaseService;
+    @Autowired
+    private CarModelDao carModelDao;
     private CarCommandLine carCommandLine;
     private CarServiceUtils carServiceUtils = new CarServiceUtils();
     private CarModelToStringUtils carModelToStringUtils = new CarModelToStringUtils();
     private CarUtils carUtils = new CarUtils();
-
-    public CarService(DatabaseService databaseService) {
-        this.databaseService = databaseService;
-    }
 
     @Override
     public String runService(CommandLine command) {
@@ -36,7 +34,6 @@ public class CarService implements CargoService {
                     carServiceUtils.createCarModelFromCommand(carCommandLine)
             );
 
-            //case "insert_h2" ->
             case "update" -> updateCarInDatabase(
                     findCarByIdInDatabase(
                             carCommandLine.getIdCar()
@@ -53,15 +50,11 @@ public class CarService implements CargoService {
     }
 
     private CarModel findCarByIdInDatabase(int id) {
-        return databaseService
-                .getOperationsDatabase()
-                .getCarOperations()
-                .queryById(id)
-                ;
+        return carModelDao.findById(id);
     }
 
     private String insertCarIntoDatabase(CarModel carModel) {
-        databaseService.getOperationsDatabase().getCarOperations().insert(carModel);
+        carModelDao.insert(carModel);
         return "Грузовик '" + carModel.getNameModel() + "' успешно создан.\n\n"
                 + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
@@ -81,13 +74,13 @@ public class CarService implements CargoService {
             default:
                 break;
         }
-        databaseService.getOperationsDatabase().getCarOperations().update(updatedCarModel);
+        carModelDao.update(updatedCarModel);
         return "Грузовик '" + carModel.getNameModel() + "' успешно обновлен.\n\n"
                 + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
 
     private String deleteCarFromDatabase(CarModel carModel) {
-        databaseService.getOperationsDatabase().getCarOperations().delete(carModel);
+        carModelDao.delete(carModel);
         return "Грузовик '" + carModel.getNameModel() + "' успешно удален.";
     }
 }

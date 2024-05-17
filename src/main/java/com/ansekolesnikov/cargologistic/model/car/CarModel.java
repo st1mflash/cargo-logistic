@@ -1,10 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Builder;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,13 +8,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 @Entity
 @Table(name = "car_model")
 public class CarModel {
 
     @Id
-    protected int idModel;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    protected Integer idModel;
     @Column(name = "name")
     protected String nameModel;
     @Column(name = "cargo_width")

@@ -1,10 +1,12 @@
 package com.ansekolesnikov.cargologistic.service.database;
 
 import com.ansekolesnikov.cargologistic.database.OperationsDatabase;
+import com.ansekolesnikov.cargologistic.database.car_model.CarModelDao;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -17,6 +19,8 @@ import java.sql.Statement;
 @Getter
 @Setter
 public class DatabaseService {
+    @Autowired
+    private CarModelDao carModelDao;
     private String connection_url;
     private String connection_username;
     private String connection_password;

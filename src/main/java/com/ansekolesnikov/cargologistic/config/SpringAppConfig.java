@@ -18,10 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-//@NoArgsConstructor
 @Configuration
-//@ComponentScan
-//@ComponentScan("com.ansekolesnikov.cargologistic")
 public class SpringAppConfig {
     //private static final Logger LOGGER = Logger.getLogger(SpringAppConfig.class.getName());
 
@@ -46,7 +43,7 @@ public class SpringAppConfig {
     private LoadListCargoService loadListCargoService;
     private ViewFileCargoService viewFileCargoService;
     private TelegramService telegramService = new TelegramService();
-    private CarService carService = new CarService();
+    //private CarService carService = new CarService();
     private PackService packService = new PackService();
     private DatabaseService databaseService;
 
@@ -75,11 +72,13 @@ public class SpringAppConfig {
         return packService;
     }
 
+    /*
     @Bean
     public CarService carService() {
-        carService = new CarService(databaseService);
+        carService = new CarService();
         return carService;
     }
+    */
 
     @Bean
     public ShellController shellController() {

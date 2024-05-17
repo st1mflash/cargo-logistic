@@ -49,15 +49,14 @@ public class LoadListCargoServiceUtils {
         return result.toString();
     }
 
+    /*
     public CarModel createCarModelByNameFromDatabase(
             DatabaseService databaseService,
             String name
     ) {
-        return databaseService
-                .getOperationsDatabase()
-                .getCarOperations()
-                .queryByName(name);
+        return car;
     }
+    */
 
     public List<PackModel> createPacksByNameFromDatabase(
             DatabaseService databaseService,
