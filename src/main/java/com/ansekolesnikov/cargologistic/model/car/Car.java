@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.car;
 
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,20 +56,20 @@ public class Car extends CarModel {
         }
     }
 
-    public void loadPackOnCargoAddress(PackModel packModel, int height, int width) {
-        for (int i = 0; i < packModel.getHeight(); i++) {
-            for (int j = 0; j < packModel.getWidth(); j++) {
-                if (!Objects.equals(packModel.getArrScheme()[i][j], "0")) {
-                    cargo[i + height][j + width] = packModel.getArrScheme()[i][j];
+    public void loadPackOnCargoAddress(Pack pack, int height, int width) {
+        for (int i = 0; i < pack.getHeight(); i++) {
+            for (int j = 0; j < pack.getWidth(); j++) {
+                if (!Objects.equals(pack.getArrScheme()[i][j], "0")) {
+                    cargo[i + height][j + width] = pack.getArrScheme()[i][j];
                 }
             }
         }
     }
 
-    public String findLoadPackAddress(PackModel packModel) {
+    public String findLoadPackAddress(Pack pack) {
         for (int i = 0; i < cargoHeightModel; i++) {
             for (int j = 0; j < cargoWidthModel; j++) {
-                if (isCanLoadPackOnCargoAddress(packModel, i, j)
+                if (isCanLoadPackOnCargoAddress(pack, i, j)
                         && Objects.equals(cargo[i][j], "0")) {
                     return i + " " + j;
                 }
@@ -77,14 +78,14 @@ public class Car extends CarModel {
         return "not";
     }
 
-    private boolean isCanLoadPackOnCargoAddress(PackModel packModel, int height, int width) {
-        for (int i = 0; i < packModel.getHeight(); i++) {
-            for (int j = 0; j < packModel.getWidth(); j++) {
+    private boolean isCanLoadPackOnCargoAddress(Pack pack, int height, int width) {
+        for (int i = 0; i < pack.getHeight(); i++) {
+            for (int j = 0; j < pack.getWidth(); j++) {
                 if (i + height >= this.cargoHeightModel
                         || j + width >= this.cargoWidthModel) {
                     return false;
                 }
-                if (!Objects.equals(packModel.getArrScheme()[i][j], "0")
+                if (!Objects.equals(pack.getArrScheme()[i][j], "0")
                         && !Objects.equals(cargo[i + height][j + width], "0")) {
                     return false;
                 }

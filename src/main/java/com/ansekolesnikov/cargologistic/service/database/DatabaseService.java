@@ -1,7 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.database;
 
-import com.ansekolesnikov.cargologistic.database.OperationsDatabase;
-import com.ansekolesnikov.cargologistic.database.car_model.CarModelDao;
+import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,8 +24,6 @@ public class DatabaseService {
     private String connection_username;
     private String connection_password;
 
-    private OperationsDatabase operationsDatabase;
-
     private Connection connection;
     public Statement statement;
     private static final Logger LOGGER = Logger.getLogger(DatabaseService.class.getName());
@@ -41,11 +38,8 @@ public class DatabaseService {
         this.connection_password = password;
 
         try {
-            //Class.forName("org.postgresql.Driver").newInstance();
             connection = DriverManager.getConnection(connection_url, connection_username, connection_password);
             statement = connection.createStatement();
-
-            operationsDatabase = new OperationsDatabase(this);
 
         } catch (SQLException e) {
             LOGGER.error("Ошибка подключения к базе данных " + e);

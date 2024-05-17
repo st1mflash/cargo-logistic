@@ -1,12 +1,12 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load_list;
 
-import com.ansekolesnikov.cargologistic.database.car_model.CarModelDao;
+import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
+import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.load_list.LoadListCommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.PackModel;
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,14 @@ import java.util.List;
 public class LoadListCargoService implements CargoService {
     @Autowired
     private CarModelDao carModelDao;
-    private DatabaseService databaseService;
+    @Autowired
+    private PackModelDao packModelDao;
     private LoadListCommandLine loadListCommandLine;
     private LoadListCargoServiceUtils loadListCargoServiceUtils;
 
     public LoadListCargoService(
-            DatabaseService databaseService,
             LoadListCargoServiceUtils loadListCargoServiceUtils
     ) {
-        this.databaseService = databaseService;
         this.loadListCargoServiceUtils = loadListCargoServiceUtils;
     }
 
@@ -34,24 +33,18 @@ public class LoadListCargoService implements CargoService {
     public String runService(CommandLine commandLine) {
         loadListCommandLine = commandLine.getLoadListCommandLine();
         CarModel carModel = carModelDao.findByName(loadListCommandLine.getCarModel());
-        /*        loadListCargoServiceUtils
-                        .createCarModelByNameFromDatabase(
-                                databaseService,
-                                loadListCommandLine.getCarModel()
-                        );
-        */
-        List<PackModel> packModels =
+        List<Pack> pack =
                 loadListCargoServiceUtils
                         .createPacksByNameFromDatabase(
-                                databaseService,
+                                packModelDao,
                                 loadListCommandLine.getPacks()
                         );
 
         return loadListCargoServiceUtils.toStringCarsPacksInfo(
-                packModels,
+                pack,
                 loadListCargoServiceUtils.loadCars(
                         carModel,
-                        packModels,
+                        pack,
                         loadListCommandLine.getCountCars(),
                         loadListCommandLine.getAlgorithm()
                 )

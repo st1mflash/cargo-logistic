@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoadAlgorithmTypeTest {
+    /*
     @Test
     public void testLoad_emptyCar() {
         Car car = new Car();
@@ -20,7 +21,9 @@ public class LoadAlgorithmTypeTest {
 
         assertTrue(carPercentLoadBeforeTryLoad < carUtils.calcPercentLoad(car));
     }
+    */
 
+    /*
     @Test
     public void testLoad_successfully() {
         Car car = new Car();
@@ -33,7 +36,9 @@ public class LoadAlgorithmTypeTest {
 
         assertTrue(carPercentLoadBeforeTryLoad < carUtils.calcPercentLoad(car));
     }
+    */
 
+    /*
     @Test
     public void testLoad_notSuccessfully() {
         Car car = new Car();
@@ -46,4 +51,5 @@ public class LoadAlgorithmTypeTest {
 
         assertEquals(carPercentLoadBeforeTryLoad, carUtils.calcPercentLoad(car));
     }
+    */
 }

@@ -1,36 +1,37 @@
 package com.ansekolesnikov.cargologistic.model.pack;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
-//@Entity
-//@Table(name = "pack_model")
+@Entity
+@Table(name = "pack_model")
 public class PackModel {
-    //@Id
-    private int id = 0;
-    //@Column(name = "name")
-    private String name;
-    //@Column(name = "code")
-    private Character code;
-    //@Column(name = "scheme")
-    private String scheme;
-    //@Column(name = "scheme_width")
-    private int width;
-    //@Column(name = "scheme_height")
-    private int height;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    protected Integer id;
+    @Column(name = "name")
+    protected String name;
+    @Column(name = "code")
+    protected Character code;
+    @Column(name = "scheme")
+    protected String scheme;
+    @Column(name = "scheme_width")
+    protected int width;
+    @Column(name = "scheme_height")
+    protected int height;
 
-    private int carId = 0;
-    private String[][] arrScheme;
+    //private int carId = 0;
+    //private String[][] arrScheme;
 
     public PackModel(int code) {
         this.code = Integer.toString(code).charAt(0);
-        initArrScheme();
+        //initArrScheme();
     }
 
     public PackModel(
@@ -47,7 +48,7 @@ public class PackModel {
         this.height = height;
         this.scheme = scheme;
         this.code = code;
-        initArrScheme();
+        //initArrScheme();
     }
 
     public PackModel(
@@ -62,23 +63,10 @@ public class PackModel {
         this.height = height;
         this.scheme = scheme;
         this.code = code;
-        initArrScheme();
+        //initArrScheme();
     }
 
     public int calculateElements() {
         return scheme.replaceAll("0", "").length();
-    }
-
-    public void initArrScheme() {
-        arrScheme = new String[height][width];
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (scheme.charAt(i * width + j) == '1') {
-                    arrScheme[i][j] = String.valueOf(code);
-                } else {
-                    arrScheme[i][j] = "0";
-                }
-            }
-        }
     }
 }

@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
+import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.PackModel;
@@ -9,6 +10,7 @@ import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 public class PackService implements CargoService {
+    @Autowired
+    private PackModelDao packModelDao;
     DatabaseService databaseService;
     private PackCommandLine packCommandLine;
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
@@ -50,15 +54,18 @@ public class PackService implements CargoService {
     }
 
     private PackModel findPackByIdInDatabase(int id) {
-        return databaseService
+        return packModelDao.findById(id);
+        /*return databaseService
                 .getOperationsDatabase()
                 .getPackOperations()
-                .queryById(id)
+                .findById(id)
                 ;
+        */
     }
 
     private String insertPackIntoDatabase(PackModel packModel) {
-        databaseService.getOperationsDatabase().getPackOperations().insert(packModel);
+        //databaseService.getOperationsDatabase().getPackOperations().insert(packModel);
+        packModelDao.insert(packModel);
         return "Посылка '" + packModel.getName() + "' успешно создана.\n\n"
                 + packModelToStringUtils.toStringPackInfo(packModel);
     }
@@ -84,13 +91,15 @@ public class PackService implements CargoService {
             default:
                 break;
         }
-        databaseService.getOperationsDatabase().getPackOperations().update(updatedPackModel);
+        //databaseService.getOperationsDatabase().getPackOperations().update(updatedPackModel);
+        packModelDao.update(updatedPackModel);
         return "Посылка '" + packModel.getName() + "' успешно обновлена.\n\n"
                 + packModelToStringUtils.toStringPackInfo(packModel);
     }
 
     private String deletePackFromDatabase(PackModel packModel) {
-        databaseService.getOperationsDatabase().getPackOperations().delete(packModel);
+        //databaseService.getOperationsDatabase().getPackOperations().delete(packModel);
+        packModelDao.delete(packModel);
         return "Посылка '" + packModel.getName() + "' успешно удалена.";
     }
 }

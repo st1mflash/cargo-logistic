@@ -1,13 +1,14 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load_file;
 
+import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
-import com.ansekolesnikov.cargologistic.model.pack.PackModel;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
+import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class LoadFileCargoServiceUtils {
+    @Autowired
+    private PackModelDao packModelDao;
     private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceUtils.class.getName());
 
     public String getCarsInfo(List<Car> listCars) {
@@ -30,26 +33,26 @@ public class LoadFileCargoServiceUtils {
         return result.toString();
     }
 
-    public List<PackModel> getListPacksFromFile(DatabaseService databaseService, LocalFile localFile) {
-        return Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(databaseService, localFile))
+    public List<Pack> getListPacksFromFile(LocalFile localFile) {
+        return Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(packModelDao, localFile))
                 .stream()
-                .sorted(Comparator.comparingInt(PackModel::getWidth).reversed())
+                .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();
     }
 
-    public List<Car> loadCars(List<PackModel> packModelList, int countCars, String algorithm) {
+    public List<Car> loadCars(List<Pack> packList, int countCars, String algorithm) {
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
         CarUtils carUtils = new CarUtils();
         do {
             Car car = new Car();
             listCars.add(car);
-            packModelList = packModelList.stream()
+            packList = packList.stream()
                     .filter(pack -> pack.getCarId() == 0)
                     .collect(Collectors.toList());
 
-            for (PackModel packModel : packModelList) {
-                carUtils.loadPackToCar(car, packModel, algorithm);
+            for (Pack pack : packList) {
+                carUtils.loadPackToCar(car, pack, algorithm);
             }
             if (localCarCount > 0) {
                 if (new CarUtils().calcPercentLoad(car) == 0) {
@@ -60,7 +63,7 @@ public class LoadFileCargoServiceUtils {
             }
             localCarCount--;
         } while (
-                packModelList.stream()
+                packList.stream()
                         .anyMatch(pack -> pack.getCarId() == 0)
                         || localCarCount > 0
         );

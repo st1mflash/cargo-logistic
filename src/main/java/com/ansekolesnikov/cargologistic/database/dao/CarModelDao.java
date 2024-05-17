@@ -1,7 +1,7 @@
-package com.ansekolesnikov.cargologistic.database.car_model;
+package com.ansekolesnikov.cargologistic.database.dao;
 
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
-import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
+import com.ansekolesnikov.cargologistic.database.repository.CarModelRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

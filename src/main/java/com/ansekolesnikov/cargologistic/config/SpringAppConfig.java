@@ -43,8 +43,6 @@ public class SpringAppConfig {
     private LoadListCargoService loadListCargoService;
     private ViewFileCargoService viewFileCargoService;
     private TelegramService telegramService = new TelegramService();
-    //private CarService carService = new CarService();
-    private PackService packService = new PackService();
     private DatabaseService databaseService;
 
     private LoadListCargoServiceUtils loadListCargoServiceUtils = new LoadListCargoServiceUtils();
@@ -67,20 +65,6 @@ public class SpringAppConfig {
     }
 
     @Bean
-    public PackService packService() {
-        packService = new PackService(databaseService);
-        return packService;
-    }
-
-    /*
-    @Bean
-    public CarService carService() {
-        carService = new CarService();
-        return carService;
-    }
-    */
-
-    @Bean
     public ShellController shellController() {
         shellController = new ShellController(loadFileCargoService, viewFileCargoService);
         return shellController;
@@ -95,7 +79,6 @@ public class SpringAppConfig {
     @Bean
     public LoadListCargoService loadListCargoService() {
         loadListCargoService = new LoadListCargoService(
-                databaseService,
                 loadListCargoServiceUtils
         );
         return loadListCargoService;

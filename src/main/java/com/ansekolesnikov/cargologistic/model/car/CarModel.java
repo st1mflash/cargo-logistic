@@ -11,7 +11,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "car_model")
 public class CarModel {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

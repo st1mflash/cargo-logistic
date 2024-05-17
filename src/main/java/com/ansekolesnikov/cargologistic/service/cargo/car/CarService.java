@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.cargo.car;
 
-import com.ansekolesnikov.cargologistic.database.car_model.CarModelDao;
+import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarModelToStringUtils;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;

@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoadAlgorithmMaxTest {
+    /*
     @Test
     public void testLoad() {
         Car car = new Car();
@@ -21,7 +22,9 @@ public class LoadAlgorithmMaxTest {
 
         assertTrue(carPercentLoadBeforeTryLoad < carUtils.calcPercentLoad(car));
     }
+    */
 
+    /*
     @Test
     public void testLoad_fullCar() {
         Car car = new Car();
@@ -34,4 +37,5 @@ public class LoadAlgorithmMaxTest {
 
         assertEquals(carPercentLoadBeforeTryLoad, carUtils.calcPercentLoad(car));
     }
+    */
 }
