@@ -24,7 +24,7 @@ public class PackModelDao {
         return packModelRepository.findByName(name);
     }
 
-    public PackModel findByCode(String code) {
+    public PackModel findByCode(Character code) {
         return packModelRepository.findByCode(code);
     }
 

@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class LoadFileCargoServiceUtils {
-    @Autowired
-    private PackModelDao packModelDao;
     private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceUtils.class.getName());
 
     public String getCarsInfo(List<Car> listCars) {
@@ -34,7 +32,7 @@ public class LoadFileCargoServiceUtils {
         return result.toString();
     }
 
-    public List<Pack> getListPacksFromFile(LocalFile localFile) {
+    public List<Pack> getListPacksFromFile(PackModelDao packModelDao, LocalFile localFile) {
         return Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(packModelDao, localFile))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())

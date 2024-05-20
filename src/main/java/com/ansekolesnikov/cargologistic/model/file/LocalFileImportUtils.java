@@ -19,7 +19,7 @@ public class LocalFileImportUtils {
         try {
             return Arrays
                     .stream(localFile.getContent().split("\\n\\s*\\n"))
-                    //.map(line -> String.valueOf(line.charAt(0) - 48))
+                    .map(c -> c.replaceAll(" ", "").charAt(0))
                     .map(packModelDao::findByCode)
                     .map(Pack::new)
                     .collect(Collectors.toList());
