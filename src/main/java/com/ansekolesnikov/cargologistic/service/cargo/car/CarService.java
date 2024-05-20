@@ -29,24 +29,10 @@ public class CarService implements CargoService {
     public String runService(CommandLine command) {
         carCommandLine = command.getCarCommandLine();
         return switch (carCommandLine.getOperation()) {
-            case "list" -> toStringAllCarModelsFromDatabase();
-
-            case "insert" -> insertCarIntoDatabase(
-                    carServiceUtils.createCarModelFromCommand(carCommandLine)
-            );
-
-            case "update" -> updateCarInDatabase(
-                    findCarByIdInDatabase(
-                            carCommandLine.getIdCar()
-                    ),
-                    carCommandLine
-            );
-            case "delete" -> deleteCarFromDatabase(
-                    findCarByIdInDatabase(
-                            carCommandLine.getIdCar()
-                    )
-            );
-            default -> null;
+            case LIST -> toStringAllCarModelsFromDatabase();
+            case INSERT -> insertCarIntoDatabase(carServiceUtils.createCarModelFromCommand(carCommandLine));
+            case UPDATE -> updateCarInDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()), carCommandLine);
+            case DELETE -> deleteCarFromDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()));
         };
     }
 
@@ -76,21 +62,20 @@ public class CarService implements CargoService {
     }
 
     private String updateCarInDatabase(CarModel carModel, CarCommandLine command) {
-        CarModel updatedCarModel = carModel;
-        switch (command.getParamName()) {
-            case "name":
-                updatedCarModel.setNameModel(command.getParamValue());
+        switch (command.getUpdatedParamName()) {
+            case NAME:
+                carModel.setNameModel(command.getUpdatedParamValue());
                 break;
-            case "cargo_width":
-                updatedCarModel.setCargoWidthModel(Integer.parseInt(command.getParamValue()));
+            case WIDTH:
+                carModel.setCargoWidthModel(Integer.parseInt(command.getUpdatedParamValue()));
                 break;
-            case "cargo_height":
-                updatedCarModel.setCargoHeightModel(Integer.parseInt(command.getParamValue()));
+            case HEIGHT:
+                carModel.setCargoHeightModel(Integer.parseInt(command.getUpdatedParamValue()));
                 break;
             default:
                 break;
         }
-        carModelDao.update(updatedCarModel);
+        carModelDao.update(carModel);
         return "Грузовик '" + carModel.getNameModel() + "' успешно обновлен.\n\n"
                 + carModelToStringUtils.toStringCarModelInfo(carModel);
     }

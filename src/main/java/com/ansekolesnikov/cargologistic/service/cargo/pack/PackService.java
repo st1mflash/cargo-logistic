@@ -1,13 +1,11 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.model.pack.utils.PackModelToStringUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,23 +28,10 @@ public class PackService implements CargoService {
     public String runService(CommandLine command) {
         packCommandLine = command.getPackCommandLine();
         return switch (packCommandLine.getOperation()) {
-            case "list" -> toStringAllPackModelsFromDatabase();
-
-            case "insert" -> insertPackIntoDatabase(
-                    packServiceUtils.createPackFromCommand(packCommandLine)
-            );
-            case "update" -> updatePackInDatabase(
-                    findPackByIdInDatabase(
-                            packCommandLine.getIdPack()
-                    ),
-                    packCommandLine
-            );
-            case "delete" -> deletePackFromDatabase(
-                    findPackByIdInDatabase(
-                            packCommandLine.getIdPack()
-                    )
-            );
-            default -> null;
+            case LIST -> toStringAllPackModelsFromDatabase();
+            case INSERT -> insertPackIntoDatabase(packServiceUtils.createPackFromCommand(packCommandLine));
+            case UPDATE -> updatePackInDatabase(findPackByIdInDatabase(packCommandLine.getIdPack()), packCommandLine);
+            case DELETE -> deletePackFromDatabase(findPackByIdInDatabase(packCommandLine.getIdPack()));
         };
     }
 
@@ -77,21 +62,21 @@ public class PackService implements CargoService {
 
     private String updatePackInDatabase(PackModel packModel, PackCommandLine command) {
         PackModel updatedPackModel = packModel;
-        switch (command.getParamName()) {
-            case "name":
-                updatedPackModel.setName(command.getParamValue());
+        switch (command.getUpdatedParamName()) {
+            case NAME:
+                updatedPackModel.setName(command.getUpdatedParamValue());
                 break;
-            case "code":
-                updatedPackModel.setCode(command.getParamValue().charAt(0));
+            case CODE:
+                updatedPackModel.setCode(command.getUpdatedParamValue().charAt(0));
                 break;
-            case "scheme":
-                updatedPackModel.setScheme(command.getParamValue());
+            case SCHEME:
+                updatedPackModel.setScheme(command.getUpdatedParamValue());
                 break;
-            case "scheme_width":
-                updatedPackModel.setWidth(Integer.parseInt(command.getParamValue()));
+            case WIDTH:
+                updatedPackModel.setWidth(Integer.parseInt(command.getUpdatedParamValue()));
                 break;
-            case "scheme_height":
-                updatedPackModel.setHeight(Integer.parseInt(command.getParamValue()));
+            case HEIGHT:
+                updatedPackModel.setHeight(Integer.parseInt(command.getUpdatedParamValue()));
                 break;
             default:
                 break;

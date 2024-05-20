@@ -46,35 +46,35 @@ public class TelegramService {
     public String toStringBotAnswer(TelegramUserMessage inputMessage) {
         CommandLine serviceCommandLine = new CommandLine(inputMessage.getText());
 
-        switch (inputMessage.getInputCommand()) {
-            case "/info":
+        switch (inputMessage.getCommand()) {
+            case INFO:
                 LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.toStringBotInfo();
-            case "load_file":
+            case LOAD_FILE:
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.convertStringToTelegramCodeStyle(
                         loadFileCargoService.runService(serviceCommandLine)
                 );
 
-            case "load_list":
+            case LOAD_LIST:
                 LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.convertStringToTelegramCodeStyle(
                         loadListCargoService.runService(serviceCommandLine)
                 );
 
-            case "view_file":
+            case VIEW_FILE:
                 LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.convertStringToTelegramCodeStyle(
                         viewFileCargoService.runService(serviceCommandLine)
                 );
 
-            case "car":
+            case CAR:
                 LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.convertStringToTelegramCodeStyle(
                         carService.runService(serviceCommandLine)
                 );
 
-            case "pack":
+            case PACK:
                 LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.convertStringToTelegramCodeStyle(
                         packService.runService(serviceCommandLine)
