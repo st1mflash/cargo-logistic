@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.validation.service;
 
+import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
@@ -12,11 +13,11 @@ import java.util.List;
 public class LoadFileCargoServiceValidation {
     private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceValidation.class.getName());
     private final LocalFile localFile;
-    private final String algorithm;
+    private final AlgorithmEnum algorithm;
     private final int countCars;
     @Getter
     private String userErrorMessage;
-    public LoadFileCargoServiceValidation(LocalFile localFile, String algorithm, int countCars) {
+    public LoadFileCargoServiceValidation(LocalFile localFile, AlgorithmEnum algorithm, int countCars) {
         this.localFile = localFile;
         this.algorithm = algorithm;
         this.countCars = countCars;

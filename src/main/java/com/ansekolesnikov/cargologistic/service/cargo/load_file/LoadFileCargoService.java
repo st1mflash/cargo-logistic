@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load_file;
 
+import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.load_file.LoadFileCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
@@ -37,7 +38,7 @@ public class LoadFileCargoService implements CargoService {
     public String runService(CommandLine commandLine) {
         loadFileCommandLine = commandLine.getLoadFileCommandLine();
         LocalFile localFile = new LocalFile(pathImportPackage + loadFileCommandLine.getFileName());
-        String algorithm = loadFileCommandLine.getAlgorithm();
+        AlgorithmEnum algorithm = loadFileCommandLine.getAlgorithm();
         int countCars = loadFileCommandLine.getCountCars();
 
         LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);

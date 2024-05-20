@@ -17,8 +17,9 @@ public class LocalFileImportUtils {
             LocalFile localFile
     ) {
         try {
-            return Arrays.stream(localFile.getContent().split("\\n\\s*\\n"))
-                    .map(line -> String.valueOf(line.charAt(0) - 48))
+            return Arrays
+                    .stream(localFile.getContent().split("\\n\\s*\\n"))
+                    //.map(line -> String.valueOf(line.charAt(0) - 48))
                     .map(packModelDao::findByCode)
                     .map(Pack::new)
                     .collect(Collectors.toList());

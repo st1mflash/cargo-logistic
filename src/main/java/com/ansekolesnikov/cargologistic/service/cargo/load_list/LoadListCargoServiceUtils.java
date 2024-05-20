@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load_list;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Component
 public class LoadListCargoServiceUtils {
-    public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPack, int inputCountCars, String inputAlgorithm) {
+    public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPack, int inputCountCars, AlgorithmEnum inputAlgorithm) {
         List<Car> listCars = new ArrayList<>();
         CarUtils carUtils = new CarUtils();
 

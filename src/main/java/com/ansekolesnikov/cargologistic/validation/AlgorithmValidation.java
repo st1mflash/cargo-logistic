@@ -1,14 +1,15 @@
 package com.ansekolesnikov.cargologistic.validation;
 
+import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.Getter;
 
 public class AlgorithmValidation {
     @Getter
     private String userErrorMessage, logErrorMessage;
-    private final String algorithm;
+    private final AlgorithmEnum algorithm;
 
-    public AlgorithmValidation(String algorithm) {
-        this.algorithm = algorithm.toLowerCase();
+    public AlgorithmValidation(AlgorithmEnum algorithm) {
+        this.algorithm = algorithm;
     }
 
     public boolean isValid() {
@@ -16,9 +17,9 @@ public class AlgorithmValidation {
     }
 
     private boolean isExist() {
-        if (algorithm.equals("max")
-                || algorithm.equals("half")
-                || algorithm.equals("type")
+        if (algorithm == AlgorithmEnum.MAX
+                || algorithm == AlgorithmEnum.HALF
+                || algorithm == AlgorithmEnum.TYPE
         ) {
             return true;
         } else {

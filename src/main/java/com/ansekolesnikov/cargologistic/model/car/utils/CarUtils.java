@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.model.car.utils;
 
+import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmHalf;
 import com.ansekolesnikov.cargologistic.model.load.algorithm.LoadAlgorithmMax;
@@ -30,15 +31,15 @@ public class CarUtils {
         return (loadToString.length() - (loadToString.replace(Integer.toString(cargoPackageType), "").length())) / cargoPackageType;
     }
 
-    public void loadPackToCar(Car car, Pack pack, String algorithm) {
+    public void loadPackToCar(Car car, Pack pack, AlgorithmEnum algorithm) {
         switch (algorithm) {
-            case "max":
+            case MAX:
                 new LoadAlgorithmMax().load(car, pack);
                 break;
-            case "half":
+            case HALF:
                 new LoadAlgorithmHalf().load(car, pack);
                 break;
-            case "type":
+            case TYPE:
                 new LoadAlgorithmType().load(car, pack);
                 break;
             default:
