@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.PackModel;
@@ -20,21 +21,17 @@ import org.springframework.stereotype.Service;
 public class PackService implements CargoService {
     @Autowired
     private PackModelDao packModelDao;
-    DatabaseService databaseService;
     private PackCommandLine packCommandLine;
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
     private PackModelToStringUtils packModelToStringUtils = new PackModelToStringUtils();
 
-    public PackService(
-            DatabaseService databaseService
-    ) {
-        this.databaseService = databaseService;
-    }
 
     @Override
     public String runService(CommandLine command) {
         packCommandLine = command.getPackCommandLine();
         return switch (packCommandLine.getOperation()) {
+            case "list" -> toStringAllPackModelsFromDatabase();
+
             case "insert" -> insertPackIntoDatabase(
                     packServiceUtils.createPackFromCommand(packCommandLine)
             );
@@ -55,16 +52,24 @@ public class PackService implements CargoService {
 
     private PackModel findPackByIdInDatabase(int id) {
         return packModelDao.findById(id);
-        /*return databaseService
-                .getOperationsDatabase()
-                .getPackOperations()
-                .findById(id)
-                ;
-        */
+    }
+
+    private String toStringAllPackModelsFromDatabase() {
+        StringBuilder toStringCars = new StringBuilder();
+        for (PackModel packModel : packModelDao.findAll()) {
+            toStringCars
+                    .append(packModelToStringUtils.toStringPackInfo(packModel))
+                    .append("\n\n");
+        }
+        if (toStringCars.isEmpty()) {
+            return "Список моделей посылок пуст." +
+                    "\nДля добавления воспользуйтесь командой: 'pack insert [название] [код] [ширина] [высота]'";
+        } else {
+            return toStringCars.toString();
+        }
     }
 
     private String insertPackIntoDatabase(PackModel packModel) {
-        //databaseService.getOperationsDatabase().getPackOperations().insert(packModel);
         packModelDao.insert(packModel);
         return "Посылка '" + packModel.getName() + "' успешно создана.\n\n"
                 + packModelToStringUtils.toStringPackInfo(packModel);
@@ -91,14 +96,12 @@ public class PackService implements CargoService {
             default:
                 break;
         }
-        //databaseService.getOperationsDatabase().getPackOperations().update(updatedPackModel);
         packModelDao.update(updatedPackModel);
         return "Посылка '" + packModel.getName() + "' успешно обновлена.\n\n"
                 + packModelToStringUtils.toStringPackInfo(packModel);
     }
 
     private String deletePackFromDatabase(PackModel packModel) {
-        //databaseService.getOperationsDatabase().getPackOperations().delete(packModel);
         packModelDao.delete(packModel);
         return "Посылка '" + packModel.getName() + "' успешно удалена.";
     }

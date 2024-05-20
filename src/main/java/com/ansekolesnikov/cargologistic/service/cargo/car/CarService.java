@@ -29,6 +29,7 @@ public class CarService implements CargoService {
     public String runService(CommandLine command) {
         carCommandLine = command.getCarCommandLine();
         return switch (carCommandLine.getOperation()) {
+            case "list" -> toStringAllCarModelsFromDatabase();
 
             case "insert" -> insertCarIntoDatabase(
                     carServiceUtils.createCarModelFromCommand(carCommandLine)
@@ -51,6 +52,21 @@ public class CarService implements CargoService {
 
     private CarModel findCarByIdInDatabase(int id) {
         return carModelDao.findById(id);
+    }
+
+    private String toStringAllCarModelsFromDatabase() {
+        StringBuilder toStringCars = new StringBuilder();
+        for (CarModel carModel : carModelDao.findAll()) {
+            toStringCars
+                    .append(carModelToStringUtils.toStringCarModelInfo(carModel))
+                    .append("\n\n");
+        }
+        if (toStringCars.isEmpty()) {
+            return "Список моделей грузовиков пуст." +
+                    "\nДля добавления воспользуйтесь командой: 'car insert [название] [ширина] [высота]'";
+        } else {
+            return toStringCars.toString();
+        }
     }
 
     private String insertCarIntoDatabase(CarModel carModel) {

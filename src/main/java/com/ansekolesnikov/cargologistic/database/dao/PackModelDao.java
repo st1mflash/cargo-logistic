@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Component
 @Transactional
@@ -24,6 +26,10 @@ public class PackModelDao {
 
     public PackModel findByCode(String code) {
         return packModelRepository.findByCode(code);
+    }
+
+    public List<PackModel> findAll() {
+        return packModelRepository.findAll();
     }
 
     public void insert(PackModel packModel) {

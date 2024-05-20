@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Component
 @Transactional
@@ -20,6 +22,10 @@ public class CarModelDao {
 
     public CarModel findByName(String name) {
         return carModelRepository.findByNameModel(name);
+    }
+
+    public List<CarModel> findAll() {
+        return carModelRepository.findAll();
     }
 
     public void insert(CarModel carModel) {
