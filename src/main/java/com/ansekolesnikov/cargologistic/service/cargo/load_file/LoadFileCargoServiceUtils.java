@@ -9,7 +9,6 @@ import com.ansekolesnikov.cargologistic.model.file.LocalFile;
 import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 public class LoadFileCargoServiceUtils {
     private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceUtils.class.getName());
 
-    public String getCarsInfo(List<Car> listCars) {
+    public String toStringCarsInfo(List<Car> listCars) {
         StringBuilder result = new StringBuilder();
         if (listCars != null) {
             for (Car car : listCars) {
@@ -32,8 +31,9 @@ public class LoadFileCargoServiceUtils {
         return result.toString();
     }
 
-    public List<Pack> getListPacksFromFile(PackModelDao packModelDao, LocalFile localFile) {
-        return Objects.requireNonNull(new LocalFileImportUtils().importPacksFromFile(packModelDao, localFile))
+    public List<Pack> importPacksFromFileSortedByWidth(PackModelDao packModelDao, LocalFile localFile) {
+        return Objects
+                .requireNonNull(new LocalFileImportUtils().importPacksFromFile(packModelDao, localFile))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();

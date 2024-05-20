@@ -48,11 +48,11 @@ public class LoadFileCargoService implements CargoService {
         LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);
 
         if (serviceValidation.isValid()) {
-            List<Pack> importedPackList = loadFileCargoServiceUtils.getListPacksFromFile(packModelDao, localFile);
+            List<Pack> importedPackList = loadFileCargoServiceUtils.importPacksFromFileSortedByWidth(packModelDao, localFile);
             List<Car> loadedCarList = loadFileCargoServiceUtils.loadCars(importedPackList, countCars, algorithm);
 
             if (serviceValidation.isValidCountCars(loadedCarList)) {
-                return loadFileCargoServiceUtils.getCarsInfo(loadedCarList);
+                return loadFileCargoServiceUtils.toStringCarsInfo(loadedCarList);
             } else {
                 return serviceValidation.getUserErrorMessage();
             }
