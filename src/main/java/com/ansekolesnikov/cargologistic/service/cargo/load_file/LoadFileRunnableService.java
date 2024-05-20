@@ -7,7 +7,7 @@ import com.ansekolesnikov.cargologistic.model.command.load_file.LoadFileCommandL
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
 import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.file.LocalFile;
-import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadFileCargoServiceValidation;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Service
-public class LoadFileCargoService implements CargoService {
+public class LoadFileRunnableService implements RunnableService {
     @Autowired
     private PackModelDao packModelDao;
     private String pathImportPackage;
@@ -28,7 +28,7 @@ public class LoadFileCargoService implements CargoService {
     private LoadFileCommandLine loadFileCommandLine;
     private DatabaseService databaseService;
 
-    public LoadFileCargoService(
+    public LoadFileRunnableService(
             DatabaseService databaseService,
             LoadFileCargoServiceUtils loadFileCargoServiceUtils,
             String pathImportPackage

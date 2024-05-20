@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 //@ContextConfiguration("src/main/java/com/ansekolesnikov/cargologistic/config/SpringAppConfig.java")
-public class LoadFileCargoServiceTest {
+public class LoadFileRunnableServiceTest {
     private static final String PATH_IMPORT_PACKAGE = "src/main/resources/import/packages/";
     //@InjectMocks
     //@Autowired
-    private LoadFileCargoService loadFileCargoService = new LoadFileCargoService();
+    private LoadFileRunnableService loadFileCargoService = new LoadFileRunnableService();
 
     //@Mock
     //@Autowired

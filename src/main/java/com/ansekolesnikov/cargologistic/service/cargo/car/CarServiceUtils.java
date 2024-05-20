@@ -3,6 +3,7 @@ package com.ansekolesnikov.cargologistic.service.cargo.car;
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarModelToStringUtils;
+import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.car.CarCommandLine;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,15 @@ public class CarServiceUtils {
         }
     }
 
-    public CarModel insertCarModelByCommand(CarCommandLine command) {
+    public CarModel insertCarModelByCommand(CommandLine inputCommand) {
+        CarCommandLine command = inputCommand.getCarCommandLine();
         CarModel carModel = createCarModelFromCommand(command);
         carModelDao.insert(carModel);
         return carModel;
     }
 
-    public CarModel updateCarModelByCommand(CarCommandLine command) {
+    public CarModel updateCarModelByCommand(CommandLine inputCommand) {
+        CarCommandLine command = inputCommand.getCarCommandLine();
         CarModel carModel = carModelDao.findById(command.getIdCar());
         switch (command.getUpdatedParamName()) {
             case NAME:
@@ -54,7 +57,8 @@ public class CarServiceUtils {
         return carModel;
     }
 
-    public CarModel deleteCarModelByCommand(CarCommandLine command) {
+    public CarModel deleteCarModelByCommand(CommandLine inputCommand) {
+        CarCommandLine command = inputCommand.getCarCommandLine();
         CarModel carModel = carModelDao.findById(command.getIdCar());
         carModelDao.delete(carModel);
         return carModel;

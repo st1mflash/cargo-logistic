@@ -5,34 +5,51 @@ import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.PackModel;
 import com.ansekolesnikov.cargologistic.model.pack.utils.PackModelToStringUtils;
-import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
-import lombok.Getter;
+import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
+import com.ansekolesnikov.cargologistic.service.cargo.EntityService;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @Service
-@Getter
-@Setter
-public class PackService implements CargoService {
+public class PackService implements RunnableService, EntityService {
     @Autowired
     private PackModelDao packModelDao;
-    private PackCommandLine packCommandLine;
+    @Autowired
     private PackServiceUtils packServiceUtils = new PackServiceUtils();
+    @Autowired
     private PackModelToStringUtils packModelToStringUtils = new PackModelToStringUtils();
-
 
     @Override
     public String runService(CommandLine command) {
-        packCommandLine = command.getPackCommandLine();
+        PackCommandLine packCommandLine = command.getPackCommandLine();
         return switch (packCommandLine.getOperation()) {
             case LIST -> toStringAllPackModelsFromDatabase();
             case INSERT -> insertPackIntoDatabase(packServiceUtils.createPackFromCommand(packCommandLine));
             case UPDATE -> updatePackInDatabase(findPackByIdInDatabase(packCommandLine.getIdPack()), packCommandLine);
             case DELETE -> deletePackFromDatabase(findPackByIdInDatabase(packCommandLine.getIdPack()));
         };
+    }
+
+    @Override
+    public String listOperation(){
+        return "";
+    }
+
+    @Override
+    public String insertOperation(CommandLine command){
+        return "";
+    }
+
+    @Override
+    public String updateOperation(CommandLine command){
+        return "";
+    }
+
+    @Override
+    public String deleteOperation(CommandLine command){
+        return "";
     }
 
     private PackModel findPackByIdInDatabase(int id) {

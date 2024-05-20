@@ -2,20 +2,16 @@ package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.controller.ShellController;
 import com.ansekolesnikov.cargologistic.database.FlywayMigration;
-import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileRunnableService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoServiceUtils;
-import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListRunnableService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoServiceUtils;
-import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
-import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileCargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileRunnableService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
-import lombok.NoArgsConstructor;
 //import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -39,9 +35,9 @@ public class SpringAppConfig {
 
     private ShellController shellController;
     private FlywayMigration flywayMigration;
-    private LoadFileCargoService loadFileCargoService;
-    private LoadListCargoService loadListCargoService;
-    private ViewFileCargoService viewFileCargoService;
+    private LoadFileRunnableService loadFileCargoService;
+    private LoadListRunnableService loadListCargoService;
+    private ViewFileRunnableService viewFileCargoService;
     private TelegramService telegramService = new TelegramService();
     private DatabaseService databaseService;
 
@@ -71,22 +67,22 @@ public class SpringAppConfig {
     }
 
     @Bean
-    public ViewFileCargoService viewFileCargoService() {
-        viewFileCargoService = new ViewFileCargoService(PATH_IMPORT_CAR);
+    public ViewFileRunnableService viewFileCargoService() {
+        viewFileCargoService = new ViewFileRunnableService(PATH_IMPORT_CAR);
         return viewFileCargoService;
     }
 
     @Bean
-    public LoadListCargoService loadListCargoService() {
-        loadListCargoService = new LoadListCargoService(
+    public LoadListRunnableService loadListCargoService() {
+        loadListCargoService = new LoadListRunnableService(
                 loadListCargoServiceUtils
         );
         return loadListCargoService;
     }
 
     @Bean
-    public LoadFileCargoService loadFileCargoService() {
-        loadFileCargoService = new LoadFileCargoService(
+    public LoadFileRunnableService loadFileCargoService() {
+        loadFileCargoService = new LoadFileRunnableService(
                 databaseService,
                 loadFileCargoServiceUtils,
                 PATH_IMPORT_PACKAGE

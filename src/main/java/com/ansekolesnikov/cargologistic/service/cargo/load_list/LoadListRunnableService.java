@@ -6,7 +6,7 @@ import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.load_list.LoadListCommandLine;
 import com.ansekolesnikov.cargologistic.model.pack.Pack;
-import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
+import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Service
-public class LoadListCargoService implements CargoService {
+public class LoadListRunnableService implements RunnableService {
     @Autowired
     private CarModelDao carModelDao;
     @Autowired
@@ -23,7 +23,7 @@ public class LoadListCargoService implements CargoService {
     private LoadListCommandLine loadListCommandLine;
     private LoadListCargoServiceUtils loadListCargoServiceUtils;
 
-    public LoadListCargoService(
+    public LoadListRunnableService(
             LoadListCargoServiceUtils loadListCargoServiceUtils
     ) {
         this.loadListCargoServiceUtils = loadListCargoServiceUtils;
