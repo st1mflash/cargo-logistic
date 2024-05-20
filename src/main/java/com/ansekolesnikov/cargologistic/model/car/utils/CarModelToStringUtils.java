@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.model.car.utils;
 
-import com.ansekolesnikov.cargologistic.model.car.Car;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;

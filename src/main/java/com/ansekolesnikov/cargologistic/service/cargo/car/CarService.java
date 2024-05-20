@@ -1,9 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.cargo.car;
 
-import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.model.car.CarModel;
 import com.ansekolesnikov.cargologistic.model.car.utils.CarModelToStringUtils;
-import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.car.CarCommandLine;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
@@ -19,69 +17,39 @@ import org.springframework.stereotype.Service;
 @Setter
 public class CarService implements CargoService {
     @Autowired
-    private CarModelDao carModelDao;
-    private CarCommandLine carCommandLine;
     private CarServiceUtils carServiceUtils = new CarServiceUtils();
+    @Autowired
     private CarModelToStringUtils carModelToStringUtils = new CarModelToStringUtils();
-    private CarUtils carUtils = new CarUtils();
 
     @Override
-    public String runService(CommandLine command) {
-        carCommandLine = command.getCarCommandLine();
-        return switch (carCommandLine.getOperation()) {
-            case LIST -> toStringAllCarModelsFromDatabase();
-            case INSERT -> insertCarModelIntoDatabase(carServiceUtils.createCarModelFromCommand(carCommandLine));
-            case UPDATE -> updateCarModelInDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()), carCommandLine);
-            case DELETE -> deleteCarModelFromDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()));
+    public String runService(CommandLine inputCommand) {
+        CarCommandLine command = inputCommand.getCarCommandLine();
+        return switch (command.getOperation()) {
+            case LIST -> listOperation();
+            case INSERT -> insertOperation(command);
+            case UPDATE -> updateOperation(command);
+            case DELETE -> deleteOperation(command);
         };
     }
 
-    private CarModel findCarByIdInDatabase(int id) {
-        return carModelDao.findById(id);
+    private String listOperation() {
+        return carServiceUtils.queryAllCarModelsToString();
     }
 
-    private String toStringAllCarModelsFromDatabase() {
-        StringBuilder toStringCars = new StringBuilder();
-        for (CarModel carModel : carModelDao.findAll()) {
-            toStringCars
-                    .append(carModelToStringUtils.toStringCarModelInfo(carModel))
-                    .append("\n\n");
-        }
-        if (toStringCars.isEmpty()) {
-            return "Список моделей грузовиков пуст." +
-                    "\nДля добавления воспользуйтесь командой: 'car insert [название] [ширина] [высота]'";
-        } else {
-            return toStringCars.toString();
-        }
-    }
-
-    private String insertCarModelIntoDatabase(CarModel carModel) {
-        carModelDao.insert(carModel);
+    private String insertOperation(CarCommandLine command) {
+        CarModel carModel = carServiceUtils.insertCarModelByCommand(command);
         return "Грузовик '" + carModel.getNameModel() + "' успешно создан.\n\n"
                 + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
 
-    private String updateCarModelInDatabase(CarModel carModel, CarCommandLine command) {
-        switch (command.getUpdatedParamName()) {
-            case NAME:
-                carModel.setNameModel(command.getUpdatedParamValue());
-                break;
-            case WIDTH:
-                carModel.setCargoWidthModel(Integer.parseInt(command.getUpdatedParamValue()));
-                break;
-            case HEIGHT:
-                carModel.setCargoHeightModel(Integer.parseInt(command.getUpdatedParamValue()));
-                break;
-            default:
-                break;
-        }
-        carModelDao.update(carModel);
+    private String updateOperation(CarCommandLine command) {
+        CarModel carModel = carServiceUtils.updateCarModelByCommand(command);
         return "Грузовик '" + carModel.getNameModel() + "' успешно обновлен.\n\n"
                 + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
 
-    private String deleteCarModelFromDatabase(CarModel carModel) {
-        carModelDao.delete(carModel);
+    private String deleteOperation(CarCommandLine command) {
+        CarModel carModel = carServiceUtils.deleteCarModelByCommand(command);
         return "Грузовик '" + carModel.getNameModel() + "' успешно удален.";
     }
 }
