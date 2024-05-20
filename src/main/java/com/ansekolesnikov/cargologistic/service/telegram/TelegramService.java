@@ -45,6 +45,9 @@ public class TelegramService {
 
     public String getAnswer(TelegramUserMessage inputMessage) {
         switch (inputMessage.getInputCommand()) {
+            case "/info":
+                LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
+                return serviceUtils.toStringBotInfo();
             case "load_file":
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.formatToCodeStyle(
