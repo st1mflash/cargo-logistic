@@ -32,10 +32,14 @@ public class TelegramServiceUtils {
                 "\npack update [ID посылки] [параметр: name/code/scheme/scheme_width/scheme_height] [новое значение]" +
                 "\n\nУдаление модели посылки:" +
                 "\npack delete [ID посылки]";
-        return formatToCodeStyle(info);
+        return convertStringToTelegramCodeStyle(info);
     }
 
-    public String formatToCodeStyle(String text) {
+    public String toStringIncorrectCommand() {
+        return convertStringToTelegramCodeStyle("Не удалось определить введенную команду");
+    }
+
+    public String convertStringToTelegramCodeStyle(String text) {
         return "```Ответ:\n" + text + "```";
     }
 }
