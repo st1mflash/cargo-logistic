@@ -24,19 +24,19 @@ public class LocalFileImportUtils {
                     .map(Pack::new)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error("Ошибка ошибка импорта грузов из файла: '" + new LocalFileUtils().getFullAddress(localFile) + "': " + e);
+            LOGGER.error("Ошибка ошибка импорта грузов из файла: '" + new LocalFileUtils().calculateFilePathNameFormat(localFile) + "': " + e);
             return null;
         }
     }
 
     public List<Car> importCarsFromFile(LocalFile localFile) {
         try {
-            return new LocalFileUtils().getListJSONCars(localFile)
+            return new LocalFileUtils().importListJsonCars(localFile)
                     .stream()
                     .map(Car::new)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error("Ошибка импорта грузовиков из файла: '" + new LocalFileUtils().getFullAddress(localFile) + "': " + e);
+            LOGGER.error("Ошибка импорта грузовиков из файла: '" + new LocalFileUtils().calculateFilePathNameFormat(localFile) + "': " + e);
             return null;
         }
     }

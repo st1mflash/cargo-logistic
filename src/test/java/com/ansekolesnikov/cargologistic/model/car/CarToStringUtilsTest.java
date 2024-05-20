@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CarToStringUtilsTest {
     @Test
-    void testGetCargo() {
+    void testToStringCarCargoScheme() {
         Car car = new Car();
         car.initCargoFromString("5555514444223330000000000000000000000000");
         CarToStringUtils carToStringUtils = new CarToStringUtils();
@@ -52,7 +52,7 @@ public class CarToStringUtilsTest {
     }
 
     @Test
-    void testGetFullInfo() {
+    void testToStringCarInfo() {
         Car car = new Car();
         car.initCargoFromString("5555514444223330000000000000000000000000");
         CarToStringUtils carToStringUtils = new CarToStringUtils();
@@ -77,8 +77,6 @@ public class CarToStringUtilsTest {
                 "\n\n";
 
         String actual = carToStringUtils.toStringCarInfo(car);
-        System.out.println(expected);
-        System.out.println(actual);
 
         assertEquals(expected, actual);
     }

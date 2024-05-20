@@ -30,9 +30,9 @@ public class CarService implements CargoService {
         carCommandLine = command.getCarCommandLine();
         return switch (carCommandLine.getOperation()) {
             case LIST -> toStringAllCarModelsFromDatabase();
-            case INSERT -> insertCarIntoDatabase(carServiceUtils.createCarModelFromCommand(carCommandLine));
-            case UPDATE -> updateCarInDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()), carCommandLine);
-            case DELETE -> deleteCarFromDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()));
+            case INSERT -> insertCarModelIntoDatabase(carServiceUtils.createCarModelFromCommand(carCommandLine));
+            case UPDATE -> updateCarModelInDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()), carCommandLine);
+            case DELETE -> deleteCarModelFromDatabase(findCarByIdInDatabase(carCommandLine.getIdCar()));
         };
     }
 
@@ -55,13 +55,13 @@ public class CarService implements CargoService {
         }
     }
 
-    private String insertCarIntoDatabase(CarModel carModel) {
+    private String insertCarModelIntoDatabase(CarModel carModel) {
         carModelDao.insert(carModel);
         return "Грузовик '" + carModel.getNameModel() + "' успешно создан.\n\n"
                 + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
 
-    private String updateCarInDatabase(CarModel carModel, CarCommandLine command) {
+    private String updateCarModelInDatabase(CarModel carModel, CarCommandLine command) {
         switch (command.getUpdatedParamName()) {
             case NAME:
                 carModel.setNameModel(command.getUpdatedParamValue());
@@ -80,7 +80,7 @@ public class CarService implements CargoService {
                 + carModelToStringUtils.toStringCarModelInfo(carModel);
     }
 
-    private String deleteCarFromDatabase(CarModel carModel) {
+    private String deleteCarModelFromDatabase(CarModel carModel) {
         carModelDao.delete(carModel);
         return "Грузовик '" + carModel.getNameModel() + "' успешно удален.";
     }

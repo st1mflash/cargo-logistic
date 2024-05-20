@@ -27,7 +27,7 @@ public class ViewFileCargoServiceUtils {
         if (importedCarList != null) {
             return new ViewFileCargoServiceUtils().getListCarsResultString(importedCarList);
         } else {
-            LOGGER.info("Указанный файл '" + new LocalFileUtils().getFullAddress(localFile) + "' не содержит информации о грузовиках");
+            LOGGER.info("Указанный файл '" + new LocalFileUtils().calculateFilePathNameFormat(localFile) + "' не содержит информации о грузовиках");
             return "Указанный файл не содержит информации о грузовиках.";
         }
     }

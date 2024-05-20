@@ -31,17 +31,4 @@ public class CarModel {
         this.cargoWidthModel = cargoWidth;
         this.cargoHeightModel = cargoHeight;
     }
-
-    public CarModel(
-            int idModel,
-            String name,
-            int cargoWidth,
-            int cargoHeight
-    ) {
-        this.idModel = idModel;
-        this.nameModel = name;
-        this.cargoWidthModel = cargoWidth;
-        this.cargoHeightModel = cargoHeight;
-    }
-
 }

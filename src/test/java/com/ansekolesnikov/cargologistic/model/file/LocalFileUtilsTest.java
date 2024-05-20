@@ -15,7 +15,7 @@ public class LocalFileUtilsTest {
         LocalFileUtils localFileUtils = new LocalFileUtils();
 
         String expected = "src/test/resources/import/packages/test_packs.txt";
-        String actual = localFileUtils.getFullAddress(localFile);
+        String actual = localFileUtils.calculateFilePathNameFormat(localFile);
 
         assertEquals(expected, actual);
     }
@@ -29,7 +29,7 @@ public class LocalFileUtilsTest {
             List<JSONObject> expectedList = List.of(
                     new JSONObject("{\"width\": \"6\", \"id\": \"952472\", \"cargo\": \"555551999666999666999333100000000000\", \"height\": \"6\"}")
             );
-            List<JSONObject> actualList = localFileUtils.getListJSONCars(localFile);
+            List<JSONObject> actualList = localFileUtils.importListJsonCars(localFile);
 
             assertEquals(expectedList.size(), actualList.size());
             for (int i = 0; i < expectedList.size(); i++) {
