@@ -24,9 +24,9 @@ public class LoadFileCargoService implements CargoService {
     @Autowired
     private PackModelDao packModelDao;
     private String pathImportPackage;
-    LoadFileCargoServiceUtils loadFileCargoServiceUtils;
+    private LoadFileCargoServiceUtils loadFileCargoServiceUtils;
     private LoadFileCommandLine loadFileCommandLine;
-    DatabaseService databaseService;
+    private DatabaseService databaseService;
 
     public LoadFileCargoService(
             DatabaseService databaseService,
