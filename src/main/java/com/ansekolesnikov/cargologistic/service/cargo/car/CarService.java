@@ -5,16 +5,12 @@ import com.ansekolesnikov.cargologistic.model.car.utils.CarModelToStringUtils;
 import com.ansekolesnikov.cargologistic.model.command.CommandLine;
 import com.ansekolesnikov.cargologistic.model.command.car.CarCommandLine;
 import com.ansekolesnikov.cargologistic.service.cargo.CargoService;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @Service
-@Getter
-@Setter
 public class CarService implements CargoService {
     @Autowired
     private CarServiceUtils carServiceUtils = new CarServiceUtils();
