@@ -9,11 +9,6 @@ public class Pack extends PackModel {
     private int carId = 0;
     private String[][] arrScheme;
 
-    public Pack(int code) {
-        super(code);
-        initArrScheme();
-    }
-
     public Pack(PackModel packModel) {
         this.id = packModel.getId();
         this.name = packModel.getName();

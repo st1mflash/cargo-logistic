@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PackModelTest {
+    /*
     @Test
     void testPackWidthForTypes1to5() {
         PackModel packModel1 = new PackModel(1);
@@ -22,7 +23,8 @@ public class PackModelTest {
         PackModel packModel5 = new PackModel(5);
         assertEquals(5, packModel5.getWidth());
     }
-
+    */
+/*
     @Test
     void testPackWidthForTypes6and9() {
         PackModel packModel6 = new PackModel(6);
@@ -41,7 +43,6 @@ public class PackModelTest {
         assertEquals(4, packModel8.getWidth());
     }
 
-    /*
     @Test
     void testSetCarId() {
         PackModel packModel = new PackModel(1);

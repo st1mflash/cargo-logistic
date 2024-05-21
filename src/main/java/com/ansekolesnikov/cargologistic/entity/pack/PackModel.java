@@ -26,26 +26,6 @@ public class PackModel {
     @Column(name = "scheme_height")
     protected int height;
 
-    public PackModel(int code) {
-        this.code = Integer.toString(code).charAt(0);
-    }
-
-    public PackModel(
-            int id,
-            String name,
-            Character code,
-            String scheme,
-            int width,
-            int height
-    ) {
-        this.id = id;
-        this.name = name;
-        this.width = width;
-        this.height = height;
-        this.scheme = scheme;
-        this.code = code;
-    }
-
     public PackModel(
             String name,
             int width,
