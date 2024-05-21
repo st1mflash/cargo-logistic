@@ -20,7 +20,7 @@ public class Pack extends PackModel {
     }
 
     public void initArrScheme() {
-        arrScheme = new String[super.height][width];
+        arrScheme = new String[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (scheme.charAt(i * width + j) == '1') {
