@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringAppConfig {
-    //private static final Logger LOGGER = Logger.getLogger(SpringAppConfig.class.getName());
     @Value("${telegram.bot.username}")
     private String TELEGRAM_BOT_USERNAME;
     @Value("${telegram.bot.token}")
@@ -37,7 +36,6 @@ public class SpringAppConfig {
     public DatabaseService databaseService() {
         databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
         flywayMigration = new FlywayMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
-        //LOGGER.info("Сервис работы базы данных - успешно запущен.");
         return databaseService;
     }
 
@@ -45,7 +43,6 @@ public class SpringAppConfig {
     public TelegramService telegramService() {
         telegramService = new TelegramService();
         telegramService.startBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
-        //LOGGER.info("Сервис работы телеграм ботов - успешно запущен.");
         return telegramService;
     }
 

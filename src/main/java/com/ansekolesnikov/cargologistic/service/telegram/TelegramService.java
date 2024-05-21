@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.service.telegram;
 
-import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.telegram.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListService;
@@ -37,7 +37,10 @@ public class TelegramService {
 
     public void startBot(String bot_token, String bot_username) {
         try {
-            new TelegramBotsApi(DefaultBotSession.class).registerBot(new TelegramHandler(this, bot_token, bot_username));
+            new TelegramBotsApi(DefaultBotSession.class)
+                    .registerBot(
+                            new TelegramHandler(this, bot_token, bot_username)
+                    );
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
         }
@@ -50,6 +53,7 @@ public class TelegramService {
             case INFO:
                 LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.toStringBotInfo();
+
             case LOAD_FILE:
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 return serviceUtils.convertStringToTelegramCodeStyle(

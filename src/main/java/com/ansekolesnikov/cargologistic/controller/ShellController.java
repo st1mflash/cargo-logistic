@@ -20,14 +20,6 @@ public class ShellController {
 
     private static final Logger LOGGER = Logger.getLogger(ShellController.class.getName());
 
-    public ShellController(
-            LoadFileService loadFileCargoService,
-            ViewFileService viewFileCargoService
-    ) {
-        this.loadFileCargoService = loadFileCargoService;
-        this.viewFileCargoService = viewFileCargoService;
-    }
-
     @ShellMethod("Формирование поставки грузами из .txt файла.")
     public String load_file(
             @ShellOption String fileName,
