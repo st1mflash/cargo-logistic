@@ -15,18 +15,18 @@ import java.util.List;
 
 @NoArgsConstructor
 @Service
-public class LoadListRunnableService implements RunnableService {
+public class LoadListService implements RunnableService {
     @Autowired
     private CarModelDao carModelDao;
     @Autowired
     private PackModelDao packModelDao;
     private LoadListCommandLine loadListCommandLine;
-    private LoadListCargoServiceUtils loadListCargoServiceUtils;
+    private LoadListServiceUtils loadListServiceUtils;
 
-    public LoadListRunnableService(
-            LoadListCargoServiceUtils loadListCargoServiceUtils
+    public LoadListService(
+            LoadListServiceUtils loadListServiceUtils
     ) {
-        this.loadListCargoServiceUtils = loadListCargoServiceUtils;
+        this.loadListServiceUtils = loadListServiceUtils;
     }
 
     @Override
@@ -34,15 +34,15 @@ public class LoadListRunnableService implements RunnableService {
         loadListCommandLine = commandLine.getLoadListCommandLine();
         CarModel carModel = carModelDao.findByName(loadListCommandLine.getCarModel());
         List<Pack> pack =
-                loadListCargoServiceUtils
+                loadListServiceUtils
                         .createPacksByNameFromDatabase(
                                 packModelDao,
                                 loadListCommandLine.getPacks()
                         );
 
-        return loadListCargoServiceUtils.toStringCarsPacksInfo(
+        return loadListServiceUtils.toStringCarsPacksInfo(
                 pack,
-                loadListCargoServiceUtils.loadCars(
+                loadListServiceUtils.loadCars(
                         carModel,
                         pack,
                         loadListCommandLine.getCountCars(),

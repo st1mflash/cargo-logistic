@@ -4,10 +4,10 @@ import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileRunnableService;
-import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListRunnableService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListService;
 import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
-import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileRunnableService;
+import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -22,11 +22,11 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @Service
 public class TelegramService {
     @Autowired
-    private LoadFileRunnableService loadFileCargoService;
+    private LoadFileService loadFileCargoService;
     @Autowired
-    private LoadListRunnableService loadListCargoService;
+    private LoadListService loadListCargoService;
     @Autowired
-    private ViewFileRunnableService viewFileCargoService;
+    private ViewFileService viewFileCargoService;
     @Autowired
     private PackService packService;
     @Autowired

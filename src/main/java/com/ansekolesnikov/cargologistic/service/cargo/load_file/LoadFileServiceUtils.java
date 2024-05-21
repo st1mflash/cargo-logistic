@@ -18,8 +18,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class LoadFileCargoServiceUtils {
-    private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceUtils.class.getName());
+public class LoadFileServiceUtils {
+    private static final Logger LOGGER = Logger.getLogger(LoadFileServiceUtils.class.getName());
 
     public String toStringCarsInfo(List<Car> listCars) {
         StringBuilder result = new StringBuilder();

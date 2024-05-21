@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class LoadListCargoServiceUtils {
+public class LoadListServiceUtils {
     public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPack, int inputCountCars, AlgorithmEnum inputAlgorithm) {
         List<Car> listCars = new ArrayList<>();
         CarUtils carUtils = new CarUtils();

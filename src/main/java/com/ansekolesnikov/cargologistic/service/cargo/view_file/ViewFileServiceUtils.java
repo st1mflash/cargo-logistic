@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ViewFileCargoServiceUtils {
-    private static final Logger LOGGER = Logger.getLogger(ViewFileCargoServiceUtils.class.getName());
+public class ViewFileServiceUtils {
+    private static final Logger LOGGER = Logger.getLogger(ViewFileServiceUtils.class.getName());
 
     public String getListCarsResultString(List<Car> carList) {
         StringBuilder result = new StringBuilder();
@@ -25,7 +25,7 @@ public class ViewFileCargoServiceUtils {
     public String getCarsInfoFromFile(LocalFile localFile) {
         List<Car> importedCarList = new LocalFileImportUtils().importCarsFromFile(localFile);
         if (importedCarList != null) {
-            return new ViewFileCargoServiceUtils().getListCarsResultString(importedCarList);
+            return new ViewFileServiceUtils().getListCarsResultString(importedCarList);
         } else {
             LOGGER.info("Указанный файл '" + new LocalFileUtils().calculateFilePathNameFormat(localFile) + "' не содержит информации о грузовиках");
             return "Указанный файл не содержит информации о грузовиках.";

@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @Service
-public class ViewFileRunnableService implements RunnableService {
+public class ViewFileService implements RunnableService {
     private String pathImportCar;
     @Autowired
-    ViewFileCargoServiceUtils serviceUtils;
+    ViewFileServiceUtils serviceUtils;
     private ViewFileCommandLine viewFileCommandLine;
 
-    public ViewFileRunnableService(String pathImportCar) {
+    public ViewFileService(String pathImportCar) {
         this.pathImportCar = pathImportCar;
     }
 

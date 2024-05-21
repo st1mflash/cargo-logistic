@@ -20,21 +20,21 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Service
-public class LoadFileRunnableService implements RunnableService {
+public class LoadFileService implements RunnableService {
     @Autowired
     private PackModelDao packModelDao;
     private String pathImportPackage;
-    private LoadFileCargoServiceUtils loadFileCargoServiceUtils;
+    private LoadFileServiceUtils loadFileServiceUtils;
     private LoadFileCommandLine loadFileCommandLine;
     private DatabaseService databaseService;
 
-    public LoadFileRunnableService(
+    public LoadFileService(
             DatabaseService databaseService,
-            LoadFileCargoServiceUtils loadFileCargoServiceUtils,
+            LoadFileServiceUtils loadFileServiceUtils,
             String pathImportPackage
     ) {
         this.databaseService = databaseService;
-        this.loadFileCargoServiceUtils = loadFileCargoServiceUtils;
+        this.loadFileServiceUtils = loadFileServiceUtils;
         this.pathImportPackage = pathImportPackage;
     }
 
@@ -48,11 +48,11 @@ public class LoadFileRunnableService implements RunnableService {
         LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);
 
         if (serviceValidation.isValid()) {
-            List<Pack> importedPackList = loadFileCargoServiceUtils.importPacksFromFileSortedByWidth(packModelDao, localFile);
-            List<Car> loadedCarList = loadFileCargoServiceUtils.loadCars(importedPackList, countCars, algorithm);
+            List<Pack> importedPackList = loadFileServiceUtils.importPacksFromFileSortedByWidth(packModelDao, localFile);
+            List<Car> loadedCarList = loadFileServiceUtils.loadCars(importedPackList, countCars, algorithm);
 
             if (serviceValidation.isValidCountCars(loadedCarList)) {
-                return loadFileCargoServiceUtils.toStringCarsInfo(loadedCarList);
+                return loadFileServiceUtils.toStringCarsInfo(loadedCarList);
             } else {
                 return serviceValidation.getUserErrorMessage();
             }

@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileRunnableService;
-import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileRunnableService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileService;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.shell.standard.ShellComponent;
@@ -12,14 +12,14 @@ import org.springframework.shell.standard.ShellOption;
 @NoArgsConstructor
 @ShellComponent
 public class ShellController {
-    private ViewFileRunnableService viewFileCargoService;
-    private LoadFileRunnableService loadFileCargoService;
+    private ViewFileService viewFileCargoService;
+    private LoadFileService loadFileCargoService;
 
     private static final Logger LOGGER = Logger.getLogger(ShellController.class.getName());
 
     public ShellController(
-            LoadFileRunnableService loadFileCargoService,
-            ViewFileRunnableService viewFileCargoService
+            LoadFileService loadFileCargoService,
+            ViewFileService viewFileCargoService
     ) {
         this.loadFileCargoService = loadFileCargoService;
         this.viewFileCargoService = viewFileCargoService;

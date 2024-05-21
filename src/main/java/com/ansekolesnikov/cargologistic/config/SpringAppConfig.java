@@ -2,14 +2,13 @@ package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.controller.ShellController;
 import com.ansekolesnikov.cargologistic.database.FlywayMigration;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileRunnableService;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileCargoServiceUtils;
-import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListRunnableService;
-import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListCargoServiceUtils;
-import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileRunnableService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileServiceUtils;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListService;
+import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListServiceUtils;
+import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
-//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,13 +34,13 @@ public class SpringAppConfig {
 
     private ShellController shellController;
     private FlywayMigration flywayMigration;
-    private LoadFileRunnableService loadFileCargoService;
-    private LoadListRunnableService loadListCargoService;
-    private ViewFileRunnableService viewFileCargoService;
+    private LoadFileService loadFileService;
+    private LoadListService loadListService;
+    private ViewFileService viewFileService;
     private TelegramService telegramService = new TelegramService();
     private DatabaseService databaseService;
-    private LoadListCargoServiceUtils loadListCargoServiceUtils = new LoadListCargoServiceUtils();
-    private LoadFileCargoServiceUtils loadFileCargoServiceUtils = new LoadFileCargoServiceUtils();
+    private LoadListServiceUtils loadListServiceUtils = new LoadListServiceUtils();
+    private LoadFileServiceUtils loadFileServiceUtils = new LoadFileServiceUtils();
 
     @Bean
     public DatabaseService databaseService() {
@@ -60,31 +59,31 @@ public class SpringAppConfig {
 
     @Bean
     public ShellController shellController() {
-        shellController = new ShellController(loadFileCargoService, viewFileCargoService);
+        shellController = new ShellController(loadFileService, viewFileService);
         return shellController;
     }
 
     @Bean
-    public ViewFileRunnableService viewFileCargoService() {
-        viewFileCargoService = new ViewFileRunnableService(PATH_IMPORT_CAR);
-        return viewFileCargoService;
+    public ViewFileService viewFileService() {
+        viewFileService = new ViewFileService(PATH_IMPORT_CAR);
+        return viewFileService;
     }
 
     @Bean
-    public LoadListRunnableService loadListCargoService() {
-        loadListCargoService = new LoadListRunnableService(
-                loadListCargoServiceUtils
+    public LoadListService loadListService() {
+        loadListService = new LoadListService(
+                loadListServiceUtils
         );
-        return loadListCargoService;
+        return loadListService;
     }
 
     @Bean
-    public LoadFileRunnableService loadFileCargoService() {
-        loadFileCargoService = new LoadFileRunnableService(
+    public LoadFileService loadFileService() {
+        loadFileService = new LoadFileService(
                 databaseService,
-                loadFileCargoServiceUtils,
+                loadFileServiceUtils,
                 PATH_IMPORT_PACKAGE
         );
-        return loadFileCargoService;
+        return loadFileService;
     }
 }
