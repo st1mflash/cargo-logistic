@@ -9,7 +9,7 @@ import java.util.Objects;
 public class LoadAlgorithmType implements LoadAlgorithm {
     @Override
     public void load(Car car, Pack pack) {
-        if (Objects.equals(car.getCargo()[0][0], pack.getCode())
+        if (Objects.equals(car.getCargo()[0][0], String.valueOf(pack.getCode()))
                 || Objects.equals(car.getCargo()[0][0], "0")) {
             new LoadPackUtils().loadPackInCar(car, pack);
         }
