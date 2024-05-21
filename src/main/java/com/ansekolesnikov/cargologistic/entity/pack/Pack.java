@@ -24,16 +24,6 @@ public class Pack extends PackModel {
         initArrScheme();
     }
 
-    public Pack(int id, String name, Character code, String scheme, int width, int height) {
-        super(id, name, code, scheme, width, height);
-        initArrScheme();
-    }
-
-    public Pack(String name, int width, int height, String scheme, Character code) {
-        super(name, width, height, scheme, code);
-        initArrScheme();
-    }
-
     public void initArrScheme() {
         arrScheme = new String[super.height][width];
         for (int i = 0; i < height; i++) {

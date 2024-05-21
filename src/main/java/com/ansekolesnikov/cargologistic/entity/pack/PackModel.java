@@ -26,12 +26,8 @@ public class PackModel {
     @Column(name = "scheme_height")
     protected int height;
 
-    //private int carId = 0;
-    //private String[][] arrScheme;
-
     public PackModel(int code) {
         this.code = Integer.toString(code).charAt(0);
-        //initArrScheme();
     }
 
     public PackModel(
@@ -48,7 +44,6 @@ public class PackModel {
         this.height = height;
         this.scheme = scheme;
         this.code = code;
-        //initArrScheme();
     }
 
     public PackModel(
@@ -63,10 +58,9 @@ public class PackModel {
         this.height = height;
         this.scheme = scheme;
         this.code = code;
-        //initArrScheme();
     }
 
-    public int calculateElements() {
+    public int calculateCountElements() {
         return scheme.replaceAll("0", "").length();
     }
 }
