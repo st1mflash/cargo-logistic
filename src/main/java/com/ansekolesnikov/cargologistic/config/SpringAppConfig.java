@@ -40,10 +40,8 @@ public class SpringAppConfig {
     private ViewFileRunnableService viewFileCargoService;
     private TelegramService telegramService = new TelegramService();
     private DatabaseService databaseService;
-
     private LoadListCargoServiceUtils loadListCargoServiceUtils = new LoadListCargoServiceUtils();
     private LoadFileCargoServiceUtils loadFileCargoServiceUtils = new LoadFileCargoServiceUtils();
-
 
     @Bean
     public DatabaseService databaseService() {
@@ -89,5 +87,4 @@ public class SpringAppConfig {
         );
         return loadFileCargoService;
     }
-
 }
