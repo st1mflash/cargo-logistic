@@ -8,7 +8,6 @@ import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadFileCargoServiceValidation;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,14 +25,11 @@ public class LoadFileService implements RunnableService {
     private String pathImportPackage;
     private LoadFileServiceUtils loadFileServiceUtils;
     private LoadFileCommandLine loadFileCommandLine;
-    private DatabaseService databaseService;
 
     public LoadFileService(
-            DatabaseService databaseService,
             LoadFileServiceUtils loadFileServiceUtils,
             String pathImportPackage
     ) {
-        this.databaseService = databaseService;
         this.loadFileServiceUtils = loadFileServiceUtils;
         this.pathImportPackage = pathImportPackage;
     }

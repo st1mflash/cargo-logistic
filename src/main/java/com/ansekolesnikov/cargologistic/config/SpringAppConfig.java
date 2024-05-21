@@ -80,7 +80,6 @@ public class SpringAppConfig {
     @Bean
     public LoadFileService loadFileService() {
         loadFileService = new LoadFileService(
-                databaseService,
                 loadFileServiceUtils,
                 PATH_IMPORT_PACKAGE
         );
