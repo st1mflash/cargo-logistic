@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.handler;
 
-import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.entity.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
 import org.apache.log4j.Logger;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

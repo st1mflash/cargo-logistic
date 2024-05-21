@@ -2,12 +2,12 @@ package com.ansekolesnikov.cargologistic.service.cargo.load_file;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
-import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.car.utils.CarToStringUtils;
-import com.ansekolesnikov.cargologistic.model.car.utils.CarUtils;
-import com.ansekolesnikov.cargologistic.model.file.LocalFile;
-import com.ansekolesnikov.cargologistic.model.file.LocalFileImportUtils;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.car.utils.CarToStringUtils;
+import com.ansekolesnikov.cargologistic.entity.car.utils.CarUtils;
+import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
+import com.ansekolesnikov.cargologistic.entity.file.LocalFileImportUtils;
+import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 

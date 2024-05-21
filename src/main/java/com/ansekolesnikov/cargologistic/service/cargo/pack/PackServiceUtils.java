@@ -1,10 +1,10 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.command.pack.PackCommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.PackModel;
-import com.ansekolesnikov.cargologistic.model.pack.utils.PackModelToStringUtils;
+import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
+import com.ansekolesnikov.cargologistic.entity.command.pack.PackCommandLine;
+import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import com.ansekolesnikov.cargologistic.entity.pack.utils.PackModelToStringUtils;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

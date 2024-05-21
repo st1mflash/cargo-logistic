@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.service.cargo.pack;
 
-import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.PackModel;
-import com.ansekolesnikov.cargologistic.model.pack.utils.PackModelToStringUtils;
+import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
+import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import com.ansekolesnikov.cargologistic.entity.pack.utils.PackModelToStringUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.EntityService;
 import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
 import lombok.NoArgsConstructor;

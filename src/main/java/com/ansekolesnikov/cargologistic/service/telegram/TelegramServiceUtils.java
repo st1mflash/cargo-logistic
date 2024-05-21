@@ -27,7 +27,7 @@ public class TelegramServiceUtils {
                 "\n\nОтображение всех моделей посылок:" +
                 "\npack list" +
                 "\n\nДобавление новой модели посылки:" +
-                "\npack insert [название] [код] [ширина] [высота]" +
+                "\npack insert [название] [код] [схема] [ширина] [высота]" +
                 "\n\nОбновление модели посылки:" +
                 "\npack update [ID посылки] [параметр: name/code/scheme/scheme_width/scheme_height] [новое значение]" +
                 "\n\nУдаление модели посылки:" +

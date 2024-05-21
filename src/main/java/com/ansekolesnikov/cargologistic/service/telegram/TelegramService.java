@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
-import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.telegram.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
+import com.ansekolesnikov.cargologistic.entity.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileRunnableService;
 import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListRunnableService;

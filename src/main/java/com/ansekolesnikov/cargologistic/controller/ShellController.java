@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.model.command.CommandLine;
+import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileRunnableService;
 import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileRunnableService;
 import lombok.NoArgsConstructor;

@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.service.cargo.view_file;
 
-import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.command.view_file.ViewFileCommandLine;
-import com.ansekolesnikov.cargologistic.model.file.LocalFile;
+import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
+import com.ansekolesnikov.cargologistic.entity.command.view_file.ViewFileCommandLine;
+import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.NoArgsConstructor;

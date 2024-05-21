@@ -2,10 +2,10 @@ package com.ansekolesnikov.cargologistic.service.cargo.load_list;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.model.car.CarModel;
-import com.ansekolesnikov.cargologistic.model.command.CommandLine;
-import com.ansekolesnikov.cargologistic.model.command.load_list.LoadListCommandLine;
-import com.ansekolesnikov.cargologistic.model.pack.Pack;
+import com.ansekolesnikov.cargologistic.entity.car.CarModel;
+import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
+import com.ansekolesnikov.cargologistic.entity.command.load_list.LoadListCommandLine;
+import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

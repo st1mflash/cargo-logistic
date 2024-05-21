@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.validation.service;
 
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
-import com.ansekolesnikov.cargologistic.model.car.Car;
-import com.ansekolesnikov.cargologistic.model.file.LocalFile;
+import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.Getter;
