@@ -22,15 +22,12 @@ import java.util.List;
 public class LoadFileService implements RunnableService {
     @Autowired
     private PackModelDao packModelDao;
-    private String pathImportPackage;
+    @Autowired
     private LoadFileServiceUtils loadFileServiceUtils;
+    private String pathImportPackage;
     private LoadFileCommandLine loadFileCommandLine;
 
-    public LoadFileService(
-            LoadFileServiceUtils loadFileServiceUtils,
-            String pathImportPackage
-    ) {
-        this.loadFileServiceUtils = loadFileServiceUtils;
+    public LoadFileService(String pathImportPackage) {
         this.pathImportPackage = pathImportPackage;
     }
 

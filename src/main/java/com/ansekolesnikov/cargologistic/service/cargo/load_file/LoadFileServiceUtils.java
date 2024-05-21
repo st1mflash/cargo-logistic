@@ -1,6 +1,8 @@
 package com.ansekolesnikov.cargologistic.service.cargo.load_file;
 
+import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import com.ansekolesnikov.cargologistic.entity.car.CarModel;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarToStringUtils;
@@ -8,7 +10,9 @@ import com.ansekolesnikov.cargologistic.entity.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.file.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
+import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,8 +21,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 @Component
 public class LoadFileServiceUtils {
+    @Autowired
+    private CarModelDao carModelDao;
     private static final Logger LOGGER = Logger.getLogger(LoadFileServiceUtils.class.getName());
 
     public String toStringCarsInfo(List<Car> listCars) {
@@ -40,11 +47,12 @@ public class LoadFileServiceUtils {
     }
 
     public List<Car> loadCars(List<Pack> packList, int countCars, AlgorithmEnum algorithm) {
+        CarModel defaultCarModel = carModelDao.findById(1);
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
         CarUtils carUtils = new CarUtils();
         do {
-            Car car = new Car();
+            Car car = new Car(defaultCarModel);
             listCars.add(car);
             packList = packList.stream()
                     .filter(pack -> pack.getCarId() == 0)

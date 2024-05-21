@@ -20,14 +20,9 @@ public class LoadListService implements RunnableService {
     private CarModelDao carModelDao;
     @Autowired
     private PackModelDao packModelDao;
-    private LoadListCommandLine loadListCommandLine;
+    @Autowired
     private LoadListServiceUtils loadListServiceUtils;
-
-    public LoadListService(
-            LoadListServiceUtils loadListServiceUtils
-    ) {
-        this.loadListServiceUtils = loadListServiceUtils;
-    }
+    private LoadListCommandLine loadListCommandLine;
 
     @Override
     public String runService(CommandLine commandLine) {
