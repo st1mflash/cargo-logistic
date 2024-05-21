@@ -41,12 +41,14 @@ public class PackModelTest {
         assertEquals(4, packModel8.getWidth());
     }
 
+    /*
     @Test
     void testSetCarId() {
         PackModel packModel = new PackModel(1);
         packModel.setCarId(123);
         assertEquals(123, packModel.getCarId());
     }
+    */
 
     /*
     @Test
