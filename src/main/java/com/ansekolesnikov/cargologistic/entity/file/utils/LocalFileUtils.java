@@ -1,10 +1,15 @@
-package com.ansekolesnikov.cargologistic.entity.file;
+package com.ansekolesnikov.cargologistic.entity.file.utils;
 
+import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
+import lombok.NoArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@Component
 public class LocalFileUtils {
     public String calculateFilePathNameFormat(LocalFile localFile) {
         return localFile.getPath() + localFile.getName() + localFile.getFormat();

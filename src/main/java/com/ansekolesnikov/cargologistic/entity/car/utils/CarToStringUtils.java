@@ -58,7 +58,7 @@ public class CarToStringUtils {
             fullInfoString.append((countPackages != 0 ? "\n- посылка '" + code + "': " + countPackages + " шт." : ""));
         }
 
-        fullInfoString.append("\nСхема кузова:\n").append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n\n");
+        fullInfoString.append("\nСхема кузова:\n").append(toStringCarCargoScheme(car)).append("\n\n");
         return fullInfoString.toString();
     }
 }

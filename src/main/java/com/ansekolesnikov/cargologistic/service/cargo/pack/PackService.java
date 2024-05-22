@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PackService implements RunnableService, EntityService {
     @Autowired
-    private PackServiceUtils packServiceUtils = new PackServiceUtils();
+    private PackServiceUtils packServiceUtils;
     @Autowired
-    private PackModelToStringUtils packModelToStringUtils = new PackModelToStringUtils();
+    private PackModelToStringUtils packModelToStringUtils;
 
     @Override
     public String runService(CommandLine command) {

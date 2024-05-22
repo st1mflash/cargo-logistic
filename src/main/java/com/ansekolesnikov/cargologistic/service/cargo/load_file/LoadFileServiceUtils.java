@@ -8,7 +8,7 @@ import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
-import com.ansekolesnikov.cargologistic.entity.file.LocalFileImportUtils;
+import com.ansekolesnikov.cargologistic.entity.file.utils.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
@@ -28,13 +28,17 @@ public class LoadFileServiceUtils {
     private CarModelDao carModelDao;
     @Autowired
     private CarUtils carUtils;
+    @Autowired
+    private CarToStringUtils carToStringUtils;
+    @Autowired
+    private LocalFileImportUtils localFileImportUtils;
     private static final Logger LOGGER = Logger.getLogger(LoadFileServiceUtils.class.getName());
 
     public String toStringCarsInfo(List<Car> listCars) {
         StringBuilder result = new StringBuilder();
         if (listCars != null) {
             for (Car car : listCars) {
-                result.append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n");
+                result.append(carToStringUtils.toStringCarCargoScheme(car)).append("\n");
             }
         }
         return result.toString();
@@ -42,7 +46,7 @@ public class LoadFileServiceUtils {
 
     public List<Pack> importPacksFromFileSortedByWidth(PackModelDao packModelDao, LocalFile localFile) {
         return Objects
-                .requireNonNull(new LocalFileImportUtils().importPacksFromFile(packModelDao, localFile))
+                .requireNonNull(localFileImportUtils.importPacksFromFile(packModelDao, localFile))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();

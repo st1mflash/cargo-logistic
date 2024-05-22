@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarService implements RunnableService, EntityService {
     @Autowired
-    private CarServiceUtils carServiceUtils = new CarServiceUtils();
+    private CarServiceUtils carServiceUtils;
     @Autowired
-    private CarModelToStringUtils carModelToStringUtils = new CarModelToStringUtils();
+    private CarModelToStringUtils carModelToStringUtils;
 
     @Override
     public String runService(CommandLine command) {

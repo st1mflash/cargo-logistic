@@ -1,7 +1,9 @@
 package com.ansekolesnikov.cargologistic.service.telegram;
 
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@NoArgsConstructor
 @Component
 public class TelegramServiceUtils {
     public String toStringBotInfo() {

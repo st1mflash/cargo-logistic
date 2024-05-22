@@ -14,7 +14,6 @@ public class CarUtilsTest {
         int percentLoad = carUtils.calcPercentLoad(car);
         assertEquals(0, percentLoad);
 
-
         car.initCargoFromString("555550555550555550555550555550555550");
         percentLoad = carUtils.calcPercentLoad(car);
         assertEquals(83, percentLoad);
@@ -22,7 +21,6 @@ public class CarUtilsTest {
         car.initCargoFromString("5555514444223330000000000000000000000000");
         percentLoad = carUtils.calcPercentLoad(car);
         assertEquals(41, percentLoad);
-
 
         car.initCargoFromString("111111111111111111111111111111111111");
         percentLoad = carUtils.calcPercentLoad(car);
@@ -61,7 +59,7 @@ public class CarUtilsTest {
         Car car = new Car();
         CarUtils carUtils = new CarUtils();
 
-        Character cargoPackageType = '1';
+        char cargoPackageType = '1';
         car.initCargoFromString("111000000000000000000000000000000000");
         int count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(3, count);

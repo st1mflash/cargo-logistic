@@ -14,12 +14,14 @@ import org.springframework.stereotype.Component;
 public class CarServiceUtils {
     @Autowired
     private CarModelDao carModelDao;
+    @Autowired
+    private CarModelToStringUtils carModelToStringUtils;
 
     public String queryAllCarModelsToString() {
         StringBuilder toStringCars = new StringBuilder();
         for (CarModel carModel : carModelDao.findAll()) {
             toStringCars
-                    .append(new CarModelToStringUtils().toStringCarModelInfo(carModel))
+                    .append(carModelToStringUtils.toStringCarModelInfo(carModel))
                     .append("\n\n");
         }
         if (toStringCars.isEmpty()) {

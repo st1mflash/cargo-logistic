@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 public class PackServiceUtils {
     @Autowired
     private PackModelDao packModelDao;
+    @Autowired
+    private PackModelToStringUtils packModelToStringUtils;
 
     public PackModel createPackModelFromCommand(PackCommandLine command) {
         return new PackModel(
@@ -29,7 +31,7 @@ public class PackServiceUtils {
         StringBuilder toStringCars = new StringBuilder();
         for (PackModel packModel : packModelDao.findAll()) {
             toStringCars
-                    .append(new PackModelToStringUtils().toStringPackInfo(packModel))
+                    .append(packModelToStringUtils.toStringPackInfo(packModel))
                     .append("\n\n");
         }
         if (toStringCars.isEmpty()) {

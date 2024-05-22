@@ -21,6 +21,8 @@ import java.util.List;
 public class LoadListServiceUtils {
     @Autowired
     private CarUtils carUtils;
+    @Autowired
+    private CarToStringUtils carToStringUtils;
     public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPack, int inputCountCars, AlgorithmEnum inputAlgorithm) {
         List<Car> listCars = new ArrayList<>();
 
@@ -49,7 +51,7 @@ public class LoadListServiceUtils {
 
         if (listCars != null) {
             for (Car car : listCars) {
-                result.append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n");
+                result.append(carToStringUtils.toStringCarCargoScheme(car)).append("\n");
             }
         }
         return result.toString();
