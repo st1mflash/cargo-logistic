@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.entity.car;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarUtils;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CarUtilsTest {
     @Test
@@ -61,31 +61,31 @@ public class CarUtilsTest {
         Car car = new Car();
         CarUtils carUtils = new CarUtils();
 
-        int cargoPackageType = 1;
+        Character cargoPackageType = '1';
         car.initCargoFromString("111000000000000000000000000000000000");
-        int count = carUtils.calcCountThisTypePackOnCar(car, cargoPackageType);
+        int count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(3, count);
 
-        cargoPackageType = 2;
+        cargoPackageType = '2';
         car.initCargoFromString("111000000000000000000000000000000000");
-        count = carUtils.calcCountThisTypePackOnCar(car, cargoPackageType);
+        count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(0, count);
 
         car.initCargoFromString("5555514444223330000000000000000000000000");
-        cargoPackageType = 5;
-        count = carUtils.calcCountThisTypePackOnCar(car, cargoPackageType);
+        cargoPackageType = '5';
+        count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(1, count);
 
-        cargoPackageType = 4;
-        count = carUtils.calcCountThisTypePackOnCar(car, cargoPackageType);
+        cargoPackageType = '4';
+        count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(1, count);
 
-        cargoPackageType = 2;
-        count = carUtils.calcCountThisTypePackOnCar(car, cargoPackageType);
+        cargoPackageType = '2';
+        count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(1, count);
 
-        cargoPackageType = 3;
-        count = carUtils.calcCountThisTypePackOnCar(car, cargoPackageType);
+        cargoPackageType = '3';
+        count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(1, count);
     }
 }

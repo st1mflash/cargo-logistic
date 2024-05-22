@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -12,6 +13,7 @@ import java.util.Objects;
 public class CarToStringUtils {
     @Autowired
     private CarUtils carUtils;
+
     public String toStringCarCargoScheme(Car car) {
         String[][] cargo = car.getCargo();
         StringBuilder cargoInfo = new StringBuilder();
@@ -39,10 +41,23 @@ public class CarToStringUtils {
                         + "\nСостав кузова:"
         );
 
-        for (int i = 1; i < 10; i++) {
-            int countPackages = carUtils.calcCountThisTypePackOnCar(car, i);
-            fullInfoString.append((countPackages != 0 ? "\n- посылка '" + i + "': " + countPackages + " шт." : ""));
+        StringBuilder cargoString = new StringBuilder();
+        for (int i = 0; i < car.getCargoHeightModel(); i++) {
+            for (int j = 0; j < car.getCargoWidthModel(); j++) {
+                cargoString.append(car.getCargo()[i][j]);
+            }
         }
+
+        for (Character code : Arrays.stream(cargoString.toString().split(""))
+                .distinct()
+                .map(c -> c.charAt(0))
+                .filter(c -> c != '0')
+                .toList()
+        ) {
+            int countPackages = carUtils.calculateCountPackInCarByCode(car, code);
+            fullInfoString.append((countPackages != 0 ? "\n- посылка '" + code + "': " + countPackages + " шт." : ""));
+        }
+
         fullInfoString.append("\nСхема кузова:\n").append(new CarToStringUtils().toStringCarCargoScheme(car)).append("\n\n");
         return fullInfoString.toString();
     }
