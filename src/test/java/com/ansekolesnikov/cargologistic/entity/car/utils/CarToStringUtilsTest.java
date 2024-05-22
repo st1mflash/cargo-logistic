@@ -1,5 +1,7 @@
-package com.ansekolesnikov.cargologistic.entity.car;
+package com.ansekolesnikov.cargologistic.entity.car.utils;
 
+import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.car.CarModel;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarToStringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CarToStringUtilsTest {
     @Test
     void testToStringCarCargoScheme() {
-        Car car = new Car();
+        CarModel carModel = new CarModel("test_car_model", 6, 6);
+        Car car = new Car(carModel);
         car.initCargoFromString("5555514444223330000000000000000000000000");
         CarToStringUtils carToStringUtils = new CarToStringUtils();
 
@@ -53,20 +56,21 @@ public class CarToStringUtilsTest {
 
     @Test
     void testToStringCarInfo() {
-        Car car = new Car();
+        CarModel carModel = new CarModel("test_car_model", 6, 6);
+        Car car = new Car(carModel);
         car.initCargoFromString("5555514444223330000000000000000000000000");
         CarToStringUtils carToStringUtils = new CarToStringUtils();
 
-        String expected = "Идентификатор: #" + car.getIdModel() + "\n" +
+        String expected = "Идентификатор: #" + car.getIdCar() + "\n" +
                 "Параметры кузова: 6х6\n" +
                 "Загруженность: 41%\n" +
-                "Состав груза:\n" +
-                "- тип '1': 1 шт.\n" +
-                "- тип '2': 1 шт.\n" +
-                "- тип '3': 1 шт.\n" +
-                "- тип '4': 1 шт.\n" +
-                "- тип '5': 1 шт.\n" +
-                "Схема:\n" +
+                "Состав кузова:\n" +
+                "- посылка '1': 1 шт.\n" +
+                "- посылка '2': 1 шт.\n" +
+                "- посылка '3': 1 шт.\n" +
+                "- посылка '4': 1 шт.\n" +
+                "- посылка '5': 1 шт.\n" +
+                "Схема кузова:\n" +
                 "+      +\n" +
                 "+      +\n" +
                 "+      +\n" +
