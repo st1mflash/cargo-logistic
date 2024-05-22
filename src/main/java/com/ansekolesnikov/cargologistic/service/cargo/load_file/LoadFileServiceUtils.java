@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 public class LoadFileServiceUtils {
     @Autowired
     private CarModelDao carModelDao;
+    @Autowired
+    private CarUtils carUtils;
     private static final Logger LOGGER = Logger.getLogger(LoadFileServiceUtils.class.getName());
 
     public String toStringCarsInfo(List<Car> listCars) {
@@ -50,7 +52,6 @@ public class LoadFileServiceUtils {
         CarModel defaultCarModel = carModelDao.findById(1);
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
-        CarUtils carUtils = new CarUtils();
         do {
             Car car = new Car(defaultCarModel);
             listCars.add(car);
@@ -62,10 +63,10 @@ public class LoadFileServiceUtils {
                 carUtils.loadPackToCar(car, pack, algorithm);
             }
             if (localCarCount > 0) {
-                if (new CarUtils().calcPercentLoad(car) == 0) {
+                if (carUtils.calcPercentLoad(car) == 0) {
                     LOGGER.info("Грузовик #" + car.getIdModel() + " остался пустым");
                 } else {
-                    LOGGER.info("Грузовик #" + car.getIdModel() + " успешно загружен на " + new CarUtils().calcPercentLoad(car) + "%");
+                    LOGGER.info("Грузовик #" + car.getIdModel() + " успешно загружен на " + carUtils.calcPercentLoad(car) + "%");
                 }
             }
             localCarCount--;

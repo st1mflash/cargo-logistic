@@ -8,17 +8,21 @@ import com.ansekolesnikov.cargologistic.entity.car.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@NoArgsConstructor
 @Component
 public class LoadListServiceUtils {
+    @Autowired
+    private CarUtils carUtils;
     public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPack, int inputCountCars, AlgorithmEnum inputAlgorithm) {
         List<Car> listCars = new ArrayList<>();
-        CarUtils carUtils = new CarUtils();
 
         for (int i = 0; i < inputCountCars; i++) {
             Car car = new Car(inputCarModel);
