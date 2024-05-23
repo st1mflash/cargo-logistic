@@ -17,16 +17,18 @@ public class LoadListCommandLine {
     private String[] packs;
 
     public LoadListCommandLine(String command) {
-        this.carModel = command.split(" ")[1];
-        this.algorithm = AlgorithmEnum.initEnumFromString(command.split(" ")[2]);
-        this.countCars = Integer.parseInt(
-                command.split(" ")[3].split("[^0-9]")[0]
-                        .replaceAll("[^0-9]", "")
-        );
-        this.packs = command
-                .substring(command.indexOf(":") + 1)
-                .trim()
-                .split("\\n");
+        try {
+            this.carModel = command.split(" ")[1];
+            this.algorithm = AlgorithmEnum.initEnumFromString(command.split(" ")[2]);
+            this.countCars = Integer.parseInt(
+                    command.split(" ")[3].split("[^0-9]")[0]
+                            .replaceAll("[^0-9]", "")
+            );
+            this.packs = command
+                    .substring(command.indexOf(":") + 1)
+                    .trim()
+                    .split("\\n");
+        } catch (RuntimeException ignored) {}
     }
 
 }

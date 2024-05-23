@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TelegramServiceUtils {
     public String toStringBotInfo() {
-        String info = """
+        return """
                 Доступные команды:
 
                 Загрузка машин данными из файла:
@@ -45,11 +45,6 @@ public class TelegramServiceUtils {
 
                 Удаление модели посылки:
                 pack delete [ID посылки]""";
-        return convertStringToTelegramCodeStyle(info);
-    }
-
-    public String toStringIncorrectCommand() {
-        return convertStringToTelegramCodeStyle("Не удалось определить введенную команду");
     }
 
     public String convertStringToTelegramCodeStyle(String text) {

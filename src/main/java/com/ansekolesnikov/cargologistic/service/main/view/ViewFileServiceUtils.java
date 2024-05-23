@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.cargo.view_file;
+package com.ansekolesnikov.cargologistic.service.main.view;
 
 import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarToStringUtils;

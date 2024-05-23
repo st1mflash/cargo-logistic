@@ -1,5 +1,7 @@
-package com.ansekolesnikov.cargologistic.service.cargo.load_file;
+package com.ansekolesnikov.cargologistic.service.main.load_file;
 
+import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileServiceUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

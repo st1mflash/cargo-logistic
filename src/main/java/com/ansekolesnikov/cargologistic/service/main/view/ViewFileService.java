@@ -1,9 +1,10 @@
-package com.ansekolesnikov.cargologistic.service.cargo.view_file;
+package com.ansekolesnikov.cargologistic.service.main.view;
 
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.command.view_file.ViewFileCommandLine;
 import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
-import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
+import com.ansekolesnikov.cargologistic.service.result.ResultServiceRun;
+import com.ansekolesnikov.cargologistic.service.main.RunnableService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,15 @@ public class ViewFileService implements RunnableService {
     }
 
     @Override
-    public String runService(CommandLine commandLine) {
+    public ResultServiceRun runService(CommandLine commandLine) {
         viewFileCommandLine = commandLine.getViewFileCommandLine();
         LocalFile localFile = new LocalFile(pathImportCar + viewFileCommandLine.getFileName());
         FileValidation fileValidation = new FileValidation(localFile);
 
         if (fileValidation.isValid()) {
-            return serviceUtils.getCarsInfoFromFile(localFile);
+            return new ResultServiceRun(serviceUtils.getCarsInfoFromFile(localFile));
         } else {
-            return fileValidation.getUserErrorMessage();
+            return new ResultServiceRun(fileValidation.getUserErrorMessage());
         }
     }
 }

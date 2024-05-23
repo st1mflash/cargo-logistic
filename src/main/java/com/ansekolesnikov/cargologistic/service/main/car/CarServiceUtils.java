@@ -1,35 +1,23 @@
-package com.ansekolesnikov.cargologistic.service.cargo.car;
+package com.ansekolesnikov.cargologistic.service.main.car;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.entity.car.CarModel;
-import com.ansekolesnikov.cargologistic.entity.car.utils.CarModelToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.command.car.CarCommandLine;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Component
 public class CarServiceUtils {
     @Autowired
     private CarModelDao carModelDao;
-    @Autowired
-    private CarModelToStringUtils carModelToStringUtils;
 
-    public String queryAllCarModelsToString() {
-        StringBuilder toStringCars = new StringBuilder();
-        for (CarModel carModel : carModelDao.findAll()) {
-            toStringCars
-                    .append(carModelToStringUtils.toStringCarModelInfo(carModel))
-                    .append("\n\n");
-        }
-        if (toStringCars.isEmpty()) {
-            return "Список моделей грузовиков пуст." +
-                    "\nДля добавления воспользуйтесь командой: 'car insert [название] [ширина] [высота]'";
-        } else {
-            return toStringCars.toString();
-        }
+    public List<CarModel> queryAllCarModels() {
+        return carModelDao.findAll();
     }
 
     public CarModel insertCarModelByCommand(CommandLine inputCommand) {

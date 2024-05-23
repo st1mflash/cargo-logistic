@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.cargo.load_list;
+package com.ansekolesnikov.cargologistic.service.main.load.list;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;

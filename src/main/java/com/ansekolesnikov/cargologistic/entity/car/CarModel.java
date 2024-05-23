@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -30,5 +33,20 @@ public class CarModel {
         this.nameModel = name;
         this.cargoWidthModel = cargoWidth;
         this.cargoHeightModel = cargoHeight;
+    }
+
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", String.valueOf(idModel));
+        map.put("name", nameModel);
+        map.put("width", String.valueOf(cargoWidthModel));
+        map.put("height", String.valueOf(cargoHeightModel));
+        return map;
+    }
+
+    public String toString() {
+        return "Идентификатор: #" + idModel
+                + "\nНазвание модели: " + nameModel
+                + "\nПараметры кузова: " + cargoWidthModel + "x" + cargoHeightModel;
     }
 }

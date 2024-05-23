@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.database.FlywayMigration;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileService;
-import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileService;
+import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.main.view.ViewFileService;
 import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
 import org.springframework.beans.factory.annotation.Value;

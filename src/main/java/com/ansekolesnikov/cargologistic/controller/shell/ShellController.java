@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.controller.shell;
 
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileService;
-import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileService;
+import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.main.view.ViewFileService;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,23 +28,26 @@ public class ShellController {
     ) {
         LOGGER.info("Запрос загрузки из файла '" + fileName + "' алгоритмом '" + algorithm.toLowerCase() + "' в " + countCars + " ед. транспорта.");
         return loadFileCargoService.runService(
-                new CommandLine(
-                        Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
-                                fileName + " " +
-                                algorithm + " " +
-                                countCars
+                        new CommandLine(
+                                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
+                                        fileName + " " +
+                                        algorithm + " " +
+                                        countCars
+                        )
                 )
-        );
+                .getResultLoadFileServiceRun()
+                .getStringResult();
     }
 
     @ShellMethod("Получение полной информации о грузовиках из .json файла.")
     public String view_file(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
         return viewFileCargoService.runService(
-                new CommandLine(
-                        Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
-                                fileName
+                        new CommandLine(
+                                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
+                                        fileName
+                        )
                 )
-        );
+                .getTextResult();
     }
 }

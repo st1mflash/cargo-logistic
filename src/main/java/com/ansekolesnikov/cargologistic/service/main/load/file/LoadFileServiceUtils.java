@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.cargo.load_file;
+package com.ansekolesnikov.cargologistic.service.main.load.file;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;

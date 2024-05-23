@@ -1,45 +1,23 @@
-package com.ansekolesnikov.cargologistic.service.cargo.pack;
+package com.ansekolesnikov.cargologistic.service.main.pack;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
-import com.ansekolesnikov.cargologistic.entity.pack.utils.PackModelToStringUtils;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @NoArgsConstructor
 @Component
 public class PackServiceUtils {
     @Autowired
     private PackModelDao packModelDao;
-    @Autowired
-    private PackModelToStringUtils packModelToStringUtils;
 
-    public PackModel createPackModelFromCommand(PackCommandLine command) {
-        return new PackModel(
-                command.getNamePack(),
-                command.getWidthSchemePack(),
-                command.getHeightSchemePack(),
-                command.getSchemePack(),
-                command.getCodePack()
-        );
-    }
-
-    public String queryAllPackModelsToString() {
-        StringBuilder toStringCars = new StringBuilder();
-        for (PackModel packModel : packModelDao.findAll()) {
-            toStringCars
-                    .append(packModelToStringUtils.toStringPackInfo(packModel))
-                    .append("\n\n");
-        }
-        if (toStringCars.isEmpty()) {
-            return "Список моделей посылок пуст." +
-                    "\nДля добавления воспользуйтесь командой: 'pack insert [название] [код] [ширина] [высота]'";
-        } else {
-            return toStringCars.toString();
-        }
+    public List<PackModel> queryAllPackModels() {
+        return packModelDao.findAll();
     }
 
     public PackModel insertPackModelByCommand(CommandLine inputCommand) {
@@ -80,5 +58,15 @@ public class PackServiceUtils {
         PackModel packModel = packModelDao.findById(command.getIdPack());
         packModelDao.delete(packModel);
         return packModel;
+    }
+
+    public PackModel createPackModelFromCommand(PackCommandLine command) {
+        return new PackModel(
+                command.getNamePack(),
+                command.getWidthSchemePack(),
+                command.getHeightSchemePack(),
+                command.getSchemePack(),
+                command.getCodePack()
+        );
     }
 }

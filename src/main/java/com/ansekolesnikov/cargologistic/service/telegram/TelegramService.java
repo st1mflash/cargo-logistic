@@ -3,11 +3,11 @@ package com.ansekolesnikov.cargologistic.service.telegram;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
-import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
-import com.ansekolesnikov.cargologistic.service.cargo.load_file.LoadFileService;
-import com.ansekolesnikov.cargologistic.service.cargo.load_list.LoadListService;
-import com.ansekolesnikov.cargologistic.service.cargo.pack.PackService;
-import com.ansekolesnikov.cargologistic.service.cargo.view_file.ViewFileService;
+import com.ansekolesnikov.cargologistic.service.main.car.CarService;
+import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.main.load.list.LoadListService;
+import com.ansekolesnikov.cargologistic.service.main.pack.PackService;
+import com.ansekolesnikov.cargologistic.service.main.view.ViewFileService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -48,45 +48,43 @@ public class TelegramService {
 
     public String toStringBotAnswer(TelegramUserMessage inputMessage) {
         CommandLine serviceCommandLine = new CommandLine(inputMessage.getText());
-
-        switch (inputMessage.getCommand()) {
-            case INFO:
+        String textAnswer = switch (inputMessage.getCommand()) {
+            case INFO -> {
                 LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                return serviceUtils.toStringBotInfo();
-
-            case LOAD_FILE:
+                yield serviceUtils.toStringBotInfo();
+            }
+            case LOAD_FILE -> {
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                return serviceUtils.convertStringToTelegramCodeStyle(
-                        loadFileCargoService.runService(serviceCommandLine)
-                );
-
-            case LOAD_LIST:
+                yield loadFileCargoService.runService(serviceCommandLine)
+                        .getResultLoadFileServiceRun()
+                        .getStringResult();
+            }
+            case LOAD_LIST -> {
                 LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                return serviceUtils.convertStringToTelegramCodeStyle(
-                        loadListCargoService.runService(serviceCommandLine)
-                );
-
-            case VIEW_FILE:
+                yield loadListCargoService.runService(serviceCommandLine)
+                        .getResultLoadListServiceRun()
+                        .getStringResult();
+            }
+            case VIEW_FILE -> {
                 LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                return serviceUtils.convertStringToTelegramCodeStyle(
-                        viewFileCargoService.runService(serviceCommandLine)
-                );
-
-            case CAR:
+                yield viewFileCargoService.runService(serviceCommandLine)
+                        .getResultViewFileServiceRun()
+                        .getStringResult();
+            }
+            case CAR -> {
                 LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                return serviceUtils.convertStringToTelegramCodeStyle(
-                        carService.runService(serviceCommandLine)
-                );
-
-            case PACK:
+                yield carService.runService(serviceCommandLine)
+                        .getResultCarServiceRun()
+                        .getStringResult();
+            }
+            case PACK -> {
                 LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                return serviceUtils.convertStringToTelegramCodeStyle(
-                        packService.runService(serviceCommandLine)
-                );
+                yield packService.runService(serviceCommandLine)
+                        .getResultPackServiceRun()
+                        .getStringResult();
+            }
+        };
 
-            default:
-                LOGGER.error("Не удалось определить введенную команду. Telegram ID пользователя: '" + inputMessage.getChatId() + "', текст сообщения: '" + inputMessage.getText() + "'");
-                return serviceUtils.toStringIncorrectCommand();
-        }
+        return serviceUtils.convertStringToTelegramCodeStyle(textAnswer);
     }
 }
