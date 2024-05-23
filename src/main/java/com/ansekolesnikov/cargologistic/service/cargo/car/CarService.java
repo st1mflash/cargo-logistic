@@ -31,7 +31,8 @@ public class CarService implements RunnableService, EntityService {
             };
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды. Текст команды: " + command.getCarCommandLine().getText());
-            return "Ошибка ввода. Проверьте правильность введенной операции (доступные операции: INSERT/UPDATE/DELETE/LIST).";
+            return "Ошибка ввода.\n" +
+                    "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST).";
         }
     }
 

@@ -5,7 +5,9 @@ import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
 import com.ansekolesnikov.cargologistic.entity.pack.utils.PackModelToStringUtils;
 import com.ansekolesnikov.cargologistic.service.cargo.EntityService;
 import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
+import com.ansekolesnikov.cargologistic.service.cargo.car.CarService;
 import lombok.NoArgsConstructor;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +18,22 @@ public class PackService implements RunnableService, EntityService {
     private PackServiceUtils packServiceUtils;
     @Autowired
     private PackModelToStringUtils packModelToStringUtils;
+    private static final Logger LOGGER = Logger.getLogger(PackService.class.getName());
 
     @Override
     public String runService(CommandLine command) {
-        return switch (command.getPackCommandLine().getOperation()) {
-            case LIST -> listOperation();
-            case INSERT -> insertOperation(command);
-            case UPDATE -> updateOperation(command);
-            case DELETE -> deleteOperation(command);
-        };
+        try {
+            return switch (command.getPackCommandLine().getOperation()) {
+                case LIST -> listOperation();
+                case INSERT -> insertOperation(command);
+                case UPDATE -> updateOperation(command);
+                case DELETE -> deleteOperation(command);
+            };
+        } catch (RuntimeException e) {
+            LOGGER.error("Ошибка ввода команды. Текст команды: " + command.getPackCommandLine().getText());
+            return "Ошибка ввода.\n" +
+                    "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST).";
+        }
     }
 
     @Override

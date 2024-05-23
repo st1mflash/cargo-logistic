@@ -23,26 +23,29 @@ public class PackCommandLine {
     private String updatedParamValue;
     private String text;
     public PackCommandLine(String command) {
-        text = command;
-        operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);
-        switch (operation) {
-            case INSERT:
-                namePack = command.split(" ")[2];
-                codePack = command.split(" ")[3].charAt(0);
-                schemePack = command.split(" ")[4];
-                widthSchemePack = Integer.parseInt(command.split(" ")[5]);
-                heightSchemePack = Integer.parseInt(command.split(" ")[6]);
-                break;
-            case UPDATE:
-                idPack = Integer.parseInt(command.split(" ")[2]);
-                updatedParamName = PackModelParameterEnum.initEnumFromString(command.split(" ")[3]);
-                updatedParamValue = command.split(" ")[4];
-                break;
-            case DELETE:
-                idPack = Integer.parseInt(command.split(" ")[2]);
-                break;
-            default:
-                break;
-        }
+        try {
+
+            text = command;
+            operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);
+            switch (operation) {
+                case INSERT:
+                    namePack = command.split(" ")[2];
+                    codePack = command.split(" ")[3].charAt(0);
+                    schemePack = command.split(" ")[4];
+                    widthSchemePack = Integer.parseInt(command.split(" ")[5]);
+                    heightSchemePack = Integer.parseInt(command.split(" ")[6]);
+                    break;
+                case UPDATE:
+                    idPack = Integer.parseInt(command.split(" ")[2]);
+                    updatedParamName = PackModelParameterEnum.initEnumFromString(command.split(" ")[3]);
+                    updatedParamValue = command.split(" ")[4];
+                    break;
+                case DELETE:
+                    idPack = Integer.parseInt(command.split(" ")[2]);
+                    break;
+                default:
+                    break;
+            }
+        } catch (RuntimeException ignored) {}
     }
 }
