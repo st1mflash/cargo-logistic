@@ -28,8 +28,8 @@ public class PackService implements RunnableService, EntityService {
             };
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды. Текст команды: " + command.getPackCommandLine().getText());
-            ResultServiceRun result = new ResultServiceRun();
-            result.getResultPackServiceRun().setStringResult(
+            ResultPackServiceRun result = new ResultPackServiceRun();
+            result.setText(
                     "Ошибка ввода.\n" +
                             "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST)."
             );
@@ -39,36 +39,36 @@ public class PackService implements RunnableService, EntityService {
 
     @Override
     public ResultServiceRun listOperation() {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultPackServiceRun().setListPackModel(packServiceUtils.queryAllPackModels());
+        ResultPackServiceRun resultServiceRun = new ResultPackServiceRun();
+        resultServiceRun.fillByListPackModel(packServiceUtils.queryAllPackModels());
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun getOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultPackServiceRun().setPackModel(packServiceUtils.queryPackModelById(command));
+        ResultPackServiceRun resultServiceRun = new ResultPackServiceRun();
+        resultServiceRun.fillByPackModel(packServiceUtils.queryPackModelById(command));
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun insertOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultPackServiceRun().setPackModel(packServiceUtils.insertPackModelByCommand(command));
+        ResultPackServiceRun resultServiceRun = new ResultPackServiceRun();
+        resultServiceRun.fillByPackModel(packServiceUtils.insertPackModelByCommand(command));
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun updateOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultPackServiceRun().setPackModel(packServiceUtils.updatePackModelByCommand(command));
+        ResultPackServiceRun resultServiceRun = new ResultPackServiceRun();
+        resultServiceRun.fillByPackModel(packServiceUtils.updatePackModelByCommand(command));
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun deleteOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultPackServiceRun().setPackModel(packServiceUtils.deletePackModelByCommand(command));
+        ResultPackServiceRun resultServiceRun = new ResultPackServiceRun();
+        resultServiceRun.fillByPackModel(packServiceUtils.deletePackModelByCommand(command));
         return resultServiceRun;
     }
 }

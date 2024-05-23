@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.controller.rest.get;
 
-
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.service.main.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +16,16 @@ import java.util.Map;
 public class GetCarModelRestApiController {
     @Autowired
     private CarService carService;
+
     @GetMapping
     public List<Map<String, String>> getListCarModels() {
         return carService.runService(new CommandLine("car list"))
-                .getResultCarServiceRun()
-                .getListMapCarModel();
+                .toListMap();
     }
 
     @GetMapping("/{id}")
     public Map<String, String> getCarModel(@PathVariable int id) {
         return carService.runService(new CommandLine("car get " + id))
-                .getResultCarServiceRun()
-                .getMapCarModel();
+                .toMap();
     }
 }

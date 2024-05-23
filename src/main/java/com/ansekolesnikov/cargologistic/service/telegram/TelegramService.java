@@ -74,14 +74,12 @@ public class TelegramService {
             case CAR -> {
                 LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 yield carService.runService(serviceCommandLine)
-                        .getResultCarServiceRun()
-                        .getStringResult();
+                        .toString();
             }
             case PACK -> {
                 LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 yield packService.runService(serviceCommandLine)
-                        .getResultPackServiceRun()
-                        .getStringResult();
+                        .toString();
             }
         };
 

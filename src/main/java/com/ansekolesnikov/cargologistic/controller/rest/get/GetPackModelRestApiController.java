@@ -19,14 +19,12 @@ public class GetPackModelRestApiController {
     @GetMapping
     public List<Map<String, String>> getListPackModels() {
         return packService.runService(new CommandLine("pack list"))
-                .getResultPackServiceRun()
-                .getListMapPackModel();
+                .toListMap();
     }
 
     @GetMapping("/{id}")
     public Map<String, String> getPackModel(@PathVariable int id) {
         return packService.runService(new CommandLine("pack get " + id))
-                .getResultPackServiceRun()
-                .getMapPackModel();
+                .toMap();
     }
 }

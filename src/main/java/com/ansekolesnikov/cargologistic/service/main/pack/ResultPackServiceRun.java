@@ -1,33 +1,29 @@
 package com.ansekolesnikov.cargologistic.service.main.pack;
 
 import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import com.ansekolesnikov.cargologistic.service.main.ResultServiceRun;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@NoArgsConstructor
 @Getter
-public class ResultPackServiceRun {
-    @Setter
-    private String stringResult = "";
-    private PackModel packModel;
-    private List<PackModel> listPackModel;
-    private Map<String, String> mapPackModel;
-    private final List<Map<String, String>> listMapPackModel = new ArrayList<>();
-
-    public void setPackModel(PackModel packModel) {
-        this.packModel = packModel;
-        stringResult = packModel.toString();
-        mapPackModel = packModel.toMap();
+public class ResultPackServiceRun extends ResultServiceRun {
+    public void fillByPackModel(PackModel packModel) {
+        super.setResultToString(packModel.toString());
+        super.setResultToMap(packModel.toMap());
     }
-
-    public void setListPackModel(List<PackModel> listPackModel) {
-        this.listPackModel = listPackModel;
+    public void fillByListPackModel(List<PackModel> listPackModel) {
+        StringBuilder stringResult = new StringBuilder();
+        List<Map<String, String>> listMapPackModel = new ArrayList<>();
         for (PackModel el : listPackModel) {
-            stringResult = stringResult + el.toString() + "\n\n";
+            stringResult.append(el.toString()).append("\n\n");
             listMapPackModel.add(el.toMap());
         }
+        super.setResultToString(stringResult.toString());
+        super.setResultToListMap(listMapPackModel);
     }
 }

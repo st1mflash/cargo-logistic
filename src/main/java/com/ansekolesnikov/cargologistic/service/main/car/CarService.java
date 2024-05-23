@@ -28,8 +28,8 @@ public class CarService implements RunnableService, EntityService {
             };
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды. Текст команды: " + command.getCarCommandLine().getText());
-            ResultServiceRun result = new ResultServiceRun();
-            result.getResultCarServiceRun().setStringResult(
+            ResultCarServiceRun result = new ResultCarServiceRun();
+            result.setText(
                     "Ошибка ввода.\n" +
                             "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST)."
             );
@@ -39,36 +39,36 @@ public class CarService implements RunnableService, EntityService {
 
     @Override
     public ResultServiceRun listOperation() {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultCarServiceRun().setListCarModel(carServiceUtils.queryAllCarModels());
+        ResultCarServiceRun resultServiceRun = new ResultCarServiceRun();
+        resultServiceRun.fillByListCarModel(carServiceUtils.queryAllCarModels());
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun getOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultCarServiceRun().setCarModel(carServiceUtils.queryCarModelById(command));
+        ResultCarServiceRun resultServiceRun = new ResultCarServiceRun();
+        resultServiceRun.fillByCarModel(carServiceUtils.queryCarModelById(command));
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun insertOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultCarServiceRun().setCarModel(carServiceUtils.insertCarModelByCommand(command));
+        ResultCarServiceRun resultServiceRun = new ResultCarServiceRun();
+        resultServiceRun.fillByCarModel(carServiceUtils.insertCarModelByCommand(command));
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun updateOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultCarServiceRun().setCarModel(carServiceUtils.updateCarModelByCommand(command));
+        ResultCarServiceRun resultServiceRun = new ResultCarServiceRun();
+        resultServiceRun.fillByCarModel(carServiceUtils.updateCarModelByCommand(command));
         return resultServiceRun;
     }
 
     @Override
     public ResultServiceRun deleteOperation(CommandLine command) {
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
-        resultServiceRun.getResultCarServiceRun().setCarModel(carServiceUtils.deleteCarModelByCommand(command));
+        ResultCarServiceRun resultServiceRun = new ResultCarServiceRun();
+        resultServiceRun.fillByCarModel(carServiceUtils.deleteCarModelByCommand(command));
         return resultServiceRun;
     }
 }
