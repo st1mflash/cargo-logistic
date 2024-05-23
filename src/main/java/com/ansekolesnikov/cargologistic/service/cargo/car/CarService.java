@@ -1,11 +1,13 @@
 package com.ansekolesnikov.cargologistic.service.cargo.car;
 
+import com.ansekolesnikov.cargologistic.controller.ShellController;
 import com.ansekolesnikov.cargologistic.entity.car.CarModel;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarModelToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
-import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
 import com.ansekolesnikov.cargologistic.service.cargo.EntityService;
+import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
 import lombok.NoArgsConstructor;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +18,21 @@ public class CarService implements RunnableService, EntityService {
     private CarServiceUtils carServiceUtils;
     @Autowired
     private CarModelToStringUtils carModelToStringUtils;
+    private static final Logger LOGGER = Logger.getLogger(CarService.class.getName());
 
     @Override
     public String runService(CommandLine command) {
-        return switch (command.getCarCommandLine().getOperation()) {
-            case LIST -> listOperation();
-            case INSERT -> insertOperation(command);
-            case UPDATE -> updateOperation(command);
-            case DELETE -> deleteOperation(command);
-        };
+        try {
+            return switch (command.getCarCommandLine().getOperation()) {
+                case LIST -> listOperation();
+                case INSERT -> insertOperation(command);
+                case UPDATE -> updateOperation(command);
+                case DELETE -> deleteOperation(command);
+            };
+        } catch (RuntimeException e) {
+            LOGGER.error("Ошибка ввода команды. Текст команды: " + command.getCarCommandLine().getText());
+            return "Ошибка ввода.";
+        }
     }
 
     @Override

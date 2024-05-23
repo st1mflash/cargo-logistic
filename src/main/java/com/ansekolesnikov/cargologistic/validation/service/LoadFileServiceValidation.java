@@ -10,14 +10,14 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class LoadFileCargoServiceValidation {
-    private static final Logger LOGGER = Logger.getLogger(LoadFileCargoServiceValidation.class.getName());
+public class LoadFileServiceValidation {
+    private static final Logger LOGGER = Logger.getLogger(LoadFileServiceValidation.class.getName());
     private final LocalFile localFile;
     private final AlgorithmEnum algorithm;
     private final int countCars;
     @Getter
     private String userErrorMessage;
-    public LoadFileCargoServiceValidation(LocalFile localFile, AlgorithmEnum algorithm, int countCars) {
+    public LoadFileServiceValidation(LocalFile localFile, AlgorithmEnum algorithm, int countCars) {
         this.localFile = localFile;
         this.algorithm = algorithm;
         this.countCars = countCars;

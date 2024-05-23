@@ -8,7 +8,7 @@ import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
 import com.ansekolesnikov.cargologistic.service.cargo.RunnableService;
-import com.ansekolesnikov.cargologistic.validation.service.LoadFileCargoServiceValidation;
+import com.ansekolesnikov.cargologistic.validation.service.LoadFileServiceValidation;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class LoadFileService implements RunnableService {
         AlgorithmEnum algorithm = loadFileCommandLine.getAlgorithm();
         int countCars = loadFileCommandLine.getCountCars();
 
-        LoadFileCargoServiceValidation serviceValidation = new LoadFileCargoServiceValidation(localFile, algorithm, countCars);
+        LoadFileServiceValidation serviceValidation = new LoadFileServiceValidation(localFile, algorithm, countCars);
 
         if (serviceValidation.isValid()) {
             List<Pack> importedPackList = loadFileServiceUtils.importPacksFromFileSortedByWidth(packModelDao, localFile);
