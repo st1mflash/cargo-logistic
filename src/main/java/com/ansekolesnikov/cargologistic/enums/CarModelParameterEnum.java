@@ -8,8 +8,8 @@ public enum CarModelParameterEnum {
     public static CarModelParameterEnum initEnumFromString(String parameter) {
         return switch (parameter.toLowerCase()) {
             case "name" -> NAME;
-            case "cargo_width" -> WIDTH;
-            case "cargo_height" -> HEIGHT;
+            case "width" -> WIDTH;
+            case "height" -> HEIGHT;
             default -> null;
         };
     }

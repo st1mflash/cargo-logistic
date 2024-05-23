@@ -12,8 +12,8 @@ public enum PackModelParameterEnum {
             case "name" -> NAME;
             case "code" -> CODE;
             case "scheme" -> SCHEME;
-            case "scheme_width" -> WIDTH;
-            case "scheme_height" -> HEIGHT;
+            case "width" -> WIDTH;
+            case "height" -> HEIGHT;
             default -> null;
         };
     }
