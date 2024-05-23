@@ -19,7 +19,7 @@ car list
 car insert [название] [ширина кузова] [высота кузова]
 
 Обновление модели машины:
-car update [ID машины] [параметр: name/cargo_width/cargo_height] [новое значение]
+car update [ID машины] [параметр: name/width/height] [новое значение]
 
 Удаление модели машины:
 car delete [ID машины]
@@ -31,7 +31,7 @@ pack list
 pack insert [название] [код] [схема] [ширина] [высота]
 
 Обновление модели посылки:
-pack update [ID посылки] [параметр: name/code/scheme/scheme_width/scheme_height] [новое значение]
+pack update [ID посылки] [параметр: name/code/scheme/width/height] [новое значение]
 
 Удаление модели посылки:
 pack delete [ID посылки]
