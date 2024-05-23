@@ -16,6 +16,11 @@ public class CarServiceUtils {
     @Autowired
     private CarModelDao carModelDao;
 
+    public CarModel queryCarModelById(CommandLine inputCommand) {
+        CarCommandLine command = inputCommand.getCarCommandLine();
+        return carModelDao.findById(command.getIdCar());
+    }
+
     public List<CarModel> queryAllCarModels() {
         return carModelDao.findAll();
     }

@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.main.pack;
 
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
-import com.ansekolesnikov.cargologistic.service.result.ResultServiceRun;
+import com.ansekolesnikov.cargologistic.service.main.ResultServiceRun;
 import com.ansekolesnikov.cargologistic.service.main.EntityService;
 import com.ansekolesnikov.cargologistic.service.main.RunnableService;
 import lombok.NoArgsConstructor;
@@ -21,6 +21,7 @@ public class PackService implements RunnableService, EntityService {
         try {
             return switch (command.getPackCommandLine().getOperation()) {
                 case LIST -> listOperation();
+                case GET -> getOperation(command);
                 case INSERT -> insertOperation(command);
                 case UPDATE -> updateOperation(command);
                 case DELETE -> deleteOperation(command);
@@ -40,6 +41,13 @@ public class PackService implements RunnableService, EntityService {
     public ResultServiceRun listOperation() {
         ResultServiceRun resultServiceRun = new ResultServiceRun();
         resultServiceRun.getResultPackServiceRun().setListPackModel(packServiceUtils.queryAllPackModels());
+        return resultServiceRun;
+    }
+
+    @Override
+    public ResultServiceRun getOperation(CommandLine command) {
+        ResultServiceRun resultServiceRun = new ResultServiceRun();
+        resultServiceRun.getResultPackServiceRun().setPackModel(packServiceUtils.queryPackModelById(command));
         return resultServiceRun;
     }
 

@@ -8,7 +8,7 @@ import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.service.main.RunnableService;
-import com.ansekolesnikov.cargologistic.service.result.ResultServiceRun;
+import com.ansekolesnikov.cargologistic.service.main.ResultServiceRun;
 import com.ansekolesnikov.cargologistic.validation.service.LoadFileServiceValidation;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

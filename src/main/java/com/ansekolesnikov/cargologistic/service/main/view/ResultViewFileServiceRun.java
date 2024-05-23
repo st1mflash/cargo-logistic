@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.result;
+package com.ansekolesnikov.cargologistic.service.main.view;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -48,6 +48,7 @@ public class ShellController {
                                         fileName
                         )
                 )
-                .getTextResult();
+                .getResultViewFileServiceRun()
+                .getStringResult();
     }
 }

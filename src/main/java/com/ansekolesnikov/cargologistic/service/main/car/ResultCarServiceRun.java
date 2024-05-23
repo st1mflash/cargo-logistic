@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.service.result;
+package com.ansekolesnikov.cargologistic.service.main.car;
 
 import com.ansekolesnikov.cargologistic.entity.car.CarModel;
 import lombok.Getter;

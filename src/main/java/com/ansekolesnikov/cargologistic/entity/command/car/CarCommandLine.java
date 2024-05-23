@@ -26,6 +26,9 @@ public class CarCommandLine {
             text = command;
             operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);
             switch (operation) {
+                case GET:
+                    idCar = Integer.parseInt(command.split(" ")[2]);
+                    break;
                 case INSERT:
                     nameCar = command.split(" ")[2];
                     widthSchemeCargoCar = Integer.parseInt(command.split(" ")[3]);

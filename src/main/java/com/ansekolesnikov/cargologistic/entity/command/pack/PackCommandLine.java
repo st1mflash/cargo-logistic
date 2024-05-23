@@ -28,6 +28,9 @@ public class PackCommandLine {
             text = command;
             operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);
             switch (operation) {
+                case GET:
+                    idPack = Integer.parseInt(command.split(" ")[2]);
+                    break;
                 case INSERT:
                     namePack = command.split(" ")[2];
                     codePack = command.split(" ")[3].charAt(0);

@@ -7,7 +7,7 @@ import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.command.load_list.LoadListCommandLine;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.service.main.RunnableService;
-import com.ansekolesnikov.cargologistic.service.result.ResultServiceRun;
+import com.ansekolesnikov.cargologistic.service.main.ResultServiceRun;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

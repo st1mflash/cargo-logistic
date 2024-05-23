@@ -4,6 +4,7 @@ import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.service.main.pack.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,9 @@ public class GetPackModelRestApiController {
     }
 
     @GetMapping("/{id}")
-    public Map<String, String> getPackModel() {
-        return null;
+    public Map<String, String> getPackModel(@PathVariable int id) {
+        return packService.runService(new CommandLine("pack get " + id))
+                .getResultPackServiceRun()
+                .getMapPackModel();
     }
 }
