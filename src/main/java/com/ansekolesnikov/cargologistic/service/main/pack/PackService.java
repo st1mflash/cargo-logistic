@@ -31,7 +31,7 @@ public class PackService implements RunnableService, EntityService {
             ResultPackServiceRun result = new ResultPackServiceRun();
             result.setText(
                     "Ошибка ввода.\n" +
-                            "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST)."
+                            "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST)." + e
             );
             return result;
         }
