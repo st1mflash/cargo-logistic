@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.service.cargo.car;
 
-import com.ansekolesnikov.cargologistic.controller.ShellController;
 import com.ansekolesnikov.cargologistic.entity.car.CarModel;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarModelToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
