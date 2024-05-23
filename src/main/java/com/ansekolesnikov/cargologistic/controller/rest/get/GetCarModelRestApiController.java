@@ -19,13 +19,15 @@ public class GetCarModelRestApiController {
 
     @GetMapping
     public List<Map<String, String>> getListCarModels() {
-        return carService.runService(new CommandLine("car list"))
+        CommandLine command = new CommandLine("car list");
+        return carService.runService(command)
                 .toListMap();
     }
 
     @GetMapping("/{id}")
     public Map<String, String> getCarModel(@PathVariable int id) {
-        return carService.runService(new CommandLine("car get " + id))
+        CommandLine command = new CommandLine("car get " + id);
+        return carService.runService(command)
                 .toMap();
     }
 }

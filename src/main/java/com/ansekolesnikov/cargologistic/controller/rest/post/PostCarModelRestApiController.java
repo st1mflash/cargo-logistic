@@ -18,12 +18,12 @@ public class PostCarModelRestApiController {
 
     @PostMapping
     public Map<String, String> createCarModel(@RequestBody Map<String, String> carModel) {
-        return carService.runService(new CommandLine(
-                                "car insert " + carModel.get("name") + " " +
-                                        carModel.get("width") + " " +
-                                        carModel.get("height")
-                        )
-                )
+        CommandLine command = new CommandLine(
+                "car insert " + carModel.get("name") + " " +
+                        carModel.get("width") + " " +
+                        carModel.get("height")
+        );
+        return carService.runService(command)
                 .toMap();
     }
 }

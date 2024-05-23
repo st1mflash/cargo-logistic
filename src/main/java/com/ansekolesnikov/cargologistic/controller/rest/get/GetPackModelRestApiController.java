@@ -18,13 +18,15 @@ public class GetPackModelRestApiController {
     private PackService packService;
     @GetMapping
     public List<Map<String, String>> getListPackModels() {
-        return packService.runService(new CommandLine("pack list"))
+        CommandLine command = new CommandLine("pack list");
+        return packService.runService(command)
                 .toListMap();
     }
 
     @GetMapping("/{id}")
     public Map<String, String> getPackModel(@PathVariable int id) {
-        return packService.runService(new CommandLine("pack get " + id))
+        CommandLine command = new CommandLine("pack get " + id);
+        return packService.runService(command)
                 .toMap();
     }
 }

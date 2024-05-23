@@ -18,13 +18,14 @@ public class PostPackModelRestApiController {
 
     @PostMapping
     public Map<String, String> createPackModel(@RequestBody Map<String, String> packModel) {
-        return packService.runService(new CommandLine(
+        CommandLine command = new CommandLine(
                 "pack insert " + packModel.get("name") + " " +
                         packModel.get("code") + " " +
                         packModel.get("scheme") + " " +
                         packModel.get("width") + " " +
                         packModel.get("height")
-                ))
+        );
+        return packService.runService(command)
                 .toMap();
     }
 }
