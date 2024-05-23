@@ -35,8 +35,7 @@ public class ShellController {
                                         countCars
                         )
                 )
-                .getResultLoadFileServiceRun()
-                .getStringResult();
+                .toString();
     }
 
     @ShellMethod("Получение полной информации о грузовиках из .json файла.")
@@ -48,7 +47,6 @@ public class ShellController {
                                         fileName
                         )
                 )
-                .getResultViewFileServiceRun()
-                .getStringResult();
+                .toString();
     }
 }

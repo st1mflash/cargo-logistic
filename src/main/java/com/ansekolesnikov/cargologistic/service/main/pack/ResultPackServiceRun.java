@@ -16,6 +16,7 @@ public class ResultPackServiceRun extends ResultServiceRun {
         super.setResultToString(packModel.toString());
         super.setResultToMap(packModel.toMap());
     }
+
     public void fillByListPackModel(List<PackModel> listPackModel) {
         StringBuilder stringResult = new StringBuilder();
         List<Map<String, String>> listMapPackModel = new ArrayList<>();

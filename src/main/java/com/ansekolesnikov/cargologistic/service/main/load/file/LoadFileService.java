@@ -7,8 +7,8 @@ import com.ansekolesnikov.cargologistic.entity.command.load_file.LoadFileCommand
 import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
-import com.ansekolesnikov.cargologistic.service.main.RunnableService;
 import com.ansekolesnikov.cargologistic.service.main.ResultServiceRun;
+import com.ansekolesnikov.cargologistic.service.main.RunnableService;
 import com.ansekolesnikov.cargologistic.validation.service.LoadFileServiceValidation;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +36,7 @@ public class LoadFileService implements RunnableService {
 
     @Override
     public ResultServiceRun runService(CommandLine commandLine) {
-        ResultServiceRun result = new ResultServiceRun();
+        ResultLoadFileServiceRun result = new ResultLoadFileServiceRun();
         try {
             LoadFileCommandLine command = commandLine.getLoadFileCommandLine();
             LocalFile file = new LocalFile(
@@ -65,20 +65,17 @@ public class LoadFileService implements RunnableService {
                         );
 
                 if (validation.isValidCountCars(loadedCarList)) {
-                    result.getResultLoadFileServiceRun()
-                            .setStringResult(utils.toStringCarsInfo(loadedCarList));
+                    result.setText(utils.toStringCarsInfo(loadedCarList));
                 } else {
-                    result.getResultLoadFileServiceRun()
-                            .setStringResult(validation.getUserErrorMessage());
+                    result.setText(validation.getUserErrorMessage());
                 }
             } else {
-                result.getResultLoadFileServiceRun()
-                        .setStringResult(validation.getUserErrorMessage());
+                result.setText(validation.getUserErrorMessage());
             }
             return result;
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды.");
-            result.getResultLoadFileServiceRun().setStringResult("Ошибка ввода.");
+            result.setText("Ошибка ввода.");
             return result;
         }
     }

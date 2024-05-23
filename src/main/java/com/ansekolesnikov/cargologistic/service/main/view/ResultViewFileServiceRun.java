@@ -1,10 +1,5 @@
 package com.ansekolesnikov.cargologistic.service.main.view;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.ansekolesnikov.cargologistic.service.main.ResultServiceRun;
 
-@Getter
-public class ResultViewFileServiceRun {
-    @Setter
-    private String stringResult = "";
-}
+public class ResultViewFileServiceRun extends ResultServiceRun {}

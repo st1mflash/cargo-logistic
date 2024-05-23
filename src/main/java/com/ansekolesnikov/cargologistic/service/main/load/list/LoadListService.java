@@ -6,8 +6,8 @@ import com.ansekolesnikov.cargologistic.entity.car.CarModel;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.command.load_list.LoadListCommandLine;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
-import com.ansekolesnikov.cargologistic.service.main.RunnableService;
 import com.ansekolesnikov.cargologistic.service.main.ResultServiceRun;
+import com.ansekolesnikov.cargologistic.service.main.RunnableService;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class LoadListService implements RunnableService {
 
     @Override
     public ResultServiceRun runService(CommandLine commandLine) {
-        ResultServiceRun result = new ResultServiceRun();
+        ResultLoadListServiceRun result = new ResultLoadListServiceRun();
         try {
             LoadListCommandLine command = commandLine.getLoadListCommandLine();
             CarModel carModel = carModelDao.findByName(command.getCarModel());
@@ -40,7 +40,7 @@ public class LoadListService implements RunnableService {
                                     command.getPacks()
                             );
 
-            result.getResultLoadListServiceRun().setStringResult(
+            result.setText(
                     loadListServiceUtils.toStringCarsPacksInfo(
                             pack,
                             loadListServiceUtils.loadCars(
@@ -53,7 +53,7 @@ public class LoadListService implements RunnableService {
             return result;
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды.");
-            result.getResultLoadListServiceRun().setStringResult("Ошибка ввода.");
+            result.setText("Ошибка ввода.");
             return result;
         }
     }

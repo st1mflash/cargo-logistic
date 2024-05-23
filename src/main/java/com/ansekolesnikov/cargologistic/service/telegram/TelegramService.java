@@ -56,20 +56,17 @@ public class TelegramService {
             case LOAD_FILE -> {
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 yield loadFileCargoService.runService(serviceCommandLine)
-                        .getResultLoadFileServiceRun()
-                        .getStringResult();
+                        .toString();
             }
             case LOAD_LIST -> {
                 LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 yield loadListCargoService.runService(serviceCommandLine)
-                        .getResultLoadListServiceRun()
-                        .getStringResult();
+                        .toString();
             }
             case VIEW_FILE -> {
                 LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
                 yield viewFileCargoService.runService(serviceCommandLine)
-                        .getResultViewFileServiceRun()
-                        .getStringResult();
+                        .toString();
             }
             case CAR -> {
                 LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");

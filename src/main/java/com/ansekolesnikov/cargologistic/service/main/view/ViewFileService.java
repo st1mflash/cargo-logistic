@@ -26,13 +26,13 @@ public class ViewFileService implements RunnableService {
         ViewFileCommandLine viewFileCommandLine = commandLine.getViewFileCommandLine();
         LocalFile localFile = new LocalFile(pathImportCar + viewFileCommandLine.getFileName());
         FileValidation fileValidation = new FileValidation(localFile);
-        ResultServiceRun resultServiceRun = new ResultServiceRun();
+        ResultViewFileServiceRun result = new ResultViewFileServiceRun();
 
         if (fileValidation.isValid()) {
-            resultServiceRun.getResultViewFileServiceRun().setStringResult(serviceUtils.getCarsInfoFromFile(localFile));
+            result.setText(serviceUtils.getCarsInfoFromFile(localFile));
         } else {
-            resultServiceRun.getResultViewFileServiceRun().setStringResult(fileValidation.getUserErrorMessage());
+            result.setText(fileValidation.getUserErrorMessage());
         }
-        return resultServiceRun;
+        return result;
     }
 }
