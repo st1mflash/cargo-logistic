@@ -8,23 +8,21 @@ import com.ansekolesnikov.cargologistic.service.main.RunnableService;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @Service
 public class ViewFileService implements RunnableService {
-    private String pathImportCar;
+    @Value("${directory.car.import}")
+    private String PATH_IMPORT_CAR;
     @Autowired
     ViewFileServiceUtils serviceUtils;
-
-    public ViewFileService(String pathImportCar) {
-        this.pathImportCar = pathImportCar;
-    }
 
     @Override
     public ResultServiceRun runService(CommandLine commandLine) {
         ViewFileCommandLine viewFileCommandLine = commandLine.getViewFileCommandLine();
-        LocalFile localFile = new LocalFile(pathImportCar + viewFileCommandLine.getFileName());
+        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + viewFileCommandLine.getFileName());
         FileValidation fileValidation = new FileValidation(localFile);
         ResultViewFileServiceRun result = new ResultViewFileServiceRun();
 

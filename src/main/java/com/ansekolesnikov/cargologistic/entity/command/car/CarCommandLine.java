@@ -26,7 +26,7 @@ public class CarCommandLine {
             text = command;
             operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);
             switch (operation) {
-                case GET:
+                case GET, DELETE:
                     idCar = Integer.parseInt(command.split(" ")[2]);
                     break;
                 case INSERT:
@@ -38,9 +38,6 @@ public class CarCommandLine {
                     idCar = Integer.parseInt(command.split(" ")[2]);
                     updatedParamName = CarModelParameterEnum.initEnumFromString(command.split(" ")[3]);
                     updatedParamValue = command.split(" ")[4];
-                    break;
-                case DELETE:
-                    idCar = Integer.parseInt(command.split(" ")[2]);
                     break;
                 default:
                     break;

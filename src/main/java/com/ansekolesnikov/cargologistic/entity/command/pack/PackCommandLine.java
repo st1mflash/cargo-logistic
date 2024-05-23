@@ -24,11 +24,10 @@ public class PackCommandLine {
     private String text;
     public PackCommandLine(String command) {
         try {
-
             text = command;
             operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);
             switch (operation) {
-                case GET:
+                case GET, DELETE:
                     idPack = Integer.parseInt(command.split(" ")[2]);
                     break;
                 case INSERT:
@@ -42,9 +41,6 @@ public class PackCommandLine {
                     idPack = Integer.parseInt(command.split(" ")[2]);
                     updatedParamName = PackModelParameterEnum.initEnumFromString(command.split(" ")[3]);
                     updatedParamValue = command.split(" ")[4];
-                    break;
-                case DELETE:
-                    idPack = Integer.parseInt(command.split(" ")[2]);
                     break;
                 default:
                     break;

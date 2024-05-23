@@ -21,40 +21,18 @@ public class SpringAppConfig {
     private String DB_USERNAME;
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
-    @Value("${directory.car.import}")
-    private String PATH_IMPORT_CAR;
-    @Value("${directory.pack.import}")
-    private String PATH_IMPORT_PACKAGE;
-
-    private FlywayMigration flywayMigration;
-    private LoadFileService loadFileService;
-    private ViewFileService viewFileService;
-    private TelegramService telegramService;
-    private DatabaseService databaseService;
 
     @Bean
     public DatabaseService databaseService() {
-        databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
-        flywayMigration = new FlywayMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
+        DatabaseService databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
+        new FlywayMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
         return databaseService;
     }
 
     @Bean
     public TelegramService telegramService() {
-        telegramService = new TelegramService();
+        TelegramService telegramService = new TelegramService();
         telegramService.startBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
         return telegramService;
-    }
-
-    @Bean
-    public ViewFileService viewFileService() {
-        viewFileService = new ViewFileService(PATH_IMPORT_CAR);
-        return viewFileService;
-    }
-
-    @Bean
-    public LoadFileService loadFileService() {
-        loadFileService = new LoadFileService(PATH_IMPORT_PACKAGE);
-        return loadFileService;
     }
 }

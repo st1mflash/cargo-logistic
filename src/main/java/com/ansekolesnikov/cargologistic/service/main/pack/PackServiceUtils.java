@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.service.main.pack;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
-import com.ansekolesnikov.cargologistic.entity.command.car.CarCommandLine;
 import com.ansekolesnikov.cargologistic.entity.command.pack.PackCommandLine;
 import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
 import lombok.NoArgsConstructor;

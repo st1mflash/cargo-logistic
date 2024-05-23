@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +27,9 @@ public class LoadFileService implements RunnableService {
     private PackModelDao packModelDao;
     @Autowired
     private LoadFileServiceUtils utils;
-    private String pathImportPackage;
-
+    @Value("${directory.pack.import}")
+    private String PATH_IMPORT_PACKAGE;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
-
-    public LoadFileService(String pathImportPackage) {
-        this.pathImportPackage = pathImportPackage;
-    }
 
     @Override
     public ResultServiceRun runService(CommandLine commandLine) {
@@ -40,7 +37,7 @@ public class LoadFileService implements RunnableService {
         try {
             LoadFileCommandLine command = commandLine.getLoadFileCommandLine();
             LocalFile file = new LocalFile(
-                    pathImportPackage + command.getFileName()
+                    PATH_IMPORT_PACKAGE + command.getFileName()
             );
             AlgorithmEnum algorithm = command.getAlgorithm();
             int countCars = command.getCountCars();

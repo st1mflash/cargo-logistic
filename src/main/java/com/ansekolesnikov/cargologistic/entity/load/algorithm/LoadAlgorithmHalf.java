@@ -5,7 +5,6 @@ import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.entity.car.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.entity.load.LoadPackUtils;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @NoArgsConstructor
