@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 @NoArgsConstructor
 @Component
-public class FlywayMigration {
-    public FlywayMigration(
+public class DatabaseMigration {
+    public DatabaseMigration(
             String url,
             String username,
             String password

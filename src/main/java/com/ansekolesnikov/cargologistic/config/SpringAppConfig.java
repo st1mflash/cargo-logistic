@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.config;
 
-import com.ansekolesnikov.cargologistic.database.FlywayMigration;
-import com.ansekolesnikov.cargologistic.service.DatabaseConnectionService;
+import com.ansekolesnikov.cargologistic.database.DatabaseMigration;
+import com.ansekolesnikov.cargologistic.database.DatabaseConnect;
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,10 +21,10 @@ public class SpringAppConfig {
     private String DB_PASSWORD;
 
     @Bean
-    public DatabaseConnectionService databaseConnectionService() {
-        DatabaseConnectionService databaseConnectionService = new DatabaseConnectionService(DB_URL, DB_USERNAME, DB_PASSWORD);
-        new FlywayMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
-        return databaseConnectionService;
+    public DatabaseConnect databaseConnect() {
+        DatabaseConnect databaseConnect = new DatabaseConnect(DB_URL, DB_USERNAME, DB_PASSWORD);
+        new DatabaseMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
+        return databaseConnect;
     }
 
     @Bean

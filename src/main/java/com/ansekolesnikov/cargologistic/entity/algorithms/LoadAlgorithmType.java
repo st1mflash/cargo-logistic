@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.entity.load.algorithm;
+package com.ansekolesnikov.cargologistic.entity.algorithms;
 
 import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;

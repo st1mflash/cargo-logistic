@@ -23,7 +23,12 @@ public class LoadListServiceUtils {
     private CarUtils carUtils;
     @Autowired
     private CarToStringUtils carToStringUtils;
-    public List<Car> loadCars(CarModel inputCarModel, List<Pack> inputPack, int inputCountCars, AlgorithmEnum inputAlgorithm) {
+    public List<Car> loadCars(
+            CarModel inputCarModel,
+            List<Pack> inputPack,
+            int inputCountCars,
+            AlgorithmEnum inputAlgorithm
+    ) {
         List<Car> listCars = new ArrayList<>();
 
         for (int i = 0; i < inputCountCars; i++) {

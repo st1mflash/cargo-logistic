@@ -2,9 +2,9 @@ package com.ansekolesnikov.cargologistic.entity.utils;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.car.Car;
-import com.ansekolesnikov.cargologistic.entity.load.algorithm.LoadAlgorithmHalf;
-import com.ansekolesnikov.cargologistic.entity.load.algorithm.LoadAlgorithmMax;
-import com.ansekolesnikov.cargologistic.entity.load.algorithm.LoadAlgorithmType;
+import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmHalf;
+import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmMax;
+import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmType;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
