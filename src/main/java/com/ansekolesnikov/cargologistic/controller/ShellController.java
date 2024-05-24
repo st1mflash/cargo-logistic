@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.controller.shell;
+package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
