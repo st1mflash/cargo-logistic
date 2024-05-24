@@ -1,11 +1,12 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
+import com.ansekolesnikov.cargologistic.entity.car.CarModel;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_output.CarModelServiceOutput;
-import com.ansekolesnikov.cargologistic.service.utils.CarServiceUtils;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarModelService implements RunnableService, EntityService {
     @Autowired
-    private CarServiceUtils carServiceUtils;
+    private CarModelDao carModelDao;
     private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
 
     @Override
@@ -42,35 +43,60 @@ public class CarModelService implements RunnableService, EntityService {
     @Override
     public ServiceOutput listOperation() {
         CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
-        resultServiceRun.fillByListCarModel(carServiceUtils.queryAllCarModels());
+        resultServiceRun.fillByListCarModel(carModelDao.findAll());
         return resultServiceRun;
     }
 
     @Override
     public ServiceOutput getOperation(ServiceInput command) {
         CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
-        resultServiceRun.fillByCarModel(carServiceUtils.queryCarModelById(command));
+        resultServiceRun.fillByCarModel(
+                carModelDao.findById(command.getCarModelServiceInput().getIdCar())
+        );
         return resultServiceRun;
     }
 
     @Override
     public ServiceOutput insertOperation(ServiceInput command) {
         CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
-        resultServiceRun.fillByCarModel(carServiceUtils.insertCarModelByCommand(command));
+        CarModel carModel = new CarModel(
+                command.getCarModelServiceInput().getNameCar(),
+                command.getCarModelServiceInput().getWidthSchemeCargoCar(),
+                command.getCarModelServiceInput().getHeightSchemeCargoCar()
+        );
+        carModelDao.insert(carModel);
+        resultServiceRun.fillByCarModel(carModel);
         return resultServiceRun;
     }
 
     @Override
     public ServiceOutput updateOperation(ServiceInput command) {
         CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
-        resultServiceRun.fillByCarModel(carServiceUtils.updateCarModelByCommand(command));
+        CarModel carModel = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
+        switch (command.getCarModelServiceInput().getUpdatedParamName()) {
+            case NAME:
+                carModel.setNameModel(command.getCarModelServiceInput().getUpdatedParamValue());
+                break;
+            case WIDTH:
+                carModel.setCargoWidthModel(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
+                break;
+            case HEIGHT:
+                carModel.setCargoHeightModel(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
+                break;
+            default:
+                break;
+        }
+        carModelDao.update(carModel);
+        resultServiceRun.fillByCarModel(carModel);
         return resultServiceRun;
     }
 
     @Override
     public ServiceOutput deleteOperation(ServiceInput command) {
         CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
-        resultServiceRun.fillByCarModel(carServiceUtils.deleteCarModelByCommand(command));
+        CarModel carModel = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
+        carModelDao.delete(carModel);
+        resultServiceRun.fillByCarModel(carModel);
         return resultServiceRun;
     }
 }

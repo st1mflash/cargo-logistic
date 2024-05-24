@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class PackModelServiceInput {
+public class PackModelServiceInput extends ServiceInput {
     private DatabaseOperationEnum operation;
     private String namePack;
     private Character codePack;

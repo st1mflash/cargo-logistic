@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class LoadListServiceInput {
+public class LoadListServiceInput extends ServiceInput {
     private String carModel;
     private AlgorithmEnum algorithm;
     private int countCars;

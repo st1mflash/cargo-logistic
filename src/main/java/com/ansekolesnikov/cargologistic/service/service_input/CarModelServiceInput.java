@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class CarModelServiceInput {
+public class CarModelServiceInput extends ServiceInput {
     private DatabaseOperationEnum operation;
     private String nameCar;
     private int widthSchemeCargoCar;
@@ -42,6 +42,7 @@ public class CarModelServiceInput {
                 default:
                     break;
             }
-        } catch (RuntimeException ignored) {}
+        } catch (RuntimeException ignored) {
+        }
     }
 }

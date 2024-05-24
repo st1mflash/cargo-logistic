@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class ViewFileServiceInput {
+public class ViewFileServiceInput extends ServiceInput {
     private String fileName;
 
     public ViewFileServiceInput(String command) {
