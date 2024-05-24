@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.service.telegram;
 
 import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
 import com.ansekolesnikov.cargologistic.entity.telegram.TelegramUserMessage;
-import com.ansekolesnikov.cargologistic.handler.TelegramHandler;
+import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.service.main.car.CarService;
 import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
 import com.ansekolesnikov.cargologistic.service.main.load.list.LoadListService;
@@ -39,7 +39,7 @@ public class TelegramService {
         try {
             new TelegramBotsApi(DefaultBotSession.class)
                     .registerBot(
-                            new TelegramHandler(this, bot_token, bot_username)
+                            new TelegramBotController(this, bot_token, bot_username)
                     );
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);

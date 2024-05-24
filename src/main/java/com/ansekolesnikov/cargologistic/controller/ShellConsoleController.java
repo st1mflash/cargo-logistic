@@ -12,13 +12,13 @@ import org.springframework.shell.standard.ShellOption;
 
 @NoArgsConstructor
 @ShellComponent
-public class ShellController {
+public class ShellConsoleController {
     @Autowired
     private ViewFileService viewFileCargoService;
     @Autowired
     private LoadFileService loadFileCargoService;
 
-    private static final Logger LOGGER = Logger.getLogger(ShellController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ShellConsoleController.class.getName());
 
     @ShellMethod("Формирование поставки грузами из .txt файла.")
     public String load_file(

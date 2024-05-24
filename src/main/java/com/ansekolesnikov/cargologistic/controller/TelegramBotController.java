@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.handler;
+package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.entity.telegram.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
@@ -8,13 +8,13 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class TelegramHandler extends TelegramLongPollingBot {
-    private static final Logger LOGGER = Logger.getLogger(TelegramHandler.class.getName());
+public class TelegramBotController extends TelegramLongPollingBot {
+    private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
     private final TelegramService telegramService;
     private final String token;
     private final String username;
 
-    public TelegramHandler(
+    public TelegramBotController(
             TelegramService telegramService,
             String bot_token,
             String bot_username
