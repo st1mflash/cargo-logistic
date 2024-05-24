@@ -2,7 +2,8 @@ package com.ansekolesnikov.cargologistic.entity.load.algorithm;
 
 import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.pack.Pack;
-import com.ansekolesnikov.cargologistic.entity.load.LoadPackUtils;
+import com.ansekolesnikov.cargologistic.entity.utils.LoadPackUtils;
+import com.ansekolesnikov.cargologistic.interfaces.LoadAlgorithm;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 

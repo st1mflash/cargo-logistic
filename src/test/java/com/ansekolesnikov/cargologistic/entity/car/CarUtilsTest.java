@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity.car;
 
-import com.ansekolesnikov.cargologistic.entity.car.utils.CarUtils;
+import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

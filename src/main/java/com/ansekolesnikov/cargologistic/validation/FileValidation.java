@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.validation;
 
-import com.ansekolesnikov.cargologistic.entity.file.LocalFile;
+import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import lombok.Getter;
 import org.apache.log4j.Logger;
 

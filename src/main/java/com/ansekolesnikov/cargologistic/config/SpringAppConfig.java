@@ -1,10 +1,8 @@
 package com.ansekolesnikov.cargologistic.config;
 
 import com.ansekolesnikov.cargologistic.database.FlywayMigration;
-import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
-import com.ansekolesnikov.cargologistic.service.main.view.ViewFileService;
-import com.ansekolesnikov.cargologistic.service.database.DatabaseService;
-import com.ansekolesnikov.cargologistic.service.telegram.TelegramService;
+import com.ansekolesnikov.cargologistic.service.DatabaseConnectionService;
+import com.ansekolesnikov.cargologistic.service.TelegramBotService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,16 +21,16 @@ public class SpringAppConfig {
     private String DB_PASSWORD;
 
     @Bean
-    public DatabaseService databaseService() {
-        DatabaseService databaseService = new DatabaseService(DB_URL, DB_USERNAME, DB_PASSWORD);
+    public DatabaseConnectionService databaseConnectionService() {
+        DatabaseConnectionService databaseConnectionService = new DatabaseConnectionService(DB_URL, DB_USERNAME, DB_PASSWORD);
         new FlywayMigration(DB_URL, DB_USERNAME, DB_PASSWORD);
-        return databaseService;
+        return databaseConnectionService;
     }
 
     @Bean
-    public TelegramService telegramService() {
-        TelegramService telegramService = new TelegramService();
-        telegramService.startBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
-        return telegramService;
+    public TelegramBotService telegramBotService() {
+        TelegramBotService telegramBotService = new TelegramBotService();
+        telegramBotService.startBot(TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME);
+        return telegramBotService;
     }
 }

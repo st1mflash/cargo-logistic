@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity.file;
 
-import com.ansekolesnikov.cargologistic.entity.file.utils.LocalFileUtils;
+import com.ansekolesnikov.cargologistic.entity.LocalFile;
+import com.ansekolesnikov.cargologistic.entity.utils.LocalFileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;

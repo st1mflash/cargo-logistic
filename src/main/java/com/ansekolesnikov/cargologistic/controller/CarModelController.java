@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
-import com.ansekolesnikov.cargologistic.service.main.car.CarService;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.CarModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,30 +14,30 @@ import java.util.Objects;
 @RequestMapping("api/car_model")
 public class CarModelController {
     @Autowired
-    private CarService carService;
+    private CarModelService carModelService;
 
     @GetMapping("/{id}")
     public Map<String, String> getCarModel(@PathVariable int id) {
-        CommandLine command = new CommandLine("car get " + id);
-        return carService.runService(command)
+        ServiceInput command = new ServiceInput("car get " + id);
+        return carModelService.runService(command)
                 .toMap();
     }
 
     @GetMapping
     public List<Map<String, String>> getListCarModels() {
-        CommandLine command = new CommandLine("car list");
-        return carService.runService(command)
+        ServiceInput command = new ServiceInput("car list");
+        return carModelService.runService(command)
                 .toListMap();
     }
 
     @PostMapping
     public Map<String, String> createCarModel(@RequestBody Map<String, String> carModel) {
-        CommandLine command = new CommandLine(
+        ServiceInput command = new ServiceInput(
                 "car insert " + carModel.get("name") + " " +
                         carModel.get("width") + " " +
                         carModel.get("height")
         );
-        return carService.runService(command)
+        return carModelService.runService(command)
                 .toMap();
     }
 
@@ -47,10 +47,10 @@ public class CarModelController {
         try {
             for (String key : carModel.keySet()) {
                 if (!Objects.equals(key, "id")) {
-                    CommandLine command = new CommandLine("car update " + carModel.get("id") + " " +
+                    ServiceInput command = new ServiceInput("car update " + carModel.get("id") + " " +
                             key + " " + carModel.get(key)
                     );
-                    result = carService.runService(command).toMap();
+                    result = carModelService.runService(command).toMap();
                 }
             }
             return result;
@@ -63,9 +63,9 @@ public class CarModelController {
 
     @DeleteMapping
     public Map<String, String> deleteCarModel(@RequestBody Map<String, String> carModel) {
-        CommandLine command = new CommandLine("car delete " + carModel.get("id"));
+        ServiceInput command = new ServiceInput("car delete " + carModel.get("id"));
         Map<String, String> result = new HashMap<>();
-        if(carService.runService(command).toMap() != null) {
+        if(carModelService.runService(command).toMap() != null) {
             result.put("status", "success");
         } else {
             result.put("status", "fail");

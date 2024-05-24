@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.entity.command.CommandLine;
-import com.ansekolesnikov.cargologistic.service.main.load.file.LoadFileService;
-import com.ansekolesnikov.cargologistic.service.main.view.ViewFileService;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.LoadFileService;
+import com.ansekolesnikov.cargologistic.service.ViewFileService;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ShellConsoleController {
     ) {
         LOGGER.info("Запрос загрузки из файла '" + fileName + "' алгоритмом '" + algorithm.toLowerCase() + "' в " + countCars + " ед. транспорта.");
         return loadFileCargoService.runService(
-                        new CommandLine(
+                        new ServiceInput(
                                 Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
                                         fileName + " " +
                                         algorithm + " " +
@@ -42,7 +42,7 @@ public class ShellConsoleController {
     public String view_file(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
         return viewFileCargoService.runService(
-                        new CommandLine(
+                        new ServiceInput(
                                 Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
                                         fileName
                         )
