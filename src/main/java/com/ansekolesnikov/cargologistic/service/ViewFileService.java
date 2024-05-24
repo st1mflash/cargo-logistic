@@ -4,7 +4,6 @@ import com.ansekolesnikov.cargologistic.entity.car.Car;
 import com.ansekolesnikov.cargologistic.entity.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.utils.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
-import com.ansekolesnikov.cargologistic.service.service_input.ViewFileServiceInput;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
@@ -29,17 +28,16 @@ public class ViewFileService implements RunnableService {
 
     @Override
     public ServiceOutput runService(ServiceInput serviceInput) {
-        ViewFileServiceInput viewFileServiceInput = serviceInput.getViewFileServiceInput();
-        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + viewFileServiceInput.getFileName());
+        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + serviceInput.getViewFileServiceInput().getFileName());
         FileValidation fileValidation = new FileValidation(localFile);
-        ViewFileServiceOutput result = new ViewFileServiceOutput();
+        ViewFileServiceOutput serviceOutput = new ViewFileServiceOutput();
 
         if (fileValidation.isValid()) {
-            result.setText(toStringCarsFromFile(localFile));
+            serviceOutput.setText(toStringCarsFromFile(localFile));
         } else {
-            result.setText(fileValidation.getUserErrorMessage());
+            serviceOutput.setText(fileValidation.getUserErrorMessage());
         }
-        return result;
+        return serviceOutput;
     }
 
     public String toStringCarsFromFile(LocalFile localFile) {
