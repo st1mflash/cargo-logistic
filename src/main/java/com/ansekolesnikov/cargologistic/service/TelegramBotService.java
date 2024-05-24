@@ -3,7 +3,6 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
-import com.ansekolesnikov.cargologistic.service.utils.TelegramServiceUtils;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -27,8 +26,6 @@ public class TelegramBotService {
     private PackModelService packModelService;
     @Autowired
     private CarModelService carModelService;
-    @Autowired
-    private TelegramServiceUtils serviceUtils;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
 
     public void startBot(String bot_token, String bot_username) {
@@ -47,7 +44,7 @@ public class TelegramBotService {
         String textAnswer = switch (inputMessage.getCommand()) {
             case INFO -> {
                 LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield serviceUtils.toStringBotInfo();
+                yield toStringBotInfo();
             }
             case LOAD_FILE -> {
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
@@ -76,6 +73,51 @@ public class TelegramBotService {
             }
         };
 
-        return serviceUtils.convertStringToTelegramCodeStyle(textAnswer);
+        return convertStringToTelegramCodeStyle(textAnswer);
+    }
+
+    private String convertStringToTelegramCodeStyle(String text) {
+        return "```Ответ:\n" + text + "```";
+    }
+
+    private String toStringBotInfo() {
+        return """
+                Доступные команды:
+
+                Загрузка машин данными из файла:
+                load_file [название файла] [алгоритм: max/half/type] [кол-во машин]
+
+                Загрузка машин введенными данными:
+                load_list [модель машины] [алгоритм: max/half/type] [кол-во машин]:
+                [модель посылки]
+                [модель посылки]
+                [ ... ]
+
+                Отображение из файла загруженных машин:
+                view_file [название файла]
+
+                Отображение всех моделей машин:
+                car list
+
+                Добавление новой модели машины:
+                car insert [название] [ширина кузова] [высота кузова]
+
+                Обновление модели машины:
+                car update [ID машины] [параметр: name/width/height] [новое значение]
+
+                Удаление модели машины:
+                car delete [ID машины]
+
+                Отображение всех моделей посылок:
+                pack list
+
+                Добавление новой модели посылки:
+                pack insert [название] [код] [схема] [ширина] [высота]
+
+                Обновление модели посылки:
+                pack update [ID посылки] [параметр: name/code/scheme/width/height] [новое значение]
+
+                Удаление модели посылки:
+                pack delete [ID посылки]""";
     }
 }
