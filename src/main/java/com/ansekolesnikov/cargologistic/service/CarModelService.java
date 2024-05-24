@@ -31,47 +31,47 @@ public class CarModelService implements RunnableService, EntityService {
             };
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды. Текст команды: " + command.getCarModelServiceInput().getText());
-            CarModelServiceOutput result = new CarModelServiceOutput();
-            result.setText(
+            CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
+            serviceOutput.setText(
                     "Ошибка ввода.\n" +
                             "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST)."
             );
-            return result;
+            return serviceOutput;
         }
     }
 
     @Override
     public ServiceOutput listOperation() {
-        CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
-        resultServiceRun.fillByListCarModel(carModelDao.findAll());
-        return resultServiceRun;
+        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
+        serviceOutput.create(carModelDao.findAll());
+        return serviceOutput;
     }
 
     @Override
     public ServiceOutput getOperation(ServiceInput command) {
-        CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
-        resultServiceRun.fillByCarModel(
+        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
+        serviceOutput.create(
                 carModelDao.findById(command.getCarModelServiceInput().getIdCar())
         );
-        return resultServiceRun;
+        return serviceOutput;
     }
 
     @Override
     public ServiceOutput insertOperation(ServiceInput command) {
-        CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
+        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         CarModel carModel = new CarModel(
                 command.getCarModelServiceInput().getNameCar(),
                 command.getCarModelServiceInput().getWidthSchemeCargoCar(),
                 command.getCarModelServiceInput().getHeightSchemeCargoCar()
         );
         carModelDao.insert(carModel);
-        resultServiceRun.fillByCarModel(carModel);
-        return resultServiceRun;
+        serviceOutput.create(carModel);
+        return serviceOutput;
     }
 
     @Override
     public ServiceOutput updateOperation(ServiceInput command) {
-        CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
+        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         CarModel carModel = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
         switch (command.getCarModelServiceInput().getUpdatedParamName()) {
             case NAME:
@@ -87,16 +87,16 @@ public class CarModelService implements RunnableService, EntityService {
                 break;
         }
         carModelDao.update(carModel);
-        resultServiceRun.fillByCarModel(carModel);
-        return resultServiceRun;
+        serviceOutput.create(carModel);
+        return serviceOutput;
     }
 
     @Override
     public ServiceOutput deleteOperation(ServiceInput command) {
-        CarModelServiceOutput resultServiceRun = new CarModelServiceOutput();
+        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         CarModel carModel = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
         carModelDao.delete(carModel);
-        resultServiceRun.fillByCarModel(carModel);
-        return resultServiceRun;
+        serviceOutput.create(carModel);
+        return serviceOutput;
     }
 }

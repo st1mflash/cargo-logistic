@@ -11,12 +11,12 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 public class PackModelServiceOutput extends ServiceOutput {
-    public void fillByPackModel(PackModel packModel) {
+    public void create(PackModel packModel) {
         super.setResultToString(packModel.toString());
         super.setResultToMap(packModel.toMap());
     }
 
-    public void fillByListPackModel(List<PackModel> listPackModel) {
+    public void create(List<PackModel> listPackModel) {
         StringBuilder stringResult = new StringBuilder();
         List<Map<String, String>> listMapPackModel = new ArrayList<>();
         for (PackModel el : listPackModel) {

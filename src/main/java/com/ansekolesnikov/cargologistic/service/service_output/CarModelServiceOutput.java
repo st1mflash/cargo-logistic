@@ -11,11 +11,11 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 public class CarModelServiceOutput extends ServiceOutput {
-    public void fillByCarModel(CarModel carModel) {
+    public void create(CarModel carModel) {
         super.setResultToString(carModel.toString());
         super.setResultToMap(carModel.toMap());
     }
-    public void fillByListCarModel(List<CarModel> listCarModel) {
+    public void create(List<CarModel> listCarModel) {
         StringBuilder stringResult = new StringBuilder();
         List<Map<String, String>> listMapCarModel = new ArrayList<>();
         for (CarModel el : listCarModel) {
