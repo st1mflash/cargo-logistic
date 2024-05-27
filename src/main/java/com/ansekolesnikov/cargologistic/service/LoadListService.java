@@ -6,7 +6,6 @@ import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.entity.Pack;
 import com.ansekolesnikov.cargologistic.entity.PackModel;
-import com.ansekolesnikov.cargologistic.entity.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
@@ -32,8 +31,6 @@ public class LoadListService implements RunnableService {
     private PackModelDao packModelDao;
     @Autowired
     private CarUtils carUtils;
-    @Autowired
-    private CarToStringUtils carToStringUtils;
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
@@ -99,7 +96,7 @@ public class LoadListService implements RunnableService {
 
         if (listCars != null) {
             for (Car car : listCars) {
-                result.append(carToStringUtils.toStringCarCargoScheme(car)).append("\n");
+                result.append(car.toStringCarCargoScheme()).append("\n");
             }
         }
         return result.toString();

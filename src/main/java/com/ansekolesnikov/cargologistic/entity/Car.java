@@ -91,4 +91,36 @@ public class Car extends CarModel {
         }
         return true;
     }
+
+    public String toStringCarCargoScheme() {
+        String[][] cargo = getCargo();
+        StringBuilder cargoInfo = new StringBuilder();
+
+        for (int i = cargoHeightModel - 1; i >= 0; i--) {
+            cargoInfo.append("+");
+            for (int j = 0; j < cargoWidthModel; j++) {
+                if (Objects.equals(cargo[i][j], "0")) {
+                    cargoInfo.append(" ");
+                } else {
+                    cargoInfo.append(cargo[i][j]);
+                }
+            }
+            cargoInfo.append("+\n");
+        }
+        cargoInfo.append("+".repeat(Math.max(0, cargoWidthModel + 2))).append("\n");
+        return cargoInfo.toString();
+    }
+
+    public int calcPercentLoad() {
+        int countFilledPoints = 0;
+
+        for (int i = 0; i < cargoHeightModel; i++) {
+            for (int j = 0; j < cargoWidthModel; j++) {
+                if (!Objects.equals(cargo[i][j], "0")) {
+                    countFilledPoints++;
+                }
+            }
+        }
+        return (countFilledPoints * 100) / (cargoWidthModel * cargoHeightModel);
+    }
 }

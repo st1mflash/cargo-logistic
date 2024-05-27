@@ -1,12 +1,12 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.entity.Car;
-import com.ansekolesnikov.cargologistic.entity.utils.CarToStringUtils;
-import com.ansekolesnikov.cargologistic.entity.utils.LocalFileImportUtils;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
+import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
+import com.ansekolesnikov.cargologistic.entity.utils.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ViewFileServiceOutput;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class ViewFileService implements RunnableService {
     @Autowired
     private LocalFileImportUtils localFileImportUtils;
     @Autowired
-    private CarToStringUtils carToStringUtils;
+    private CarUtils carUtils;
 
     @Override
     public ServiceOutput runService(ServiceInput serviceInput) {
@@ -52,7 +52,7 @@ public class ViewFileService implements RunnableService {
     public String toStringListCars(List<Car> carList) {
         StringBuilder result = new StringBuilder();
         for (Car car : carList) {
-            result.append(carToStringUtils.toStringCarInfo(car));
+            result.append(carUtils.toStringCarInfo(car));
         }
         return result.toString();
     }

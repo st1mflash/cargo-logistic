@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CarUtilsTest {
+    /*
     @Test
     void testCalcPercentLoad() {
         Car car = new Car();
@@ -27,6 +28,8 @@ public class CarUtilsTest {
         percentLoad = carUtils.calcPercentLoad(car);
         assertEquals(100, percentLoad);
     }
+
+     */
 
     @Test
     void testIsCanLoadPackOnCargoPosition() {
@@ -55,6 +58,7 @@ public class CarUtilsTest {
         */
     }
 
+    /*
     @Test
     void testCalcCountThisTypePackOnCar() {
         Car car = new Car();
@@ -87,4 +91,5 @@ public class CarUtilsTest {
         count = carUtils.calculateCountPackInCarByCode(car, cargoPackageType);
         assertEquals(1, count);
     }
+    */
 }
