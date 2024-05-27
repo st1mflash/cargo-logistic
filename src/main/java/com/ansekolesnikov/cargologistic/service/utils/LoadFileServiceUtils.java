@@ -7,7 +7,6 @@ import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.entity.utils.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.entity.Pack;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
@@ -27,8 +26,6 @@ public class LoadFileServiceUtils {
     private CarModelDao carModelDao;
     @Autowired
     private CarUtils carUtils;
-    @Autowired
-    private LocalFileImportUtils localFileImportUtils;
     private static final Logger LOGGER = Logger.getLogger(LoadFileServiceUtils.class.getName());
 
     public String toStringCarsInfo(List<Car> listCars) {
@@ -43,7 +40,7 @@ public class LoadFileServiceUtils {
 
     public List<Pack> importPacksFromFileSortedByWidth(PackModelDao packModelDao, LocalFile localFile) {
         return Objects
-                .requireNonNull(localFileImportUtils.importPacksFromFile(packModelDao, localFile))
+                .requireNonNull(localFile.importPacksFromFile(packModelDao))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();

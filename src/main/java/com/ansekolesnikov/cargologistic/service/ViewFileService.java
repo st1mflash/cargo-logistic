@@ -3,7 +3,6 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
-import com.ansekolesnikov.cargologistic.entity.utils.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
@@ -22,8 +21,6 @@ public class ViewFileService implements RunnableService {
     @Value("${directory.car.import}")
     private String PATH_IMPORT_CAR;
     @Autowired
-    private LocalFileImportUtils localFileImportUtils;
-    @Autowired
     private CarUtils carUtils;
 
     @Override
@@ -41,7 +38,7 @@ public class ViewFileService implements RunnableService {
     }
 
     public String toStringCarsFromFile(LocalFile localFile) {
-        List<Car> importedCarList = localFileImportUtils.importCarsFromFile(localFile);
+        List<Car> importedCarList = localFile.importCarsFromFile();
         if (importedCarList != null) {
             return toStringListCars(importedCarList);
         } else {
