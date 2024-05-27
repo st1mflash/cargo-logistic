@@ -5,13 +5,12 @@ import lombok.Setter;
 import org.json.JSONObject;
 
 import java.util.Objects;
-import java.util.Random;
 
 @Getter
 @Setter
 public class Car extends CarModel {
     private String[][] cargo;
-    private int idCar = new Random().nextInt(1000000);
+    private int idCar;
 
     public Car() {
         this.cargoWidthModel = 6;
@@ -45,51 +44,31 @@ public class Car extends CarModel {
         initCargoFromString(JSONObj.getString("cargo"));
     }
 
-    public void initCargoFromString(String schemeString) {
-        int index = 0;
+    public void loadPack(Pack pack) {
+        if (cargoWidthModel >= pack.getWidth()) {
+            String stringLoadAddress = findLoadPackAddress(pack);
+            if (!Objects.equals(stringLoadAddress.split(" ")[0], "not")) {
+                loadPackOnCargoAddress(
+                        pack,
+                        Integer.parseInt(stringLoadAddress.split(" ")[0]),
+                        Integer.parseInt(stringLoadAddress.split(" ")[1])
+                );
+                pack.setCarId(idCar);
+            }
+        }
+    }
+
+    public int calcPercentLoad() {
+        int countFilledPoints = 0;
+
         for (int i = 0; i < cargoHeightModel; i++) {
             for (int j = 0; j < cargoWidthModel; j++) {
-                cargo[i][j] = String.valueOf(schemeString.charAt(index++));
-            }
-        }
-    }
-
-    public void loadPackOnCargoAddress(Pack pack, int height, int width) {
-        for (int i = 0; i < pack.getHeight(); i++) {
-            for (int j = 0; j < pack.getWidth(); j++) {
-                if (!Objects.equals(pack.getArrScheme()[i][j], "0")) {
-                    cargo[i + height][j + width] = pack.getArrScheme()[i][j];
+                if (!Objects.equals(cargo[i][j], "0")) {
+                    countFilledPoints++;
                 }
             }
         }
-    }
-
-    public String findLoadPackAddress(Pack pack) {
-        for (int i = 0; i < cargoHeightModel; i++) {
-            for (int j = 0; j < cargoWidthModel; j++) {
-                if (isCanLoadPackOnCargoAddress(pack, i, j)
-                        && Objects.equals(cargo[i][j], "0")) {
-                    return i + " " + j;
-                }
-            }
-        }
-        return "not";
-    }
-
-    private boolean isCanLoadPackOnCargoAddress(Pack pack, int height, int width) {
-        for (int i = 0; i < pack.getHeight(); i++) {
-            for (int j = 0; j < pack.getWidth(); j++) {
-                if (i + height >= this.cargoHeightModel
-                        || j + width >= this.cargoWidthModel) {
-                    return false;
-                }
-                if (!Objects.equals(pack.getArrScheme()[i][j], "0")
-                        && !Objects.equals(cargo[i + height][j + width], "0")) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return (countFilledPoints * 100) / (cargoWidthModel * cargoHeightModel);
     }
 
     public String toStringCarCargoScheme() {
@@ -111,16 +90,50 @@ public class Car extends CarModel {
         return cargoInfo.toString();
     }
 
-    public int calcPercentLoad() {
-        int countFilledPoints = 0;
-
+    private void initCargoFromString(String schemeString) {
+        int index = 0;
         for (int i = 0; i < cargoHeightModel; i++) {
             for (int j = 0; j < cargoWidthModel; j++) {
-                if (!Objects.equals(cargo[i][j], "0")) {
-                    countFilledPoints++;
+                cargo[i][j] = String.valueOf(schemeString.charAt(index++));
+            }
+        }
+    }
+
+    private String findLoadPackAddress(Pack pack) {
+        for (int i = 0; i < cargoHeightModel; i++) {
+            for (int j = 0; j < cargoWidthModel; j++) {
+                if (isCanLoadPackOnCargoAddress(pack, i, j)
+                        && Objects.equals(cargo[i][j], "0")) {
+                    return i + " " + j;
                 }
             }
         }
-        return (countFilledPoints * 100) / (cargoWidthModel * cargoHeightModel);
+        return "not";
+    }
+
+    private void loadPackOnCargoAddress(Pack pack, int height, int width) {
+        for (int i = 0; i < pack.getHeight(); i++) {
+            for (int j = 0; j < pack.getWidth(); j++) {
+                if (!Objects.equals(pack.getArrScheme()[i][j], "0")) {
+                    cargo[i + height][j + width] = pack.getArrScheme()[i][j];
+                }
+            }
+        }
+    }
+
+    private boolean isCanLoadPackOnCargoAddress(Pack pack, int height, int width) {
+        for (int i = 0; i < pack.getHeight(); i++) {
+            for (int j = 0; j < pack.getWidth(); j++) {
+                if (i + height >= this.cargoHeightModel
+                        || j + width >= this.cargoWidthModel) {
+                    return false;
+                }
+                if (!Objects.equals(pack.getArrScheme()[i][j], "0")
+                        && !Objects.equals(cargo[i + height][j + width], "0")) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

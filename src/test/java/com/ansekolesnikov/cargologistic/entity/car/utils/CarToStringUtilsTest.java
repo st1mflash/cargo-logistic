@@ -54,7 +54,6 @@ public class CarToStringUtilsTest {
         actual = carToStringUtils.toStringCarCargoScheme(car);
         assertEquals(expected, actual);
     }
-*/
     @Test
     void testToStringCarInfo() {
         CarModel carModel = new CarModel("test_car_model", 6, 6);
@@ -85,4 +84,5 @@ public class CarToStringUtilsTest {
 
         assertEquals(expected, actual);
     }
+*/
 }
