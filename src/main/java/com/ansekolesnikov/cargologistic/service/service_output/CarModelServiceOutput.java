@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.service_output;
 
-import com.ansekolesnikov.cargologistic.entity.car.CarModel;
+import com.ansekolesnikov.cargologistic.entity.CarModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

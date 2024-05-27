@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import com.ansekolesnikov.cargologistic.entity.PackModel;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;

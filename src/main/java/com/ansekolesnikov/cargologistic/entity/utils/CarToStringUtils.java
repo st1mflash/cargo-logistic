@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity.utils;
 
-import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.Car;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

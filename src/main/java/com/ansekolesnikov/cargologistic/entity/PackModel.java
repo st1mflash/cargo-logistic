@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.entity.pack;
+package com.ansekolesnikov.cargologistic.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

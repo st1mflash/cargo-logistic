@@ -2,10 +2,10 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.entity.car.CarModel;
+import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_input.LoadListServiceInput;
-import com.ansekolesnikov.cargologistic.entity.pack.Pack;
+import com.ansekolesnikov.cargologistic.entity.Pack;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.utils.LoadListServiceUtils;

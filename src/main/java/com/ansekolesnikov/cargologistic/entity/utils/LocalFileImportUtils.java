@@ -1,9 +1,9 @@
 package com.ansekolesnikov.cargologistic.entity.utils;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.entity.pack.Pack;
+import com.ansekolesnikov.cargologistic.entity.Pack;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

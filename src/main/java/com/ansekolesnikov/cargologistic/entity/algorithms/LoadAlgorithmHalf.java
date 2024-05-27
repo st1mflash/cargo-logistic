@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity.algorithms;
 
-import com.ansekolesnikov.cargologistic.entity.car.Car;
-import com.ansekolesnikov.cargologistic.entity.pack.Pack;
+import com.ansekolesnikov.cargologistic.entity.Car;
+import com.ansekolesnikov.cargologistic.entity.Pack;
 import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.entity.utils.LoadPackUtils;
 import com.ansekolesnikov.cargologistic.interfaces.LoadAlgorithm;

@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.repository;
 
-import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import com.ansekolesnikov.cargologistic.entity.PackModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

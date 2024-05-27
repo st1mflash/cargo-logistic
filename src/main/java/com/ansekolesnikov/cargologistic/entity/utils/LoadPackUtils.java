@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity.utils;
 
-import com.ansekolesnikov.cargologistic.entity.car.Car;
-import com.ansekolesnikov.cargologistic.entity.pack.Pack;
+import com.ansekolesnikov.cargologistic.entity.Car;
+import com.ansekolesnikov.cargologistic.entity.Pack;
 
 import java.util.Objects;
 

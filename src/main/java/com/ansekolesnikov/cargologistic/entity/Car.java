@@ -1,6 +1,5 @@
-package com.ansekolesnikov.cargologistic.entity.car;
+package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.entity.pack.Pack;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;

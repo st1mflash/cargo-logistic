@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.utils.LocalFileImportUtils;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;

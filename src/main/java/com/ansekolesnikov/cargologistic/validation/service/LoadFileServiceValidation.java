@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.validation.service;
 
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
-import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;

@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity.car.utils;
 
-import com.ansekolesnikov.cargologistic.entity.car.Car;
-import com.ansekolesnikov.cargologistic.entity.car.CarModel;
+import com.ansekolesnikov.cargologistic.entity.Car;
+import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.entity.utils.CarToStringUtils;
 import org.junit.jupiter.api.Test;
 

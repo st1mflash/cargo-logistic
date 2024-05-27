@@ -2,12 +2,12 @@ package com.ansekolesnikov.cargologistic.service.utils;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
-import com.ansekolesnikov.cargologistic.entity.car.Car;
-import com.ansekolesnikov.cargologistic.entity.car.CarModel;
+import com.ansekolesnikov.cargologistic.entity.Car;
+import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.entity.utils.CarToStringUtils;
 import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
-import com.ansekolesnikov.cargologistic.entity.pack.Pack;
-import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import com.ansekolesnikov.cargologistic.entity.Pack;
+import com.ansekolesnikov.cargologistic.entity.PackModel;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

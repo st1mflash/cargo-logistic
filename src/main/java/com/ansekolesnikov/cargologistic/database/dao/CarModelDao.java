@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.dao;
 
-import com.ansekolesnikov.cargologistic.entity.car.CarModel;
+import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.database.repository.CarModelRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

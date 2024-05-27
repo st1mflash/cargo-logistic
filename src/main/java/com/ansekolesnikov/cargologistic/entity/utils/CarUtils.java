@@ -1,12 +1,12 @@
 package com.ansekolesnikov.cargologistic.entity.utils;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.entity.car.Car;
+import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmHalf;
 import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmMax;
 import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmType;
-import com.ansekolesnikov.cargologistic.entity.pack.Pack;
-import com.ansekolesnikov.cargologistic.entity.pack.PackModel;
+import com.ansekolesnikov.cargologistic.entity.Pack;
+import com.ansekolesnikov.cargologistic.entity.PackModel;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
