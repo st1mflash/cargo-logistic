@@ -1,9 +1,11 @@
 package com.ansekolesnikov.cargologistic.entity;
 
+import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @Getter
@@ -53,7 +55,7 @@ public class Car extends CarModel {
                         Integer.parseInt(stringLoadAddress.split(" ")[0]),
                         Integer.parseInt(stringLoadAddress.split(" ")[1])
                 );
-                pack.setCarId(idCar);
+                pack.setCarId(idModel);
             }
         }
     }
@@ -135,5 +137,40 @@ public class Car extends CarModel {
             }
         }
         return true;
+    }
+
+    public String toStringCarInfo(PackModelDao packModelDao) {
+        StringBuilder fullInfoString = new StringBuilder(
+                "Идентификатор: #" + idCar
+                        + "\nПараметры кузова: " + cargoWidthModel + "х" + cargoHeightModel
+                        + "\nЗагруженность: " + calcPercentLoad() + "%"
+                        + "\nСостав кузова:"
+        );
+
+        StringBuilder cargoString = new StringBuilder();
+        for (int i = 0; i < cargoHeightModel; i++) {
+            for (int j = 0; j < cargoWidthModel; j++) {
+                cargoString.append(cargo[i][j]);
+            }
+        }
+
+        for (Character code : Arrays.stream(cargoString.toString().split(""))
+                .distinct()
+                .map(c -> c.charAt(0))
+                .filter(c -> c != '0')
+                .toList()
+        ) {
+            int countPackages = calculateCountPackInCarByCode(code, packModelDao);
+            fullInfoString.append((countPackages != 0 ? "\n- посылка '" + code + "': " + countPackages + " шт." : ""));
+        }
+
+        fullInfoString.append("\nСхема кузова:\n").append(toStringCarCargoScheme()).append("\n\n");
+        return fullInfoString.toString();
+    }
+
+    public int calculateCountPackInCarByCode(Character code, PackModelDao packModelDao) {
+        PackModel packModel = packModelDao.findByCode(code);
+        int packSize = packModel.getScheme().replaceAll("0", "").length();
+        return Arrays.deepToString(cargo).replaceAll("[^" + code + "]", "").length() / packSize;
     }
 }

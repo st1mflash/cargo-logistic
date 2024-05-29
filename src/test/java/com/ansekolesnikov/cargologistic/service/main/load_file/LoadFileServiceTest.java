@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service.main.load_file;
 
 import com.ansekolesnikov.cargologistic.service.LoadFileService;
-import com.ansekolesnikov.cargologistic.service.utils.LoadFileServiceUtils;
+//import com.ansekolesnikov.cargologistic.service.utils.LoadFileServiceUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,7 +20,7 @@ public class LoadFileServiceTest {
 
     //@Mock
     //@Autowired
-    private LoadFileServiceUtils serviceUtils = new LoadFileServiceUtils();
+    //private LoadFileServiceUtils serviceUtils = new LoadFileServiceUtils();
 
     //@Mock
     //@Autowired

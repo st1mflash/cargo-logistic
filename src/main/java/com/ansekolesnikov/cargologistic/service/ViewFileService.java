@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
@@ -22,6 +23,9 @@ public class ViewFileService implements RunnableService {
     private String PATH_IMPORT_CAR;
     @Autowired
     private CarUtils carUtils;
+
+    @Autowired
+    private PackModelDao packModelDao;
 
     @Override
     public ServiceOutput runService(ServiceInput serviceInput) {
@@ -49,7 +53,7 @@ public class ViewFileService implements RunnableService {
     public String toStringListCars(List<Car> carList) {
         StringBuilder result = new StringBuilder();
         for (Car car : carList) {
-            result.append(carUtils.toStringCarInfo(car));
+            result.append(car.toStringCarInfo(packModelDao));
         }
         return result.toString();
     }
