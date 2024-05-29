@@ -13,7 +13,7 @@ import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_output.LoadFileServiceOutput;
-import com.ansekolesnikov.cargologistic.validation.service.LoadFileServiceValidation;
+import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;

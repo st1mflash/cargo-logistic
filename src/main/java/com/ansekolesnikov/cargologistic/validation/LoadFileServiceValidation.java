@@ -1,10 +1,8 @@
-package com.ansekolesnikov.cargologistic.validation.service;
+package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.validation.AlgorithmValidation;
-import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import lombok.Getter;
 import org.apache.log4j.Logger;
 

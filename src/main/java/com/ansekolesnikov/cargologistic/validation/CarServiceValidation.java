@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.validation.service;
+package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_input.CarModelServiceInput;
