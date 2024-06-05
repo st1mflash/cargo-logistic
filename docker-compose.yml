@@ -21,20 +21,3 @@ services:
     build: .
     ports:
       - "8080:8080"
-    #depends_on:
-    #  - postgres-db
-    #environment:
-      #SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres-db:5432/db_cargo_logistic'
-      #SPRING_APPLICATION_JSON: '{ "spring.datasource.url": "jdbc:postgresql://postgres-db:5432/db_cargo_logistic" }'
-      #JAVA_OPTS: '-Xmx512m'
-      #SPRING_APPLICATION_JSON: '{
-      #        "spring.datasource.url": "jdbc:postgresql://postgres-db:5432/db_cargo_logistic",
-      #      }'
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    restart: always
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-#      PGADMIN_DEFAULT_PASSWORD: root
-#    ports:
-#      - "5050:80"
