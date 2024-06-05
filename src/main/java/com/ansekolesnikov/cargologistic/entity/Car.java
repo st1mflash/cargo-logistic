@@ -14,17 +14,6 @@ public class Car extends CarModel {
     private String[][] cargo;
     private int idCar;
 
-    public Car() {
-        this.cargoWidthModel = 6;
-        this.cargoHeightModel = 6;
-        cargo = new String[cargoHeightModel][cargoWidthModel];
-        for (int i = 0; i < cargoHeightModel; i++) {
-            for (int j = 0; j < cargoWidthModel; j++) {
-                cargo[i][j] = "0";
-            }
-        }
-    }
-
     public Car(CarModel carModel) {
         this.idModel = carModel.getIdModel();
         this.nameModel = carModel.getNameModel();

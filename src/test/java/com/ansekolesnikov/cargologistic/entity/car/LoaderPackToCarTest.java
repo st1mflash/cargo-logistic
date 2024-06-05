@@ -32,7 +32,7 @@ public class LoaderPackToCarTest {
 
     @Test
     void testIsCanLoadPackOnCargoPosition() {
-        Car car = new Car();
+        //Car car = new Car();
         //CarUtils carUtils = new CarUtils();
 
         /*
