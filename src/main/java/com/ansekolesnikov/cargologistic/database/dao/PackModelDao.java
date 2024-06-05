@@ -2,19 +2,19 @@ package com.ansekolesnikov.cargologistic.database.dao;
 
 import com.ansekolesnikov.cargologistic.entity.PackModel;
 import com.ansekolesnikov.cargologistic.database.repository.PackModelRepository;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@NoArgsConstructor
 @Component
 @Transactional
 public class PackModelDao {
-    @Autowired
-    private PackModelRepository packModelRepository;
+    private final PackModelRepository packModelRepository;
+
+    public PackModelDao(PackModelRepository packModelRepository) {
+        this.packModelRepository = packModelRepository;
+    }
 
     public PackModel findById(int id) {
         return packModelRepository.findById(id).orElse(null);

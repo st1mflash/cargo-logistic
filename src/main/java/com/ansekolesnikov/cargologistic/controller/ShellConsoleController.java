@@ -3,20 +3,20 @@ package com.ansekolesnikov.cargologistic.controller;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.LoadFileService;
 import com.ansekolesnikov.cargologistic.service.ViewFileService;
-import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-@NoArgsConstructor
 @ShellComponent
 public class ShellConsoleController {
-    @Autowired
-    private ViewFileService viewFileCargoService;
-    @Autowired
-    private LoadFileService loadFileCargoService;
+    private final ViewFileService viewFileCargoService;
+    private final LoadFileService loadFileCargoService;
+
+    public ShellConsoleController(ViewFileService viewFileCargoService, LoadFileService loadFileCargoService) {
+        this.viewFileCargoService = viewFileCargoService;
+        this.loadFileCargoService = loadFileCargoService;
+    }
 
     private static final Logger LOGGER = Logger.getLogger(ShellConsoleController.class.getName());
 

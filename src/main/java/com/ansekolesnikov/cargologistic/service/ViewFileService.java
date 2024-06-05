@@ -18,7 +18,10 @@ public class ViewFileService implements RunnableService {
     private final String PATH_IMPORT_CAR;
     private final PackModelDao packModelDao;
 
-    public ViewFileService(PackModelDao packModelDao, @Value("${directory.car.import}") String pathImportCar) {
+    public ViewFileService(
+            PackModelDao packModelDao,
+            @Value("${directory.car.import}") String pathImportCar
+    ) {
         this.packModelDao = packModelDao;
         this.PATH_IMPORT_CAR = pathImportCar;
     }

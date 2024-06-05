@@ -9,10 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramBotController extends TelegramLongPollingBot {
-    private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
     private final TelegramBotService telegramBotService;
-    private final String token;
-    private final String username;
+    private final String BOT_TOKEN;
+    private final String BOT_USERNAME;
+    private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
 
     public TelegramBotController(
             TelegramBotService telegramBotService,
@@ -20,10 +20,10 @@ public class TelegramBotController extends TelegramLongPollingBot {
             String bot_username
     ) {
         this.telegramBotService = telegramBotService;
-        this.username = bot_username;
-        this.token = bot_token;
+        this.BOT_USERNAME = bot_username;
+        this.BOT_TOKEN = bot_token;
 
-        LOGGER.info("Телеграм бот @" + this.username + " запущен и готов принимать запросы.");
+        LOGGER.info("Телеграм бот @" + this.BOT_USERNAME + " запущен и готов принимать запросы.");
     }
 
     @Override
@@ -37,12 +37,12 @@ public class TelegramBotController extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return username;
+        return BOT_USERNAME;
     }
 
     @Override
     public String getBotToken() {
-        return token;
+        return BOT_TOKEN;
     }
 
     public void sendMessage(Long chatId, String text) {

@@ -1,12 +1,11 @@
 package com.ansekolesnikov.cargologistic.entity.car;
 
 import com.ansekolesnikov.cargologistic.entity.Car;
-import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CarUtilsTest {
+public class LoaderPackToCarTest {
     /*
     @Test
     void testCalcPercentLoad() {
@@ -34,7 +33,7 @@ public class CarUtilsTest {
     @Test
     void testIsCanLoadPackOnCargoPosition() {
         Car car = new Car();
-        CarUtils carUtils = new CarUtils();
+        //CarUtils carUtils = new CarUtils();
 
         /*
         Pack pack = new Pack(2);

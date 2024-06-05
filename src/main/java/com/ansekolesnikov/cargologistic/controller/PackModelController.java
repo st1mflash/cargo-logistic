@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.service.PackModelService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -13,8 +12,11 @@ import java.util.Objects;
 @RestController
 @RequestMapping("api/pack_model")
 public class PackModelController {
-    @Autowired
-    private PackModelService packModelService;
+    private final PackModelService packModelService;
+
+    public PackModelController(PackModelService packModelService) {
+        this.packModelService = packModelService;
+    }
 
     @GetMapping("/{id}")
     public Map<String, String> getPackModel(@PathVariable int id) {

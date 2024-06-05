@@ -6,7 +6,7 @@ import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.entity.Pack;
 import com.ansekolesnikov.cargologistic.entity.PackModel;
-import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
+import com.ansekolesnikov.cargologistic.entity.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_input.LoadListServiceInput;
@@ -24,14 +24,18 @@ import java.util.List;
 public class LoadListService implements RunnableService {
     private final CarModelDao carModelDao;
     private final PackModelDao packModelDao;
-    private final CarUtils carUtils;
+    private final LoaderPackToCar loaderPackToCar;
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
-    public LoadListService(CarModelDao carModelDao, PackModelDao packModelDao, CarUtils carUtils) {
+    public LoadListService(
+            CarModelDao carModelDao,
+            PackModelDao packModelDao,
+            LoaderPackToCar loaderPackToCar
+    ) {
         this.carModelDao = carModelDao;
         this.packModelDao = packModelDao;
-        this.carUtils = carUtils;
+        this.loaderPackToCar = loaderPackToCar;
     }
 
     @Override
@@ -80,7 +84,7 @@ public class LoadListService implements RunnableService {
                     .toList();
 
             for (Pack pack : filteredPackList) {
-                carUtils.loadPackToCar(car, pack, inputAlgorithm);
+                loaderPackToCar.loadPackToCar(car, pack, inputAlgorithm);
             }
         }
         return listCars;

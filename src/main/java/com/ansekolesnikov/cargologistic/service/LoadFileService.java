@@ -4,7 +4,7 @@ import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.CarModel;
-import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
+import com.ansekolesnikov.cargologistic.entity.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_input.LoadFileServiceInput;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
@@ -30,15 +30,20 @@ import java.util.stream.Collectors;
 public class LoadFileService implements RunnableService {
     private final PackModelDao packModelDao;
     private final CarModelDao carModelDao;
-    private final CarUtils carUtils;
-    @Value("${directory.pack.import}")
-    private String PATH_IMPORT_PACKAGE;
+    private final LoaderPackToCar loaderPackToCar;
+    private final String PATH_IMPORT_PACKAGE;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
 
-    public LoadFileService(PackModelDao packModelDao, CarModelDao carModelDao, CarUtils carUtils) {
+    public LoadFileService(
+            PackModelDao packModelDao,
+            CarModelDao carModelDao,
+            LoaderPackToCar loaderPackToCar,
+            @Value("${directory.pack.import}") String pathImportPackage
+    ) {
         this.packModelDao = packModelDao;
         this.carModelDao = carModelDao;
-        this.carUtils = carUtils;
+        this.loaderPackToCar = loaderPackToCar;
+        this.PATH_IMPORT_PACKAGE = pathImportPackage;
     }
 
     @Override
@@ -117,7 +122,7 @@ public class LoadFileService implements RunnableService {
                     .collect(Collectors.toList());
 
             for (Pack pack : packList) {
-                carUtils.loadPackToCar(car, pack, algorithm);
+                loaderPackToCar.loadPackToCar(car, pack, algorithm);
             }
             if (localCarCount > 0) {
                 if (car.calcPercentLoad() == 0) {

@@ -1,9 +1,9 @@
 package com.ansekolesnikov.cargologistic.database;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -11,31 +11,32 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@NoArgsConstructor
+@Deprecated
 @Component
 @Getter
 @Setter
 public class DatabaseConnect {
-    private String connection_url;
-    private String connection_username;
-    private String connection_password;
+    private final String CONNECTION_URL;
+    private final String CONNECTION_USERNAME;
+    private final String CONNECTION_PASSWORD;
 
-    private Connection connection;
-    public Statement statement;
+    private final Connection CONNECTION;
+    public final Statement STATEMENT;
+
     private static final Logger LOGGER = Logger.getLogger(DatabaseConnect.class.getName());
 
     public DatabaseConnect(
-            String URL,
-            String username,
-            String password
+            @Value("${spring.datasource.url}") String URL,
+            @Value("${spring.datasource.username}") String username,
+            @Value("${spring.datasource.password}") String password
     ) {
-        this.connection_url = URL;
-        this.connection_username = username;
-        this.connection_password = password;
+        this.CONNECTION_URL = URL;
+        this.CONNECTION_USERNAME = username;
+        this.CONNECTION_PASSWORD = password;
 
         try {
-            connection = DriverManager.getConnection(connection_url, connection_username, connection_password);
-            statement = connection.createStatement();
+            CONNECTION = DriverManager.getConnection(CONNECTION_URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
+            STATEMENT = CONNECTION.createStatement();
 
         } catch (SQLException e) {
             LOGGER.error("Ошибка подключения к базе данных " + e);
