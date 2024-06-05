@@ -3,36 +3,49 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-@NoArgsConstructor
 @Setter
 @Service
 public class TelegramBotService {
-    @Autowired
-    private LoadFileService loadFileCargoService;
-    @Autowired
-    private LoadListService loadListCargoService;
-    @Autowired
-    private ViewFileService viewFileCargoService;
-    @Autowired
-    private PackModelService packModelService;
-    @Autowired
-    private CarModelService carModelService;
+    private final LoadFileService loadFileService;
+    private final LoadListService loadListService;
+    private final ViewFileService viewFileService;
+    private final PackModelService packModelService;
+    private final CarModelService carModelService;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
 
-    public void startBot(String bot_token, String bot_username) {
+    private final String TELEGRAM_BOT_USERNAME;
+    private final String TELEGRAM_BOT_TOKEN;
+
+    public TelegramBotService(
+            LoadFileService loadFileService,
+            LoadListService loadListService,
+            ViewFileService viewFileService,
+            PackModelService packModelService,
+            CarModelService carModelService,
+            @Value("${telegram.bot.username}") String telegramBotUsername,
+            @Value("${telegram.bot.token}") String telegramBotToken
+    ) {
+        this.loadFileService = loadFileService;
+        this.loadListService = loadListService;
+        this.viewFileService = viewFileService;
+        this.packModelService = packModelService;
+        this.carModelService = carModelService;
+
+        this.TELEGRAM_BOT_USERNAME = telegramBotUsername;
+        this.TELEGRAM_BOT_TOKEN = telegramBotToken;
+
         try {
             new TelegramBotsApi(DefaultBotSession.class)
                     .registerBot(
-                            new TelegramBotController(this, bot_token, bot_username)
+                            new TelegramBotController(this, TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME)
                     );
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
@@ -48,17 +61,17 @@ public class TelegramBotService {
             }
             case LOAD_FILE -> {
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield loadFileCargoService.runService(serviceServiceInput)
+                yield loadFileService.runService(serviceServiceInput)
                         .toString();
             }
             case LOAD_LIST -> {
                 LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield loadListCargoService.runService(serviceServiceInput)
+                yield loadListService.runService(serviceServiceInput)
                         .toString();
             }
             case VIEW_FILE -> {
                 LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield viewFileCargoService.runService(serviceServiceInput)
+                yield viewFileService.runService(serviceServiceInput)
                         .toString();
             }
             case CAR -> {

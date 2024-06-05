@@ -16,7 +16,7 @@ public class LoadFileServiceTest {
     private static final String PATH_IMPORT_PACKAGE = "src/main/resources/import/packages/";
     //@InjectMocks
     //@Autowired
-    private LoadFileService loadFileCargoService = new LoadFileService();
+    //private LoadFileService loadFileCargoService = new LoadFileService();
 
     //@Mock
     //@Autowired

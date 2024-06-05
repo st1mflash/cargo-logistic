@@ -14,10 +14,8 @@ import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_output.LoadFileServiceOutput;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,19 +25,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
 @Setter
 @Service
 public class LoadFileService implements RunnableService {
-    @Autowired
-    private PackModelDao packModelDao;
-    @Autowired
-    private CarModelDao carModelDao;
-    @Autowired
-    private CarUtils carUtils;
+    private final PackModelDao packModelDao;
+    private final CarModelDao carModelDao;
+    private final CarUtils carUtils;
     @Value("${directory.pack.import}")
     private String PATH_IMPORT_PACKAGE;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
+
+    public LoadFileService(PackModelDao packModelDao, CarModelDao carModelDao, CarUtils carUtils) {
+        this.packModelDao = packModelDao;
+        this.carModelDao = carModelDao;
+        this.carUtils = carUtils;
+    }
 
     @Override
     public ServiceOutput runService(ServiceInput serviceInput) {

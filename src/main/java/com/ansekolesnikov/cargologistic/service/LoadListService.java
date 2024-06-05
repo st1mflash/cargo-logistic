@@ -13,26 +13,26 @@ import com.ansekolesnikov.cargologistic.service.service_input.LoadListServiceInp
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_output.LoadListServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
-import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@NoArgsConstructor
 @Service
 public class LoadListService implements RunnableService {
-    @Autowired
-    private CarModelDao carModelDao;
-    @Autowired
-    private PackModelDao packModelDao;
-    @Autowired
-    private CarUtils carUtils;
+    private final CarModelDao carModelDao;
+    private final PackModelDao packModelDao;
+    private final CarUtils carUtils;
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
+
+    public LoadListService(CarModelDao carModelDao, PackModelDao packModelDao, CarUtils carUtils) {
+        this.carModelDao = carModelDao;
+        this.packModelDao = packModelDao;
+        this.carUtils = carUtils;
+    }
 
     @Override
     public ServiceOutput runService(ServiceInput serviceInput) {

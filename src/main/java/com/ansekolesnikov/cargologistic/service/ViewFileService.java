@@ -3,29 +3,25 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.entity.utils.CarUtils;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ViewFileServiceOutput;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@NoArgsConstructor
 @Service
 public class ViewFileService implements RunnableService {
-    @Value("${directory.car.import}")
-    private String PATH_IMPORT_CAR;
-    @Autowired
-    private CarUtils carUtils;
+    private final String PATH_IMPORT_CAR;
+    private final PackModelDao packModelDao;
 
-    @Autowired
-    private PackModelDao packModelDao;
+    public ViewFileService(PackModelDao packModelDao, @Value("${directory.car.import}") String pathImportCar) {
+        this.packModelDao = packModelDao;
+        this.PATH_IMPORT_CAR = pathImportCar;
+    }
 
     @Override
     public ServiceOutput runService(ServiceInput serviceInput) {

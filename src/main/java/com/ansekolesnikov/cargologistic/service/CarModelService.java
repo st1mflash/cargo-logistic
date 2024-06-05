@@ -7,17 +7,17 @@ import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_output.CarModelServiceOutput;
-import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@NoArgsConstructor
 @Service
 public class CarModelService implements RunnableService, EntityService {
-    @Autowired
-    private CarModelDao carModelDao;
+    private final CarModelDao carModelDao;
     private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
+
+    public CarModelService(CarModelDao carModelDao) {
+        this.carModelDao = carModelDao;
+    }
 
     @Override
     public ServiceOutput runService(ServiceInput command) {
