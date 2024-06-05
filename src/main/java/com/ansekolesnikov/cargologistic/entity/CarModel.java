@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +26,10 @@ public class CarModel {
     @Column(name = "cargo_height")
     protected int cargoHeightModel;
 
-    public CarModel(
-            String name,
-            int cargoWidth,
-            int cargoHeight
-    ) {
-        this.nameModel = name;
-        this.cargoWidthModel = cargoWidth;
-        this.cargoHeightModel = cargoHeight;
+    public CarModel(ServiceInput serviceInput) {
+        this.nameModel = serviceInput.getCarModelServiceInput().getNameCar();
+        this.cargoWidthModel = serviceInput.getCarModelServiceInput().getWidthSchemeCargoCar();
+        this.cargoHeightModel = serviceInput.getCarModelServiceInput().getHeightSchemeCargoCar();
     }
 
     public Map<String, String> toMap() {

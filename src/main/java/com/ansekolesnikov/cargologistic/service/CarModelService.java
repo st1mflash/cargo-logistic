@@ -59,11 +59,7 @@ public class CarModelService implements RunnableService, EntityService {
     @Override
     public ServiceOutput insertOperation(ServiceInput command) {
         CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
-        CarModel carModel = new CarModel(
-                command.getCarModelServiceInput().getNameCar(),
-                command.getCarModelServiceInput().getWidthSchemeCargoCar(),
-                command.getCarModelServiceInput().getHeightSchemeCargoCar()
-        );
+        CarModel carModel = new CarModel(command);
         carModelDao.insert(carModel);
         serviceOutput.create(carModel);
         return serviceOutput;
