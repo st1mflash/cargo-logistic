@@ -1,15 +1,15 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -29,20 +29,6 @@ public class PackModel {
     protected int width;
     @Column(name = "scheme_height")
     protected int height;
-
-    public PackModel(
-            String name,
-            int width,
-            int height,
-            String scheme,
-            Character code
-    ) {
-        this.name = name;
-        this.width = width;
-        this.height = height;
-        this.scheme = scheme;
-        this.code = code;
-    }
 
     public Map<String, String> toMap() {
         Map<String, String> map = new HashMap<>();

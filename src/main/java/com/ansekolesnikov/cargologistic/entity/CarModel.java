@@ -2,14 +2,14 @@ package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -25,12 +25,6 @@ public class CarModel {
     protected int cargoWidthModel;
     @Column(name = "cargo_height")
     protected int cargoHeightModel;
-
-    public CarModel(ServiceInput serviceInput) {
-        this.nameModel = serviceInput.getCarModelServiceInput().getNameCar();
-        this.cargoWidthModel = serviceInput.getCarModelServiceInput().getWidthSchemeCargoCar();
-        this.cargoHeightModel = serviceInput.getCarModelServiceInput().getHeightSchemeCargoCar();
-    }
 
     public Map<String, String> toMap() {
         Map<String, String> map = new HashMap<>();

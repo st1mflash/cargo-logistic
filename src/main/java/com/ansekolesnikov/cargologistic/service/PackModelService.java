@@ -57,13 +57,13 @@ public class PackModelService implements RunnableService, EntityService {
     @Override
     public ServiceOutput insertOperation(ServiceInput command) {
         PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
-        PackModel packModel = new PackModel(
-                command.getPackModelServiceInput().getNamePack(),
-                command.getPackModelServiceInput().getWidthSchemePack(),
-                command.getPackModelServiceInput().getHeightSchemePack(),
-                command.getPackModelServiceInput().getSchemePack(),
-                command.getPackModelServiceInput().getCodePack()
-        );
+        PackModel packModel = PackModel.builder()
+                .name(command.getPackModelServiceInput().getNamePack())
+                .width(command.getPackModelServiceInput().getWidthSchemePack())
+                .height(command.getPackModelServiceInput().getHeightSchemePack())
+                .scheme(command.getPackModelServiceInput().getSchemePack())
+                .code(command.getPackModelServiceInput().getCodePack())
+                .build();
         packModelDao.insert(packModel);
         serviceOutput.create(packModel);
         return serviceOutput;
