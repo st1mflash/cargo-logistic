@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.service.service_output;
 
-import com.ansekolesnikov.cargologistic.entity.PackModel;
+import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,15 +11,15 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 public class PackModelServiceOutput extends ServiceOutput {
-    public void create(PackModel packModel) {
-        super.setResultToString(packModel.toString());
-        super.setResultToMap(packModel.toMap());
+    public void create(PackModelEntity packModelEntity) {
+        super.setResultToString(packModelEntity.toString());
+        super.setResultToMap(packModelEntity.toMap());
     }
 
-    public void create(List<PackModel> listPackModel) {
+    public void create(List<PackModelEntity> listPackModelEntity) {
         StringBuilder stringResult = new StringBuilder();
         List<Map<String, String>> listMapPackModel = new ArrayList<>();
-        for (PackModel el : listPackModel) {
+        for (PackModelEntity el : listPackModelEntity) {
             stringResult.append(el.toString()).append("\n\n");
             listMapPackModel.add(el.toMap());
         }

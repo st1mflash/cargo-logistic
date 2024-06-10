@@ -1,14 +1,15 @@
 package com.ansekolesnikov.cargologistic.interfaces;
 
-import com.ansekolesnikov.cargologistic.entity.CarModel;
+import com.ansekolesnikov.cargologistic.dto.CarModelDto;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ICarModelService {
-    List<CarModel> getCarModelList();
-    CarModel getCarModel(int id);
-    CarModel addCarModel(CarModel car);
-    CarModel updateCarModel(CarModel car);
-    Map<String, String> deleteCarModel(CarModel car);
+    List<CarModelDto> getCarModelList();
+    CarModelDto getCarModel(int id);
+    CarModelDto addCarModel(CarModelDto car);
+    CarModelDto updateCarModel(CarModelDto car);
+    Map<String, String> deleteCarModel(int id);
 }

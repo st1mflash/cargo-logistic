@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
+import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "pack_model")
-public class PackModel {
+public class PackModelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -69,5 +70,16 @@ public class PackModel {
 
     public int calculateCountElements() {
         return scheme.replaceAll("0", "").length();
+    }
+
+    public static PackModelEntity to(PackModelDto packModelDto) {
+        PackModelEntity packModelEntity = new PackModelEntity();
+        packModelEntity.setId(packModelDto.getId());
+        packModelEntity.setName(packModelDto.getName());
+        packModelEntity.setCode(packModelDto.getCode());
+        packModelEntity.setScheme(packModelDto.getScheme());
+        packModelEntity.setWidth(packModelDto.getWidth());
+        packModelEntity.setHeight(packModelDto.getHeight());
+        return packModelEntity;
     }
 }

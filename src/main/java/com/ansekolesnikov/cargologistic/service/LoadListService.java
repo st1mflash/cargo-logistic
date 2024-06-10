@@ -2,10 +2,11 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import com.ansekolesnikov.cargologistic.entity.Car;
-import com.ansekolesnikov.cargologistic.entity.CarModel;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.entity.Pack;
-import com.ansekolesnikov.cargologistic.entity.PackModel;
+import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
 import com.ansekolesnikov.cargologistic.entity.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
@@ -43,7 +44,7 @@ public class LoadListService implements RunnableService {
         LoadListServiceOutput result = new LoadListServiceOutput();
         try {
             LoadListServiceRequest command = serviceRequest.getLoadListServiceInput();
-            CarModel carModel = carModelDao.findByName(command.getCarModel());
+            CarModelEntity carModelEntity = carModelDao.findByName(command.getCarModel());
             List<Pack> pack =
                     createPacksByNameFromDatabase(
                             packModelDao,
@@ -53,7 +54,7 @@ public class LoadListService implements RunnableService {
             result.setText(toStringCarsPacksInfo(
                     pack,
                     loadCars(
-                            carModel,
+                            carModelEntity,
                             pack,
                             command.getCountCars(),
                             command.getAlgorithm()
@@ -68,7 +69,7 @@ public class LoadListService implements RunnableService {
     }
 
     public List<Car> loadCars(
-            CarModel inputCarModel,
+            CarModelEntity inputCarModelEntity,
             List<Pack> inputPack,
             int inputCountCars,
             AlgorithmEnum inputAlgorithm
@@ -76,7 +77,7 @@ public class LoadListService implements RunnableService {
         List<Car> listCars = new ArrayList<>();
 
         for (int i = 0; i < inputCountCars; i++) {
-            Car car = new Car(inputCarModel);
+            Car car = new Car(inputCarModelEntity);
             listCars.add(car);
 
             List<Pack> filteredPackList = inputPack.stream()
@@ -93,8 +94,8 @@ public class LoadListService implements RunnableService {
     public String toStringCarsPacksInfo(List<Pack> pack, List<Car> listCars) {
         StringBuilder result = new StringBuilder();
 
-        for (PackModel packModel : pack) {
-            result.append(packModel.getCode()).append(" -- ").append(packModel.getName()).append("\n");
+        for (PackModelEntity packModelEntity : pack) {
+            result.append(packModelEntity.getCode()).append(" -- ").append(packModelEntity.getName()).append("\n");
         }
         result.append("\n");
 
@@ -113,6 +114,7 @@ public class LoadListService implements RunnableService {
         return Arrays
                 .stream(packNames)
                 .map(packModelDao::findByName)
+                .map(PackModelEntity::to)
                 .map(Pack::new)
                 .toList();
     }

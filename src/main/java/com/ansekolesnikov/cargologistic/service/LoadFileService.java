@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
-import com.ansekolesnikov.cargologistic.entity.CarModel;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.entity.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_input.LoadFileServiceRequest;
@@ -111,11 +111,11 @@ public class LoadFileService implements RunnableService {
     }
 
     public List<Car> loadCars(List<Pack> packList, int countCars, AlgorithmEnum algorithm) {
-        CarModel defaultCarModel = carModelDao.findById(1);
+        CarModelEntity defaultCarModelEntity = CarModelEntity.to(carModelDao.findById(1));
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
         do {
-            Car car = new Car(defaultCarModel);
+            Car car = new Car(defaultCarModelEntity);
             listCars.add(car);
             packList = packList.stream()
                     .filter(pack -> pack.getCarId() == 0)

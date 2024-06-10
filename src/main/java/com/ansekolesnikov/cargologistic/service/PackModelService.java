@@ -1,13 +1,13 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.entity.PackModel;
-import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
-import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
+import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
+import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.PackModelServiceOutput;
+import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -49,66 +49,66 @@ public class PackModelService implements
     }
 
     @Override
-    public ServiceOutput listOperation() {
+    public ServiceOutput listOperation() {/*
         PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
-        serviceOutput.create(packModelDao.findAll());
-        return serviceOutput;
+        serviceOutput.create(packModelDao.findAll());*/
+        return null;
     }
 
     @Override
-    public ServiceOutput getOperation(ServiceRequest command) {
+    public ServiceOutput getOperation(ServiceRequest command) {/*
         PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
-        serviceOutput.create(packModelDao.findById(command.getPackModelServiceInput().getIdPack()));
-        return serviceOutput;
+        serviceOutput.create(packModelDao.findById(command.getPackModelServiceInput().getIdPack()));*/
+        return null;
     }
 
     @Override
     public ServiceOutput insertOperation(ServiceRequest command) {
-        PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
-        PackModel packModel = PackModel.builder()
+/*        PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
+        PackModelEntity packModelEntity = PackModelEntity.builder()
                 .name(command.getPackModelServiceInput().getNamePack())
                 .width(command.getPackModelServiceInput().getWidthSchemePack())
                 .height(command.getPackModelServiceInput().getHeightSchemePack())
                 .scheme(command.getPackModelServiceInput().getSchemePack())
                 .code(command.getPackModelServiceInput().getCodePack())
                 .build();
-        packModelDao.insert(packModel);
-        serviceOutput.create(packModel);
-        return serviceOutput;
+        packModelDao.insert(packModelEntity);
+        serviceOutput.create(packModelEntity);*/
+        return null;
     }
 
     @Override
     public ServiceOutput updateOperation(ServiceRequest command) {
-        PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
-        PackModel packModel = packModelDao.findById(command.getPackModelServiceInput().getIdPack());
+/*        PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
+        PackModelEntity packModelEntity = packModelDao.findById(command.getPackModelServiceInput().getIdPack());
         switch (command.getPackModelServiceInput().getUpdatedParamName()) {
             case NAME:
-                packModel.setName(
+                packModelEntity.setName(
                         command.getPackModelServiceInput()
                                 .getUpdatedParamValue()
                 );
                 break;
             case CODE:
-                packModel.setCode(
+                packModelEntity.setCode(
                         command.getPackModelServiceInput()
                                 .getUpdatedParamValue()
                                 .charAt(0)
                 );
                 break;
             case SCHEME:
-                packModel.setScheme(
+                packModelEntity.setScheme(
                         command.getPackModelServiceInput()
                                 .getUpdatedParamValue()
                 );
                 break;
             case WIDTH:
-                packModel.setWidth(
+                packModelEntity.setWidth(
                         Integer.parseInt(command.getPackModelServiceInput()
                                 .getUpdatedParamValue())
                 );
                 break;
             case HEIGHT:
-                packModel.setHeight(
+                packModelEntity.setHeight(
                         Integer.parseInt(command.getPackModelServiceInput()
                                 .getUpdatedParamValue())
                 );
@@ -116,45 +116,45 @@ public class PackModelService implements
             default:
                 break;
         }
-        packModelDao.update(packModel);
-        serviceOutput.create(packModel);
-        return serviceOutput;
+        packModelDao.update(packModelEntity);
+        serviceOutput.create(packModelEntity);*/
+        return null;
     }
 
     @Override
     public ServiceOutput deleteOperation(ServiceRequest command) {
-        PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
-        PackModel packModel = packModelDao.findById(command.getPackModelServiceInput().getIdPack());
-        packModelDao.delete(packModel);
-        serviceOutput.create(packModel);
-        return serviceOutput;
+/*        PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
+        PackModelEntity packModelEntity = packModelDao.findById(command.getPackModelServiceInput().getIdPack());
+        packModelDao.delete(packModelEntity);
+        serviceOutput.create(packModelEntity);*/
+        return null;
     }
 
     @Override
-    public PackModel getPackModel(int id) {
+    public PackModelDto getPackModel(int id) {
         return packModelDao.findById(id);
     }
 
     @Override
-    public List<PackModel> getPackModelList() {
+    public List<PackModelDto> getPackModelList() {
         return packModelDao.findAll();
     }
 
     @Override
-    public PackModel addPackModel(PackModel packModel) {
-        return packModelDao.insert(packModel);
+    public PackModelDto addPackModel(PackModelDto packModelDto) {
+        return packModelDao.insert(packModelDto);
     }
 
     @Override
-    public PackModel updatePackModel(PackModel packModel) {
-        return packModelDao.update(packModel);
+    public PackModelDto updatePackModel(PackModelDto packModelDto) {
+        return packModelDao.update(packModelDto);
     }
 
     @Override
-    public Map<String, String> deletePackModel(PackModel packModel) {
+    public Map<String, String> deletePackModel(PackModelDto packModelDto) {
         Map<String, String> result = new HashMap<>();
         try {
-            packModelDao.delete(packModel);
+            packModelDao.delete(packModelDto.getId());
             result.put("status", "success");
             return result;
         } catch (RuntimeException e) {

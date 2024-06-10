@@ -1,9 +1,13 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.service.service_input.PackModelServiceRequest;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
-import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
+import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
+import com.ansekolesnikov.cargologistic.dto.CarModelDto;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
+import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
+import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,9 +16,13 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.util.Objects;
+
 @Setter
 @Service
 public class TelegramBotService {
+    private final CarModelDao carModelDao;
+
     private final LoadFileService loadFileService;
     private final LoadListService loadListService;
     private final ViewFileService viewFileService;
@@ -26,6 +34,8 @@ public class TelegramBotService {
     private final String TELEGRAM_BOT_TOKEN;
 
     public TelegramBotService(
+            CarModelDao carModelDao,
+
             LoadFileService loadFileService,
             LoadListService loadListService,
             ViewFileService viewFileService,
@@ -34,6 +44,8 @@ public class TelegramBotService {
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
+        this.carModelDao = carModelDao;
+
         this.loadFileService = loadFileService;
         this.loadListService = loadListService;
         this.viewFileService = viewFileService;
@@ -53,41 +65,88 @@ public class TelegramBotService {
         }
     }
 
-    public String toStringBotAnswer(TelegramUserMessage inputMessage) {
-        ServiceRequest serviceRequest = new ServiceRequest(inputMessage.getText());
-        String textAnswer = switch (inputMessage.getCommand()) {
+    public String toStringBotAnswer(TelegramUserMessage userMessage) {
+        ServiceRequest serviceRequest = new ServiceRequest(userMessage.getText());
+        String textAnswer = switch (userMessage.getCommand()) {
             case INFO -> {
-                LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
+                LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
                 yield toStringBotInfo();
             }
             case LOAD_FILE -> {
-                LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
+                LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
                 yield loadFileService.runService(serviceRequest)
                         .toString();
             }
             case LOAD_LIST -> {
-                LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
+                LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
                 yield loadListService.runService(serviceRequest)
                         .toString();
             }
             case VIEW_FILE -> {
-                LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
+                LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
                 yield viewFileService.runService(serviceRequest)
                         .toString();
             }
             case CAR -> {
-                LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield carModelService.runService(serviceRequest)
-                        .toString();
+                LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
+                yield runCarService(userMessage.getText());
             }
             case PACK -> {
-                LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
+                LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
                 yield packModelService.runService(serviceRequest)
                         .toString();
             }
         };
 
         return convertStringToTelegramCodeStyle(textAnswer);
+    }
+
+    private String runCarService(String userText) {
+        DatabaseOperationEnum operation = DatabaseOperationEnum.initEnumFromString(userText.split(" ")[1]);
+        switch (Objects.requireNonNull(operation)) {
+            case LIST:
+                StringBuilder carList = new StringBuilder();
+                carModelService.getCarModelList().stream()
+                        .map(CarModelEntity::to)
+                        .forEach(c -> carList.append(c).append("\n\n"));
+                return carList.toString();
+            case GET:
+                return CarModelEntity.to(carModelService.getCarModel(Integer.parseInt(userText.split(" ")[2]))).toString();
+            case INSERT:
+                CarModelDto carModelDto = CarModelDto.builder()
+                        .name(userText.split(" ")[2])
+                        .width(Integer.parseInt(userText.split(" ")[3]))
+                        .height(Integer.parseInt(userText.split(" ")[4]))
+                        .build();
+                return CarModelEntity.to(carModelService.addCarModel(carModelDto)).toString();
+            case UPDATE:
+                return CarModelEntity.to(updateCarByParams(userText)).toString();
+            case DELETE:
+                carModelService.deleteCarModel(Integer.parseInt(userText.split(" ")[2]));
+                return "Успешное удаление";
+            default:
+                return "Не удалось определить команду";
+        }
+    }
+
+    private CarModelDto updateCarByParams(String commandString) {
+        CarModelParameterEnum parameterEnum = CarModelParameterEnum.initEnumFromString(commandString.split(" ")[3]);
+        String value = commandString.split(" ")[4];
+        CarModelDto carModelDto = carModelDao.findById(Integer.parseInt(commandString.split(" ")[2]));
+        switch (Objects.requireNonNull(parameterEnum)) {
+            case NAME:
+                carModelDto.setName(value);
+                break;
+            case WIDTH:
+                carModelDto.setWidth(Integer.parseInt(value));
+                break;
+            case HEIGHT:
+                carModelDto.setHeight(Integer.parseInt(value));
+                break;
+            default:
+                break;
+        }
+        return carModelService.updateCarModel(carModelDto);
     }
 
     private String convertStringToTelegramCodeStyle(String text) {

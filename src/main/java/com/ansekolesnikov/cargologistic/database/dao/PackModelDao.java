@@ -1,46 +1,48 @@
 package com.ansekolesnikov.cargologistic.database.dao;
 
-import com.ansekolesnikov.cargologistic.entity.PackModel;
 import com.ansekolesnikov.cargologistic.database.repository.PackModelRepository;
+import com.ansekolesnikov.cargologistic.dto.PackModelDto;
+import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
+@RequiredArgsConstructor
 @Component
 @Transactional
 public class PackModelDao {
     private final PackModelRepository packModelRepository;
 
-    public PackModelDao(PackModelRepository packModelRepository) {
-        this.packModelRepository = packModelRepository;
+    public PackModelDto findById(int id) {
+        return PackModelDto.to(Objects.requireNonNull(packModelRepository.findById(id).orElse(null)));
     }
 
-    public PackModel findById(int id) {
-        return packModelRepository.findById(id).orElse(null);
-    }
-
-    public PackModel findByName(String name) {
+    public PackModelDto findByName(String name) {
         return packModelRepository.findByName(name);
     }
 
-    public PackModel findByCode(Character code) {
+    public PackModelDto findByCode(Character code) {
         return packModelRepository.findByCode(code);
     }
 
-    public List<PackModel> findAll() {
-        return packModelRepository.findAll();
+    public List<PackModelDto> findAll() {
+        return packModelRepository.findAll().stream()
+                .map(PackModelDto::to)
+                .toList();
     }
 
-    public PackModel insert(PackModel packModel) {
-        return packModelRepository.save(packModel);
+    public PackModelDto insert(PackModelDto packModelDto) {
+        return PackModelDto.to(packModelRepository.save(PackModelEntity.to(packModelDto)));
     }
 
-    public PackModel update(PackModel packModel) {
-        return packModelRepository.save(packModel);
+    public PackModelDto update(PackModelDto packModelDto) {
+        return PackModelDto.to(packModelRepository.save(PackModelEntity.to(packModelDto)));
     }
 
-    public void delete(PackModel packModel) {
-        packModelRepository.delete(packModel);
+    public void delete(int id) {
+        packModelRepository.deleteById(id);
     }
 }

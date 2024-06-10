@@ -10,15 +10,15 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Car extends CarModel {
+public class Car extends CarModelEntity {
     private String[][] cargo;
     private int idCar;
 
-    public Car(CarModel carModel) {
-        this.id = carModel.getId();
-        this.name = carModel.getName();
-        this.width = carModel.getWidth();
-        this.height = carModel.getHeight();
+    public Car(CarModelEntity carModelEntity) {
+        this.id = carModelEntity.getId();
+        this.name = carModelEntity.getName();
+        this.width = carModelEntity.getWidth();
+        this.height = carModelEntity.getHeight();
         this.cargo = new String[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -158,8 +158,8 @@ public class Car extends CarModel {
     }
 
     public int calculateCountPackInCarByCode(Character code, PackModelDao packModelDao) {
-        PackModel packModel = packModelDao.findByCode(code);
-        int packSize = packModel.getScheme().replaceAll("0", "").length();
+        PackModelEntity packModelEntity = PackModelEntity.to(packModelDao.findByCode(code));
+        int packSize = packModelEntity.getScheme().replaceAll("0", "").length();
         return Arrays.deepToString(cargo).replaceAll("[^" + code + "]", "").length() / packSize;
     }
 }

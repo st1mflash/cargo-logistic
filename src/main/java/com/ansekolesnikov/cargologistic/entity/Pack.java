@@ -5,17 +5,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Pack extends PackModel {
+public class Pack extends PackModelEntity {
     private int carId = 0;
     private String[][] arrScheme;
 
-    public Pack(PackModel packModel) {
-        this.id = packModel.getId();
-        this.name = packModel.getName();
-        this.code = packModel.getCode();
-        this.scheme = packModel.getScheme();
-        this.width = packModel.getWidth();
-        this.height = packModel.getHeight();
+    public Pack(PackModelEntity packModelEntity) {
+        this.id = packModelEntity.getId();
+        this.name = packModelEntity.getName();
+        this.code = packModelEntity.getCode();
+        this.scheme = packModelEntity.getScheme();
+        this.width = packModelEntity.getWidth();
+        this.height = packModelEntity.getHeight();
         initArrScheme();
     }
 

@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.entity.PackModel;
+import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import com.ansekolesnikov.cargologistic.service.PackModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,27 +15,27 @@ public class PackModelController {
     private final PackModelService packModelService;
 
     @GetMapping("/{id}")
-    public PackModel getPackModel(@PathVariable int id) {
+    public PackModelDto getPackModel(@PathVariable int id) {
         return packModelService.getPackModel(id);
     }
 
     @GetMapping
-    public List<PackModel> getListPackModels() {
+    public List<PackModelDto> getListPackModels() {
         return packModelService.getPackModelList();
     }
 
     @PostMapping
-    public PackModel createPackModel(@RequestBody PackModel packModel) {
-        return packModelService.addPackModel(packModel);
+    public PackModelDto createPackModel(@RequestBody PackModelDto packModelDto) {
+        return packModelService.addPackModel(packModelDto);
     }
 
     @PutMapping
-    public PackModel updatePackModel(@RequestBody PackModel packModel) {
-        return packModelService.updatePackModel(packModel);
+    public PackModelDto updatePackModel(@RequestBody PackModelDto packModelDto) {
+        return packModelService.updatePackModel(packModelDto);
     }
 
     @DeleteMapping
-    public Map<String, String> deletePackModel(@RequestBody PackModel packModel) {
-        return packModelService.deletePackModel(packModel);
+    public Map<String, String> deletePackModel(@RequestBody PackModelDto packModelDto) {
+        return packModelService.deletePackModel(packModelDto);
     }
 }

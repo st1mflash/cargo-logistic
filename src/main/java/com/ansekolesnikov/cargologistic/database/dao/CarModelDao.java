@@ -1,11 +1,13 @@
 package com.ansekolesnikov.cargologistic.database.dao;
 
-import com.ansekolesnikov.cargologistic.entity.CarModel;
+import com.ansekolesnikov.cargologistic.dto.CarModelDto;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.database.repository.CarModelRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @Transactional
@@ -16,28 +18,30 @@ public class CarModelDao {
         this.carModelRepository = carModelRepository;
     }
 
-    public CarModel findById(int id) {
-        return carModelRepository.findById(id).orElse(null);
+    public CarModelDto findById(int id) {
+        return CarModelDto.to(Objects.requireNonNull(carModelRepository.findById(id).orElse(null)));
     }
 
-    public CarModel findByName(String name) {
+    public CarModelEntity findByName(String name) {
         return carModelRepository.findByName(name);
     }
 
-    public List<CarModel> findAll() {
-        return carModelRepository.findAll();
+    public List<CarModelDto> findAll() {
+        return carModelRepository.findAll().stream()
+                .map(CarModelDto::to)
+                .toList();
     }
 
-    public CarModel insert(CarModel carModel) {
-        carModelRepository.save(carModel);
-        return carModel;
+    public CarModelDto insert(CarModelDto carModelDto) {
+        return CarModelDto.to(carModelRepository.save(CarModelEntity.to(carModelDto)));
     }
 
-    public CarModel update(CarModel carModel) {
-        return carModelRepository.save(carModel);
+    public CarModelDto update(CarModelDto carModelDto) {
+        carModelRepository.save(CarModelEntity.to(carModelDto));
+        return carModelDto;
     }
 
-    public void delete(CarModel carModel) {
-        carModelRepository.delete(carModel);
+    public void delete(int id) {
+        carModelRepository.deleteById(id);
     }
 }

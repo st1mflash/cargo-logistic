@@ -61,6 +61,7 @@ public class LocalFile {
                     .stream(content.split("\\n\\s*\\n"))
                     .map(c -> c.replaceAll(" ", "").charAt(0))
                     .map(packModelDao::findByCode)
+                    .map(PackModelEntity::to)
                     .map(Pack::new)
                     .collect(Collectors.toList());
         } catch (Exception e) {
