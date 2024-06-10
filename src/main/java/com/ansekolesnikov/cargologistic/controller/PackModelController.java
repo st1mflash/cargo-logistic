@@ -2,19 +2,17 @@ package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.entity.PackModel;
 import com.ansekolesnikov.cargologistic.service.PackModelService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/pack_model")
 public class PackModelController {
     private final PackModelService packModelService;
-
-    public PackModelController(PackModelService packModelService) {
-        this.packModelService = packModelService;
-    }
 
     @GetMapping("/{id}")
     public PackModel getPackModel(@PathVariable int id) {

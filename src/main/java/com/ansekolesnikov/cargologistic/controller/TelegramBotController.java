@@ -2,29 +2,19 @@ package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
+import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+@RequiredArgsConstructor
 public class TelegramBotController extends TelegramLongPollingBot {
     private final TelegramBotService telegramBotService;
     private final String BOT_TOKEN;
     private final String BOT_USERNAME;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
-
-    public TelegramBotController(
-            TelegramBotService telegramBotService,
-            String bot_token,
-            String bot_username
-    ) {
-        this.telegramBotService = telegramBotService;
-        this.BOT_USERNAME = bot_username;
-        this.BOT_TOKEN = bot_token;
-
-        LOGGER.info("Телеграм бот @" + this.BOT_USERNAME + " запущен и готов принимать запросы.");
-    }
 
     @Override
     public void onUpdateReceived(Update update) {
