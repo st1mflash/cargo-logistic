@@ -32,12 +32,12 @@ public class PackModelDao {
         return packModelRepository.findAll();
     }
 
-    public void insert(PackModel packModel) {
-        packModelRepository.save(packModel);
+    public PackModel insert(PackModel packModel) {
+        return packModelRepository.save(packModel);
     }
 
-    public void update(PackModel packModel) {
-        packModelRepository.save(packModel);
+    public PackModel update(PackModel packModel) {
+        return packModelRepository.save(packModel);
     }
 
     public void delete(PackModel packModel) {

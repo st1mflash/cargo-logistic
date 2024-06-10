@@ -2,22 +2,29 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.entity.CarModel;
+import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
 import com.ansekolesnikov.cargologistic.service.service_output.CarModelServiceOutput;
+import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-@Service
-public class CarModelService implements RunnableService, EntityService {
-    private final CarModelDao carModelDao;
-    private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    public CarModelService(CarModelDao carModelDao) {
-        this.carModelDao = carModelDao;
-    }
+@RequiredArgsConstructor
+@Service
+public class CarModelService implements
+        RunnableService,
+        EntityService,
+        ICarModelService {
+    private final CarModelDao carModelDao;
+
+    private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
 
     @Override
     public ServiceOutput runService(ServiceInput command) {
@@ -60,9 +67,9 @@ public class CarModelService implements RunnableService, EntityService {
     public ServiceOutput insertOperation(ServiceInput command) {
         CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         CarModel carModel = CarModel.builder()
-                .nameModel(command.getCarModelServiceInput().getNameCar())
-                .cargoWidthModel(command.getCarModelServiceInput().getWidthSchemeCargoCar())
-                .cargoHeightModel(command.getCarModelServiceInput().getHeightSchemeCargoCar())
+                .name(command.getCarModelServiceInput().getNameCar())
+                .width(command.getCarModelServiceInput().getWidthSchemeCargoCar())
+                .height(command.getCarModelServiceInput().getHeightSchemeCargoCar())
                 .build();
         carModelDao.insert(carModel);
         serviceOutput.create(carModel);
@@ -75,13 +82,13 @@ public class CarModelService implements RunnableService, EntityService {
         CarModel carModel = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
         switch (command.getCarModelServiceInput().getUpdatedParamName()) {
             case NAME:
-                carModel.setNameModel(command.getCarModelServiceInput().getUpdatedParamValue());
+                carModel.setName(command.getCarModelServiceInput().getUpdatedParamValue());
                 break;
             case WIDTH:
-                carModel.setCargoWidthModel(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
+                carModel.setWidth(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
                 break;
             case HEIGHT:
-                carModel.setCargoHeightModel(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
+                carModel.setHeight(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
                 break;
             default:
                 break;
@@ -98,5 +105,38 @@ public class CarModelService implements RunnableService, EntityService {
         carModelDao.delete(carModel);
         serviceOutput.create(carModel);
         return serviceOutput;
+    }
+
+    @Override
+    public CarModel getCarModel(int id) {
+        return carModelDao.findById(id);
+    }
+
+    @Override
+    public List<CarModel> getCarModelList() {
+        return carModelDao.findAll();
+    }
+
+    @Override
+    public CarModel addCarModel(CarModel carModel) {
+        return carModelDao.insert(carModel);
+    }
+
+    @Override
+    public CarModel updateCarModel(CarModel carModel) {
+        return carModelDao.update(carModel);
+    }
+
+    @Override
+    public Map<String, String> deleteCarModel(CarModel carModel) {
+        Map<String, String> result = new HashMap<>();
+        try {
+            carModelDao.delete(carModel);
+            result.put("status", "success");
+            return result;
+        } catch (RuntimeException e) {
+            result.put("status", "failed");
+            return result;
+        }
     }
 }

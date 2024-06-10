@@ -21,19 +21,20 @@ public class CarModelDao {
     }
 
     public CarModel findByName(String name) {
-        return carModelRepository.findByNameModel(name);
+        return carModelRepository.findByName(name);
     }
 
     public List<CarModel> findAll() {
         return carModelRepository.findAll();
     }
 
-    public void insert(CarModel carModel) {
+    public CarModel insert(CarModel carModel) {
         carModelRepository.save(carModel);
+        return carModel;
     }
 
-    public void update(CarModel carModel) {
-        carModelRepository.save(carModel);
+    public CarModel update(CarModel carModel) {
+        return carModelRepository.save(carModel);
     }
 
     public void delete(CarModel carModel) {

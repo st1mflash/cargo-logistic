@@ -126,9 +126,9 @@ public class LoadFileService implements RunnableService {
             }
             if (localCarCount > 0) {
                 if (car.calcPercentLoad() == 0) {
-                    LOGGER.info("Грузовик #" + car.getIdModel() + " остался пустым");
+                    LOGGER.info("Грузовик #" + car.getId() + " остался пустым");
                 } else {
-                    LOGGER.info("Грузовик #" + car.getIdModel() + " успешно загружен на " + car.calcPercentLoad() + "%");
+                    LOGGER.info("Грузовик #" + car.getId() + " успешно загружен на " + car.calcPercentLoad() + "%");
                 }
             }
             localCarCount--;

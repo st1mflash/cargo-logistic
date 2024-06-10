@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.PackModel;
+import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
@@ -10,8 +11,15 @@ import com.ansekolesnikov.cargologistic.service.service_output.PackModelServiceO
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
-public class PackModelService implements RunnableService, EntityService {
+public class PackModelService implements
+        RunnableService,
+        EntityService,
+        IPackModelService {
     private final PackModelDao packModelDao;
     private static final Logger LOGGER = Logger.getLogger(PackModelService.class.getName());
 
@@ -120,5 +128,38 @@ public class PackModelService implements RunnableService, EntityService {
         packModelDao.delete(packModel);
         serviceOutput.create(packModel);
         return serviceOutput;
+    }
+
+    @Override
+    public PackModel getPackModel(int id) {
+        return packModelDao.findById(id);
+    }
+
+    @Override
+    public List<PackModel> getPackModelList() {
+        return packModelDao.findAll();
+    }
+
+    @Override
+    public PackModel addPackModel(PackModel packModel) {
+        return packModelDao.insert(packModel);
+    }
+
+    @Override
+    public PackModel updatePackModel(PackModel packModel) {
+        return packModelDao.update(packModel);
+    }
+
+    @Override
+    public Map<String, String> deletePackModel(PackModel packModel) {
+        Map<String, String> result = new HashMap<>();
+        try {
+            packModelDao.delete(packModel);
+            result.put("status", "success");
+            return result;
+        } catch (RuntimeException e) {
+            result.put("status", "failed");
+            return result;
+        }
     }
 }

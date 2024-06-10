@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,26 +17,26 @@ public class CarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    protected Integer idModel;
+    protected Integer id;
     @Column(name = "name")
-    protected String nameModel;
+    protected String name;
     @Column(name = "cargo_width")
-    protected int cargoWidthModel;
+    protected int width;
     @Column(name = "cargo_height")
-    protected int cargoHeightModel;
+    protected int height;
 
     public Map<String, String> toMap() {
         Map<String, String> map = new HashMap<>();
-        map.put("id", String.valueOf(idModel));
-        map.put("name", nameModel);
-        map.put("width", String.valueOf(cargoWidthModel));
-        map.put("height", String.valueOf(cargoHeightModel));
+        map.put("id", String.valueOf(id));
+        map.put("name", name);
+        map.put("width", String.valueOf(width));
+        map.put("height", String.valueOf(height));
         return map;
     }
 
     public String toString() {
-        return "Идентификатор: #" + idModel
-                + "\nНазвание модели: " + nameModel
-                + "\nПараметры кузова: " + cargoWidthModel + "x" + cargoHeightModel;
+        return "Идентификатор: #" + id
+                + "\nНазвание модели: " + name
+                + "\nПараметры кузова: " + width + "x" + height;
     }
 }
