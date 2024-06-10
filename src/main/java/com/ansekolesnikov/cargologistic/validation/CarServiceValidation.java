@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.validation;
 
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
-import com.ansekolesnikov.cargologistic.service.service_input.CarModelServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
+import com.ansekolesnikov.cargologistic.service.service_input.CarModelServiceRequest;
 import lombok.Getter;
 
 /**
@@ -10,8 +10,8 @@ import lombok.Getter;
 @Getter
 public class CarServiceValidation {
     private String errorMessage = "";
-    public boolean isValidCommand (ServiceInput serviceInput) {
-        CarModelServiceInput command = serviceInput.getCarModelServiceInput();
+    public boolean isValidCommand (ServiceRequest serviceRequest) {
+        CarModelServiceRequest command = serviceRequest.getCarModelServiceInput();
         switch (command.getOperation()) {
             case INSERT:
 

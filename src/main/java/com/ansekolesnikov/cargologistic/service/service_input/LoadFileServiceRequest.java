@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class LoadFileServiceInput extends ServiceInput {
+public class LoadFileServiceRequest extends ServiceRequest {
     private String fileName;
     private AlgorithmEnum algorithm;
     private int countCars;
 
-    public LoadFileServiceInput(String command) {
+    public LoadFileServiceRequest(String command) {
         try {
             this.fileName = command.split(" ")[1];
             this.algorithm = AlgorithmEnum.initEnumFromString(command.split(" ")[2]);

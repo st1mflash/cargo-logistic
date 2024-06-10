@@ -5,8 +5,8 @@ import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.entity.LoaderPackToCar;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
-import com.ansekolesnikov.cargologistic.service.service_input.LoadFileServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
+import com.ansekolesnikov.cargologistic.service.service_input.LoadFileServiceRequest;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.Pack;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
@@ -47,10 +47,10 @@ public class LoadFileService implements RunnableService {
     }
 
     @Override
-    public ServiceOutput runService(ServiceInput serviceInput) {
+    public ServiceOutput runService(ServiceRequest serviceRequest) {
         LoadFileServiceOutput result = new LoadFileServiceOutput();
         try {
-            LoadFileServiceInput command = serviceInput.getLoadFileServiceInput();
+            LoadFileServiceRequest command = serviceRequest.getLoadFileServiceInput();
             LocalFile file = new LocalFile(
                     PATH_IMPORT_PACKAGE + command.getFileName()
             );

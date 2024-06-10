@@ -4,7 +4,7 @@ import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ViewFileServiceOutput;
 import com.ansekolesnikov.cargologistic.validation.FileValidation;
@@ -27,8 +27,8 @@ public class ViewFileService implements RunnableService {
     }
 
     @Override
-    public ServiceOutput runService(ServiceInput serviceInput) {
-        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + serviceInput.getViewFileServiceInput().getFileName());
+    public ServiceOutput runService(ServiceRequest serviceRequest) {
+        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + serviceRequest.getViewFileServiceInput().getFileName());
         FileValidation fileValidation = new FileValidation(localFile);
         ViewFileServiceOutput serviceOutput = new ViewFileServiceOutput();
 

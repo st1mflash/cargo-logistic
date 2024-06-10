@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.entity.CarModel;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
@@ -27,7 +27,7 @@ public class CarModelService implements
     private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
 
     @Override
-    public ServiceOutput runService(ServiceInput command) {
+    public ServiceOutput runService(ServiceRequest command) {
         try {
             return switch (command.getCarModelServiceInput().getOperation()) {
                 case LIST -> listOperation();
@@ -55,7 +55,7 @@ public class CarModelService implements
     }
 
     @Override
-    public ServiceOutput getOperation(ServiceInput command) {
+    public ServiceOutput getOperation(ServiceRequest command) {
         CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         serviceOutput.create(
                 carModelDao.findById(command.getCarModelServiceInput().getIdCar())
@@ -64,7 +64,7 @@ public class CarModelService implements
     }
 
     @Override
-    public ServiceOutput insertOperation(ServiceInput command) {
+    public ServiceOutput insertOperation(ServiceRequest command) {
         CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         CarModel carModel = CarModel.builder()
                 .name(command.getCarModelServiceInput().getNameCar())
@@ -77,7 +77,7 @@ public class CarModelService implements
     }
 
     @Override
-    public ServiceOutput updateOperation(ServiceInput command) {
+    public ServiceOutput updateOperation(ServiceRequest command) {
         CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         CarModel carModel = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
         switch (command.getCarModelServiceInput().getUpdatedParamName()) {
@@ -99,7 +99,7 @@ public class CarModelService implements
     }
 
     @Override
-    public ServiceOutput deleteOperation(ServiceInput command) {
+    public ServiceOutput deleteOperation(ServiceRequest command) {
         CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
         CarModel carModel = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
         carModelDao.delete(carModel);

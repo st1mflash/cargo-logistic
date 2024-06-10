@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class ViewFileServiceInput extends ServiceInput {
+public class ViewFileServiceRequest extends ServiceRequest {
     private String fileName;
 
-    public ViewFileServiceInput(String command) {
+    public ViewFileServiceRequest(String command) {
         this.fileName = command.split(" ")[1];
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class PackModelServiceInput extends ServiceInput {
+public class PackModelServiceRequest {
     private DatabaseOperationEnum operation;
     private String namePack;
     private Character codePack;
@@ -22,7 +22,7 @@ public class PackModelServiceInput extends ServiceInput {
     private PackModelParameterEnum updatedParamName;
     private String updatedParamValue;
     private String text;
-    public PackModelServiceInput(String command) {
+    public PackModelServiceRequest(String command) {
         try {
             text = command;
             operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);

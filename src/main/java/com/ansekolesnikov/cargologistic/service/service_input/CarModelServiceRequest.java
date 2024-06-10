@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class CarModelServiceInput extends ServiceInput {
+public class CarModelServiceRequest extends ServiceRequest {
     private DatabaseOperationEnum operation;
     private String nameCar;
     private int widthSchemeCargoCar;
@@ -21,7 +21,7 @@ public class CarModelServiceInput extends ServiceInput {
     private String updatedParamValue;
     private String text;
 
-    public CarModelServiceInput(String command) {
+    public CarModelServiceRequest(String command) {
         try {
             text = command;
             operation = DatabaseOperationEnum.initEnumFromString(command.split(" ")[1]);

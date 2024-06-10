@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class LoadListServiceInput extends ServiceInput {
+public class LoadListServiceRequest extends ServiceRequest {
     private String carModel;
     private AlgorithmEnum algorithm;
     private int countCars;
     private String[] packs;
 
-    public LoadListServiceInput(String command) {
+    public LoadListServiceRequest(String command) {
         try {
             this.carModel = command.split(" ")[1];
             this.algorithm = AlgorithmEnum.initEnumFromString(command.split(" ")[2]);

@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.LoadFileService;
 import com.ansekolesnikov.cargologistic.service.ViewFileService;
 import org.apache.log4j.Logger;
@@ -28,7 +28,7 @@ public class ShellConsoleController {
     ) {
         LOGGER.info("Запрос загрузки из файла '" + fileName + "' алгоритмом '" + algorithm.toLowerCase() + "' в " + countCars + " ед. транспорта.");
         return loadFileCargoService.runService(
-                        new ServiceInput(
+                        new ServiceRequest(
                                 Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
                                         fileName + " " +
                                         algorithm + " " +
@@ -42,7 +42,7 @@ public class ShellConsoleController {
     public String view_file(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
         return viewFileCargoService.runService(
-                        new ServiceInput(
+                        new ServiceRequest(
                                 Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
                                         fileName
                         )

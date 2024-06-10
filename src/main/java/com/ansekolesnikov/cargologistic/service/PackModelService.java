@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.PackModel;
 import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
@@ -28,7 +28,7 @@ public class PackModelService implements
     }
 
     @Override
-    public ServiceOutput runService(ServiceInput command) {
+    public ServiceOutput runService(ServiceRequest command) {
         try {
             return switch (command.getPackModelServiceInput().getOperation()) {
                 case LIST -> listOperation();
@@ -56,14 +56,14 @@ public class PackModelService implements
     }
 
     @Override
-    public ServiceOutput getOperation(ServiceInput command) {
+    public ServiceOutput getOperation(ServiceRequest command) {
         PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
         serviceOutput.create(packModelDao.findById(command.getPackModelServiceInput().getIdPack()));
         return serviceOutput;
     }
 
     @Override
-    public ServiceOutput insertOperation(ServiceInput command) {
+    public ServiceOutput insertOperation(ServiceRequest command) {
         PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
         PackModel packModel = PackModel.builder()
                 .name(command.getPackModelServiceInput().getNamePack())
@@ -78,7 +78,7 @@ public class PackModelService implements
     }
 
     @Override
-    public ServiceOutput updateOperation(ServiceInput command) {
+    public ServiceOutput updateOperation(ServiceRequest command) {
         PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
         PackModel packModel = packModelDao.findById(command.getPackModelServiceInput().getIdPack());
         switch (command.getPackModelServiceInput().getUpdatedParamName()) {
@@ -122,7 +122,7 @@ public class PackModelService implements
     }
 
     @Override
-    public ServiceOutput deleteOperation(ServiceInput command) {
+    public ServiceOutput deleteOperation(ServiceRequest command) {
         PackModelServiceOutput serviceOutput = new PackModelServiceOutput();
         PackModel packModel = packModelDao.findById(command.getPackModelServiceInput().getIdPack());
         packModelDao.delete(packModel);

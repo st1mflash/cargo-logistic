@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.PackModelServiceRequest;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import lombok.Setter;
@@ -53,7 +54,7 @@ public class TelegramBotService {
     }
 
     public String toStringBotAnswer(TelegramUserMessage inputMessage) {
-        ServiceInput serviceServiceInput = new ServiceInput(inputMessage.getText());
+        ServiceRequest serviceRequest = new ServiceRequest(inputMessage.getText());
         String textAnswer = switch (inputMessage.getCommand()) {
             case INFO -> {
                 LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
@@ -61,27 +62,27 @@ public class TelegramBotService {
             }
             case LOAD_FILE -> {
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield loadFileService.runService(serviceServiceInput)
+                yield loadFileService.runService(serviceRequest)
                         .toString();
             }
             case LOAD_LIST -> {
                 LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield loadListService.runService(serviceServiceInput)
+                yield loadListService.runService(serviceRequest)
                         .toString();
             }
             case VIEW_FILE -> {
                 LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield viewFileService.runService(serviceServiceInput)
+                yield viewFileService.runService(serviceRequest)
                         .toString();
             }
             case CAR -> {
                 LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield carModelService.runService(serviceServiceInput)
+                yield carModelService.runService(serviceRequest)
                         .toString();
             }
             case PACK -> {
                 LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + inputMessage.getChatId() + "'");
-                yield packModelService.runService(serviceServiceInput)
+                yield packModelService.runService(serviceRequest)
                         .toString();
             }
         };

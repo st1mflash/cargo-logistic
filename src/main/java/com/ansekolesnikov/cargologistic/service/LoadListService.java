@@ -9,8 +9,8 @@ import com.ansekolesnikov.cargologistic.entity.PackModel;
 import com.ansekolesnikov.cargologistic.entity.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
-import com.ansekolesnikov.cargologistic.service.service_input.LoadListServiceInput;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceInput;
+import com.ansekolesnikov.cargologistic.service.service_input.LoadListServiceRequest;
+import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.LoadListServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import org.apache.log4j.Logger;
@@ -39,10 +39,10 @@ public class LoadListService implements RunnableService {
     }
 
     @Override
-    public ServiceOutput runService(ServiceInput serviceInput) {
+    public ServiceOutput runService(ServiceRequest serviceRequest) {
         LoadListServiceOutput result = new LoadListServiceOutput();
         try {
-            LoadListServiceInput command = serviceInput.getLoadListServiceInput();
+            LoadListServiceRequest command = serviceRequest.getLoadListServiceInput();
             CarModel carModel = carModelDao.findByName(command.getCarModel());
             List<Pack> pack =
                     createPacksByNameFromDatabase(
