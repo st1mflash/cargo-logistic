@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.service.LoadFileService;
 import com.ansekolesnikov.cargologistic.service.ViewFileService;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.shell.standard.ShellComponent;

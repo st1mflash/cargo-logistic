@@ -7,7 +7,6 @@ import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,7 +65,6 @@ public class TelegramBotService {
     }
 
     public String toStringBotAnswer(TelegramUserMessage userMessage) {
-        ServiceRequest serviceRequest = new ServiceRequest(userMessage.getText());
         String textAnswer = switch (userMessage.getCommand()) {
             case INFO -> {
                 LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + userMessage.getChatId() + "'");

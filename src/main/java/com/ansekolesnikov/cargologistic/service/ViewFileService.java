@@ -4,10 +4,6 @@ import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
-import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
-import com.ansekolesnikov.cargologistic.service.service_output.ViewFileServiceOutput;
-import com.ansekolesnikov.cargologistic.validation.FileValidation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
