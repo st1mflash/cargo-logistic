@@ -2,16 +2,19 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+@Getter
 @Setter
-@Service
+@Component
 public class TelegramBotService {
     private final LoadFileService loadFileService;
     private final LoadListService loadListService;
@@ -19,9 +22,6 @@ public class TelegramBotService {
     private final PackModelService packModelService;
     private final CarModelService carModelService;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
-
-    private final String TELEGRAM_BOT_USERNAME;
-    private final String TELEGRAM_BOT_TOKEN;
 
     public TelegramBotService(
             LoadFileService loadFileService,
@@ -38,55 +38,32 @@ public class TelegramBotService {
         this.packModelService = packModelService;
         this.carModelService = carModelService;
 
-        this.TELEGRAM_BOT_USERNAME = telegramBotUsername;
-        this.TELEGRAM_BOT_TOKEN = telegramBotToken;
-
         try {
             new TelegramBotsApi(DefaultBotSession.class)
                     .registerBot(
-                            new TelegramBotController(this, TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USERNAME)
+                            new TelegramBotController(this, telegramBotToken, telegramBotUsername)
                     );
         } catch (TelegramApiException e) {
             LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
         }
     }
 
-    public String toStringBotAnswer(TelegramUserMessage userMessage) {
-        String textAnswer = switch (userMessage.getCommand()) {
-            case INFO -> {
-                LOGGER.info("Запрос информации о командах бота. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield toStringBotInfo();
-            }
-            case LOAD_FILE -> {
-                LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield loadFileService.runByStringService(userMessage.getText());
-            }
-            case LOAD_LIST -> {
-                LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield loadListService.runByStringService(userMessage.getText());
-            }
-            case VIEW_FILE -> {
-                LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield viewFileService.runByStringService(userMessage.getText());
-            }
-            case CAR -> {
-                LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield carModelService.runByStringService(userMessage.getText());
-            }
-            case PACK -> {
-                LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield packModelService.runByStringService(userMessage.getText());
-            }
-        };
-
-        return convertStringToTelegramCodeStyle(textAnswer);
+    public IRunnableByStringService selectService(TelegramUserMessage userMessage) {
+        try {
+            return switch (userMessage.getCommand()) {
+                case CAR -> carModelService;
+                case PACK -> packModelService;
+                case LOAD_FILE -> loadFileService;
+                case LOAD_LIST -> loadListService;
+                case VIEW_FILE -> viewFileService;
+                default -> null;
+            };
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    private String convertStringToTelegramCodeStyle(String text) {
-        return "```Ответ:\n" + text + "```";
-    }
-
-    private String toStringBotInfo() {
+    public String toStringBotInfo() {
         return """
                 Доступные команды:
 

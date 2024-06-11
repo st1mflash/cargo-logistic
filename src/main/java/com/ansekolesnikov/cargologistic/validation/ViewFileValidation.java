@@ -1,27 +1,28 @@
 package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
+import com.ansekolesnikov.cargologistic.interfaces.IServiceValidation;
 import lombok.Getter;
 import org.apache.log4j.Logger;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FileValidation {
-    private static final Logger LOGGER = Logger.getLogger(FileValidation.class.getName());
+public class ViewFileValidation implements IServiceValidation {
+    private static final Logger LOGGER = Logger.getLogger(ViewFileValidation.class.getName());
     private final String pathFile, nameFile, formatFile;
     @Getter
     private String userErrorMessage;
 
-    public FileValidation(LocalFile localFile) {
+    public ViewFileValidation(LocalFile localFile) {
         this.pathFile = localFile.getPath();
         this.nameFile = localFile.getName();
         this.formatFile = localFile.getFormat();
     }
 
+    @Override
     public boolean isValid() {
-        return isFormatExist()
-                && isFileExist();
+        return isFormatExist() && isFileExist();
     }
 
     private boolean isFileExist() {

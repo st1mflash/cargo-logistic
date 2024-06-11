@@ -25,11 +25,11 @@ public class PackModelDao {
     }
 
     public PackModelDto findByName(String name) {
-        return packModelRepository.findByName(name);
+        return PackModelDto.to(packModelRepository.findByName(name));
     }
 
     public PackModelDto findByCode(Character code) {
-        return packModelRepository.findByCode(code);
+        return PackModelDto.to(packModelRepository.findByCode(code));
     }
 
     public List<PackModelDto> findAll() {

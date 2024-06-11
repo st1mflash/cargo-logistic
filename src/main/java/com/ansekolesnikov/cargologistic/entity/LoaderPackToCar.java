@@ -1,8 +1,8 @@
 package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmHalf;
-import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmMax;
-import com.ansekolesnikov.cargologistic.entity.algorithms.LoadAlgorithmType;
+import com.ansekolesnikov.cargologistic.algorithms.LoadAlgorithmHalf;
+import com.ansekolesnikov.cargologistic.algorithms.LoadAlgorithmMax;
+import com.ansekolesnikov.cargologistic.algorithms.LoadAlgorithmType;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

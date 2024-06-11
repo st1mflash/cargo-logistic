@@ -1,15 +1,18 @@
 package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
+import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
+import org.jvnet.hk2.annotations.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @RequiredArgsConstructor
+@Service
 public class TelegramBotController extends TelegramLongPollingBot {
     private final TelegramBotService telegramBotService;
     private final String BOT_TOKEN;
@@ -18,11 +21,19 @@ public class TelegramBotController extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        TelegramUserMessage userMessage = new TelegramUserMessage(update.getMessage());
-        sendMessage(
-                userMessage.getChatId(),
-                telegramBotService.toStringBotAnswer(userMessage)
-        );
+        try {
+            TelegramUserMessage userMessage = new TelegramUserMessage(update.getMessage());
+            IRunnableByStringService service = telegramBotService.selectService(userMessage);
+            sendMessage(
+                    userMessage.getChatId(),
+                    service.run(userMessage.getText())
+            );
+        } catch (Exception e) {
+            sendMessage(
+                    update.getMessage().getChatId(),
+                    "Возникла ошибка.\n\n" + telegramBotService.toStringBotInfo()
+            );
+        }
     }
 
     @Override
@@ -40,7 +51,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
 
         message.setParseMode("Markdown");
         message.setChatId(String.valueOf(chatId));
-        message.setText(text);
+        message.setText("```Ответ:\n" + text + "```");
 
         try {
             execute(message);

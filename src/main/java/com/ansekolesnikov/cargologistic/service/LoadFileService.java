@@ -39,7 +39,7 @@ public class LoadFileService implements IRunnableByStringService {
     }
 
     @Override
-    public String runByStringService(String request) {
+    public String run(String request) {
         try {
             LocalFile file = new LocalFile(
                     PATH_IMPORT_PACKAGE + request.split(" ")[1]

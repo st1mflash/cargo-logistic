@@ -21,7 +21,7 @@ public class LoadFileServiceValidation {
         this.countCars = countCars;
     }
     public boolean isValid() {
-        FileValidation fileValidation = new FileValidation(localFile);
+        ViewFileValidation fileValidation = new ViewFileValidation(localFile);
         AlgorithmValidation algorithmValidation = new AlgorithmValidation(algorithm);
         if (!fileValidation.isValid()) {
             userErrorMessage = fileValidation.getUserErrorMessage();

@@ -1,5 +1,5 @@
 package com.ansekolesnikov.cargologistic.interfaces;
 
 public interface IRunnableByStringService {
-    String runByStringService(String request);
+    String run(String request);
 }

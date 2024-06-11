@@ -66,7 +66,7 @@ public class CarModelService implements
     }
 
     @Override
-    public String runByStringService(String request) {
+    public String run(String request) {
         DatabaseOperationEnum operation = DatabaseOperationEnum.initEnumFromString(request.split(" ")[1]);
         switch (Objects.requireNonNull(operation)) {
             case LIST:
