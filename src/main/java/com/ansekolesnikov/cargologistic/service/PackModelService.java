@@ -4,6 +4,7 @@ import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
+import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
@@ -65,8 +66,8 @@ public class PackModelService implements
     }
 
     @Override
-    public String run(String request) {
-        DatabaseOperationEnum operation = DatabaseOperationEnum.initEnumFromString(request.split(" ")[1]);
+    public String run(RequestRunnableService request) {
+        DatabaseOperationEnum operation = request.getOperation();
         switch (Objects.requireNonNull(operation)) {
             case LIST:
                 StringBuilder packList = new StringBuilder();
@@ -75,18 +76,18 @@ public class PackModelService implements
                         .forEach(c -> packList.append(c).append("\n\n"));
                 return packList.toString();
             case GET:
-                return PackModelEntity.to(getPackModel(Integer.parseInt(request.split(" ")[2]))).toString();
+                return PackModelEntity.to(getPackModel(request.getEntityId())).toString();
             case INSERT:
                 PackModelDto packModelDto = PackModelDto.builder()
-                        .name(request.split(" ")[2])
-                        .width(Integer.parseInt(request.split(" ")[3]))
-                        .height(Integer.parseInt(request.split(" ")[4]))
+                        .name(request.getEntityName())
+                        .width(request.getEntityWidth())
+                        .height(request.getEntityHeight())
                         .build();
                 return PackModelEntity.to(addPackModel(packModelDto)).toString();
             case UPDATE:
-                return PackModelEntity.to(updatePackByParams(request)).toString();
+                return PackModelEntity.to(updatePackByParams(request.getRequest())).toString();
             case DELETE:
-                deletePackModel(Integer.parseInt(request.split(" ")[2]));
+                deletePackModel(request.getEntityId());
                 return "Успешное удаление";
             default:
                 return "Не удалось определить команду";

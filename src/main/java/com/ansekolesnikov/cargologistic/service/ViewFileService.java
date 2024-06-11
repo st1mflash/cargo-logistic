@@ -3,6 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
+import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.validation.ViewFileValidation;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +25,8 @@ public class ViewFileService implements IRunnableByStringService {
     }
 
     @Override
-    public String run(String request) {
-        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + request.split(" ")[1]);
+    public String run(RequestRunnableService request) {
+        LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + request.getFileName());
         ViewFileValidation fileValidation = new ViewFileValidation(localFile);
 
         if (fileValidation.isValid()) {

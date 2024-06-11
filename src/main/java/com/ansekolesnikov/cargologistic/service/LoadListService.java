@@ -23,13 +23,13 @@ public class LoadListService implements IRunnableByStringService {
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
     @Override
-    public String run(String request) {
+    public String run(RequestRunnableService request) {
         try {
-            CarModelEntity carModelEntity = carModelDao.findByName(request.split(" ")[1]);
+            CarModelEntity carModelEntity = carModelDao.findByName(request.getEntityName());
             List<Pack> packs =
                     createPacksByNameFromDatabase(
                             packModelDao,
-                            pullPacksNameListFromString(request)
+                            pullPacksNameListFromString(request.getRequest())
                     );
 
             return toStringCarsPacksInfo(
@@ -37,8 +37,8 @@ public class LoadListService implements IRunnableByStringService {
                     loadCars(
                             carModelEntity,
                             packs,
-                            Integer.parseInt(request.split(" ")[3]),
-                            AlgorithmEnum.initEnumFromString(request.split(" ")[2])
+                            request.getCountCars(),
+                            request.getAlgorithm()
                     )
             );
         } catch (RuntimeException e) {

@@ -39,13 +39,13 @@ public class LoadFileService implements IRunnableByStringService {
     }
 
     @Override
-    public String run(String request) {
+    public String run(RequestRunnableService request) {
         try {
             LocalFile file = new LocalFile(
-                    PATH_IMPORT_PACKAGE + request.split(" ")[1]
+                    PATH_IMPORT_PACKAGE + request.getFileName()
             );
-            AlgorithmEnum algorithm = AlgorithmEnum.initEnumFromString(request.split(" ")[2]);
-            int countCars = Integer.parseInt(request.split(" ")[3]);
+            AlgorithmEnum algorithm = request.getAlgorithm();
+            int countCars = request.getCountCars();
 
             LoadFileServiceValidation validation = new LoadFileServiceValidation(
                     file,

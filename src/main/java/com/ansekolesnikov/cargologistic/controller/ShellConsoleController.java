@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
+import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.service.LoadFileService;
 import com.ansekolesnikov.cargologistic.service.ViewFileService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,13 @@ public class ShellConsoleController {
     ) {
         LOGGER.info("Запрос загрузки из файла '" + fileName + "' алгоритмом '" + algorithm.toLowerCase() + "' в " + countCars + " ед. транспорта.");
         return loadFileCargoService.run(
-                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
-                        fileName + " " +
-                        algorithm + " " +
-                        countCars
+                new RequestRunnableService(
+                        loadFileCargoService.getClass(),
+                        Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
+                                fileName + " " +
+                                algorithm + " " +
+                                countCars
+                )
         );
     }
 
@@ -35,8 +39,11 @@ public class ShellConsoleController {
     public String view_file(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
         return viewFileCargoService.run(
-                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
-                        fileName
+                new RequestRunnableService(
+                        viewFileCargoService.getClass(),
+                        Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
+                                fileName
+                )
         );
     }
 }

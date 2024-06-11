@@ -4,6 +4,7 @@ import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
+import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
@@ -66,8 +67,8 @@ public class CarModelService implements
     }
 
     @Override
-    public String run(String request) {
-        DatabaseOperationEnum operation = DatabaseOperationEnum.initEnumFromString(request.split(" ")[1]);
+    public String run(RequestRunnableService request) {
+        DatabaseOperationEnum operation = request.getOperation();
         switch (Objects.requireNonNull(operation)) {
             case LIST:
                 StringBuilder carList = new StringBuilder();
@@ -76,18 +77,18 @@ public class CarModelService implements
                         .forEach(c -> carList.append(c).append("\n\n"));
                 return carList.toString();
             case GET:
-                return CarModelEntity.to(getCarModel(Integer.parseInt(request.split(" ")[2]))).toString();
+                return CarModelEntity.to(getCarModel(request.getEntityId())).toString();
             case INSERT:
                 CarModelDto carModelDto = CarModelDto.builder()
-                        .name(request.split(" ")[2])
-                        .width(Integer.parseInt(request.split(" ")[3]))
-                        .height(Integer.parseInt(request.split(" ")[4]))
+                        .name(request.getEntityName())
+                        .width(request.getEntityWidth())
+                        .height(request.getEntityHeight())
                         .build();
                 return CarModelEntity.to(addCarModel(carModelDto)).toString();
             case UPDATE:
-                return CarModelEntity.to(updateCarByParams(request)).toString();
+                return CarModelEntity.to(updateCarByParams(request.getRequest())).toString();
             case DELETE:
-                deleteCarModel(Integer.parseInt(request.split(" ")[2]));
+                deleteCarModel(request.getEntityId());
                 return "Успешное удаление";
             default:
                 return "Не удалось определить команду";
