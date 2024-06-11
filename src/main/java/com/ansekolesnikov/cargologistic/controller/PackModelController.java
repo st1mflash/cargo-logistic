@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
+import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import com.ansekolesnikov.cargologistic.service.PackModelService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CargoPack
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/pack_model")

@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
+import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.service.CarModelService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CargoCar
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/car_model")
