@@ -27,7 +27,7 @@ public class ViewFileService implements IRunnableByStringService {
     }
 
     @Override
-    public String runService(String request) {
+    public String runByStringService(String request) {
         /*
         LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + serviceRequest.getViewFileServiceInput().getFileName());
         FileValidation fileValidation = new FileValidation(localFile);

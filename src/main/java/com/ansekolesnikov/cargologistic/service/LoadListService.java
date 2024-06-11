@@ -39,7 +39,7 @@ public class LoadListService implements IRunnableByStringService {
     }
 
     @Override
-    public String runService(String request) {
+    public String runByStringService(String request) {
         /*
         LoadListServiceOutput result = new LoadListServiceOutput();
         try {

@@ -74,7 +74,7 @@ public class TelegramBotService {
             }
             case LOAD_FILE -> {
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield loadFileService.runService(userMessage.getText());
+                yield loadFileService.runByStringService(userMessage.getText());
             }
             case LOAD_LIST -> {
                 LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
@@ -88,11 +88,11 @@ public class TelegramBotService {
             }
             case CAR -> {
                 LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield carModelService.runService(userMessage.getText());//runCarService(userMessage.getText());
+                yield carModelService.runByStringService(userMessage.getText());//runCarService(userMessage.getText());
             }
             case PACK -> {
                 LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield packModelService.runService(userMessage.getText());//packModelService.runService(serviceRequest)
+                yield packModelService.runByStringService(userMessage.getText());//packModelService.runService(serviceRequest)
                       //  .toString();
             }
         };

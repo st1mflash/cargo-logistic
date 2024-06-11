@@ -58,7 +58,7 @@ public class PackModelService implements
     }
 
     @Override
-    public String runService(String request) {
+    public String runByStringService(String request) {
         DatabaseOperationEnum operation = DatabaseOperationEnum.initEnumFromString(request.split(" ")[1]);
         switch (Objects.requireNonNull(operation)) {
             case LIST:
