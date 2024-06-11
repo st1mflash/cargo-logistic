@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.dao;
 
+import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.annotations.Dao;
 import com.ansekolesnikov.cargologistic.database.repository.PackModelRepository;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Dao
+@CargoPack
 @RequiredArgsConstructor
 @Component
 @Transactional

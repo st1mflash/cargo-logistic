@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
+import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@CargoPack
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "pack_model")
 public class PackModelEntity {

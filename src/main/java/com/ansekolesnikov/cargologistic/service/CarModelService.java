@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@CargoCar
 @RequiredArgsConstructor
 @Service
 public class CarModelService implements

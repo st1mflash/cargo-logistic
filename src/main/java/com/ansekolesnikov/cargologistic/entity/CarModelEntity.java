@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
+import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,11 +8,11 @@ import lombok.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@CargoCar
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "car_model")
 public class CarModelEntity {

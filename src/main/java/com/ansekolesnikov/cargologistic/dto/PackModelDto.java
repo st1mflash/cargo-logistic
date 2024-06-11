@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.dto;
 
+import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.annotations.Dto;
 import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Dto
+@CargoPack
 @NoArgsConstructor
 @SuperBuilder
 @Data
