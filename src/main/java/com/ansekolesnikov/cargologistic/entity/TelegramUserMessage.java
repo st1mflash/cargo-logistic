@@ -1,10 +1,11 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.enums.ServiceCommandEnum;
+import lombok.Data;
 import lombok.Getter;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@Getter
+@Data
 public class TelegramUserMessage {
     private final Message message;
     private final Long chatId;

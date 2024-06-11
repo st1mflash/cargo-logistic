@@ -26,26 +26,31 @@ public class PackModelService implements
 
     @Override
     public PackModelDto getPackModel(int id) {
+        LOGGER.info("Запрос информации о модели автомобиля по id.");
         return packModelDao.findById(id);
     }
 
     @Override
     public List<PackModelDto> getPackModelList() {
+        LOGGER.info("Запрос информации о всех моделях автомобиля по id.");
         return packModelDao.findAll();
     }
 
     @Override
     public PackModelDto addPackModel(PackModelDto packModelDto) {
+        LOGGER.info("Создание модели автомобиля.");
         return packModelDao.insert(packModelDto);
     }
 
     @Override
     public PackModelDto updatePackModel(PackModelDto packModelDto) {
+        LOGGER.info("Обновление модели автомобиля");
         return packModelDao.update(packModelDto);
     }
 
     @Override
     public Map<String, String> deletePackModel(int id) {
+        LOGGER.info("Удаление модели автомобиля");
         Map<String, String> result = new HashMap<>();
         try {
             packModelDao.delete(id);

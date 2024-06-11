@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import lombok.Data;
 import lombok.Getter;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
+@Data
 public class LocalFile {
     private String name, format, path, content;
     private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());

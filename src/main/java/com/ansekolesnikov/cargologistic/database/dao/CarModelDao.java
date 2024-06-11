@@ -3,20 +3,18 @@ package com.ansekolesnikov.cargologistic.database.dao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.database.repository.CarModelRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 
+@RequiredArgsConstructor
 @Component
 @Transactional
 public class CarModelDao {
     private final CarModelRepository carModelRepository;
-
-    public CarModelDao(CarModelRepository carModelRepository) {
-        this.carModelRepository = carModelRepository;
-    }
 
     public CarModelDto findById(int id) {
         return CarModelDto.to(Objects.requireNonNull(carModelRepository.findById(id).orElse(null)));

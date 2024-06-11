@@ -23,30 +23,20 @@ public class ShellConsoleController {
             @ShellOption String countCars
     ) {
         LOGGER.info("Запрос загрузки из файла '" + fileName + "' алгоритмом '" + algorithm.toLowerCase() + "' в " + countCars + " ед. транспорта.");
-        return "";
-                /*loadFileCargoService.runService(
-                        new ServiceRequest(
-                                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
-                                        fileName + " " +
-                                        algorithm + " " +
-                                        countCars
-                        )
-                )
-                .toString();
-        */
+        return loadFileCargoService.runByStringService(
+                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
+                        fileName + " " +
+                        algorithm + " " +
+                        countCars
+        );
     }
 
     @ShellMethod("Получение полной информации о грузовиках из .json файла.")
     public String view_file(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
-        return "";
-                /*viewFileCargoService.runService(
-                        new ServiceRequest(
-                                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
-                                        fileName
-                        )
-                )
-                .toString();
-        */
+        return viewFileCargoService.runByStringService(
+                Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
+                        fileName
+        );
     }
 }

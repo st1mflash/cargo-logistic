@@ -5,6 +5,7 @@ import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class LoadListService implements IRunnableByStringService {
     private final CarModelDao carModelDao;
@@ -20,49 +22,32 @@ public class LoadListService implements IRunnableByStringService {
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
-    public LoadListService(
-            CarModelDao carModelDao,
-            PackModelDao packModelDao,
-            LoaderPackToCar loaderPackToCar
-    ) {
-        this.carModelDao = carModelDao;
-        this.packModelDao = packModelDao;
-        this.loaderPackToCar = loaderPackToCar;
-    }
-
     @Override
     public String runByStringService(String request) {
-        /*
-        LoadListServiceOutput result = new LoadListServiceOutput();
         try {
-            LoadListServiceRequest command = serviceRequest.getLoadListServiceInput();
-            CarModelEntity carModelEntity = carModelDao.findByName(command.getCarModel());
-            List<Pack> pack =
+            CarModelEntity carModelEntity = carModelDao.findByName(request.split(" ")[1]);
+            List<Pack> packs =
                     createPacksByNameFromDatabase(
                             packModelDao,
-                            command.getPacks()
+                            pullPacksNameListFromString(request)
                     );
 
-            result.setText(toStringCarsPacksInfo(
-                    pack,
+            return toStringCarsPacksInfo(
+                    packs,
                     loadCars(
                             carModelEntity,
-                            pack,
-                            command.getCountCars(),
-                            command.getAlgorithm()
+                            packs,
+                            Integer.parseInt(request.split(" ")[3]),
+                            AlgorithmEnum.initEnumFromString(request.split(" ")[2])
                     )
-            ));
-            return result;
+            );
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды.");
-            result.setText("Ошибка ввода.");
-            return result;
+            return "Ошибка ввода.";
         }
-        */
-        return "";
     }
 
-    public List<Car> loadCars(
+    private List<Car> loadCars(
             CarModelEntity inputCarModelEntity,
             List<Pack> inputPack,
             int inputCountCars,
@@ -85,7 +70,7 @@ public class LoadListService implements IRunnableByStringService {
         return listCars;
     }
 
-    public String toStringCarsPacksInfo(List<Pack> pack, List<Car> listCars) {
+    private String toStringCarsPacksInfo(List<Pack> pack, List<Car> listCars) {
         StringBuilder result = new StringBuilder();
 
         for (PackModelEntity packModelEntity : pack) {
@@ -101,7 +86,7 @@ public class LoadListService implements IRunnableByStringService {
         return result.toString();
     }
 
-    public List<Pack> createPacksByNameFromDatabase(
+    private List<Pack> createPacksByNameFromDatabase(
             PackModelDao packModelDao,
             String[] packNames
     ) {
@@ -111,5 +96,12 @@ public class LoadListService implements IRunnableByStringService {
                 .map(PackModelEntity::to)
                 .map(Pack::new)
                 .toList();
+    }
+
+    private String[] pullPacksNameListFromString(String request) {
+        return request
+                .substring(request.indexOf(":") + 1)
+                .trim()
+                .split("\\n");
     }
 }

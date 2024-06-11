@@ -31,17 +31,6 @@ public class PackModelEntity {
     @Column(name = "scheme_height")
     protected int height;
 
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", String.valueOf(id));
-        map.put("name", name);
-        map.put("code", String.valueOf(code));
-        map.put("scheme", scheme);
-        map.put("width", String.valueOf(width));
-        map.put("height", String.valueOf(height));
-        return map;
-    }
-
     public String toString() {
         return "Идентификатор: #" + id
                 + "\nНазвание посылки: " + name

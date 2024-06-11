@@ -26,15 +26,6 @@ public class CarModelEntity {
     @Column(name = "cargo_height")
     protected int height;
 
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", String.valueOf(id));
-        map.put("name", name);
-        map.put("width", String.valueOf(width));
-        map.put("height", String.valueOf(height));
-        return map;
-    }
-
     public String toString() {
         return "Идентификатор: #" + id
                 + "\nНазвание модели: " + name

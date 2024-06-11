@@ -1,6 +1,8 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
@@ -8,8 +10,8 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.Objects;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class Car extends CarModelEntity {
     private String[][] cargo;
     private int idCar;
