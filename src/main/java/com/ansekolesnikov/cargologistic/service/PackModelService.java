@@ -9,6 +9,7 @@ import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.utils.EntityUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -95,7 +96,7 @@ public class PackModelService implements
     }
 
     private PackModelDto updatePackByParams(String commandString) {
-        PackModelParameterEnum parameterEnum = PackModelParameterEnum.initEnumFromString(commandString.split(" ")[3]);
+        PackModelParameterEnum parameterEnum = EntityUtils.getPackModelParameterEnum(commandString.split(" ")[3]);
         String value = commandString.split(" ")[4];
         PackModelDto packModelDto = packModelDao.findById(Integer.parseInt(commandString.split(" ")[2]));
         switch (Objects.requireNonNull(parameterEnum)) {

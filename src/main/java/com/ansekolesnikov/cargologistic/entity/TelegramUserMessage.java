@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.enums.ServiceCommandEnum;
+import com.ansekolesnikov.cargologistic.utils.EntityUtils;
 import lombok.Data;
 import lombok.Getter;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -16,6 +17,6 @@ public class TelegramUserMessage {
         this.message = message;
         this.chatId = message.getChatId();
         this.text = message.getText();
-        this.command = ServiceCommandEnum.initEnumFromString(this.text.split(" ")[0]);
+        this.command = EntityUtils.getServiceCommandEnum(this.text.split(" ")[0]);
     }
 }

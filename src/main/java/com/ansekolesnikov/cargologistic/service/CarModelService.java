@@ -9,6 +9,7 @@ import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.utils.EntityUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -96,7 +97,7 @@ public class CarModelService implements
     }
 
     private CarModelDto updateCarByParams(String commandString) {
-        CarModelParameterEnum parameterEnum = CarModelParameterEnum.initEnumFromString(commandString.split(" ")[3]);
+        CarModelParameterEnum parameterEnum = EntityUtils.getCarModelParameterEnum(commandString.split(" ")[3]);
         String value = commandString.split(" ")[4];
         CarModelDto carModelDto = carModelDao.findById(Integer.parseInt(commandString.split(" ")[2]));
         switch (Objects.requireNonNull(parameterEnum)) {

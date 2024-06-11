@@ -5,6 +5,7 @@ import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import com.ansekolesnikov.cargologistic.service.*;
+import com.ansekolesnikov.cargologistic.utils.EntityUtils;
 import lombok.Data;
 
 import java.util.Objects;
@@ -47,7 +48,7 @@ public class RequestRunnableService {
     }
 
     private void initCarModelServiceRequestParams(String request) {
-        operation = DatabaseOperationEnum.initEnumFromString(request.split(" ")[1]);
+        operation = EntityUtils.getDatabaseOperationEnum(request.split(" ")[1]);
         switch (Objects.requireNonNull(operation)) {
             case GET, DELETE:
                 entityId = Integer.parseInt(request.split(" ")[2]);
@@ -59,14 +60,14 @@ public class RequestRunnableService {
                 break;
             case UPDATE:
                 entityId = Integer.parseInt(request.split(" ")[2]);
-                carModelParameterName = CarModelParameterEnum.initEnumFromString(request.split(" ")[3]);
+                carModelParameterName = EntityUtils.getCarModelParameterEnum(request.split(" ")[3]);
                 entityParameterValue = request.split(" ")[4];
                 break;
         }
     }
 
     private void initPackModelServiceRequestParams(String request) {
-        operation = DatabaseOperationEnum.initEnumFromString(request.split(" ")[1]);
+        operation = EntityUtils.getDatabaseOperationEnum(request.split(" ")[1]);
         switch (Objects.requireNonNull(operation)) {
             case GET, DELETE:
                 entityId = Integer.parseInt(request.split(" ")[2]);
@@ -78,7 +79,7 @@ public class RequestRunnableService {
                 break;
             case UPDATE:
                 entityId = Integer.parseInt(request.split(" ")[2]);
-                carModelParameterName = CarModelParameterEnum.initEnumFromString(request.split(" ")[3]);
+                carModelParameterName = EntityUtils.getCarModelParameterEnum(request.split(" ")[3]);
                 entityParameterValue = request.split(" ")[4];
                 break;
         }
@@ -90,13 +91,13 @@ public class RequestRunnableService {
 
     private void initLoadFileServiceRequestParams(String request) {
         fileName = request.split(" ")[1];
-        algorithm = AlgorithmEnum.initEnumFromString(request.split(" ")[2]);
+        algorithm = EntityUtils.getAlgorithmEnum(request.split(" ")[2]);
         countCars = Integer.parseInt(request.split(" ")[3]);
     }
 
     private void initLoadListServiceRequestParams(String request) {
         entityName = request.split(" ")[1];
-        algorithm = AlgorithmEnum.initEnumFromString(request.split(" ")[2]);
+        algorithm = EntityUtils.getAlgorithmEnum(request.split(" ")[2]);
         countCars = Integer.parseInt(request.split(" ")[3]);
         packModelNameList = new String[][]{request
                 .substring(request.indexOf(":") + 1)
