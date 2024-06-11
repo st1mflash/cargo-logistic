@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.database.dao;
 
+import com.ansekolesnikov.cargologistic.annotations.Dao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.database.repository.CarModelRepository;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+@Dao
 @RequiredArgsConstructor
 @Component
 @Transactional
