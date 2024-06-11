@@ -4,7 +4,7 @@ import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
-import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
+import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.CarModelServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class CarModelService implements
-        RunnableService,
+        IRunnableByStringService,
         EntityService,
         ICarModelService {
     private final CarModelDao carModelDao;

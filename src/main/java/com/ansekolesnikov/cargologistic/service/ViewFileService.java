@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
+import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ViewFileServiceOutput;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ViewFileService implements RunnableService {
+public class ViewFileService implements IRunnableByStringService {
     private final String PATH_IMPORT_CAR;
     private final PackModelDao packModelDao;
 

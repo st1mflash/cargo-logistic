@@ -11,7 +11,7 @@ import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.Pack;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
-import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
+import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.service.service_output.LoadFileServiceOutput;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
 import lombok.Setter;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Setter
 @Service
-public class LoadFileService implements RunnableService {
+public class LoadFileService implements IRunnableByStringService {
     private final PackModelDao packModelDao;
     private final CarModelDao carModelDao;
     private final LoaderPackToCar loaderPackToCar;

@@ -4,7 +4,7 @@ import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import com.ansekolesnikov.cargologistic.interfaces.EntityService;
 import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
-import com.ansekolesnikov.cargologistic.interfaces.RunnableService;
+import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.PackModelServiceOutput;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Service
 public class PackModelService implements
-        RunnableService,
+        IRunnableByStringService,
         EntityService,
         IPackModelService {
     private final PackModelDao packModelDao;
