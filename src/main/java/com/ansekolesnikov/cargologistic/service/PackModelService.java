@@ -28,13 +28,13 @@ public class PackModelService implements
 
     @Override
     public PackModelDto getPackModel(int id) {
-        LOGGER.info("Запрос информации о модели автомобиля по id.");
+        LOGGER.info("Запрос информации о модели автомобиля.");
         return packModelDao.findById(id);
     }
 
     @Override
     public List<PackModelDto> getPackModelList() {
-        LOGGER.info("Запрос информации о всех моделях автомобиля по id.");
+        LOGGER.info("Запрос информации о всех моделях автомобиля.");
         return packModelDao.findAll();
     }
 

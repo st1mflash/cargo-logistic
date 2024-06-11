@@ -29,26 +29,31 @@ public class CarModelService implements
 
     @Override
     public CarModelDto getCarModel(int id) {
+        LOGGER.info("Запрос информации о модели посылки.");
         return carModelDao.findById(id);
     }
 
     @Override
     public List<CarModelDto> getCarModelList() {
+        LOGGER.info("Запрос информации о всех моделях посылок.");
         return carModelDao.findAll();
     }
 
     @Override
     public CarModelDto addCarModel(CarModelDto carModelDto) {
+        LOGGER.info("Добавление модели посылки.");
         return carModelDao.insert(carModelDto);
     }
 
     @Override
     public CarModelDto updateCarModel(CarModelDto carModelDto) {
+        LOGGER.info("Обновление модели посылки.");
         return carModelDao.update(carModelDto);
     }
 
     @Override
     public Map<String, String> deleteCarModel(int id) {
+        LOGGER.info("Удаление модели посылки.");
         Map<String, String> result = new HashMap<>();
         try {
             carModelDao.delete(id);
