@@ -4,5 +4,5 @@ import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
 import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 
 public interface IRunnableByStringService {
-    ServiceOutput runService(ServiceRequest serviceRequest);
+    String runService(String request);
 }

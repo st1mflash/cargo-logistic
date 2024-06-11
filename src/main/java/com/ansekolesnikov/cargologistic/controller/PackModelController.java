@@ -36,6 +36,6 @@ public class PackModelController {
 
     @DeleteMapping
     public Map<String, String> deletePackModel(@RequestBody PackModelDto packModelDto) {
-        return packModelService.deletePackModel(packModelDto);
+        return packModelService.deletePackModel(packModelDto.getId());
     }
 }

@@ -2,17 +2,9 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.entity.Car;
-import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
-import com.ansekolesnikov.cargologistic.entity.LoaderPackToCar;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
-import com.ansekolesnikov.cargologistic.service.service_input.LoadFileServiceRequest;
-import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.entity.Pack;
+import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
-import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
-import com.ansekolesnikov.cargologistic.service.service_output.LoadFileServiceOutput;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -47,15 +39,13 @@ public class LoadFileService implements IRunnableByStringService {
     }
 
     @Override
-    public ServiceOutput runService(ServiceRequest serviceRequest) {
-        LoadFileServiceOutput result = new LoadFileServiceOutput();
+    public String runService(String request) {
         try {
-            LoadFileServiceRequest command = serviceRequest.getLoadFileServiceInput();
             LocalFile file = new LocalFile(
-                    PATH_IMPORT_PACKAGE + command.getFileName()
+                    PATH_IMPORT_PACKAGE + request.split(" ")[1]
             );
-            AlgorithmEnum algorithm = command.getAlgorithm();
-            int countCars = command.getCountCars();
+            AlgorithmEnum algorithm = AlgorithmEnum.initEnumFromString(request.split(" ")[2]);
+            int countCars = Integer.parseInt(request.split(" ")[3]);
 
             LoadFileServiceValidation validation = new LoadFileServiceValidation(
                     file,
@@ -77,18 +67,16 @@ public class LoadFileService implements IRunnableByStringService {
                         );
 
                 if (validation.isValidCountCars(loadedCarList)) {
-                    result.setText(toStringCarsInfo(loadedCarList));
+                    return toStringCarsInfo(loadedCarList);
                 } else {
-                    result.setText(validation.getUserErrorMessage());
+                    return validation.getUserErrorMessage();
                 }
             } else {
-                result.setText(validation.getUserErrorMessage());
+                return validation.getUserErrorMessage();
             }
-            return result;
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды.");
-            result.setText("Ошибка ввода.");
-            return result;
+            return "Ошибка ввода.";
         }
     }
 

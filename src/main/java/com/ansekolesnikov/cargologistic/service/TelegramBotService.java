@@ -74,27 +74,26 @@ public class TelegramBotService {
             }
             case LOAD_FILE -> {
                 LOGGER.info("Запрос загрузки из файла. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield loadFileService.runService(serviceRequest)
-                        .toString();
+                yield loadFileService.runService(userMessage.getText());
             }
             case LOAD_LIST -> {
                 LOGGER.info("Запрос ручной загрузки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield loadListService.runService(serviceRequest)
-                        .toString();
+                yield "";//loadListService.runService(serviceRequest)
+                      //  .toString();
             }
             case VIEW_FILE -> {
                 LOGGER.info("Запрос отображения информации о грузовиках из файла. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield viewFileService.runService(serviceRequest)
-                        .toString();
+                yield "";//viewFileService.runService(serviceRequest)
+                        //.toString();
             }
             case CAR -> {
                 LOGGER.info("Запрос на создание/изменение/удаление модели автомобиля. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield runCarService(userMessage.getText());
+                yield carModelService.runService(userMessage.getText());//runCarService(userMessage.getText());
             }
             case PACK -> {
                 LOGGER.info("Запрос на создание/изменение/удаление посылки. Telegram ID пользователя: '" + userMessage.getChatId() + "'");
-                yield packModelService.runService(serviceRequest)
-                        .toString();
+                yield packModelService.runService(userMessage.getText());//packModelService.runService(serviceRequest)
+                      //  .toString();
             }
         };
 

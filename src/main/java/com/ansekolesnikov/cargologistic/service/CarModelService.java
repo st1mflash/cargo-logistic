@@ -2,12 +2,11 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
-import com.ansekolesnikov.cargologistic.interfaces.EntityService;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
+import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
+import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
-import com.ansekolesnikov.cargologistic.service.service_input.ServiceRequest;
-import com.ansekolesnikov.cargologistic.service.service_output.CarModelServiceOutput;
-import com.ansekolesnikov.cargologistic.service.service_output.ServiceOutput;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -15,108 +14,16 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
 public class CarModelService implements
         IRunnableByStringService,
-        EntityService,
         ICarModelService {
     private final CarModelDao carModelDao;
 
     private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
-
-    @Override
-    public ServiceOutput runService(ServiceRequest command) {
-        try {
-            return switch (command.getCarModelServiceInput().getOperation()) {
-                case LIST -> listOperation();               //
-                case GET -> getOperation(command);          //
-                case INSERT -> insertOperation(command);
-                case UPDATE -> updateOperation(command);
-                case DELETE -> deleteOperation(command);    //
-            };
-        } catch (RuntimeException e) {
-            LOGGER.error("Ошибка ввода команды. Текст команды: " + command.getCarModelServiceInput().getText());
-            CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
-            serviceOutput.setText(
-                    "Ошибка ввода.\n" +
-                            "Проверьте правильность введенной операции (доступные: INSERT/UPDATE/DELETE/LIST)."
-            );
-            return serviceOutput;
-        }
-    }
-
-    @Override
-    public ServiceOutput listOperation() {
-        /*
-        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
-        serviceOutput.create(carModelDao.findAll());
-        */
-        return null;
-    }
-
-    @Override
-    public ServiceOutput getOperation(ServiceRequest command) {
-        /*
-        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
-        serviceOutput.create(
-                carModelDao.findById(command.getCarModelServiceInput().getIdCar())
-        );
-        */
-        return null;
-    }
-
-    @Override
-    public ServiceOutput insertOperation(ServiceRequest command) {
-        /*
-        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
-        CarModelEntity carModelEntity = CarModelEntity.builder()
-                .name(command.getCarModelServiceInput().getNameCar())
-                .width(command.getCarModelServiceInput().getWidthSchemeCargoCar())
-                .height(command.getCarModelServiceInput().getHeightSchemeCargoCar())
-                .build();
-        carModelDao.insert(carModelEntity);
-        serviceOutput.create(carModelEntity);
-        */
-        return null;
-    }
-
-
-    @Override
-    public ServiceOutput updateOperation(ServiceRequest command) {
-        /*
-        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
-        CarModelEntity carModelEntity = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
-        switch (command.getCarModelServiceInput().getUpdatedParamName()) {
-            case NAME:
-                carModelEntity.setName(command.getCarModelServiceInput().getUpdatedParamValue());
-                break;
-            case WIDTH:
-                carModelEntity.setWidth(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
-                break;
-            case HEIGHT:
-                carModelEntity.setHeight(Integer.parseInt(command.getCarModelServiceInput().getUpdatedParamValue()));
-                break;
-            default:
-                break;
-        }
-        carModelDao.update(carModelEntity);
-        serviceOutput.create(carModelEntity);
-        */
-        return null;
-    }
-
-    @Override
-    public ServiceOutput deleteOperation(ServiceRequest command) {
-        /*
-        CarModelServiceOutput serviceOutput = new CarModelServiceOutput();
-        CarModelEntity carModelEntity = carModelDao.findById(command.getCarModelServiceInput().getIdCar());
-        carModelDao.delete(carModelEntity);
-        serviceOutput.create(carModelEntity);
-        */
-        return null;
-    }
 
     @Override
     public CarModelDto getCarModel(int id) {
@@ -149,5 +56,54 @@ public class CarModelService implements
             result.put("status", "failed");
             return result;
         }
+    }
+
+    @Override
+    public String runService(String request) {
+        DatabaseOperationEnum operation = DatabaseOperationEnum.initEnumFromString(request.split(" ")[1]);
+        switch (Objects.requireNonNull(operation)) {
+            case LIST:
+                StringBuilder carList = new StringBuilder();
+                getCarModelList().stream()
+                        .map(CarModelEntity::to)
+                        .forEach(c -> carList.append(c).append("\n\n"));
+                return carList.toString();
+            case GET:
+                return CarModelEntity.to(getCarModel(Integer.parseInt(request.split(" ")[2]))).toString();
+            case INSERT:
+                CarModelDto carModelDto = CarModelDto.builder()
+                        .name(request.split(" ")[2])
+                        .width(Integer.parseInt(request.split(" ")[3]))
+                        .height(Integer.parseInt(request.split(" ")[4]))
+                        .build();
+                return CarModelEntity.to(addCarModel(carModelDto)).toString();
+            case UPDATE:
+                return CarModelEntity.to(updateCarByParams(request)).toString();
+            case DELETE:
+                deleteCarModel(Integer.parseInt(request.split(" ")[2]));
+                return "Успешное удаление";
+            default:
+                return "Не удалось определить команду";
+        }
+    }
+
+    private CarModelDto updateCarByParams(String commandString) {
+        CarModelParameterEnum parameterEnum = CarModelParameterEnum.initEnumFromString(commandString.split(" ")[3]);
+        String value = commandString.split(" ")[4];
+        CarModelDto carModelDto = carModelDao.findById(Integer.parseInt(commandString.split(" ")[2]));
+        switch (Objects.requireNonNull(parameterEnum)) {
+            case NAME:
+                carModelDto.setName(value);
+                break;
+            case WIDTH:
+                carModelDto.setWidth(Integer.parseInt(value));
+                break;
+            case HEIGHT:
+                carModelDto.setHeight(Integer.parseInt(value));
+                break;
+            default:
+                break;
+        }
+        return updateCarModel(carModelDto);
     }
 }

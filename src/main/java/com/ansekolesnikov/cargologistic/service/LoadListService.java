@@ -39,7 +39,8 @@ public class LoadListService implements IRunnableByStringService {
     }
 
     @Override
-    public ServiceOutput runService(ServiceRequest serviceRequest) {
+    public String runService(String request) {
+        /*
         LoadListServiceOutput result = new LoadListServiceOutput();
         try {
             LoadListServiceRequest command = serviceRequest.getLoadListServiceInput();
@@ -65,6 +66,8 @@ public class LoadListService implements IRunnableByStringService {
             result.setText("Ошибка ввода.");
             return result;
         }
+        */
+        return "";
     }
 
     public List<Car> loadCars(

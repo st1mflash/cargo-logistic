@@ -27,7 +27,8 @@ public class ViewFileService implements IRunnableByStringService {
     }
 
     @Override
-    public ServiceOutput runService(ServiceRequest serviceRequest) {
+    public String runService(String request) {
+        /*
         LocalFile localFile = new LocalFile(PATH_IMPORT_CAR + serviceRequest.getViewFileServiceInput().getFileName());
         FileValidation fileValidation = new FileValidation(localFile);
         ViewFileServiceOutput serviceOutput = new ViewFileServiceOutput();
@@ -38,6 +39,9 @@ public class ViewFileService implements IRunnableByStringService {
             serviceOutput.setText(fileValidation.getUserErrorMessage());
         }
         return serviceOutput;
+
+         */
+        return "";
     }
 
     public String toStringCarsFromFile(LocalFile localFile) {
