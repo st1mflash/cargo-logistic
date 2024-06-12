@@ -123,7 +123,7 @@ public class PackModelService implements
     }
 
     private PackModelDto updatePackByParams(RequestRunnableService request) {
-        PackModelParameterEnum parameterEnum = request.getPackModelParameterEnum();
+        PackModelParameterEnum parameterEnum = request.getPackModelParameterName();
         String value = request.getEntityParameterValue();
         PackModelDto packModelDto = packModelMapper.toDto(packModelDao.findById(request.getEntityId()));
         switch (Objects.requireNonNull(parameterEnum)) {
