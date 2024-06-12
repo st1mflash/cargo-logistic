@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import lombok.Data;
 import lombok.Getter;
 import org.apache.log4j.Logger;
@@ -62,7 +63,6 @@ public class LocalFile {
                     .stream(content.split("\\n\\s*\\n"))
                     .map(c -> c.replaceAll(" ", "").charAt(0))
                     .map(packModelDao::findByCode)
-                    .map(PackModelEntity::to)
                     .map(Pack::new)
                     .collect(Collectors.toList());
         } catch (Exception e) {

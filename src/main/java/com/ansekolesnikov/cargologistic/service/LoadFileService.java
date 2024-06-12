@@ -99,7 +99,7 @@ public class LoadFileService implements IRunnableByStringService {
     }
 
     public List<Car> loadCars(List<Pack> packList, int countCars, AlgorithmEnum algorithm) {
-        CarModelEntity defaultCarModelEntity = CarModelEntity.to(carModelDao.findById(1));
+        CarModelEntity defaultCarModelEntity = carModelDao.findById(1);
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
         do {

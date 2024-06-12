@@ -3,13 +3,12 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
-import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
 import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
-import com.ansekolesnikov.cargologistic.utils.EntityUtils;
+import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -25,31 +24,38 @@ import java.util.Objects;
 public class PackModelService implements
         IRunnableByStringService,
         IPackModelService {
+    private final PackModelMapper packModelMapper;
     private final PackModelDao packModelDao;
     private static final Logger LOGGER = Logger.getLogger(PackModelService.class.getName());
 
     @Override
     public PackModelDto getPackModel(int id) {
         LOGGER.info("Запрос информации о модели автомобиля.");
-        return packModelDao.findById(id);
+        return packModelMapper.toDto(packModelDao.findById(id));
     }
 
     @Override
     public List<PackModelDto> getPackModelList() {
         LOGGER.info("Запрос информации о всех моделях автомобиля.");
-        return packModelDao.findAll();
+        return packModelDao.findAll().stream()
+                .map(packModelMapper::toDto)
+                .toList();
     }
 
     @Override
     public PackModelDto addPackModel(PackModelDto packModelDto) {
         LOGGER.info("Создание модели автомобиля.");
-        return packModelDao.insert(packModelDto);
+        return packModelMapper.toDto(
+                packModelDao.insert(packModelMapper.toEntity(packModelDto))
+        );
     }
 
     @Override
     public PackModelDto updatePackModel(PackModelDto packModelDto) {
         LOGGER.info("Обновление модели автомобиля");
-        return packModelDao.update(packModelDto);
+        return packModelMapper.toDto(
+                packModelDao.update(packModelMapper.toEntity(packModelDto))
+        );
     }
 
     @Override
@@ -73,20 +79,20 @@ public class PackModelService implements
             case LIST:
                 StringBuilder packList = new StringBuilder();
                 getPackModelList().stream()
-                        .map(PackModelEntity::to)
+                        .map(packModelMapper::toEntity)
                         .forEach(c -> packList.append(c).append("\n\n"));
                 return packList.toString();
             case GET:
-                return PackModelEntity.to(getPackModel(request.getEntityId())).toString();
+                return packModelMapper.toEntity(getPackModel(request.getEntityId())).toString();
             case INSERT:
                 PackModelDto packModelDto = PackModelDto.builder()
                         .name(request.getEntityName())
                         .width(request.getEntityWidth())
                         .height(request.getEntityHeight())
                         .build();
-                return PackModelEntity.to(addPackModel(packModelDto)).toString();
+                return packModelMapper.toEntity(addPackModel(packModelDto)).toString();
             case UPDATE:
-                return PackModelEntity.to(updatePackByParams(request.getRequest())).toString();
+                return packModelMapper.toEntity(updatePackByParams(request)).toString();
             case DELETE:
                 deletePackModel(request.getEntityId());
                 return "Успешное удаление";
@@ -95,10 +101,10 @@ public class PackModelService implements
         }
     }
 
-    private PackModelDto updatePackByParams(String commandString) {
-        PackModelParameterEnum parameterEnum = EntityUtils.getPackModelParameterEnum(commandString.split(" ")[3]);
-        String value = commandString.split(" ")[4];
-        PackModelDto packModelDto = packModelDao.findById(Integer.parseInt(commandString.split(" ")[2]));
+    private PackModelDto updatePackByParams(RequestRunnableService request) {
+        PackModelParameterEnum parameterEnum = request.getPackModelParameterEnum();
+        String value = request.getEntityParameterValue();
+        PackModelDto packModelDto = packModelMapper.toDto(packModelDao.findById(request.getEntityId()));
         switch (Objects.requireNonNull(parameterEnum)) {
             case NAME:
                 packModelDto.setName(value);

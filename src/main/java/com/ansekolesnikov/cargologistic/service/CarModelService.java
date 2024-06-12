@@ -3,13 +3,12 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
-import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
-import com.ansekolesnikov.cargologistic.utils.EntityUtils;
+import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -26,31 +25,38 @@ public class CarModelService implements
         IRunnableByStringService,
         ICarModelService {
     private final CarModelDao carModelDao;
+    private final CarModelMapper carModelMapper;
 
     private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
 
     @Override
     public CarModelDto getCarModel(int id) {
         LOGGER.info("Запрос информации о модели посылки.");
-        return carModelDao.findById(id);
+        return carModelMapper.toDto(carModelDao.findById(id));
     }
 
     @Override
     public List<CarModelDto> getCarModelList() {
         LOGGER.info("Запрос информации о всех моделях посылок.");
-        return carModelDao.findAll();
+        return carModelDao.findAll().stream()
+                .map(carModelMapper::toDto)
+                .toList();
     }
 
     @Override
     public CarModelDto addCarModel(CarModelDto carModelDto) {
         LOGGER.info("Добавление модели посылки.");
-        return carModelDao.insert(carModelDto);
+        return carModelMapper.toDto(
+                carModelDao.insert(carModelMapper.toEntity(carModelDto))
+        );
     }
 
     @Override
     public CarModelDto updateCarModel(CarModelDto carModelDto) {
         LOGGER.info("Обновление модели посылки.");
-        return carModelDao.update(carModelDto);
+        return carModelMapper.toDto(
+                carModelDao.update(carModelMapper.toEntity(carModelDto))
+        );
     }
 
     @Override
@@ -74,20 +80,20 @@ public class CarModelService implements
             case LIST:
                 StringBuilder carList = new StringBuilder();
                 getCarModelList().stream()
-                        .map(CarModelEntity::to)
+                        .map(carModelMapper::toEntity)
                         .forEach(c -> carList.append(c).append("\n\n"));
                 return carList.toString();
             case GET:
-                return CarModelEntity.to(getCarModel(request.getEntityId())).toString();
+                return carModelMapper.toEntity(getCarModel(request.getEntityId())).toString();
             case INSERT:
                 CarModelDto carModelDto = CarModelDto.builder()
                         .name(request.getEntityName())
                         .width(request.getEntityWidth())
                         .height(request.getEntityHeight())
                         .build();
-                return CarModelEntity.to(addCarModel(carModelDto)).toString();
+                return carModelMapper.toEntity(addCarModel(carModelDto)).toString();
             case UPDATE:
-                return CarModelEntity.to(updateCarByParams(request.getRequest())).toString();
+                return carModelMapper.toEntity(updateCarByParams(request)).toString();
             case DELETE:
                 deleteCarModel(request.getEntityId());
                 return "Успешное удаление";
@@ -96,10 +102,12 @@ public class CarModelService implements
         }
     }
 
-    private CarModelDto updateCarByParams(String commandString) {
-        CarModelParameterEnum parameterEnum = EntityUtils.getCarModelParameterEnum(commandString.split(" ")[3]);
-        String value = commandString.split(" ")[4];
-        CarModelDto carModelDto = carModelDao.findById(Integer.parseInt(commandString.split(" ")[2]));
+    private CarModelDto updateCarByParams(RequestRunnableService request) {
+        CarModelParameterEnum parameterEnum = request.getCarModelParameterName();
+        String value = request.getEntityParameterValue();
+        CarModelDto carModelDto = carModelMapper.toDto(
+                carModelDao.findById(request.getEntityId())
+        );
         switch (Objects.requireNonNull(parameterEnum)) {
             case NAME:
                 carModelDto.setName(value);

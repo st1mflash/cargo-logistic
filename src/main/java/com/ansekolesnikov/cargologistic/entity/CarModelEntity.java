@@ -32,13 +32,4 @@ public class CarModelEntity {
                 + "\nНазвание модели: " + name
                 + "\nПараметры кузова: " + width + "x" + height;
     }
-
-    public static CarModelEntity to(CarModelDto carModelDto) {
-        CarModelEntity carModelEntity = new CarModelEntity();
-        carModelEntity.id = carModelDto.getId();
-        carModelEntity.name = carModelDto.getName();
-        carModelEntity.width = carModelDto.getWidth();
-        carModelEntity.height = carModelDto.getHeight();
-        return carModelEntity;
-    }
 }

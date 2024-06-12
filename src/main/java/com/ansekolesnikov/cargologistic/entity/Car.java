@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,8 @@ import java.util.Objects;
 
 @CargoCar
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class Car extends CarModelEntity {
     private String[][] cargo;
     private int idCar;
@@ -162,7 +162,7 @@ public class Car extends CarModelEntity {
     }
 
     public int calculateCountPackInCarByCode(Character code, PackModelDao packModelDao) {
-        PackModelEntity packModelEntity = PackModelEntity.to(packModelDao.findByCode(code));
+        PackModelEntity packModelEntity = packModelDao.findByCode(code);
         int packSize = packModelEntity.getScheme().replaceAll("0", "").length();
         return Arrays.deepToString(cargo).replaceAll("[^" + code + "]", "").length() / packSize;
     }

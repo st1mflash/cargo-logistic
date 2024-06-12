@@ -2,15 +2,13 @@ package com.ansekolesnikov.cargologistic.database.dao;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.annotations.Dao;
-import com.ansekolesnikov.cargologistic.dto.CarModelDto;
-import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.database.repository.CarModelRepository;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Dao
 @CargoCar
@@ -20,27 +18,24 @@ import java.util.Objects;
 public class CarModelDao {
     private final CarModelRepository carModelRepository;
 
-    public CarModelDto findById(int id) {
-        return CarModelDto.to(Objects.requireNonNull(carModelRepository.findById(id).orElse(null)));
+    public CarModelEntity findById(int id) {
+        return carModelRepository.findById(id).orElse(null);
     }
 
     public CarModelEntity findByName(String name) {
         return carModelRepository.findByName(name);
     }
 
-    public List<CarModelDto> findAll() {
-        return carModelRepository.findAll().stream()
-                .map(CarModelDto::to)
-                .toList();
+    public List<CarModelEntity> findAll() {
+        return carModelRepository.findAll();
     }
 
-    public CarModelDto insert(CarModelDto carModelDto) {
-        return CarModelDto.to(carModelRepository.save(CarModelEntity.to(carModelDto)));
+    public CarModelEntity insert(CarModelEntity carModelEntity) {
+        return carModelRepository.save(carModelEntity);
     }
 
-    public CarModelDto update(CarModelDto carModelDto) {
-        carModelRepository.save(CarModelEntity.to(carModelDto));
-        return carModelDto;
+    public CarModelEntity update(CarModelEntity carModelEntity) {
+        return carModelRepository.save(carModelEntity);
     }
 
     public void delete(int id) {

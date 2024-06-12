@@ -61,15 +61,4 @@ public class PackModelEntity {
     public int calculateCountElements() {
         return scheme.replaceAll("0", "").length();
     }
-
-    public static PackModelEntity to(PackModelDto packModelDto) {
-        PackModelEntity packModelEntity = new PackModelEntity();
-        packModelEntity.setId(packModelDto.getId());
-        packModelEntity.setName(packModelDto.getName());
-        packModelEntity.setCode(packModelDto.getCode());
-        packModelEntity.setScheme(packModelDto.getScheme());
-        packModelEntity.setWidth(packModelDto.getWidth());
-        packModelEntity.setHeight(packModelDto.getHeight());
-        return packModelEntity;
-    }
 }

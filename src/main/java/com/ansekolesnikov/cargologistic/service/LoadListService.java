@@ -93,7 +93,6 @@ public class LoadListService implements IRunnableByStringService {
         return Arrays
                 .stream(packNames)
                 .map(packModelDao::findByName)
-                .map(PackModelEntity::to)
                 .map(Pack::new)
                 .toList();
     }
