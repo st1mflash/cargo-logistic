@@ -1,12 +1,12 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoPack;
-import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 @CargoPack

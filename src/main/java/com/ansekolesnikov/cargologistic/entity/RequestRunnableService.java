@@ -29,7 +29,7 @@ public class RequestRunnableService {
     private Character packModelCode;
 
     private CarModelParameterEnum carModelParameterName;
-    private PackModelParameterEnum packModelParameterEnum;
+    private PackModelParameterEnum packModelParameterName;
 
     public RequestRunnableService(Class serviceClass, String request) {
         this.request = request;
@@ -79,7 +79,7 @@ public class RequestRunnableService {
                 break;
             case UPDATE:
                 entityId = Integer.parseInt(request.split(" ")[2]);
-                carModelParameterName = EntityUtils.getCarModelParameterEnum(request.split(" ")[3]);
+                packModelParameterName = EntityUtils.getPackModelParameterEnum(request.split(" ")[3]);
                 entityParameterValue = request.split(" ")[4];
                 break;
         }

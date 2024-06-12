@@ -1,12 +1,11 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoCar;
-import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @CargoCar
 @NoArgsConstructor

@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.interfaces;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
-import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
 
 import java.util.List;
 import java.util.Map;

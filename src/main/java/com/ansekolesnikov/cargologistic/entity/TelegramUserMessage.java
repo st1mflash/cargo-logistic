@@ -1,7 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.enums.ServiceCommandEnum;
-import com.ansekolesnikov.cargologistic.utils.EntityUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.telegram.telegrambots.meta.api.objects.Message;

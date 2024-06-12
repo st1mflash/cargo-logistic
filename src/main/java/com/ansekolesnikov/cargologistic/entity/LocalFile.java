@@ -1,9 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
-import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import lombok.Data;
-import lombok.Getter;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
