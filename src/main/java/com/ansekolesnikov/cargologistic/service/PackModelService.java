@@ -74,31 +74,52 @@ public class PackModelService implements
 
     @Override
     public String run(RequestRunnableService request) {
-        DatabaseOperationEnum operation = request.getOperation();
-        switch (Objects.requireNonNull(operation)) {
-            case LIST:
-                StringBuilder packList = new StringBuilder();
-                getPackModelList().stream()
-                        .map(packModelMapper::toEntity)
-                        .forEach(c -> packList.append(c).append("\n\n"));
-                return packList.toString();
-            case GET:
-                return packModelMapper.toEntity(getPackModel(request.getEntityId())).toString();
-            case INSERT:
-                PackModelDto packModelDto = PackModelDto.builder()
-                        .name(request.getEntityName())
-                        .width(request.getEntityWidth())
-                        .height(request.getEntityHeight())
-                        .build();
-                return packModelMapper.toEntity(addPackModel(packModelDto)).toString();
-            case UPDATE:
-                return packModelMapper.toEntity(updatePackByParams(request)).toString();
-            case DELETE:
-                deletePackModel(request.getEntityId());
-                return "Успешное удаление";
-            default:
-                return "Не удалось определить команду";
+        try {
+            DatabaseOperationEnum operation = request.getOperation();
+            return switch (Objects.requireNonNull(operation)) {
+                case GET -> processGetOperationToString(request);
+                case LIST -> processListOperationToString();
+                case INSERT -> processInsertOperationToString(request);
+                case UPDATE -> processUpdateOperationToString(request);
+                case DELETE -> processDeleteOperationToString(request);
+            };
+        } catch (RuntimeException e) {
+            return toStringError();
         }
+    }
+
+    private String processGetOperationToString(RequestRunnableService request) {
+        return packModelMapper.toEntity(getPackModel(request.getEntityId())).toString();
+    }
+
+    private String processListOperationToString() {
+        StringBuilder packList = new StringBuilder();
+        getPackModelList().stream()
+                .map(packModelMapper::toEntity)
+                .forEach(c -> packList.append(c).append("\n\n"));
+        return packList.toString();
+    }
+
+    private String processInsertOperationToString(RequestRunnableService request) {
+        PackModelDto packModelDto = PackModelDto.builder()
+                .name(request.getEntityName())
+                .width(request.getEntityWidth())
+                .height(request.getEntityHeight())
+                .build();
+        return packModelMapper.toEntity(addPackModel(packModelDto)).toString();
+    }
+
+    private String processUpdateOperationToString(RequestRunnableService request) {
+        return packModelMapper.toEntity(updatePackByParams(request)).toString();
+    }
+
+    private String processDeleteOperationToString(RequestRunnableService request) {
+        deletePackModel(request.getEntityId());
+        return "Успешное удаление";
+    }
+
+    private String toStringError() {
+        return "Не удалось определить команду";
     }
 
     private PackModelDto updatePackByParams(RequestRunnableService request) {
@@ -126,4 +147,5 @@ public class PackModelService implements
         }
         return updatePackModel(packModelDto);
     }
+
 }
