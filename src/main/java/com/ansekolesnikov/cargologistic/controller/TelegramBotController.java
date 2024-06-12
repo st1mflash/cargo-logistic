@@ -3,6 +3,8 @@ package com.ansekolesnikov.cargologistic.controller;
 import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
+import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapperImpl;
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
@@ -15,6 +17,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @RequiredArgsConstructor
 @Service
 public class TelegramBotController extends TelegramLongPollingBot {
+    private final TelegramMessageMapper telegramMessageMapper = new TelegramMessageMapperImpl();
     private final TelegramBotService telegramBotService;
     private final String BOT_TOKEN;
     private final String BOT_USERNAME;
@@ -23,7 +26,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            TelegramUserMessage userMessage = new TelegramUserMessage(update.getMessage());
+            TelegramUserMessage userMessage = telegramMessageMapper.toTelegramUserMessage(update.getMessage());
             IRunnableByStringService service = telegramBotService.selectService(userMessage);
             RequestRunnableService request = new RequestRunnableService(service.getClass(), userMessage.getText());
             sendMessage(
@@ -31,6 +34,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
                     service.run(request)
             );
         } catch (Exception e) {
+            LOGGER.error(e);
             sendMessage(
                     update.getMessage().getChatId(),
                     "Возникла ошибка.\n\n" + telegramBotService.toStringBotInfo()
