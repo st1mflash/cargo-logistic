@@ -3,6 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class LoadListService implements IRunnableByStringService {
     private final CarModelRepository carModelRepository;
     private final PackModelRepository packModelRepository;
     private final LoaderPackToCar loaderPackToCar;
+    private final CarModelMapper carModelMapper;
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
@@ -39,7 +41,7 @@ public class LoadListService implements IRunnableByStringService {
                     )
             );
         } catch (RuntimeException e) {
-            LOGGER.error("Ошибка ввода команды.");
+            LOGGER.error("Ошибка ввода команды: " + e);
             return "Ошибка ввода.";
         }
     }
@@ -53,7 +55,7 @@ public class LoadListService implements IRunnableByStringService {
         List<Car> listCars = new ArrayList<>();
 
         for (int i = 0; i < inputCountCars; i++) {
-            Car car = new Car(inputCarModelEntity);
+            Car car = carModelMapper.toCar(inputCarModelEntity);
             listCars.add(car);
 
             List<Pack> filteredPackList = inputPack.stream()

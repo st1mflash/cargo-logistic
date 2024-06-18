@@ -1,6 +1,5 @@
 package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
-@CargoPack
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

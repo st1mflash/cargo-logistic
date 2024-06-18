@@ -1,10 +1,8 @@
 package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@CargoPack
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Pack extends PackModelEntity {

@@ -3,6 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
@@ -23,6 +24,7 @@ public class LoadFileService implements IRunnableByStringService {
     private final PackModelRepository packModelRepository;
     private final CarModelRepository carModelRepository;
     private final LoaderPackToCar loaderPackToCar;
+    private final CarModelMapper carModelMapper;
     private final String PATH_IMPORT_PACKAGE;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
 
@@ -30,11 +32,13 @@ public class LoadFileService implements IRunnableByStringService {
             PackModelRepository packModelRepository,
             CarModelRepository carModelRepository,
             LoaderPackToCar loaderPackToCar,
+            CarModelMapper carModelMapper,
             @Value("${directory.pack.import}") String pathImportPackage
     ) {
         this.packModelRepository = packModelRepository;
         this.carModelRepository = carModelRepository;
         this.loaderPackToCar = loaderPackToCar;
+        this.carModelMapper = carModelMapper;
         this.PATH_IMPORT_PACKAGE = pathImportPackage;
     }
 
@@ -74,7 +78,7 @@ public class LoadFileService implements IRunnableByStringService {
                 return validation.getUserErrorMessage();
             }
         } catch (RuntimeException e) {
-            LOGGER.error("Ошибка ввода команды.");
+            LOGGER.error("Ошибка ввода команды: " + e);
             return "Ошибка ввода.";
         }
     }
@@ -103,7 +107,7 @@ public class LoadFileService implements IRunnableByStringService {
         List<Car> listCars = new ArrayList<>();
         do {
             assert defaultCarModelEntity != null;
-            Car car = new Car(defaultCarModelEntity);
+            Car car = carModelMapper.toCar(defaultCarModelEntity);
             listCars.add(car);
             packList = packList.stream()
                     .filter(pack -> pack.getCarId() == 0)

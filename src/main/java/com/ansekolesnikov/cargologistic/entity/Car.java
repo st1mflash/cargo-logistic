@@ -1,35 +1,22 @@
 package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-@CargoCar
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Getter
 @Setter
 public class Car extends CarModelEntity {
     private String[][] cargo;
     private int idCar;
-
-    public Car(CarModelEntity carModelEntity) {
-        this.id = carModelEntity.getId();
-        this.name = carModelEntity.getName();
-        this.width = carModelEntity.getWidth();
-        this.height = carModelEntity.getHeight();
-        this.cargo = new String[height][width];
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                cargo[i][j] = "0";
-            }
-        }
-    }
 
     public Car(JSONObject JSONObj) {
         this.idCar = Integer.parseInt(JSONObj.getString("id"));

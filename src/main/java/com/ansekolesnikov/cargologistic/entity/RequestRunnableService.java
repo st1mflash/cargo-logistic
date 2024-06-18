@@ -98,7 +98,7 @@ public class RequestRunnableService {
     private void initLoadListServiceRequestParams(String request) {
         entityName = request.split(" ")[1];
         algorithm = EntityUtils.getAlgorithmEnum(request.split(" ")[2]);
-        countCars = Integer.parseInt(request.split(" ")[3]);
+        countCars = Integer.parseInt(String.valueOf(request.split(" ")[3].charAt(0)));
         packModelNameList = new String[][]{request
                 .substring(request.indexOf(":") + 1)
                 .trim()
