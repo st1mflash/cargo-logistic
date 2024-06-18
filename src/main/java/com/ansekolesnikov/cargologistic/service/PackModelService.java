@@ -84,7 +84,7 @@ public class PackModelService implements
                 case DELETE -> processDeleteOperationToString(request);
             };
         } catch (RuntimeException e) {
-            return toStringError();
+            return toStringError(); //todo выносить такое не надо
         }
     }
 
@@ -113,6 +113,7 @@ public class PackModelService implements
         return packModelMapper.toEntity(updatePackByParams(request)).toString();
     }
 
+    //todo Возвращать void
     private String processDeleteOperationToString(RequestRunnableService request) {
         deletePackModel(request.getEntityId());
         return "Успешное удаление";

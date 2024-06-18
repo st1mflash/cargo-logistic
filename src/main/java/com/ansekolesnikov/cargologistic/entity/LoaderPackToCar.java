@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
+//todo Это сервис Selector а не entity
 public class LoaderPackToCar {
     private final LoadAlgorithmMax loadAlgorithmMax;
     private final LoadAlgorithmHalf loadAlgorithmHalf;

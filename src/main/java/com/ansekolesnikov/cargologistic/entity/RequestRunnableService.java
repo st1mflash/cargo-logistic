@@ -11,6 +11,8 @@ import lombok.Data;
 import java.util.Objects;
 
 @Data
+//todo Почему сервис в entity?
+//todo Почему сервис вызывается через new? хотя мы используем spring
 public class RequestRunnableService {
     private String request;
 

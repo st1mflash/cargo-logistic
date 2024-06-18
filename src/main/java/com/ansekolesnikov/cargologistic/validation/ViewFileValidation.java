@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+//todo Почему вызывается через new? Spring
 public class ViewFileValidation implements IServiceValidation {
     private static final Logger LOGGER = Logger.getLogger(ViewFileValidation.class.getName());
     private final String pathFile, nameFile, formatFile;

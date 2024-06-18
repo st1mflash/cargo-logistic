@@ -7,8 +7,8 @@ import lombok.Getter;
 import org.apache.log4j.Logger;
 
 import java.util.List;
-
-public class LoadFileServiceValidation {
+//todo Почему вызывается через new? Spring
+public class LoadFileServiceValidation { //todo Почему нет интрефейса
     private static final Logger LOGGER = Logger.getLogger(LoadFileServiceValidation.class.getName());
     private final LocalFile localFile;
     private final AlgorithmEnum algorithm;
@@ -31,7 +31,7 @@ public class LoadFileServiceValidation {
             userErrorMessage = algorithmValidation.getUserErrorMessage();
             return false;
         } else if (countCars <= 0) {
-            LOGGER.error("Количество машин должно быть больше нуля");
+            LOGGER.error("Количество машин должно быть больше нуля"); //todo вынеси в константу строку
             userErrorMessage =  "Количество машин должно быть больше нуля";
             return false;
         }
@@ -39,6 +39,7 @@ public class LoadFileServiceValidation {
     }
     public boolean isValidCountCars(List<Car> listCar) {
         if(listCar.size() > countCars) {
+            //todo вынеси в константу строку
             LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + listCar.size() + ", а указано " + countCars);
             userErrorMessage = "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + listCar.size() + "!";
             return false;

@@ -3,9 +3,10 @@ package com.ansekolesnikov.cargologistic.validation;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.Getter;
 
-public class AlgorithmValidation {
-    @Getter
-    private String userErrorMessage, logErrorMessage;
+//todo Почему вызывается через new? Spring
+public class AlgorithmValidation { //todo Почему нет интрефейса
+    @Getter//todo почему Get тут а не на сервисе?
+    private String userErrorMessage, logErrorMessage; //todo раздели на два
     private final AlgorithmEnum algorithm;
 
     public AlgorithmValidation(AlgorithmEnum algorithm) {

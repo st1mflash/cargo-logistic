@@ -10,14 +10,14 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.Objects;
 
-@CargoCar
+@CargoCar //todo для чего интерфейс к сущности
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
 public class Car extends CarModelEntity {
     private String[][] cargo;
     private int idCar;
-
+    //todo маппер вместо конструктора
     public Car(CarModelEntity carModelEntity) {
         this.id = carModelEntity.getId();
         this.name = carModelEntity.getName();

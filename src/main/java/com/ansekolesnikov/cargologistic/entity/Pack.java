@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 public class Pack extends PackModelEntity {
     private int carId = 0;
     private String[][] arrScheme;
-
+    //todo маппер вместо конструктора
     public Pack(PackModelEntity packModelEntity) {
         this.id = packModelEntity.getId();
         this.name = packModelEntity.getName();

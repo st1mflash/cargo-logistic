@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@CargoCar
+@CargoCar //todo для чего интерфейс к сущности
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

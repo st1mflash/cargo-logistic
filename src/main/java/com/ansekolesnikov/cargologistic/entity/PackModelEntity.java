@@ -31,7 +31,7 @@ public class PackModelEntity {
     protected int width;
     @Column(name = "scheme_height")
     protected int height;
-
+    //todo @data же имеет toString, или же @data замени на то что тебе нужно
     public String toString() {
         return "Идентификатор: #" + id
                 + "\nНазвание посылки: " + name

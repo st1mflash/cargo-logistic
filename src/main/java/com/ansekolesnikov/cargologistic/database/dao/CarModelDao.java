@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 @Transactional
+//todo ненужная прослойка, можно обойтись без DAO
 public class CarModelDao {
     private final CarModelRepository carModelRepository;
 

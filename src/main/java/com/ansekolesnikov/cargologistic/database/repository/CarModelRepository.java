@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.database.repository;
+package com.ansekolesnikov.cargologistic.database.repository; //todo вынести папку repository из database
 
 import com.ansekolesnikov.cargologistic.annotations.CargoCar;
 import com.ansekolesnikov.cargologistic.entity.CarModelEntity;

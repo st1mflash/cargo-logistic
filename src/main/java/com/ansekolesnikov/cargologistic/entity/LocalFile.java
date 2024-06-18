@@ -14,9 +14,10 @@ import java.util.stream.Collectors;
 
 @Data
 public class LocalFile {
-    private String name, format, path, content;
-    private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());
+    private String name, format, path, content;     //todo распиши лучше по отдельности.
 
+    private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());
+    //todo маппер вместо конструктора
     public LocalFile(String filePath) {
         try {
             name = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.lastIndexOf('.'));
@@ -27,7 +28,7 @@ public class LocalFile {
             LOGGER.error("Ошибка считывания содержимого файла '" + filePath + "'. Подробнее: " + e);
         }
     }
-
+    //todo логику вынеси в отдельный класс или если не хочешь, то это не entity а сервис скорее
     public String calculateFilePathNameFormat() {
         return path + name + format;
     }
