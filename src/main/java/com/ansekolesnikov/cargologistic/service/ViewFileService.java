@@ -1,10 +1,10 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import com.ansekolesnikov.cargologistic.validation.ViewFileValidation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,14 +13,14 @@ import java.util.List;
 
 @Service
 public class ViewFileService implements IRunnableByStringService {
+    private final PackModelRepository packModelRepository;
     private final String PATH_IMPORT_CAR;
-    private final PackModelDao packModelDao;
 
     public ViewFileService(
-            PackModelDao packModelDao,
+            PackModelRepository packModelRepository,
             @Value("${directory.car.import}") String pathImportCar
     ) {
-        this.packModelDao = packModelDao;
+        this.packModelRepository = packModelRepository;
         this.PATH_IMPORT_CAR = pathImportCar;
     }
 
@@ -48,7 +48,7 @@ public class ViewFileService implements IRunnableByStringService {
     public String toStringListCars(List<Car> carList) {
         StringBuilder result = new StringBuilder();
         for (Car car : carList) {
-            result.append(car.toStringCarInfo(packModelDao));
+            result.append(car.toStringCarInfo(packModelRepository));
         }
         return result.toString();
     }

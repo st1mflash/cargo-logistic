@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.Data;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -55,12 +55,12 @@ public class LocalFile {
         }
     }
 
-    public List<Pack> importPacksFromFile(PackModelDao packModelDao) {
+    public List<Pack> importPacksFromFile(PackModelRepository packModelRepository) {
         try {
             return Arrays
                     .stream(content.split("\\n\\s*\\n"))
                     .map(c -> c.replaceAll(" ", "").charAt(0))
-                    .map(packModelDao::findByCode)
+                    .map(packModelRepository::findByCode)
                     .map(Pack::new)
                     .collect(Collectors.toList());
         } catch (Exception e) {

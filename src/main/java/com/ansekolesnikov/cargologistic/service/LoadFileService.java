@@ -1,10 +1,10 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
-import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
+import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -20,20 +20,20 @@ import java.util.stream.Collectors;
 @Setter
 @Service
 public class LoadFileService implements IRunnableByStringService {
-    private final PackModelDao packModelDao;
-    private final CarModelDao carModelDao;
+    private final PackModelRepository packModelRepository;
+    private final CarModelRepository carModelRepository;
     private final LoaderPackToCar loaderPackToCar;
     private final String PATH_IMPORT_PACKAGE;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
 
     public LoadFileService(
-            PackModelDao packModelDao,
-            CarModelDao carModelDao,
+            PackModelRepository packModelRepository,
+            CarModelRepository carModelRepository,
             LoaderPackToCar loaderPackToCar,
             @Value("${directory.pack.import}") String pathImportPackage
     ) {
-        this.packModelDao = packModelDao;
-        this.carModelDao = carModelDao;
+        this.packModelRepository = packModelRepository;
+        this.carModelRepository = carModelRepository;
         this.loaderPackToCar = loaderPackToCar;
         this.PATH_IMPORT_PACKAGE = pathImportPackage;
     }
@@ -56,7 +56,6 @@ public class LoadFileService implements IRunnableByStringService {
             if (validation.isValid()) {
                 List<Pack> importedPackList =
                         importPacksFromFileSortedByWidth(
-                                packModelDao,
                                 file
                         );
                 List<Car> loadedCarList =
@@ -90,19 +89,20 @@ public class LoadFileService implements IRunnableByStringService {
         return result.toString();
     }
 
-    public List<Pack> importPacksFromFileSortedByWidth(PackModelDao packModelDao, LocalFile localFile) {
+    public List<Pack> importPacksFromFileSortedByWidth(LocalFile localFile) {
         return Objects
-                .requireNonNull(localFile.importPacksFromFile(packModelDao))
+                .requireNonNull(localFile.importPacksFromFile(packModelRepository))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();
     }
 
     public List<Car> loadCars(List<Pack> packList, int countCars, AlgorithmEnum algorithm) {
-        CarModelEntity defaultCarModelEntity = carModelDao.findById(1);
+        CarModelEntity defaultCarModelEntity = carModelRepository.findById(1).orElse(null);
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
         do {
+            assert defaultCarModelEntity != null;
             Car car = new Car(defaultCarModelEntity);
             listCars.add(car);
             packList = packList.stream()

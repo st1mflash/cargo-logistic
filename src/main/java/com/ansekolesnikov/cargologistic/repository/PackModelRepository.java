@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.database.repository;
+package com.ansekolesnikov.cargologistic.repository;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoPack;
 import com.ansekolesnikov.cargologistic.entity.PackModelEntity;

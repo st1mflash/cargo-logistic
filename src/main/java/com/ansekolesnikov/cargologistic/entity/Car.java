@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.entity;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoCar;
-import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
+import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -132,7 +132,7 @@ public class Car extends CarModelEntity {
         return true;
     }
 
-    public String toStringCarInfo(PackModelDao packModelDao) {
+    public String toStringCarInfo(PackModelRepository packModelRepository) {
         StringBuilder fullInfoString = new StringBuilder(
                 "Идентификатор: #" + idCar
                         + "\nПараметры кузова: " + width + "х" + height
@@ -153,7 +153,7 @@ public class Car extends CarModelEntity {
                 .filter(c -> c != '0')
                 .toList()
         ) {
-            int countPackages = calculateCountPackInCarByCode(code, packModelDao);
+            int countPackages = calculateCountPackInCarByCode(code, packModelRepository);
             fullInfoString.append((countPackages != 0 ? "\n- посылка '" + code + "': " + countPackages + " шт." : ""));
         }
 
@@ -161,8 +161,8 @@ public class Car extends CarModelEntity {
         return fullInfoString.toString();
     }
 
-    public int calculateCountPackInCarByCode(Character code, PackModelDao packModelDao) {
-        PackModelEntity packModelEntity = packModelDao.findByCode(code);
+    public int calculateCountPackInCarByCode(Character code, PackModelRepository packModelRepository) {
+        PackModelEntity packModelEntity = packModelRepository.findByCode(code);
         int packSize = packModelEntity.getScheme().replaceAll("0", "").length();
         return Arrays.deepToString(cargo).replaceAll("[^" + code + "]", "").length() / packSize;
     }

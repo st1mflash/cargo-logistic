@@ -1,7 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.annotations.CargoCar;
-import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
@@ -9,6 +8,7 @@ import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
+import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import java.util.Objects;
 public class CarModelService implements
         IRunnableByStringService,
         ICarModelService {
-    private final CarModelDao carModelDao;
+    private final CarModelRepository carModelRepository;
     private final CarModelMapper carModelMapper;
 
     private static final Logger LOGGER = Logger.getLogger(CarModelService.class.getName());
@@ -32,13 +32,13 @@ public class CarModelService implements
     @Override
     public CarModelDto getCarModel(int id) {
         LOGGER.info("Запрос информации о модели посылки.");
-        return carModelMapper.toDto(carModelDao.findById(id));
+        return carModelMapper.toDto(carModelRepository.findById(id).orElse(null));
     }
 
     @Override
     public List<CarModelDto> getCarModelList() {
         LOGGER.info("Запрос информации о всех моделях посылок.");
-        return carModelDao.findAll().stream()
+        return carModelRepository.findAll().stream()
                 .map(carModelMapper::toDto)
                 .toList();
     }
@@ -47,7 +47,7 @@ public class CarModelService implements
     public CarModelDto addCarModel(CarModelDto carModelDto) {
         LOGGER.info("Добавление модели посылки.");
         return carModelMapper.toDto(
-                carModelDao.insert(carModelMapper.toEntity(carModelDto))
+                carModelRepository.save(carModelMapper.toEntity(carModelDto))
         );
     }
 
@@ -55,7 +55,7 @@ public class CarModelService implements
     public CarModelDto updateCarModel(CarModelDto carModelDto) {
         LOGGER.info("Обновление модели посылки.");
         return carModelMapper.toDto(
-                carModelDao.update(carModelMapper.toEntity(carModelDto))
+                carModelRepository.save(carModelMapper.toEntity(carModelDto))
         );
     }
 
@@ -64,7 +64,7 @@ public class CarModelService implements
         LOGGER.info("Удаление модели посылки.");
         Map<String, String> result = new HashMap<>();
         try {
-            carModelDao.delete(id);
+            carModelRepository.delete(Objects.requireNonNull(carModelRepository.findById(id).orElse(null)));
             result.put("status", "success");
             return result;
         } catch (RuntimeException e) {
@@ -106,7 +106,7 @@ public class CarModelService implements
         CarModelParameterEnum parameterEnum = request.getCarModelParameterName();
         String value = request.getEntityParameterValue();
         CarModelDto carModelDto = carModelMapper.toDto(
-                carModelDao.findById(request.getEntityId())
+                carModelRepository.findById(request.getEntityId()).orElse(null)
         );
         switch (Objects.requireNonNull(parameterEnum)) {
             case NAME:

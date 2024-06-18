@@ -1,10 +1,10 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.database.dao.CarModelDao;
-import com.ansekolesnikov.cargologistic.database.dao.PackModelDao;
 import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
+import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -16,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class LoadListService implements IRunnableByStringService {
-    private final CarModelDao carModelDao;
-    private final PackModelDao packModelDao;
+    private final CarModelRepository carModelRepository;
+    private final PackModelRepository packModelRepository;
     private final LoaderPackToCar loaderPackToCar;
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
@@ -25,12 +25,9 @@ public class LoadListService implements IRunnableByStringService {
     @Override
     public String run(RequestRunnableService request) {
         try {
-            CarModelEntity carModelEntity = carModelDao.findByName(request.getEntityName());
+            CarModelEntity carModelEntity = carModelRepository.findByName(request.getEntityName());
             List<Pack> packs =
-                    createPacksByNameFromDatabase(
-                            packModelDao,
-                            pullPacksNameListFromString(request.getRequest())
-                    );
+                    createPacksByNameFromDatabase(pullPacksNameListFromString(request.getRequest()));
 
             return toStringCarsPacksInfo(
                     packs,
@@ -87,12 +84,11 @@ public class LoadListService implements IRunnableByStringService {
     }
 
     private List<Pack> createPacksByNameFromDatabase(
-            PackModelDao packModelDao,
             String[] packNames
     ) {
         return Arrays
                 .stream(packNames)
-                .map(packModelDao::findByName)
+                .map(packModelRepository::findByName)
                 .map(Pack::new)
                 .toList();
     }
