@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
-import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
+import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
@@ -72,7 +72,7 @@ public class CarModelService implements
     }
 
     @Override
-    public String run(RequestRunnableService request) {
+    public String run(RequestString request) {
         DatabaseOperationEnum operation = request.getOperation();
         switch (Objects.requireNonNull(operation)) {
             case LIST:
@@ -100,7 +100,7 @@ public class CarModelService implements
         }
     }
 
-    private CarModelDto updateCarByParams(RequestRunnableService request) {
+    private CarModelDto updateCarByParams(RequestString request) {
         CarModelParameterEnum parameterEnum = request.getCarModelParameterName();
         String value = request.getEntityParameterValue();
         CarModelDto carModelDto = carModelMapper.toDto(

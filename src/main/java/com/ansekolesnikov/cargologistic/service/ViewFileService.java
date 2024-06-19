@@ -2,41 +2,34 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
+import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.mappers.LocalFileMapper;
 import com.ansekolesnikov.cargologistic.mappers.LocalFileMapperImpl;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import com.ansekolesnikov.cargologistic.validation.ViewFileValidation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ViewFileService implements IRunnableByStringService {
     private final LocalFileMapper localFileMapper = new LocalFileMapperImpl();
+    @Value("${directory.car.import}")
+    private String PATH_IMPORT_CAR;
     private final PackModelRepository packModelRepository;
     private final CarModelMapper carModelMapper;
-    private final String PATH_IMPORT_CAR;
-
-    public ViewFileService(
-            PackModelRepository packModelRepository,
-            CarModelMapper carModelMapper,
-            @Value("${directory.car.import}") String pathImportCar
-    ) {
-        this.packModelRepository = packModelRepository;
-        this.carModelMapper = carModelMapper;
-        this.PATH_IMPORT_CAR = pathImportCar;
-    }
 
     @Override
-    public String run(RequestRunnableService request) {
+    public String run(RequestString request) {
         LocalFile localFile = localFileMapper.toLocalFile(PATH_IMPORT_CAR + request.getFileName());
-        ViewFileValidation fileValidation = new ViewFileValidation(localFile);
+        ViewFileValidation fileValidation = new ViewFileValidation();
 
-        if (fileValidation.isValid()) {
+        if (fileValidation.isValid(localFile)) {
             return toStringCarsFromFile(localFile);
         } else {
             return fileValidation.getUserErrorMessage();

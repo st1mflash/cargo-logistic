@@ -28,7 +28,7 @@ public class LoadListService implements IRunnableByStringService {
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
     @Override
-    public String run(RequestRunnableService request) {
+    public String run(RequestString request) {
         try {
             CarModelEntity carModelEntity = carModelRepository.findByName(request.getEntityName());
             List<Pack> packs =

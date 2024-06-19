@@ -20,10 +20,6 @@ public class LocalFile {
     private String content;
     private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());
 
-    public String calculateFilePathNameFormat() {
-        return path + name + format;
-    }
-
     public List<JSONObject> importListJsonCars() {
         List<JSONObject> listJSONObj = new ArrayList<>();
         String[] arrClearContent = content
@@ -42,7 +38,7 @@ public class LocalFile {
                     .map(carModelMapper::toCar)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error("Ошибка импорта грузовиков из файла: '" + calculateFilePathNameFormat() + "': " + e);
+            LOGGER.error("Ошибка импорта грузовиков из файла: " + e);
             return null;
         }
     }
@@ -56,7 +52,7 @@ public class LocalFile {
                     .map(packModelMapper::toPack)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error("Ошибка ошибка импорта грузов из файла: '" + calculateFilePathNameFormat() + "': " + e);
+            LOGGER.error("Ошибка ошибка импорта грузов из файла: " + e);
             return null;
         }
     }

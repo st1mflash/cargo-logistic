@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.interfaces;
 
-import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
+import com.ansekolesnikov.cargologistic.entity.RequestString;
 
 public interface IRunnableByStringService {
-    String run(RequestRunnableService request);
+    String run(RequestString request);
 }

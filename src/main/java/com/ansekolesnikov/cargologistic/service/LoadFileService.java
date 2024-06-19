@@ -11,6 +11,7 @@ import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import com.ansekolesnikov.cargologistic.selector.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,48 +23,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Setter
 @Service
 public class LoadFileService implements IRunnableByStringService {
-    private final LocalFileMapper localFileMapper = new LocalFileMapperImpl();
+    private LocalFileMapper localFileMapper = new LocalFileMapperImpl();
+    @Value("${directory.pack.import}")
+    private String PATH_IMPORT_PACKAGE;
     private final PackModelRepository packModelRepository;
     private final CarModelRepository carModelRepository;
     private final LoaderPackToCar loaderPackToCar;
     private final CarModelMapper carModelMapper;
     private final PackModelMapper packModelMapper;
-    private final String PATH_IMPORT_PACKAGE;
+    private final LoadFileServiceValidation loadFileServiceValidation;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
 
-    public LoadFileService(
-            PackModelRepository packModelRepository,
-            CarModelRepository carModelRepository,
-            LoaderPackToCar loaderPackToCar,
-            CarModelMapper carModelMapper,
-            PackModelMapper packModelMapper,
-            @Value("${directory.pack.import}") String pathImportPackage
-    ) {
-        this.packModelRepository = packModelRepository;
-        this.carModelRepository = carModelRepository;
-        this.loaderPackToCar = loaderPackToCar;
-        this.carModelMapper = carModelMapper;
-        this.packModelMapper = packModelMapper;
-        this.PATH_IMPORT_PACKAGE = pathImportPackage;
-    }
-
     @Override
-    public String run(RequestRunnableService request) {
+    public String run(RequestString request) {
         try {
             LocalFile file = localFileMapper.toLocalFile(PATH_IMPORT_PACKAGE + request.getFileName());
             AlgorithmEnum algorithm = request.getAlgorithm();
             int countCars = request.getCountCars();
 
-            LoadFileServiceValidation validation = new LoadFileServiceValidation(
-                    file,
-                    algorithm,
-                    countCars
-            );
-
-            if (validation.isValid()) {
+            if (loadFileServiceValidation.isValid(file, algorithm, countCars)) {
                 List<Pack> importedPackList =
                         importPacksFromFileSortedByWidth(
                                 file
@@ -75,13 +57,13 @@ public class LoadFileService implements IRunnableByStringService {
                                 algorithm
                         );
 
-                if (validation.isValidCountCars(loadedCarList)) {
+                if (loadFileServiceValidation.isValidCountCars(loadedCarList, countCars)) {
                     return toStringCarsInfo(loadedCarList);
                 } else {
-                    return validation.getUserErrorMessage();
+                    return loadFileServiceValidation.getUserErrorMessage();
                 }
             } else {
-                return validation.getUserErrorMessage();
+                return loadFileServiceValidation.getUserErrorMessage();
             }
         } catch (RuntimeException e) {
             LOGGER.error("Ошибка ввода команды: " + e);

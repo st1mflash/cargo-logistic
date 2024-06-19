@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
+import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
@@ -28,7 +28,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
         try {
             TelegramUserMessage userMessage = telegramMessageMapper.toTelegramUserMessage(update.getMessage());
             IRunnableByStringService service = telegramBotService.selectService(userMessage);
-            RequestRunnableService request = new RequestRunnableService(service.getClass(), userMessage.getText());
+            RequestString request = new RequestString(service.getClass(), userMessage.getText());
             sendMessage(
                     userMessage.getChatId(),
                     service.run(request)

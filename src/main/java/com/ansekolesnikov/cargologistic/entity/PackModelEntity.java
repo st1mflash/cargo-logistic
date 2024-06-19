@@ -30,7 +30,7 @@ public class PackModelEntity {
     @Column(name = "scheme_height")
     protected int height;
 
-    public String toString() {
+    public String toStringPackInfo() {
         return "Идентификатор: #" + id
                 + "\nНазвание посылки: " + name
                 + "\nПараметры посылки: " + width + "x" + height

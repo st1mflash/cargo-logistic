@@ -2,21 +2,21 @@ package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Getter
+@NoArgsConstructor
+@Component
 public class AlgorithmValidation {
-    @Getter
-    private String userErrorMessage, logErrorMessage;
-    private final AlgorithmEnum algorithm;
+    private String userErrorMessage;
+    private String logErrorMessage;
 
-    public AlgorithmValidation(AlgorithmEnum algorithm) {
-        this.algorithm = algorithm;
+    public boolean isValid(AlgorithmEnum algorithm) {
+        return isExist(algorithm);
     }
 
-    public boolean isValid() {
-        return isExist();
-    }
-
-    private boolean isExist() {
+    private boolean isExist(AlgorithmEnum algorithm) {
         if (algorithm == AlgorithmEnum.MAX
                 || algorithm == AlgorithmEnum.HALF
                 || algorithm == AlgorithmEnum.TYPE

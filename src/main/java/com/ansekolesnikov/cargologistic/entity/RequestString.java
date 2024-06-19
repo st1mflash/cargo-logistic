@@ -11,7 +11,7 @@ import lombok.Data;
 import java.util.Objects;
 
 @Data
-public class RequestRunnableService {
+public class RequestString {
     private String request;
 
     private DatabaseOperationEnum operation;
@@ -31,7 +31,7 @@ public class RequestRunnableService {
     private CarModelParameterEnum carModelParameterName;
     private PackModelParameterEnum packModelParameterName;
 
-    public RequestRunnableService(Class serviceClass, String request) {
+    public RequestString(Class serviceClass, String request) {
         this.request = request;
         if (serviceClass == CarModelService.class) {
             initCarModelServiceRequestParams(request);

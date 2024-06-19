@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
-import com.ansekolesnikov.cargologistic.entity.RequestRunnableService;
+import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IPackModelService;
@@ -71,7 +71,7 @@ public class PackModelService implements
     }
 
     @Override
-    public String run(RequestRunnableService request) {
+    public String run(RequestString request) {
         try {
             DatabaseOperationEnum operation = request.getOperation();
             return switch (Objects.requireNonNull(operation)) {
@@ -82,12 +82,12 @@ public class PackModelService implements
                 case DELETE -> processDeleteOperationToString(request);
             };
         } catch (RuntimeException e) {
-            return toStringError();
+            return "Не удалось определить команду";
         }
     }
 
-    private String processGetOperationToString(RequestRunnableService request) {
-        return packModelMapper.toEntity(getPackModel(request.getEntityId())).toString();
+    private String processGetOperationToString(RequestString request) {
+        return packModelMapper.toEntity(getPackModel(request.getEntityId())).toStringPackInfo();
     }
 
     private String processListOperationToString() {
@@ -98,29 +98,25 @@ public class PackModelService implements
         return packList.toString();
     }
 
-    private String processInsertOperationToString(RequestRunnableService request) {
+    private String processInsertOperationToString(RequestString request) {
         PackModelDto packModelDto = PackModelDto.builder()
                 .name(request.getEntityName())
                 .width(request.getEntityWidth())
                 .height(request.getEntityHeight())
                 .build();
-        return packModelMapper.toEntity(addPackModel(packModelDto)).toString();
+        return packModelMapper.toEntity(addPackModel(packModelDto)).toStringPackInfo();
     }
 
-    private String processUpdateOperationToString(RequestRunnableService request) {
-        return packModelMapper.toEntity(updatePackByParams(request)).toString();
+    private String processUpdateOperationToString(RequestString request) {
+        return packModelMapper.toEntity(updatePackByParams(request)).toStringPackInfo();
     }
 
-    private String processDeleteOperationToString(RequestRunnableService request) {
+    private String processDeleteOperationToString(RequestString request) {
         deletePackModel(request.getEntityId());
         return "Успешное удаление";
     }
 
-    private String toStringError() {
-        return "Не удалось определить команду";
-    }
-
-    private PackModelDto updatePackByParams(RequestRunnableService request) {
+    private PackModelDto updatePackByParams(RequestString request) {
         PackModelParameterEnum parameterEnum = request.getPackModelParameterName();
         String value = request.getEntityParameterValue();
         PackModelDto packModelDto = packModelMapper.toDto(packModelRepository.findById(request.getEntityId()).orElse(null));

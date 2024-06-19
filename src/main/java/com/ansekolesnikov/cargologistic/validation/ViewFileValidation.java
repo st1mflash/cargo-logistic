@@ -1,31 +1,26 @@
 package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
-import com.ansekolesnikov.cargologistic.interfaces.IServiceValidation;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ViewFileValidation implements IServiceValidation {
+@Getter
+@NoArgsConstructor
+@Component
+public class ViewFileValidation {
     private static final Logger LOGGER = Logger.getLogger(ViewFileValidation.class.getName());
-    private final String pathFile, nameFile, formatFile;
-    @Getter
     private String userErrorMessage;
 
-    public ViewFileValidation(LocalFile localFile) {
-        this.pathFile = localFile.getPath();
-        this.nameFile = localFile.getName();
-        this.formatFile = localFile.getFormat();
+    public boolean isValid(LocalFile localFile) {
+        return isFormatExist(localFile.getFormat()) && isFileExist(localFile.getPath(), localFile.getName(), localFile.getFormat());
     }
 
-    @Override
-    public boolean isValid() {
-        return isFormatExist() && isFileExist();
-    }
-
-    private boolean isFileExist() {
+    private boolean isFileExist(String pathFile, String nameFile, String formatFile) {
         String fileFullPathNameFormat = pathFile + nameFile + formatFile;
         if (!Files.exists(Paths.get(fileFullPathNameFormat))) {
             LOGGER.error("Ошибка импорта: файл '" + fileFullPathNameFormat + "' не найден.");
@@ -36,7 +31,7 @@ public class ViewFileValidation implements IServiceValidation {
         }
     }
 
-    private boolean isFormatExist() {
+    private boolean isFormatExist(String formatFile) {
         if (formatFile == null) {
             LOGGER.error("Ошибка импорта: у файла не указан формат.");
             userErrorMessage = "Не указан формат файла.";

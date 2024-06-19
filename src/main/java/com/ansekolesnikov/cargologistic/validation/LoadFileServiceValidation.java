@@ -4,29 +4,26 @@ import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@NoArgsConstructor
+@Component
+@Getter
 public class LoadFileServiceValidation {
     private static final Logger LOGGER = Logger.getLogger(LoadFileServiceValidation.class.getName());
-    private final LocalFile localFile;
-    private final AlgorithmEnum algorithm;
-    private final int countCars;
-    @Getter
     private String userErrorMessage;
-    public LoadFileServiceValidation(LocalFile localFile, AlgorithmEnum algorithm, int countCars) {
-        this.localFile = localFile;
-        this.algorithm = algorithm;
-        this.countCars = countCars;
-    }
-    public boolean isValid() {
-        ViewFileValidation fileValidation = new ViewFileValidation(localFile);
-        AlgorithmValidation algorithmValidation = new AlgorithmValidation(algorithm);
-        if (!fileValidation.isValid()) {
+
+    public boolean isValid(LocalFile localFile, AlgorithmEnum algorithm, int countCars) {
+        ViewFileValidation fileValidation = new ViewFileValidation();
+        AlgorithmValidation algorithmValidation = new AlgorithmValidation();
+        if (!fileValidation.isValid(localFile)) {
             userErrorMessage = fileValidation.getUserErrorMessage();
             return false;
-        } else if (!algorithmValidation.isValid()) {
+        } else if (!algorithmValidation.isValid(algorithm)) {
             LOGGER.error(algorithmValidation.getLogErrorMessage());
             userErrorMessage = algorithmValidation.getUserErrorMessage();
             return false;
@@ -37,7 +34,7 @@ public class LoadFileServiceValidation {
         }
         return true;
     }
-    public boolean isValidCountCars(List<Car> listCar) {
+    public boolean isValidCountCars(List<Car> listCar, int countCars) {
         if(listCar.size() > countCars) {
             LOGGER.error("Ошибка загрузки: недостаточно машин! Требуется минимум " + listCar.size() + ", а указано " + countCars);
             userErrorMessage = "Не удалось погрузить все посылки в " + countCars + " ед. транспорта, необходимо " + listCar.size() + "!";
