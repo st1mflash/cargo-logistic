@@ -1,12 +1,12 @@
 package com.ansekolesnikov.cargologistic.entity;
 
+import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
+import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.Data;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,19 +14,11 @@ import java.util.stream.Collectors;
 
 @Data
 public class LocalFile {
-    private String name, format, path, content;
+    private String name;
+    private String format;
+    private String path;
+    private String content;
     private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());
-
-    public LocalFile(String filePath) {
-        try {
-            name = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.lastIndexOf('.'));
-            format = filePath.substring(filePath.lastIndexOf('.'));
-            path = filePath.substring(0, filePath.lastIndexOf('/') + 1);
-            content = Files.readString(Paths.get(path + name + format));
-        } catch (Exception e) {
-            LOGGER.error("Ошибка считывания содержимого файла '" + filePath + "'. Подробнее: " + e);
-        }
-    }
 
     public String calculateFilePathNameFormat() {
         return path + name + format;
@@ -43,11 +35,11 @@ public class LocalFile {
         return listJSONObj;
     }
 
-    public List<Car> importCarsFromFile() {
+    public List<Car> importCarsFromFile(CarModelMapper carModelMapper) {
         try {
             return importListJsonCars()
                     .stream()
-                    .map(Car::new)
+                    .map(carModelMapper::toCar)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             LOGGER.error("Ошибка импорта грузовиков из файла: '" + calculateFilePathNameFormat() + "': " + e);
@@ -55,13 +47,13 @@ public class LocalFile {
         }
     }
 
-    public List<Pack> importPacksFromFile(PackModelRepository packModelRepository) {
+    public List<Pack> importPacksFromFile(PackModelRepository packModelRepository, PackModelMapper packModelMapper) {
         try {
             return Arrays
                     .stream(content.split("\\n\\s*\\n"))
                     .map(c -> c.replaceAll(" ", "").charAt(0))
                     .map(packModelRepository::findByCode)
-                    .map(Pack::new)
+                    .map(packModelMapper::toPack)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             LOGGER.error("Ошибка ошибка импорта грузов из файла: '" + calculateFilePathNameFormat() + "': " + e);

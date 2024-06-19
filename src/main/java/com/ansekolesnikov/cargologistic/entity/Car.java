@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -17,14 +16,6 @@ import java.util.Objects;
 public class Car extends CarModelEntity {
     private String[][] cargo;
     private int idCar;
-
-    public Car(JSONObject JSONObj) {
-        this.idCar = Integer.parseInt(JSONObj.getString("id"));
-        this.width = 6;
-        this.height = 6;
-        this.cargo = new String[height][width];
-        initCargoFromString(JSONObj.getString("cargo"));
-    }
 
     public void loadPack(Pack pack) {
         if (width >= pack.getWidth()) {
@@ -70,15 +61,6 @@ public class Car extends CarModelEntity {
         }
         cargoInfo.append("+".repeat(Math.max(0, width + 2))).append("\n");
         return cargoInfo.toString();
-    }
-
-    private void initCargoFromString(String schemeString) {
-        int index = 0;
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                cargo[i][j] = String.valueOf(schemeString.charAt(index++));
-            }
-        }
     }
 
     private String findLoadPackAddress(Pack pack) {

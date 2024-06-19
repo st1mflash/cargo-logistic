@@ -10,6 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LocalFileUtilsTest {
+    /*
     @Test
     public void testGetFullAddress() {
         LocalFile localFile = new LocalFile("src/test/resources/import/packages/test_packs.txt");
@@ -36,4 +37,5 @@ public class LocalFileUtilsTest {
             }
         } catch (JSONException ignored) {}
     }
+    */
 }

@@ -4,8 +4,10 @@ import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
+import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
+import com.ansekolesnikov.cargologistic.selector.LoaderPackToCar;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class LoadListService implements IRunnableByStringService {
     private final PackModelRepository packModelRepository;
     private final LoaderPackToCar loaderPackToCar;
     private final CarModelMapper carModelMapper;
+    private final PackModelMapper packModelMapper;
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
@@ -91,7 +94,7 @@ public class LoadListService implements IRunnableByStringService {
         return Arrays
                 .stream(packNames)
                 .map(packModelRepository::findByName)
-                .map(Pack::new)
+                .map(packModelMapper::toPack)
                 .toList();
     }
 

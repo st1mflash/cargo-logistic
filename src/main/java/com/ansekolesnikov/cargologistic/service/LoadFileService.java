@@ -4,8 +4,12 @@ import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
+import com.ansekolesnikov.cargologistic.mappers.LocalFileMapper;
+import com.ansekolesnikov.cargologistic.mappers.LocalFileMapperImpl;
+import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
+import com.ansekolesnikov.cargologistic.selector.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -21,10 +25,12 @@ import java.util.stream.Collectors;
 @Setter
 @Service
 public class LoadFileService implements IRunnableByStringService {
+    private final LocalFileMapper localFileMapper = new LocalFileMapperImpl();
     private final PackModelRepository packModelRepository;
     private final CarModelRepository carModelRepository;
     private final LoaderPackToCar loaderPackToCar;
     private final CarModelMapper carModelMapper;
+    private final PackModelMapper packModelMapper;
     private final String PATH_IMPORT_PACKAGE;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
 
@@ -33,21 +39,21 @@ public class LoadFileService implements IRunnableByStringService {
             CarModelRepository carModelRepository,
             LoaderPackToCar loaderPackToCar,
             CarModelMapper carModelMapper,
+            PackModelMapper packModelMapper,
             @Value("${directory.pack.import}") String pathImportPackage
     ) {
         this.packModelRepository = packModelRepository;
         this.carModelRepository = carModelRepository;
         this.loaderPackToCar = loaderPackToCar;
         this.carModelMapper = carModelMapper;
+        this.packModelMapper = packModelMapper;
         this.PATH_IMPORT_PACKAGE = pathImportPackage;
     }
 
     @Override
     public String run(RequestRunnableService request) {
         try {
-            LocalFile file = new LocalFile(
-                    PATH_IMPORT_PACKAGE + request.getFileName()
-            );
+            LocalFile file = localFileMapper.toLocalFile(PATH_IMPORT_PACKAGE + request.getFileName());
             AlgorithmEnum algorithm = request.getAlgorithm();
             int countCars = request.getCountCars();
 
@@ -95,7 +101,7 @@ public class LoadFileService implements IRunnableByStringService {
 
     public List<Pack> importPacksFromFileSortedByWidth(LocalFile localFile) {
         return Objects
-                .requireNonNull(localFile.importPacksFromFile(packModelRepository))
+                .requireNonNull(localFile.importPacksFromFile(packModelRepository, packModelMapper))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();

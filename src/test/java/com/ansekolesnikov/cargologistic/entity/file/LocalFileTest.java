@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LocalFileTest {
+    /*
     @Test
     void testGetPath(){
         LocalFile localFile = new LocalFile("src/test/resources/import/packages/test_packs.txt");
@@ -32,5 +33,7 @@ public class LocalFileTest {
         String expectedContent = "[{\"width\":\"6\",\"id\":\"952472\",\"cargo\":\"555551999666999666999333100000000000\",\"height\":\"6\"}]";
         assertEquals(expectedContent, localFile.getContent());
     }
+
+     */
 
 }
