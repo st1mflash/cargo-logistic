@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.MessageConstant;
+import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.RequestString;

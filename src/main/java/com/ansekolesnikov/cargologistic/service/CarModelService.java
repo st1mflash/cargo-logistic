@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
-import com.ansekolesnikov.cargologistic.MessageConstant;
+import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;

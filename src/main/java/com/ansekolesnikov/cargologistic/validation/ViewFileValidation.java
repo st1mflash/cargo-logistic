@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.validation;
 
-import com.ansekolesnikov.cargologistic.MessageConstant;
+import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

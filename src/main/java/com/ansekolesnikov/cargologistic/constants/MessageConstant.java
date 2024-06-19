@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic;
+package com.ansekolesnikov.cargologistic.constants;
 
 public class MessageConstant {
     public static final String CAR_IMPORT_ERROR = "Ошибка импорта грузовиков из файла: ";

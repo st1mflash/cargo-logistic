@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
-import com.ansekolesnikov.cargologistic.MessageConstant;
+import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
