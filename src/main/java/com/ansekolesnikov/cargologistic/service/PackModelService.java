@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
 import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
@@ -28,13 +29,13 @@ public class PackModelService implements
 
     @Override
     public PackModelDto getPackModel(int id) {
-        LOGGER.info("Запрос информации о модели автомобиля.");
+        LOGGER.info(MessageConstant.CAR_MODEL_INFO_REQUEST);
         return packModelMapper.toDto(packModelRepository.findById(id).orElse(null));
     }
 
     @Override
     public List<PackModelDto> getPackModelList() {
-        LOGGER.info("Запрос информации о всех моделях автомобиля.");
+        LOGGER.info(MessageConstant.CAR_MODEL_LIST_INFO_REQUEST);
         return packModelRepository.findAll().stream()
                 .map(packModelMapper::toDto)
                 .toList();
@@ -42,7 +43,7 @@ public class PackModelService implements
 
     @Override
     public PackModelDto addPackModel(PackModelDto packModelDto) {
-        LOGGER.info("Создание модели автомобиля.");
+        LOGGER.info(MessageConstant.CAR_MODEL_INSERT_REQUEST);
         return packModelMapper.toDto(
                 packModelRepository.save(packModelMapper.toEntity(packModelDto))
         );
@@ -50,7 +51,7 @@ public class PackModelService implements
 
     @Override
     public PackModelDto updatePackModel(PackModelDto packModelDto) {
-        LOGGER.info("Обновление модели автомобиля");
+        LOGGER.info(MessageConstant.CAR_MODEL_UPDATE_REQUEST);
         return packModelMapper.toDto(
                 packModelRepository.save(packModelMapper.toEntity(packModelDto))
         );
@@ -58,7 +59,7 @@ public class PackModelService implements
 
     @Override
     public Map<String, String> deletePackModel(int id) {
-        LOGGER.info("Удаление модели автомобиля");
+        LOGGER.info(MessageConstant.CAR_MODEL_DELETE_REQUEST);
         Map<String, String> result = new HashMap<>();
         try {
             packModelRepository.delete(Objects.requireNonNull(packModelRepository.findById(id).orElse(null)));
@@ -82,7 +83,7 @@ public class PackModelService implements
                 case DELETE -> processDeleteOperationToString(request);
             };
         } catch (RuntimeException e) {
-            return "Не удалось определить команду";
+            return MessageConstant.UNKNOWN_COMMAND;
         }
     }
 
@@ -113,7 +114,7 @@ public class PackModelService implements
 
     private String processDeleteOperationToString(RequestString request) {
         deletePackModel(request.getEntityId());
-        return "Успешное удаление";
+        return MessageConstant.SUCCESS_DELETE;
     }
 
     private PackModelDto updatePackByParams(RequestString request) {

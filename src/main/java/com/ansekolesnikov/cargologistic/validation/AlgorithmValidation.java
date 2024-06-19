@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.validation;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,8 @@ public class AlgorithmValidation {
         ) {
             return true;
         } else {
-            logErrorMessage = "Ошибка вода: алгоритм '" + algorithm + "' не существует.";
-            userErrorMessage = "Введен неверный алгоритм. Доступные значения: 'max', 'half', 'type'.";
+            logErrorMessage = MessageConstant.UNKNOWN_ALGORITHM + " " + algorithm;
+            userErrorMessage = MessageConstant.UNKNOWN_ALGORITHM;
             return false;
         }
     }

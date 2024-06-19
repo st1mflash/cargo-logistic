@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
@@ -66,8 +67,8 @@ public class LoadFileService implements IRunnableByStringService {
                 return loadFileServiceValidation.getUserErrorMessage();
             }
         } catch (RuntimeException e) {
-            LOGGER.error("Ошибка ввода команды: " + e);
-            return "Ошибка ввода.";
+            LOGGER.error(MessageConstant.COMMAND_ERROR + e);
+            return MessageConstant.COMMAND_ERROR;
         }
     }
 

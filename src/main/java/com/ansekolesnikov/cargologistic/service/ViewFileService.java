@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import com.ansekolesnikov.cargologistic.entity.RequestString;
@@ -41,7 +42,7 @@ public class ViewFileService implements IRunnableByStringService {
         if (importedCarList != null) {
             return toStringListCars(importedCarList);
         } else {
-            return "Указанный файл не содержит информации о грузовиках.";
+            return MessageConstant.EMPTY_CAR_FILE;
         }
     }
 

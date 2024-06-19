@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.entity;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
@@ -38,7 +39,7 @@ public class LocalFile {
                     .map(carModelMapper::toCar)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error("Ошибка импорта грузовиков из файла: " + e);
+            LOGGER.error(MessageConstant.CAR_IMPORT_ERROR + e);
             return null;
         }
     }
@@ -52,7 +53,7 @@ public class LocalFile {
                     .map(packModelMapper::toPack)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            LOGGER.error("Ошибка ошибка импорта грузов из файла: " + e);
+            LOGGER.error(MessageConstant.PACK_IMPORT_ERROR + e);
             return null;
         }
     }

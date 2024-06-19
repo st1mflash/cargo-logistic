@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
@@ -44,7 +45,7 @@ public class TelegramBotService {
                             new TelegramBotController(this, telegramBotToken, telegramBotUsername)
                     );
         } catch (TelegramApiException e) {
-            LOGGER.error("Ошибка запуска телеграм-бота. Подробнее: " + e);
+            LOGGER.error(MessageConstant.TELEGRAM_START_ERROR + e);
         }
     }
 

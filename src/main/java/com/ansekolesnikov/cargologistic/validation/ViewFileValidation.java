@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.validation;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,8 @@ public class ViewFileValidation {
     private boolean isFileExist(String pathFile, String nameFile, String formatFile) {
         String fileFullPathNameFormat = pathFile + nameFile + formatFile;
         if (!Files.exists(Paths.get(fileFullPathNameFormat))) {
-            LOGGER.error("Ошибка импорта: файл '" + fileFullPathNameFormat + "' не найден.");
-            userErrorMessage = "Указанный файл не найден. Убедитесь в корректности указанного формата и наличии файла.";
+            LOGGER.error(MessageConstant.FILE_NOT_FOUND_ERROR + " " + fileFullPathNameFormat);
+            userErrorMessage = MessageConstant.FILE_NOT_FOUND_ERROR;
             return false;
         } else {
             return true;
@@ -33,8 +34,8 @@ public class ViewFileValidation {
 
     private boolean isFormatExist(String formatFile) {
         if (formatFile == null) {
-            LOGGER.error("Ошибка импорта: у файла не указан формат.");
-            userErrorMessage = "Не указан формат файла.";
+            LOGGER.error(MessageConstant.FILE_FORMAT_NOT_FOUND_ERROR);
+            userErrorMessage = MessageConstant.FILE_FORMAT_NOT_FOUND_ERROR;
             return false;
         } else {
             return true;

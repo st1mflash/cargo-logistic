@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.service;
 
+import com.ansekolesnikov.cargologistic.MessageConstant;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
 import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
@@ -29,13 +30,13 @@ public class CarModelService implements
 
     @Override
     public CarModelDto getCarModel(int id) {
-        LOGGER.info("Запрос информации о модели посылки.");
+        LOGGER.info(MessageConstant.PACK_MODEL_INFO_REQUEST);
         return carModelMapper.toDto(carModelRepository.findById(id).orElse(null));
     }
 
     @Override
     public List<CarModelDto> getCarModelList() {
-        LOGGER.info("Запрос информации о всех моделях посылок.");
+        LOGGER.info(MessageConstant.PACK_MODEL_LIST_INFO_REQUEST);
         return carModelRepository.findAll().stream()
                 .map(carModelMapper::toDto)
                 .toList();
@@ -43,7 +44,7 @@ public class CarModelService implements
 
     @Override
     public CarModelDto addCarModel(CarModelDto carModelDto) {
-        LOGGER.info("Добавление модели посылки.");
+        LOGGER.info(MessageConstant.PACK_MODEL_INSERT_REQUEST);
         return carModelMapper.toDto(
                 carModelRepository.save(carModelMapper.toEntity(carModelDto))
         );
@@ -51,7 +52,7 @@ public class CarModelService implements
 
     @Override
     public CarModelDto updateCarModel(CarModelDto carModelDto) {
-        LOGGER.info("Обновление модели посылки.");
+        LOGGER.info(MessageConstant.PACK_MODEL_UPDATE_REQUEST);
         return carModelMapper.toDto(
                 carModelRepository.save(carModelMapper.toEntity(carModelDto))
         );
@@ -59,7 +60,7 @@ public class CarModelService implements
 
     @Override
     public Map<String, String> deleteCarModel(int id) {
-        LOGGER.info("Удаление модели посылки.");
+        LOGGER.info(MessageConstant.PACK_MODEL_DELETE_REQUEST);
         Map<String, String> result = new HashMap<>();
         try {
             carModelRepository.delete(Objects.requireNonNull(carModelRepository.findById(id).orElse(null)));
@@ -94,9 +95,9 @@ public class CarModelService implements
                 return carModelMapper.toEntity(updateCarByParams(request)).toStringCarInfo();
             case DELETE:
                 deleteCarModel(request.getEntityId());
-                return "Успешное удаление";
+                return MessageConstant.SUCCESS_DELETE;
             default:
-                return "Не удалось определить команду";
+                return MessageConstant.UNKNOWN_COMMAND;
         }
     }
 
