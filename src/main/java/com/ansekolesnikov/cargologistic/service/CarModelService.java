@@ -79,19 +79,19 @@ public class CarModelService implements
                 StringBuilder carList = new StringBuilder();
                 getCarModelList().stream()
                         .map(carModelMapper::toEntity)
-                        .forEach(c -> carList.append(c).append("\n\n"));
+                        .forEach(c -> carList.append(c.toStringCarInfo()).append("\n\n"));
                 return carList.toString();
             case GET:
-                return carModelMapper.toEntity(getCarModel(request.getEntityId())).toString();
+                return carModelMapper.toEntity(getCarModel(request.getEntityId())).toStringCarInfo();
             case INSERT:
                 CarModelDto carModelDto = CarModelDto.builder()
                         .name(request.getEntityName())
                         .width(request.getEntityWidth())
                         .height(request.getEntityHeight())
                         .build();
-                return carModelMapper.toEntity(addCarModel(carModelDto)).toString();
+                return carModelMapper.toEntity(addCarModel(carModelDto)).toStringCarInfo();
             case UPDATE:
-                return carModelMapper.toEntity(updateCarByParams(request)).toString();
+                return carModelMapper.toEntity(updateCarByParams(request)).toStringCarInfo();
             case DELETE:
                 deleteCarModel(request.getEntityId());
                 return "Успешное удаление";

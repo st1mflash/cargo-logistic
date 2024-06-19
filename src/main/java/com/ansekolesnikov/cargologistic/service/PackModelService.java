@@ -94,7 +94,7 @@ public class PackModelService implements
         StringBuilder packList = new StringBuilder();
         getPackModelList().stream()
                 .map(packModelMapper::toEntity)
-                .forEach(c -> packList.append(c).append("\n\n"));
+                .forEach(c -> packList.append(c.toStringPackInfo()).append("\n\n"));
         return packList.toString();
     }
 

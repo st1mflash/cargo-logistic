@@ -11,6 +11,3 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.car_model
     OWNER to postgres;
-
-INSERT INTO car_model (name, cargo_width, cargo_height)
-VALUES ('стандарт_авто', 6, 6);

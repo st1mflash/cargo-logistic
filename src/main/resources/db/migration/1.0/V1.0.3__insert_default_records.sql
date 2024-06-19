@@ -1,18 +1,5 @@
-CREATE TABLE IF NOT EXISTS public.pack_model
-(
-    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    name text COLLATE pg_catalog."default" NOT NULL,
-    code character(1) COLLATE pg_catalog."default" NOT NULL,
-    scheme text COLLATE pg_catalog."default" NOT NULL,
-    scheme_width integer NOT NULL,
-    scheme_height integer NOT NULL,
-    CONSTRAINT pack_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.pack_model
-    OWNER to postgres;
+INSERT INTO car_model (name, cargo_width, cargo_height)
+VALUES ('стандарт_авто', 6, 6);
 
 INSERT INTO pack_model (name, code, scheme, scheme_width, scheme_height)
 VALUES ('стандарт_1', '1', '1', 1, 1);

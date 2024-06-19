@@ -24,7 +24,7 @@ public class CarModelEntity {
     @Column(name = "cargo_height")
     protected int height;
 
-    public String toString() {
+    public String toStringCarInfo() {
         return "Идентификатор: #" + id
                 + "\nНазвание модели: " + name
                 + "\nПараметры кузова: " + width + "x" + height;
