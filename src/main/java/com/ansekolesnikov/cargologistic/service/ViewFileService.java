@@ -19,11 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ViewFileService implements IRunnableByStringService {
-    private final LocalFileMapper localFileMapper = new LocalFileMapperImpl();
     @Value("${directory.car.import}")
     private String PATH_IMPORT_CAR;
     private final PackModelRepository packModelRepository;
     private final CarModelMapper carModelMapper;
+    private final LocalFileMapper localFileMapper;
 
     @Override
     public String run(RequestString request) {

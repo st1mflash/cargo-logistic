@@ -8,7 +8,6 @@ import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
-import com.ansekolesnikov.cargologistic.selector.LoaderPackToCar;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ import java.util.List;
 public class LoadListService implements IRunnableByStringService {
     private final CarModelRepository carModelRepository;
     private final PackModelRepository packModelRepository;
-    private final LoaderPackToCar loaderPackToCar;
+    private final LoaderPackToCarSelectorService loaderPackToCarSelectorService;
     private final CarModelMapper carModelMapper;
     private final PackModelMapper packModelMapper;
 
@@ -67,7 +66,7 @@ public class LoadListService implements IRunnableByStringService {
                     .toList();
 
             for (Pack pack : filteredPackList) {
-                loaderPackToCar.loadPackToCar(car, pack, inputAlgorithm);
+                loaderPackToCarSelectorService.loadPackToCar(car, pack, inputAlgorithm);
             }
         }
         return listCars;

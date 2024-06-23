@@ -10,7 +10,6 @@ import com.ansekolesnikov.cargologistic.mappers.LocalFileMapperImpl;
 import com.ansekolesnikov.cargologistic.mappers.PackModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
-import com.ansekolesnikov.cargologistic.selector.LoaderPackToCar;
 import com.ansekolesnikov.cargologistic.validation.LoadFileServiceValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -28,14 +27,14 @@ import java.util.stream.Collectors;
 @Setter
 @Service
 public class LoadFileService implements IRunnableByStringService {
-    private LocalFileMapper localFileMapper = new LocalFileMapperImpl();
     @Value("${directory.pack.import}")
     private String PATH_IMPORT_PACKAGE;
     private final PackModelRepository packModelRepository;
     private final CarModelRepository carModelRepository;
-    private final LoaderPackToCar loaderPackToCar;
+    private final LoaderPackToCarSelectorService loaderPackToCarSelectorService;
     private final CarModelMapper carModelMapper;
     private final PackModelMapper packModelMapper;
+    private final LocalFileMapper localFileMapper;
     private final LoadFileServiceValidation loadFileServiceValidation;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
 
@@ -103,7 +102,7 @@ public class LoadFileService implements IRunnableByStringService {
                     .collect(Collectors.toList());
 
             for (Pack pack : packList) {
-                loaderPackToCar.loadPackToCar(car, pack, algorithm);
+                loaderPackToCarSelectorService.loadPackToCar(car, pack, algorithm);
             }
             if (localCarCount > 0) {
                 if (car.calcPercentLoad() == 0) {

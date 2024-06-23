@@ -4,6 +4,7 @@ import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
+import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -22,6 +23,9 @@ public class TelegramBotService {
     private final ViewFileService viewFileService;
     private final PackModelService packModelService;
     private final CarModelService carModelService;
+    private final TelegramMessageMapper telegramMessageMapper;
+    private String telegramBotToken;
+    private String telegramBotUsername;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
 
     public TelegramBotService(
@@ -30,6 +34,7 @@ public class TelegramBotService {
             ViewFileService viewFileService,
             PackModelService packModelService,
             CarModelService carModelService,
+            TelegramMessageMapper telegramMessageMapper,
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
@@ -38,11 +43,12 @@ public class TelegramBotService {
         this.viewFileService = viewFileService;
         this.packModelService = packModelService;
         this.carModelService = carModelService;
+        this.telegramMessageMapper = telegramMessageMapper;
 
         try {
             new TelegramBotsApi(DefaultBotSession.class)
                     .registerBot(
-                            new TelegramBotController(this, telegramBotToken, telegramBotUsername)
+                            new TelegramBotController(this, telegramMessageMapper, telegramBotToken, telegramBotUsername)
                     );
         } catch (TelegramApiException e) {
             LOGGER.error(MessageConstant.TELEGRAM_START_ERROR + e);

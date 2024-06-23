@@ -1,4 +1,4 @@
-package com.ansekolesnikov.cargologistic.selector;
+package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.algorithms.LoadAlgorithmHalf;
 import com.ansekolesnikov.cargologistic.algorithms.LoadAlgorithmMax;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class LoaderPackToCar {
+public class LoaderPackToCarSelectorService {
     private final LoadAlgorithmMax loadAlgorithmMax;
     private final LoadAlgorithmHalf loadAlgorithmHalf;
     private final LoadAlgorithmType loadAlgorithmType;

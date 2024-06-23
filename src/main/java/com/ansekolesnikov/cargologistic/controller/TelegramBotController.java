@@ -17,8 +17,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @RequiredArgsConstructor
 @Service
 public class TelegramBotController extends TelegramLongPollingBot {
-    private final TelegramMessageMapper telegramMessageMapper = new TelegramMessageMapperImpl();
     private final TelegramBotService telegramBotService;
+    private final TelegramMessageMapper telegramMessageMapper;
     private final String BOT_TOKEN;
     private final String BOT_USERNAME;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
