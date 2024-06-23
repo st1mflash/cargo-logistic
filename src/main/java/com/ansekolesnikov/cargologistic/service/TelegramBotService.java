@@ -5,14 +5,20 @@ import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
+import com.ansekolesnikov.cargologistic.pages.TelegramUserStateConfigurator;
+import com.ansekolesnikov.cargologistic.pages.TelegramPages;
+import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
+import java.util.Map;
 
 @Getter
 @Setter
@@ -24,6 +30,8 @@ public class TelegramBotService {
     private final PackModelService packModelService;
     private final CarModelService carModelService;
     private final TelegramMessageMapper telegramMessageMapper;
+    private final TelegramPages telegramPages;
+    private final TelegramUserStateConfigurator telegramUserStateConfigurator;
     private String telegramBotToken;
     private String telegramBotUsername;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
@@ -35,6 +43,8 @@ public class TelegramBotService {
             PackModelService packModelService,
             CarModelService carModelService,
             TelegramMessageMapper telegramMessageMapper,
+            TelegramPages telegramPages,
+            TelegramUserStateConfigurator telegramUserStateConfigurator,
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
@@ -44,6 +54,8 @@ public class TelegramBotService {
         this.packModelService = packModelService;
         this.carModelService = carModelService;
         this.telegramMessageMapper = telegramMessageMapper;
+        this.telegramPages = telegramPages;
+        this.telegramUserStateConfigurator = telegramUserStateConfigurator;
 
         try {
             new TelegramBotsApi(DefaultBotSession.class)
@@ -109,5 +121,20 @@ public class TelegramBotService {
 
                 Удаление модели посылки:
                 pack delete [ID посылки]""";
+    }
+
+
+    public TelegramUserState findOrCreateUserStateModel(Long userId, Map<Long, TelegramUserState> map) {
+        if(map.get(userId) != null) {
+            return map.get(userId);
+        } else {
+            TelegramUserState userState = new TelegramUserState(userId, telegramPages.getTelegramMenuPage());
+            map.put(userId, userState);
+            return userState;
+        }
+    }
+
+    public TelegramUserState updateUserState(Update update, TelegramUserState userState) {
+        return telegramUserStateConfigurator.updateUserStateByUserMessage(userState, update.getMessage().getText());
     }
 }

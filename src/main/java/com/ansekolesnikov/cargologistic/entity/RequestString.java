@@ -17,6 +17,8 @@ public class RequestString {
     private DatabaseOperationEnum operation;
     private int entityId;
     private String entityName;
+    private Character entityCode;
+    private String entityScheme;
     private int entityWidth;
     private int entityHeight;
     private String entityParameterValue;
@@ -74,8 +76,10 @@ public class RequestString {
                 break;
             case INSERT:
                 entityName = request.split(" ")[2];
-                entityWidth = Integer.parseInt(request.split(" ")[3]);
-                entityHeight = Integer.parseInt(request.split(" ")[4]);
+                entityCode = request.split(" ")[3].charAt(0);
+                entityScheme = request.split(" ")[4];
+                entityWidth = Integer.parseInt(request.split(" ")[5]);
+                entityHeight = Integer.parseInt(request.split(" ")[6]);
                 break;
             case UPDATE:
                 entityId = Integer.parseInt(request.split(" ")[2]);

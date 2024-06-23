@@ -102,6 +102,8 @@ public class PackModelService implements
     private String processInsertOperationToString(RequestString request) {
         PackModelDto packModelDto = PackModelDto.builder()
                 .name(request.getEntityName())
+                .code(request.getEntityCode())
+                .scheme(request.getEntityScheme())
                 .width(request.getEntityWidth())
                 .height(request.getEntityHeight())
                 .build();
