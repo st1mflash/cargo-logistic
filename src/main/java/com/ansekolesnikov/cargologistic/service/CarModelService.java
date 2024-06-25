@@ -30,13 +30,13 @@ public class CarModelService implements
 
     @Override
     public CarModelDto getCarModel(int id) {
-        LOGGER.info(MessageConstant.PACK_MODEL_INFO_REQUEST);
+        LOGGER.info(MessageConstant.CAR_MODEL_INFO_REQUEST);
         return carModelMapper.toDto(carModelRepository.findById(id).orElse(null));
     }
 
     @Override
     public List<CarModelDto> getCarModelList() {
-        LOGGER.info(MessageConstant.PACK_MODEL_LIST_INFO_REQUEST);
+        LOGGER.info(MessageConstant.CAR_MODEL_LIST_INFO_REQUEST);
         return carModelRepository.findAll().stream()
                 .map(carModelMapper::toDto)
                 .toList();
@@ -44,7 +44,7 @@ public class CarModelService implements
 
     @Override
     public CarModelDto addCarModel(CarModelDto carModelDto) {
-        LOGGER.info(MessageConstant.PACK_MODEL_INSERT_REQUEST);
+        LOGGER.info(MessageConstant.CAR_MODEL_INSERT_REQUEST);
         return carModelMapper.toDto(
                 carModelRepository.save(carModelMapper.toEntity(carModelDto))
         );
@@ -52,7 +52,7 @@ public class CarModelService implements
 
     @Override
     public CarModelDto updateCarModel(CarModelDto carModelDto) {
-        LOGGER.info(MessageConstant.PACK_MODEL_UPDATE_REQUEST);
+        LOGGER.info(MessageConstant.CAR_MODEL_UPDATE_REQUEST);
         return carModelMapper.toDto(
                 carModelRepository.save(carModelMapper.toEntity(carModelDto))
         );
@@ -60,7 +60,7 @@ public class CarModelService implements
 
     @Override
     public Map<String, String> deleteCarModel(int id) {
-        LOGGER.info(MessageConstant.PACK_MODEL_DELETE_REQUEST);
+        LOGGER.info(MessageConstant.CAR_MODEL_DELETE_REQUEST);
         Map<String, String> result = new HashMap<>();
         try {
             carModelRepository.delete(Objects.requireNonNull(carModelRepository.findById(id).orElse(null)));

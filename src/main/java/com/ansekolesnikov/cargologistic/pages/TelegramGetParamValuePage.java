@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @RequiredArgsConstructor
 @Component
-public class TelegramGetHeightPage implements ITelegramPage {
+public class TelegramGetParamValuePage implements ITelegramPage {
     private final TelegramMenuPage telegramMenuPage;
     @Override
     public ITelegramPage nextPage() {
@@ -16,7 +16,7 @@ public class TelegramGetHeightPage implements ITelegramPage {
 
     @Override
     public SendMessage loadPageOnMessage(TelegramUserState userState, SendMessage message) {
-        message.setText("Введите высоту:");
+        message.setText("Введите новое значение:");
         return message;
     }
 }

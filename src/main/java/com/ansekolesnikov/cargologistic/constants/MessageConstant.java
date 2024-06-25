@@ -24,7 +24,7 @@ public class MessageConstant {
 
     public static final String EMPTY_CAR_FILE = "Указанный файл не содержит информации о грузовиках.";
 
-    public static final String SUCCESS_DELETE = "Удаление модели посылки.";
+    public static final String SUCCESS_DELETE = "Успешно удалено.";
     public static final String UNKNOWN_COMMAND = "Не удалось определить команду.";
     public static final String UNKNOWN_ALGORITHM = "Введен неверный алгоритм. Доступные значения: 'max', 'half', 'type'.";
     public static final String COMMAND_ERROR = "Ошибка ввода команды. ";

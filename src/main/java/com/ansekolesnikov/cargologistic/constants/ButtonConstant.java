@@ -14,4 +14,10 @@ public class ButtonConstant {
     public static final String BTN_LOAD_FILE = "Загрузка машин из файла";
     public static final String BTN_LOAD_LIST = "Ручная загрузка машин";
     public static final String BTN_VIEW_FILE = "Отображение машин из файла";
+
+    public static final String BTN_UPDATE_NAME = "Название";
+    public static final String BTN_UPDATE_WIDTH = "Ширина";
+    public static final String BTN_UPDATE_HEIGHT = "Высота";
+    public static final String BTN_UPDATE_CODE = "Код";
+    public static final String BTN_UPDATE_SCHEME = "Схема";
 }

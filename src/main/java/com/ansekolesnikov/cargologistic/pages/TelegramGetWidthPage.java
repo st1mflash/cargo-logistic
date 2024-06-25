@@ -8,9 +8,10 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @RequiredArgsConstructor
 @Component
 public class TelegramGetWidthPage implements ITelegramPage {
+    private final TelegramGetHeightPage telegramGetHeightPage;
     @Override
     public ITelegramPage nextPage() {
-        return null;
+        return telegramGetHeightPage;
     }
 
     @Override

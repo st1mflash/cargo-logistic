@@ -16,4 +16,6 @@ public class TelegramPages {
     private final TelegramGetSchemePage telegramGetSchemePage;
     private final TelegramGetWidthPage telegramGetWidthPage;
     private final TelegramGetHeightPage telegramGetHeightPage;
+    private final TelegramGetParamNamePage telegramGetParamNamePage;
+    private final TelegramGetParamValuePage telegramGetParamValuePage;
 }

@@ -61,74 +61,117 @@ public class TelegramUserStateConfigurator {
                 telegramUserState.setService(carModelService);
                 telegramUserState.setPage(telegramPages.getTelegramGetIdPage());
             }
+            case ButtonConstant.BTN_UPDATE_PACK -> {
+                telegramUserState.setOperation(DatabaseOperationEnum.UPDATE);
+                telegramUserState.setService(packModelService);
+                telegramUserState.setPage(telegramPages.getTelegramGetIdPage());
+            }
+            case ButtonConstant.BTN_UPDATE_CAR -> {
+                telegramUserState.setOperation(DatabaseOperationEnum.UPDATE);
+                telegramUserState.setService(carModelService);
+                telegramUserState.setPage(telegramPages.getTelegramGetIdPage());
+            }
+            case ButtonConstant.BTN_UPDATE_NAME -> {
+                telegramUserState.setOperation(DatabaseOperationEnum.UPDATE);
+                telegramUserState.setRequestString(telegramUserState.getRequestString() + " name");
+                telegramUserState.setPage(telegramPages.getTelegramGetParamValuePage());
+            }
+            case ButtonConstant.BTN_UPDATE_WIDTH -> {
+                telegramUserState.setOperation(DatabaseOperationEnum.UPDATE);
+                telegramUserState.setRequestString(telegramUserState.getRequestString() + " width");
+                telegramUserState.setPage(telegramPages.getTelegramGetParamValuePage());
+            }
+            case ButtonConstant.BTN_UPDATE_HEIGHT -> {
+                telegramUserState.setOperation(DatabaseOperationEnum.UPDATE);
+                telegramUserState.setRequestString(telegramUserState.getRequestString() + " height");
+                telegramUserState.setPage(telegramPages.getTelegramGetParamValuePage());
+            }
+            case ButtonConstant.BTN_UPDATE_CODE -> {
+                telegramUserState.setOperation(DatabaseOperationEnum.UPDATE);
+                telegramUserState.setRequestString(telegramUserState.getRequestString() + " code");
+                telegramUserState.setPage(telegramPages.getTelegramGetParamValuePage());
+            }
+            case ButtonConstant.BTN_UPDATE_SCHEME -> {
+                telegramUserState.setOperation(DatabaseOperationEnum.UPDATE);
+                telegramUserState.setRequestString(telegramUserState.getRequestString() + " scheme");
+                telegramUserState.setPage(telegramPages.getTelegramGetParamValuePage());
+            }
             default -> {
-                if (telegramUserState.getService().getClass() == packModelService.getClass()
+                if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.GET) {
-                    telegramUserState.setService(packModelService);
                     telegramUserState.setRequestString("pack get " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramResultPage());
-                } else if (telegramUserState.getService().getClass() == carModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == CarModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.GET) {
-                    telegramUserState.setService(carModelService);
                     telegramUserState.setRequestString("car get " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramResultPage());
-                } else if (telegramUserState.getService().getClass() == packModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetNamePage()) {
-                    telegramUserState.setService(packModelService);
                     telegramUserState.setRequestString("pack insert " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramGetCodePage());
-                } else if (telegramUserState.getService().getClass() == packModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetCodePage()) {
-                    telegramUserState.setService(packModelService);
                     telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramGetSchemePage());
-                } else if (telegramUserState.getService().getClass() == packModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetSchemePage()) {
-                    telegramUserState.setService(packModelService);
                     telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramGetWidthPage());
-                } else if (telegramUserState.getService().getClass() == packModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetWidthPage()) {
-                    telegramUserState.setService(packModelService);
                     telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramGetHeightPage());
-                } else if (telegramUserState.getService().getClass() == packModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetHeightPage()) {
-                    telegramUserState.setService(packModelService);
                     telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramResultPage());
-                } else if (telegramUserState.getService().getClass() == carModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == CarModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetNamePage()) {
-                    telegramUserState.setService(carModelService);
                     telegramUserState.setRequestString("car insert " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramGetWidthPage());
-                } else if (telegramUserState.getService().getClass() == carModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == CarModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetWidthPage()) {
-                    telegramUserState.setService(carModelService);
                     telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramGetHeightPage());
-                } else if (telegramUserState.getService().getClass() == carModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == CarModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.INSERT
                         && telegramUserState.getPage() == telegramPages.getTelegramGetHeightPage()) {
-                    telegramUserState.setService(carModelService);
                     telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramResultPage());
-                } else if (telegramUserState.getService().getClass() == packModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.DELETE) {
-                    telegramUserState.setService(packModelService);
                     telegramUserState.setRequestString("pack delete " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramResultPage());
-                } else if (telegramUserState.getService().getClass() == carModelService.getClass()
+                } else if (telegramUserState.getService().getClass() == CarModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.DELETE) {
-                    telegramUserState.setService(carModelService);
                     telegramUserState.setRequestString("car delete " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramResultPage());
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
+                        && telegramUserState.getOperation() == DatabaseOperationEnum.UPDATE
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetIdPage()) {
+                    telegramUserState.setRequestString("pack update " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramGetParamNamePage());
+                } else if (telegramUserState.getService().getClass() == PackModelService.class
+                        && telegramUserState.getOperation() == DatabaseOperationEnum.UPDATE
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetParamValuePage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramResultPage());
+                } else if (telegramUserState.getService().getClass() == CarModelService.class
+                        && telegramUserState.getOperation() == DatabaseOperationEnum.UPDATE
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetIdPage()) {
+                    telegramUserState.setRequestString("car update " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramGetParamNamePage());
+                } else if (telegramUserState.getService().getClass() == CarModelService.class
+                        && telegramUserState.getOperation() == DatabaseOperationEnum.UPDATE
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetParamValuePage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramResultPage());
                 }
             }

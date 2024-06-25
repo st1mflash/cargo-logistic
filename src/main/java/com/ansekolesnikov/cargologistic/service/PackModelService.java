@@ -29,13 +29,13 @@ public class PackModelService implements
 
     @Override
     public PackModelDto getPackModel(int id) {
-        LOGGER.info(MessageConstant.CAR_MODEL_INFO_REQUEST);
+        LOGGER.info(MessageConstant.PACK_MODEL_INFO_REQUEST);
         return packModelMapper.toDto(packModelRepository.findById(id).orElse(null));
     }
 
     @Override
     public List<PackModelDto> getPackModelList() {
-        LOGGER.info(MessageConstant.CAR_MODEL_LIST_INFO_REQUEST);
+        LOGGER.info(MessageConstant.PACK_MODEL_LIST_INFO_REQUEST);
         return packModelRepository.findAll().stream()
                 .map(packModelMapper::toDto)
                 .toList();
@@ -43,7 +43,7 @@ public class PackModelService implements
 
     @Override
     public PackModelDto addPackModel(PackModelDto packModelDto) {
-        LOGGER.info(MessageConstant.CAR_MODEL_INSERT_REQUEST);
+        LOGGER.info(MessageConstant.PACK_MODEL_INSERT_REQUEST);
         return packModelMapper.toDto(
                 packModelRepository.save(packModelMapper.toEntity(packModelDto))
         );
@@ -51,7 +51,7 @@ public class PackModelService implements
 
     @Override
     public PackModelDto updatePackModel(PackModelDto packModelDto) {
-        LOGGER.info(MessageConstant.CAR_MODEL_UPDATE_REQUEST);
+        LOGGER.info(MessageConstant.PACK_MODEL_UPDATE_REQUEST);
         return packModelMapper.toDto(
                 packModelRepository.save(packModelMapper.toEntity(packModelDto))
         );
@@ -59,7 +59,7 @@ public class PackModelService implements
 
     @Override
     public Map<String, String> deletePackModel(int id) {
-        LOGGER.info(MessageConstant.CAR_MODEL_DELETE_REQUEST);
+        LOGGER.info(MessageConstant.PACK_MODEL_DELETE_REQUEST);
         Map<String, String> result = new HashMap<>();
         try {
             packModelRepository.delete(Objects.requireNonNull(packModelRepository.findById(id).orElse(null)));

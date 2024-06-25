@@ -8,10 +8,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @RequiredArgsConstructor
 @Component
 public class TelegramGetIdPage implements ITelegramPage {
-    private final TelegramResultPage telegramResultPage;
     @Override
     public ITelegramPage nextPage() {
-        return telegramResultPage;
+        return null;
     }
 
     @Override
