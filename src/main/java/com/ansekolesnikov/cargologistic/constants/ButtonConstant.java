@@ -20,4 +20,8 @@ public class ButtonConstant {
     public static final String BTN_UPDATE_HEIGHT = "Высота";
     public static final String BTN_UPDATE_CODE = "Код";
     public static final String BTN_UPDATE_SCHEME = "Схема";
+
+    public static final String BTN_ALGORITHM_MAX = "Максимально";
+    public static final String BTN_ALGORITHM_HALF = "Половина кузова";
+    public static final String BTN_ALGORITHM_TYPE = "По типу посылки";
 }

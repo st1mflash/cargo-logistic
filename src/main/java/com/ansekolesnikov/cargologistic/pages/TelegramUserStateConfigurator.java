@@ -2,8 +2,7 @@ package com.ansekolesnikov.cargologistic.pages;
 
 import com.ansekolesnikov.cargologistic.constants.ButtonConstant;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
-import com.ansekolesnikov.cargologistic.service.CarModelService;
-import com.ansekolesnikov.cargologistic.service.PackModelService;
+import com.ansekolesnikov.cargologistic.service.*;
 import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +15,9 @@ public class TelegramUserStateConfigurator {
     private final TelegramPages telegramPages;
     private final PackModelService packModelService;
     private final CarModelService carModelService;
+    private final ViewFileService viewFileService;
+    private final LoadFileService loadFileService;
+    private final LoadListService loadListService;
 
     public TelegramUserState updateUserStateByUserMessage(TelegramUserState telegramUserState, String textMessage) {
         switch (textMessage) {
@@ -96,6 +98,21 @@ public class TelegramUserStateConfigurator {
                 telegramUserState.setRequestString(telegramUserState.getRequestString() + " scheme");
                 telegramUserState.setPage(telegramPages.getTelegramGetParamValuePage());
             }
+            case ButtonConstant.BTN_LOAD_FILE -> {
+                telegramUserState.setService(loadFileService);
+                telegramUserState.setRequestString("load_file");
+                telegramUserState.setPage(telegramPages.getTelegramGetFileNamePage());
+            }
+            case ButtonConstant.BTN_LOAD_LIST -> {
+                telegramUserState.setService(loadListService);
+                telegramUserState.setRequestString("load_list");
+                telegramUserState.setPage(telegramPages.getTelegramGetCarModelNamePage());
+            }
+            case ButtonConstant.BTN_VIEW_FILE -> {
+                telegramUserState.setService(viewFileService);
+                telegramUserState.setRequestString("view_file");
+                telegramUserState.setPage(telegramPages.getTelegramGetFileNamePage());
+            }
             default -> {
                 if (telegramUserState.getService().getClass() == PackModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.GET) {
@@ -171,6 +188,46 @@ public class TelegramUserStateConfigurator {
                 } else if (telegramUserState.getService().getClass() == CarModelService.class
                         && telegramUserState.getOperation() == DatabaseOperationEnum.UPDATE
                         && telegramUserState.getPage() == telegramPages.getTelegramGetParamValuePage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramResultPage());
+                } else if (telegramUserState.getService().getClass() == LoadFileService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetFileNamePage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramGetAlgorithmPage());
+                } else if (telegramUserState.getService().getClass() == LoadFileService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetAlgorithmPage()) {
+                    switch (textMessage) {
+                        case ButtonConstant.BTN_ALGORITHM_MAX -> telegramUserState.setRequestString(telegramUserState.getRequestString() + " max");
+                        case ButtonConstant.BTN_ALGORITHM_HALF -> telegramUserState.setRequestString(telegramUserState.getRequestString() + " half");
+                        case ButtonConstant.BTN_ALGORITHM_TYPE -> telegramUserState.setRequestString(telegramUserState.getRequestString() + " type");
+                    }
+                    telegramUserState.setPage(telegramPages.getTelegramGetCountCarsPage());
+                } else if (telegramUserState.getService().getClass() == LoadFileService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetCountCarsPage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramResultPage());
+                } else if (telegramUserState.getService().getClass() == LoadListService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetCarModelNamePage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramGetAlgorithmPage());
+                } else if (telegramUserState.getService().getClass() == LoadListService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetAlgorithmPage()) {
+                    switch (textMessage) {
+                        case ButtonConstant.BTN_ALGORITHM_MAX -> telegramUserState.setRequestString(telegramUserState.getRequestString() + " max");
+                        case ButtonConstant.BTN_ALGORITHM_HALF -> telegramUserState.setRequestString(telegramUserState.getRequestString() + " half");
+                        case ButtonConstant.BTN_ALGORITHM_TYPE -> telegramUserState.setRequestString(telegramUserState.getRequestString() + " type");
+                    }
+                    telegramUserState.setPage(telegramPages.getTelegramGetCountCarsPage());
+                } else if (telegramUserState.getService().getClass() == LoadListService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetCountCarsPage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage + ":");
+                    telegramUserState.setPage(telegramPages.getTelegramGetPackModelNamePage());
+                } else if (telegramUserState.getService().getClass() == LoadListService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetPackModelNamePage()) {
+                    telegramUserState.setRequestString(telegramUserState.getRequestString() + "\n" + textMessage);
+                    telegramUserState.setPage(telegramPages.getTelegramResultPage());
+                } else if (telegramUserState.getService().getClass() == ViewFileService.class
+                        && telegramUserState.getPage() == telegramPages.getTelegramGetFileNamePage()) {
                     telegramUserState.setRequestString(telegramUserState.getRequestString() + " " + textMessage);
                     telegramUserState.setPage(telegramPages.getTelegramResultPage());
                 }
