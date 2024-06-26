@@ -5,9 +5,9 @@ import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
-import com.ansekolesnikov.cargologistic.pages.TelegramUserStateConfigurator;
+import com.ansekolesnikov.cargologistic.pages.UserStateConfigurator;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
-import com.ansekolesnikov.cargologistic.states.TelegramUserState;
+import com.ansekolesnikov.cargologistic.states.UserState;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -31,7 +31,7 @@ public class TelegramBotService {
     private final CarModelService carModelService;
     private final TelegramMessageMapper telegramMessageMapper;
     private final TelegramPages telegramPages;
-    private final TelegramUserStateConfigurator telegramUserStateConfigurator;
+    private final UserStateConfigurator userStateConfigurator;
     private String telegramBotToken;
     private String telegramBotUsername;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
@@ -44,7 +44,7 @@ public class TelegramBotService {
             CarModelService carModelService,
             TelegramMessageMapper telegramMessageMapper,
             TelegramPages telegramPages,
-            TelegramUserStateConfigurator telegramUserStateConfigurator,
+            UserStateConfigurator userStateConfigurator,
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
@@ -55,7 +55,7 @@ public class TelegramBotService {
         this.carModelService = carModelService;
         this.telegramMessageMapper = telegramMessageMapper;
         this.telegramPages = telegramPages;
-        this.telegramUserStateConfigurator = telegramUserStateConfigurator;
+        this.userStateConfigurator = userStateConfigurator;
 
         try {
             new TelegramBotsApi(DefaultBotSession.class)
@@ -124,17 +124,17 @@ public class TelegramBotService {
     }
 
 
-    public TelegramUserState findOrCreateUserStateModel(Long userId, Map<Long, TelegramUserState> map) {
+    public UserState findOrCreateUserStateModel(Long userId, Map<Long, UserState> map) {
         if(map.get(userId) != null) {
             return map.get(userId);
         } else {
-            TelegramUserState userState = new TelegramUserState(userId, telegramPages.getTelegramMenuPage());
+            UserState userState = new UserState(userId, telegramPages.getTelegramMenuPage());
             map.put(userId, userState);
             return userState;
         }
     }
 
-    public TelegramUserState updateUserState(Update update, TelegramUserState userState) {
-        return telegramUserStateConfigurator.updateUserStateByUserMessage(userState, update.getMessage().getText());
+    public UserState updateUserState(Update update, UserState userState) {
+        return userStateConfigurator.updateUserStateByUserMessage(userState, update.getMessage().getText());
     }
 }

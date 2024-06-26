@@ -2,7 +2,7 @@ package com.ansekolesnikov.cargologistic.pages;
 
 import com.ansekolesnikov.cargologistic.constants.ButtonConstant;
 import com.ansekolesnikov.cargologistic.service.PackModelService;
-import com.ansekolesnikov.cargologistic.states.TelegramUserState;
+import com.ansekolesnikov.cargologistic.states.UserState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -22,7 +22,8 @@ public class TelegramGetParamNamePage implements ITelegramPage {
     }
 
     @Override
-    public SendMessage loadPageOnMessage(TelegramUserState userState, SendMessage message) {
+    public SendMessage loadPage(UserState userState) {
+        SendMessage message = new SendMessage();
         message.setText("Выберете параметр для обновления:");
         message.enableHtml(true);
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();

@@ -1,8 +1,7 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
-import com.ansekolesnikov.cargologistic.states.TelegramUserState;
+import com.ansekolesnikov.cargologistic.states.UserState;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.jvnet.hk2.annotations.Service;
@@ -18,45 +17,21 @@ import java.util.Map;
 @Service
 public class TelegramBotController extends TelegramLongPollingBot {
     private final TelegramBotService telegramBotService;
-    private final TelegramMessageMapper telegramMessageMapper;
-    //private final TelegramPackListState telegramPackListState;
     private final String BOT_TOKEN;
     private final String BOT_USERNAME;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
 
-    private final Map<Long, TelegramUserState> userStates = new HashMap<>();
+    private final Map<Long, UserState> userStates = new HashMap<>();
 
     @Override
     public void onUpdateReceived(Update update) {
         try {
             Long chatId = update.getMessage().getChatId();
-            TelegramUserState userState = telegramBotService.findOrCreateUserStateModel(chatId, userStates);
+            UserState userState = telegramBotService.findOrCreateUserStateModel(chatId, userStates);
             userState = telegramBotService.updateUserState(update, userState);
 
-            SendMessage message = userState.getPage().loadPageOnMessage(userState, new SendMessage());
-
-
-
-            //sendMessage = telegramPackListState.setupStateOnTelegramMessage(sendMessage);
-            //sendMessage.setChatId(update.getMessage().getChatId().toString());
-
-/*
-            TelegramMenuState telegramMenuState = new TelegramMenuState();
-            SendMessage sendMessage = new SendMessage();
-            sendMessage = telegramMenuState.setupStateOnTelegramMessage(sendMessage);
-            sendMessage.setChatId(update.getMessage().getChatId().toString());
-*/
+            SendMessage message = userState.getPage().loadPage(userState);
             sendMessage(chatId, message);
-
-            /*
-            TelegramUserMessage userMessage = telegramMessageMapper.toTelegramUserMessage(update.getMessage());
-            IRunnableByStringService service = telegramBotService.selectService(userMessage);
-            RequestString request = new RequestString(service.getClass(), userMessage.getText());
-            sendMessage(
-                    userMessage.getChatId(),
-                    service.run(request)
-            );
-            */
         } catch (Exception e) {
             LOGGER.error(e);
             sendMessage(
