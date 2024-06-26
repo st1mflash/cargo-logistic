@@ -60,7 +60,7 @@ public class TelegramBotService {
         try {
             new TelegramBotsApi(DefaultBotSession.class)
                     .registerBot(
-                            new TelegramBotController(this, telegramMessageMapper, telegramBotToken, telegramBotUsername)
+                            new TelegramBotController(this, telegramBotToken, telegramBotUsername)
                     );
         } catch (TelegramApiException e) {
             LOGGER.error(MessageConstant.TELEGRAM_START_ERROR + e);
