@@ -38,5 +38,4 @@ public enum StateEnum {
     INPUT_NAME_CAR_FOR_LOAD_LIST,
     INPUT_NAME_PACK_FOR_LOAD_LIST,
     RESULT
-    ;
 }

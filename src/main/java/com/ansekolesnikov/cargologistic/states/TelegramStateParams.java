@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class UserStateParams {
+public class TelegramStateParams {
     private final TelegramPages telegramPages;
     private final PackModelService packModelService;
     private final CarModelService carModelService;

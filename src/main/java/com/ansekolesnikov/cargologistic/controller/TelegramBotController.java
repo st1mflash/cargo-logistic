@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
-import com.ansekolesnikov.cargologistic.states.UserState;
+import com.ansekolesnikov.cargologistic.states.TelegramState;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.jvnet.hk2.annotations.Service;
@@ -21,17 +21,18 @@ public class TelegramBotController extends TelegramLongPollingBot {
     private final String BOT_USERNAME;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
 
-    private final Map<Long, UserState> userStates = new HashMap<>();
+    private final Map<Long, TelegramState> userStates = new HashMap<>();
 
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            Long chatId = update.getMessage().getChatId();
-            UserState userState = telegramBotService.findOrCreateUserStateModel(chatId, userStates);
-            userState = telegramBotService.updateUserState(update, userState);
+            Long userId = update.getMessage().getFrom().getId();
+            TelegramState telegramState = telegramBotService.updateState(
+                    update.getMessage().getText(),
+                    telegramBotService.loadOrCreateState(userId, userStates)
+            );
 
-            SendMessage message = userState.getPage().loadPage(userState);
-            sendMessage(chatId, message);
+            sendMessage(userId, loadStatePage(telegramState));
         } catch (Exception e) {
             LOGGER.error(e);
             sendMessage(
@@ -72,5 +73,9 @@ public class TelegramBotController extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             LOGGER.error(e);
         }
+    }
+
+    private SendMessage loadStatePage(TelegramState telegramState) {
+        return telegramState.getPage().loadPage(telegramState);
     }
 }

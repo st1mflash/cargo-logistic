@@ -108,17 +108,9 @@ public class CarModelService implements
                 carModelRepository.findById(request.getEntityId()).orElse(null)
         );
         switch (Objects.requireNonNull(parameterEnum)) {
-            case NAME:
-                carModelDto.setName(value);
-                break;
-            case WIDTH:
-                carModelDto.setWidth(Integer.parseInt(value));
-                break;
-            case HEIGHT:
-                carModelDto.setHeight(Integer.parseInt(value));
-                break;
-            default:
-                break;
+            case NAME -> carModelDto.setName(value);
+            case WIDTH -> carModelDto.setWidth(Integer.parseInt(value));
+            case HEIGHT -> carModelDto.setHeight(Integer.parseInt(value));
         }
         return updateCarModel(carModelDto);
     }

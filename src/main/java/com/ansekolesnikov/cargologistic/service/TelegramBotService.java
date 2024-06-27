@@ -2,19 +2,16 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
-import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
-import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
-import com.ansekolesnikov.cargologistic.states.UserStateMachine;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
-import com.ansekolesnikov.cargologistic.states.UserState;
+import com.ansekolesnikov.cargologistic.states.TelegramState;
+import com.ansekolesnikov.cargologistic.states.TelegramStateMachine;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
@@ -31,7 +28,7 @@ public class TelegramBotService {
     private final CarModelService carModelService;
     private final TelegramMessageMapper telegramMessageMapper;
     private final TelegramPages telegramPages;
-    private final UserStateMachine userStateMachine;
+    private final TelegramStateMachine telegramStateMachine;
     private String telegramBotToken;
     private String telegramBotUsername;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
@@ -44,7 +41,7 @@ public class TelegramBotService {
             CarModelService carModelService,
             TelegramMessageMapper telegramMessageMapper,
             TelegramPages telegramPages,
-            UserStateMachine userStateMachine,
+            TelegramStateMachine telegramStateMachine,
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
@@ -55,7 +52,7 @@ public class TelegramBotService {
         this.carModelService = carModelService;
         this.telegramMessageMapper = telegramMessageMapper;
         this.telegramPages = telegramPages;
-        this.userStateMachine = userStateMachine;
+        this.telegramStateMachine = telegramStateMachine;
 
         try {
             new TelegramBotsApi(DefaultBotSession.class)
@@ -64,21 +61,6 @@ public class TelegramBotService {
                     );
         } catch (TelegramApiException e) {
             LOGGER.error(MessageConstant.TELEGRAM_START_ERROR + e);
-        }
-    }
-
-    public IRunnableByStringService selectService(TelegramUserMessage userMessage) {
-        try {
-            return switch (userMessage.getCommand()) {
-                case CAR -> carModelService;
-                case PACK -> packModelService;
-                case LOAD_FILE -> loadFileService;
-                case LOAD_LIST -> loadListService;
-                case VIEW_FILE -> viewFileService;
-                default -> null;
-            };
-        } catch (NullPointerException e) {
-            return null;
         }
     }
 
@@ -124,17 +106,17 @@ public class TelegramBotService {
     }
 
 
-    public UserState findOrCreateUserStateModel(Long userId, Map<Long, UserState> map) {
+    public TelegramState loadOrCreateState(Long userId, Map<Long, TelegramState> map) {
         if(map.get(userId) != null) {
             return map.get(userId);
         } else {
-            UserState userState = new UserState(userId, telegramPages.getTelegramMenuPage());
-            map.put(userId, userState);
-            return userState;
+            TelegramState telegramState = new TelegramState(telegramPages.getTelegramMenuPage());
+            map.put(userId, telegramState);
+            return telegramState;
         }
     }
 
-    public UserState updateUserState(Update update, UserState userState) {
-        return userStateMachine.changeUserStateByInputMessage(userState, update.getMessage().getText());
+    public TelegramState updateState(String message, TelegramState telegramState) {
+        return telegramStateMachine.changeStateByMessage(telegramState, message);
     }
 }

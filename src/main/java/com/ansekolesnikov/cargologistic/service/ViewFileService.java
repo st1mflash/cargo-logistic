@@ -7,7 +7,6 @@ import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.mappers.LocalFileMapper;
-import com.ansekolesnikov.cargologistic.mappers.LocalFileMapperImpl;
 import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import com.ansekolesnikov.cargologistic.validation.ViewFileValidation;
 import lombok.RequiredArgsConstructor;

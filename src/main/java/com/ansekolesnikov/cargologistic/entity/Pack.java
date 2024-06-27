@@ -8,6 +8,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Data
 public class Pack extends PackModelEntity {
-    private int carId = 0;
+    private int carId;
     private String[][] arrScheme;
 }

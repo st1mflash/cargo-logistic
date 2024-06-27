@@ -101,10 +101,10 @@ public class LoadListService implements IRunnableByStringService {
     private String[] pullPacksNameListFromString(String request) {
         return Arrays.copyOfRange(
                 request.trim()
-                        .split("\s+"),
+                        .split(" "),
                 4,
                 request.trim()
-                        .split("\s+")
+                        .split(" ")
                         .length
         );
     }

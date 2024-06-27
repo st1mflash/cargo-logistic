@@ -1,8 +1,7 @@
 package com.ansekolesnikov.cargologistic.pages;
 
 import com.ansekolesnikov.cargologistic.constants.ButtonConstant;
-import com.ansekolesnikov.cargologistic.service.PackModelService;
-import com.ansekolesnikov.cargologistic.states.UserState;
+import com.ansekolesnikov.cargologistic.states.TelegramState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,7 +15,7 @@ import java.util.List;
 @Component
 public class TelegramGetPackParamNamePage implements ITelegramPage {
     @Override
-    public SendMessage loadPage(UserState userState) {
+    public SendMessage loadPage(TelegramState telegramState) {
         SendMessage message = new SendMessage();
         message.setText("Выберете параметр для обновления:");
         message.enableHtml(true);
@@ -31,12 +30,10 @@ public class TelegramGetPackParamNamePage implements ITelegramPage {
         keyboardRow.add(ButtonConstant.BTN_UPDATE_WIDTH_PACK);
         keyboardRow.add(ButtonConstant.BTN_UPDATE_HEIGHT_PACK);
         keyboardRows.add(keyboardRow);
-        //if(userState.getService().getClass() == PackModelService.class) {
-            keyboardRow = new KeyboardRow();
-            keyboardRow.add(ButtonConstant.BTN_UPDATE_CODE_PACK);
-            keyboardRow.add(ButtonConstant.BTN_UPDATE_SCHEME_PACK);
-            keyboardRows.add(keyboardRow);
-        //}
+        keyboardRow = new KeyboardRow();
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_CODE_PACK);
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_SCHEME_PACK);
+        keyboardRows.add(keyboardRow);
         replyKeyboardMarkup.setKeyboard(keyboardRows);
 
         message.setReplyMarkup(replyKeyboardMarkup);

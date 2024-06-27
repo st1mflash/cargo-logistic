@@ -124,23 +124,11 @@ public class PackModelService implements
         String value = request.getEntityParameterValue();
         PackModelDto packModelDto = packModelMapper.toDto(packModelRepository.findById(request.getEntityId()).orElse(null));
         switch (Objects.requireNonNull(parameterEnum)) {
-            case NAME:
-                packModelDto.setName(value);
-                break;
-            case CODE:
-                packModelDto.setCode(value.charAt(0));
-                break;
-            case SCHEME:
-                packModelDto.setScheme(value);
-                break;
-            case WIDTH:
-                packModelDto.setWidth(Integer.parseInt(value));
-                break;
-            case HEIGHT:
-                packModelDto.setHeight(Integer.parseInt(value));
-                break;
-            default:
-                break;
+            case NAME -> packModelDto.setName(value);
+            case CODE -> packModelDto.setCode(value.charAt(0));
+            case SCHEME -> packModelDto.setScheme(value);
+            case WIDTH -> packModelDto.setWidth(Integer.parseInt(value));
+            case HEIGHT -> packModelDto.setHeight(Integer.parseInt(value));
         }
         return updatePackModel(packModelDto);
     }
