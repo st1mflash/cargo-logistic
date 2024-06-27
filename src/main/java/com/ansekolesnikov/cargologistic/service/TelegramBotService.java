@@ -5,7 +5,7 @@ import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.entity.TelegramUserMessage;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
-import com.ansekolesnikov.cargologistic.pages.UserStateConfigurator;
+import com.ansekolesnikov.cargologistic.states.UserStateMachine;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
 import com.ansekolesnikov.cargologistic.states.UserState;
 import lombok.Getter;
@@ -31,7 +31,7 @@ public class TelegramBotService {
     private final CarModelService carModelService;
     private final TelegramMessageMapper telegramMessageMapper;
     private final TelegramPages telegramPages;
-    private final UserStateConfigurator userStateConfigurator;
+    private final UserStateMachine userStateMachine;
     private String telegramBotToken;
     private String telegramBotUsername;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
@@ -44,7 +44,7 @@ public class TelegramBotService {
             CarModelService carModelService,
             TelegramMessageMapper telegramMessageMapper,
             TelegramPages telegramPages,
-            UserStateConfigurator userStateConfigurator,
+            UserStateMachine userStateMachine,
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
@@ -55,7 +55,7 @@ public class TelegramBotService {
         this.carModelService = carModelService;
         this.telegramMessageMapper = telegramMessageMapper;
         this.telegramPages = telegramPages;
-        this.userStateConfigurator = userStateConfigurator;
+        this.userStateMachine = userStateMachine;
 
         try {
             new TelegramBotsApi(DefaultBotSession.class)
@@ -135,6 +135,6 @@ public class TelegramBotService {
     }
 
     public UserState updateUserState(Update update, UserState userState) {
-        return userStateConfigurator.updateUserStateByUserMessage(userState, update.getMessage().getText());
+        return userStateMachine.changeUserStateByInputMessage(userState, update.getMessage().getText());
     }
 }

@@ -8,12 +8,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @RequiredArgsConstructor
 @Component
 public class TelegramGetCodePage implements ITelegramPage {
-    private final TelegramGetSchemePage telegramGetSchemePage;
-    @Override
-    public ITelegramPage nextPage() {
-        return telegramGetSchemePage;
-    }
-
     @Override
     public SendMessage loadPage(UserState userState) {
         SendMessage message = new SendMessage();

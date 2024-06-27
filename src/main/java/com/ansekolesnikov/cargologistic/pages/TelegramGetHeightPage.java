@@ -8,12 +8,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @RequiredArgsConstructor
 @Component
 public class TelegramGetHeightPage implements ITelegramPage {
-    private final TelegramMenuPage telegramMenuPage;
-    @Override
-    public ITelegramPage nextPage() {
-        return telegramMenuPage;
-    }
-
     @Override
     public SendMessage loadPage(UserState userState) {
         SendMessage message = new SendMessage();

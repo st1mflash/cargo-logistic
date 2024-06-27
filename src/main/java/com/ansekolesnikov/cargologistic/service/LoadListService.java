@@ -99,9 +99,13 @@ public class LoadListService implements IRunnableByStringService {
     }
 
     private String[] pullPacksNameListFromString(String request) {
-        return request
-                .substring(request.indexOf(":") + 1)
-                .trim()
-                .split("\\n");
+        return Arrays.copyOfRange(
+                request.trim()
+                        .split("\s+"),
+                4,
+                request.trim()
+                        .split("\s+")
+                        .length
+        );
     }
 }

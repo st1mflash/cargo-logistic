@@ -14,13 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class TelegramGetParamNamePage implements ITelegramPage {
-    private final TelegramGetParamValuePage telegramGetParamValuePage;
-    @Override
-    public ITelegramPage nextPage() {
-        return telegramGetParamValuePage;
-    }
-
+public class TelegramGetPackParamNamePage implements ITelegramPage {
     @Override
     public SendMessage loadPage(UserState userState) {
         SendMessage message = new SendMessage();
@@ -31,18 +25,18 @@ public class TelegramGetParamNamePage implements ITelegramPage {
         replyKeyboardMarkup.setOneTimeKeyboard(true);
         List<KeyboardRow> keyboardRows = new ArrayList<>();
         KeyboardRow keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_UPDATE_NAME);
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_NAME_PACK);
         keyboardRows.add(keyboardRow);
         keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_UPDATE_WIDTH);
-        keyboardRow.add(ButtonConstant.BTN_UPDATE_HEIGHT);
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_WIDTH_PACK);
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_HEIGHT_PACK);
         keyboardRows.add(keyboardRow);
-        if(userState.getService().getClass() == PackModelService.class) {
+        //if(userState.getService().getClass() == PackModelService.class) {
             keyboardRow = new KeyboardRow();
-            keyboardRow.add(ButtonConstant.BTN_UPDATE_CODE);
-            keyboardRow.add(ButtonConstant.BTN_UPDATE_SCHEME);
+            keyboardRow.add(ButtonConstant.BTN_UPDATE_CODE_PACK);
+            keyboardRow.add(ButtonConstant.BTN_UPDATE_SCHEME_PACK);
             keyboardRows.add(keyboardRow);
-        }
+        //}
         replyKeyboardMarkup.setKeyboard(keyboardRows);
 
         message.setReplyMarkup(replyKeyboardMarkup);

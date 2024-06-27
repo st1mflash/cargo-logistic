@@ -11,7 +11,7 @@ public class UserState {
     private Long userId;
     private ITelegramPage page;
     private String requestString;
-    private StateEnum state;
+    private StateEnum currentState;
     private IRunnableByStringService service;
     private DatabaseOperationEnum operation;
 

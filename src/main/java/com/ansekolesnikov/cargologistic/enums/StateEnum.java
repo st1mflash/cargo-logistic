@@ -1,12 +1,5 @@
 package com.ansekolesnikov.cargologistic.enums;
 
-import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
-import com.ansekolesnikov.cargologistic.pages.ITelegramPage;
-import com.ansekolesnikov.cargologistic.pages.TelegramPages;
-import com.ansekolesnikov.cargologistic.service.*;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 public enum StateEnum {
     GET_LIST_PACK,
     GET_LIST_CAR,
@@ -32,6 +25,18 @@ public enum StateEnum {
     INPUT_CODE_FOR_UPDATE_PACK,
     INPUT_SCHEME_FOR_INSERT_PACK,
     INPUT_SCHEME_FOR_UPDATE_PACK,
-    INPUT_PARAM_FOR_UPDATE_PACK,
-    INPUT_PARAM_FOR_UPDATE_CAR;
+    INPUT_PARAM_NAME_FOR_UPDATE_PACK,
+    INPUT_PARAM_NAME_FOR_UPDATE_CAR,
+    INPUT_PARAM_VALUE_FOR_UPDATE_PACK,
+    INPUT_PARAM_VALUE_FOR_UPDATE_CAR,
+    INPUT_FILENAME_FOR_LOAD_FILE,
+    INPUT_FILENAME_FOR_VIEW_FILE,
+    INPUT_ALGORITHM_FOR_LOAD_FILE,
+    INPUT_ALGORITHM_FOR_LOAD_LIST,
+    INPUT_COUNT_CAR_FOR_LOAD_FILE,
+    INPUT_COUNT_CAR_FOR_LOAD_LIST,
+    INPUT_NAME_CAR_FOR_LOAD_LIST,
+    INPUT_NAME_PACK_FOR_LOAD_LIST,
+    RESULT
+    ;
 }

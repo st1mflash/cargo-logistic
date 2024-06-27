@@ -15,11 +15,6 @@ import java.util.List;
 @Component
 public class TelegramGetAlgorithmPage implements ITelegramPage {
     @Override
-    public ITelegramPage nextPage() {
-        return null;
-    }
-
-    @Override
     public SendMessage loadPage(UserState userState) {
         SendMessage message = new SendMessage();
         message.setText("Выберите алгоритм загрузки:");

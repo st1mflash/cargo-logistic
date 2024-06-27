@@ -15,11 +15,15 @@ public class ButtonConstant {
     public static final String BTN_LOAD_LIST = "Ручная загрузка машин";
     public static final String BTN_VIEW_FILE = "Отображение машин из файла";
 
-    public static final String BTN_UPDATE_NAME = "Название";
-    public static final String BTN_UPDATE_WIDTH = "Ширина";
-    public static final String BTN_UPDATE_HEIGHT = "Высота";
-    public static final String BTN_UPDATE_CODE = "Код";
-    public static final String BTN_UPDATE_SCHEME = "Схема";
+    public static final String BTN_UPDATE_NAME_PACK = "Название посылки";
+    public static final String BTN_UPDATE_WIDTH_PACK = "Ширина посылки";
+    public static final String BTN_UPDATE_HEIGHT_PACK = "Высота посылки";
+    public static final String BTN_UPDATE_CODE_PACK = "Код посылки";
+    public static final String BTN_UPDATE_SCHEME_PACK = "Схема посылки";
+
+    public static final String BTN_UPDATE_NAME_CAR = "Название машины";
+    public static final String BTN_UPDATE_WIDTH_CAR = "Ширина машины";
+    public static final String BTN_UPDATE_HEIGHT_CAR = "Высота машины";
 
     public static final String BTN_ALGORITHM_MAX = "Максимально";
     public static final String BTN_ALGORITHM_HALF = "Половина кузова";

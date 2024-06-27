@@ -13,42 +13,22 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class TelegramMenuPage implements ITelegramPage {
+public class TelegramGetCarParamNamePage implements ITelegramPage {
     @Override
     public SendMessage loadPage(UserState userState) {
         SendMessage message = new SendMessage();
-        message.setText("Выберите опцию:");
+        message.setText("Выберете параметр для обновления:");
         message.enableHtml(true);
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setOneTimeKeyboard(true);
         List<KeyboardRow> keyboardRows = new ArrayList<>();
         KeyboardRow keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_PACK_LIST);
-        keyboardRow.add(ButtonConstant.BTN_CAR_LIST);
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_NAME_CAR);
         keyboardRows.add(keyboardRow);
         keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_GET_PACK);
-        keyboardRow.add(ButtonConstant.BTN_GET_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_INSERT_PACK);
-        keyboardRow.add(ButtonConstant.BTN_INSERT_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_UPDATE_PACK);
-        keyboardRow.add(ButtonConstant.BTN_UPDATE_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_DELETE_PACK);
-        keyboardRow.add(ButtonConstant.BTN_DELETE_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_LOAD_FILE);
-        keyboardRow.add(ButtonConstant.BTN_LOAD_LIST);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_VIEW_FILE);
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_WIDTH_CAR);
+        keyboardRow.add(ButtonConstant.BTN_UPDATE_HEIGHT_CAR);
         keyboardRows.add(keyboardRow);
         replyKeyboardMarkup.setKeyboard(keyboardRows);
 
