@@ -42,16 +42,4 @@ public class EntityUtils {
             default -> null;
         };
     }
-
-    public static ServiceCommandEnum getServiceCommandEnum(String command) {
-        return switch (command.toLowerCase()) {
-            case "/info" -> ServiceCommandEnum.INFO;
-            case "load_file" -> ServiceCommandEnum.LOAD_FILE;
-            case "load_list" -> ServiceCommandEnum.LOAD_LIST;
-            case "view_file" -> ServiceCommandEnum.VIEW_FILE;
-            case "car" -> ServiceCommandEnum.CAR;
-            case "pack" -> ServiceCommandEnum.PACK;
-            default -> null;
-        };
-    }
 }

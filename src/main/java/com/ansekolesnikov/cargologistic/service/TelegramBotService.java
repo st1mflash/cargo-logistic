@@ -2,7 +2,6 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
-import com.ansekolesnikov.cargologistic.mappers.TelegramMessageMapper;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
 import com.ansekolesnikov.cargologistic.states.TelegramState;
 import com.ansekolesnikov.cargologistic.states.TelegramStateMachine;
@@ -26,7 +25,6 @@ public class TelegramBotService {
     private final ViewFileService viewFileService;
     private final PackModelService packModelService;
     private final CarModelService carModelService;
-    private final TelegramMessageMapper telegramMessageMapper;
     private final TelegramPages telegramPages;
     private final TelegramStateMachine telegramStateMachine;
     private String telegramBotToken;
@@ -39,7 +37,6 @@ public class TelegramBotService {
             ViewFileService viewFileService,
             PackModelService packModelService,
             CarModelService carModelService,
-            TelegramMessageMapper telegramMessageMapper,
             TelegramPages telegramPages,
             TelegramStateMachine telegramStateMachine,
             @Value("${telegram.bot.username}") String telegramBotUsername,
@@ -50,7 +47,6 @@ public class TelegramBotService {
         this.viewFileService = viewFileService;
         this.packModelService = packModelService;
         this.carModelService = carModelService;
-        this.telegramMessageMapper = telegramMessageMapper;
         this.telegramPages = telegramPages;
         this.telegramStateMachine = telegramStateMachine;
 
