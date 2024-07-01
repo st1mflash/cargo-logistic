@@ -96,20 +96,9 @@ public class LoadFileService implements IRunnableByStringService {
             assert defaultCarModelEntity != null;
             Car car = carModelMapper.toCar(defaultCarModelEntity);
             listCars.add(car);
-            packList = packList.stream()
+            packList.stream()
                     .filter(pack -> pack.getCarId() == 0)
-                    .collect(Collectors.toList());
-
-            for (Pack pack : packList) {
-                loaderPackToCarSelectorService.loadPackToCar(car, pack, algorithm);
-            }
-            if (localCarCount > 0) {
-                if (car.calcPercentLoad() == 0) {
-                    LOGGER.info("Грузовик #" + car.getId() + " остался пустым");
-                } else {
-                    LOGGER.info("Грузовик #" + car.getId() + " успешно загружен на " + car.calcPercentLoad() + "%");
-                }
-            }
+                    .forEach(pack -> loaderPackToCarSelectorService.loadPackToCar(car, pack, algorithm));
             localCarCount--;
         } while (
                 packList.stream()
