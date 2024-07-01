@@ -1,6 +1,7 @@
 package com.ansekolesnikov.cargologistic.states;
 
 import com.ansekolesnikov.cargologistic.constants.ButtonConstant;
+import com.ansekolesnikov.cargologistic.constants.CommandConstant;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.StateEnum;
@@ -120,11 +121,11 @@ public class TelegramStateMachine {
 
     private void updateStateAlgorithm(TelegramState telegramState, StateEnum newState, String message) {
         switch (message) {
-            case ButtonConstant.BTN_ALGORITHM_MAX -> telegramState.setRequestString(telegramState.getRequestString() + " max");
+            case ButtonConstant.BTN_ALGORITHM_MAX -> telegramState.setRequestString(telegramState.getRequestString() + " " + CommandConstant.MAX_ALGORITHM);
             case ButtonConstant.BTN_ALGORITHM_HALF ->
-                    telegramState.setRequestString(telegramState.getRequestString() + " half");
+                    telegramState.setRequestString(telegramState.getRequestString() + " " + CommandConstant.HALF_ALGORITHM);
             case ButtonConstant.BTN_ALGORITHM_TYPE ->
-                    telegramState.setRequestString(telegramState.getRequestString() + " type");
+                    telegramState.setRequestString(telegramState.getRequestString() + " " + CommandConstant.TYPE_ALGORITHM);
         }
         updateState(telegramState, newState);
     }
@@ -132,19 +133,19 @@ public class TelegramStateMachine {
 
     private void updateStateRequest(TelegramState telegramState, StateEnum newState) {
         switch (newState) {
-            case GET_LIST_PACK -> telegramState.setRequestString("pack list");
-            case GET_LIST_CAR -> telegramState.setRequestString("car list");
-            case INPUT_ID_FOR_GET_PACK -> telegramState.setRequestString("pack get");
-            case INPUT_ID_FOR_GET_CAR -> telegramState.setRequestString("car get");
-            case INPUT_NAME_FOR_INSERT_PACK -> telegramState.setRequestString("pack insert");
-            case INPUT_NAME_FOR_INSERT_CAR -> telegramState.setRequestString("car insert");
-            case INPUT_ID_FOR_UPDATE_PACK -> telegramState.setRequestString("pack update");
-            case INPUT_ID_FOR_UPDATE_CAR -> telegramState.setRequestString("car update");
-            case INPUT_ID_FOR_DELETE_PACK -> telegramState.setRequestString("pack delete");
-            case INPUT_ID_FOR_DELETE_CAR -> telegramState.setRequestString("car delete");
-            case INPUT_FILENAME_FOR_LOAD_FILE -> telegramState.setRequestString("load_file");
-            case INPUT_NAME_CAR_FOR_LOAD_LIST -> telegramState.setRequestString("load_list");
-            case INPUT_FILENAME_FOR_VIEW_FILE -> telegramState.setRequestString("view_file");
+            case GET_LIST_PACK -> telegramState.setRequestString(CommandConstant.PACK_LIST);
+            case GET_LIST_CAR -> telegramState.setRequestString(CommandConstant.CAR_LIST);
+            case INPUT_ID_FOR_GET_PACK -> telegramState.setRequestString(CommandConstant.PACK_GET);
+            case INPUT_ID_FOR_GET_CAR -> telegramState.setRequestString(CommandConstant.CAR_GET);
+            case INPUT_NAME_FOR_INSERT_PACK -> telegramState.setRequestString(CommandConstant.PACK_INSERT);
+            case INPUT_NAME_FOR_INSERT_CAR -> telegramState.setRequestString(CommandConstant.CAR_INSERT);
+            case INPUT_ID_FOR_UPDATE_PACK -> telegramState.setRequestString(CommandConstant.PACK_UPDATE);
+            case INPUT_ID_FOR_UPDATE_CAR -> telegramState.setRequestString(CommandConstant.CAR_UPDATE);
+            case INPUT_ID_FOR_DELETE_PACK -> telegramState.setRequestString(CommandConstant.PACK_DELETE);
+            case INPUT_ID_FOR_DELETE_CAR -> telegramState.setRequestString(CommandConstant.CAR_DELETE);
+            case INPUT_FILENAME_FOR_LOAD_FILE -> telegramState.setRequestString(CommandConstant.LOAD_FILE);
+            case INPUT_NAME_CAR_FOR_LOAD_LIST -> telegramState.setRequestString(CommandConstant.LOAD_LIST);
+            case INPUT_FILENAME_FOR_VIEW_FILE -> telegramState.setRequestString(CommandConstant.VIEW_FILE);
         }
     }
 }
