@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
+import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
 import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
@@ -80,19 +81,22 @@ public class CarModelService implements
                 StringBuilder carList = new StringBuilder();
                 getCarModelList().stream()
                         .map(carModelMapper::toEntity)
-                        .forEach(c -> carList.append(c.toStringCarInfo()).append("\n\n"));
+                        .forEach(c -> carList.append(toStringCarInfo(c)).append("\n\n"));
                 return carList.toString();
             case GET:
-                return carModelMapper.toEntity(getCarModel(request.getEntityId())).toStringCarInfo();
+                CarModelEntity carGetting = carModelMapper.toEntity(getCarModel(request.getEntityId()));
+                return toStringCarInfo(carGetting);
             case INSERT:
                 CarModelDto carModelDto = CarModelDto.builder()
                         .name(request.getEntityName())
                         .width(request.getEntityWidth())
                         .height(request.getEntityHeight())
                         .build();
-                return carModelMapper.toEntity(addCarModel(carModelDto)).toStringCarInfo();
+                CarModelEntity carInserted = carModelMapper.toEntity(addCarModel(carModelDto));
+                return toStringCarInfo(carInserted);
             case UPDATE:
-                return carModelMapper.toEntity(updateCarByParams(request)).toStringCarInfo();
+                CarModelEntity carUpdated = carModelMapper.toEntity(updateCarByParams(request));
+                return toStringCarInfo(carUpdated);
             case DELETE:
                 deleteCarModel(request.getEntityId());
                 return MessageConstant.SUCCESS_DELETE;
@@ -113,5 +117,11 @@ public class CarModelService implements
             case HEIGHT -> carModelDto.setHeight(Integer.parseInt(value));
         }
         return updateCarModel(carModelDto);
+    }
+
+    private String toStringCarInfo(CarModelEntity carModelEntity) {
+        return "Идентификатор: #" + carModelEntity.getId()
+                + "\nНазвание модели: " + carModelEntity.getName()
+                + "\nПараметры кузова: " + carModelEntity.getWidth() + "x" + carModelEntity.getHeight();
     }
 }

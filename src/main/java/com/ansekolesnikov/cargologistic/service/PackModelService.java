@@ -2,6 +2,7 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.dto.PackModelDto;
+import com.ansekolesnikov.cargologistic.entity.PackModelEntity;
 import com.ansekolesnikov.cargologistic.entity.RequestString;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
@@ -88,14 +89,14 @@ public class PackModelService implements
     }
 
     private String processGetOperationToString(RequestString request) {
-        return packModelMapper.toEntity(getPackModel(request.getEntityId())).toStringPackInfo();
+        return toStringPackInfo(packModelMapper.toEntity(getPackModel(request.getEntityId())));
     }
 
     private String processListOperationToString() {
         StringBuilder packList = new StringBuilder();
         getPackModelList().stream()
                 .map(packModelMapper::toEntity)
-                .forEach(c -> packList.append(c.toStringPackInfo()).append("\n\n"));
+                .forEach(p -> packList.append(toStringPackInfo(p)).append("\n\n"));
         return packList.toString();
     }
 
@@ -107,11 +108,11 @@ public class PackModelService implements
                 .width(request.getEntityWidth())
                 .height(request.getEntityHeight())
                 .build();
-        return packModelMapper.toEntity(addPackModel(packModelDto)).toStringPackInfo();
+        return toStringPackInfo(packModelMapper.toEntity(addPackModel(packModelDto)));
     }
 
     private String processUpdateOperationToString(RequestString request) {
-        return packModelMapper.toEntity(updatePackByParams(request)).toStringPackInfo();
+        return toStringPackInfo(packModelMapper.toEntity(updatePackByParams(request)));
     }
 
     private String processDeleteOperationToString(RequestString request) {
@@ -131,6 +132,32 @@ public class PackModelService implements
             case HEIGHT -> packModelDto.setHeight(Integer.parseInt(value));
         }
         return updatePackModel(packModelDto);
+    }
+
+    private String toStringPackInfo(PackModelEntity packModelEntity) {
+        return "Идентификатор: #" + packModelEntity.getId()
+                + "\nНазвание посылки: " + packModelEntity.getName()
+                + "\nПараметры посылки: " + packModelEntity.getWidth() + "x" + packModelEntity.getHeight()
+                + "\nСхема посылки:\n"
+                + toStringPackScheme(packModelEntity);
+    }
+
+    private String toStringPackScheme(PackModelEntity packModelEntity) {
+        StringBuilder packSchemeToString = new StringBuilder();
+        String packScheme = packModelEntity.getScheme();
+        for (int i = packModelEntity.getHeight() - 1; i >= 0; i--) {
+            packSchemeToString.append("+");
+            for (int j = 0; j < packModelEntity.getWidth(); j++) {
+                if (Objects.equals("" + packScheme.charAt(i * packModelEntity.getWidth() + j), "0")) {
+                    packSchemeToString.append(" ");
+                } else {
+                    packSchemeToString.append(packModelEntity.getCode());
+                }
+            }
+            packSchemeToString.append("+\n");
+        }
+        packSchemeToString.append("+".repeat(Math.max(0, packModelEntity.getWidth() + 2)));
+        return packSchemeToString.toString();
     }
 
 }

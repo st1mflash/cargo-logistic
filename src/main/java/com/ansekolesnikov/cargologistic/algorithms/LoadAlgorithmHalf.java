@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class LoadAlgorithmHalf implements ILoadAlgorithm {
     @Override
     public void load(Car car, Pack pack) {
-        if (car.calcPercentLoad() + (pack.calculateCountElements() * 100) / (car.getWidth() * car.getHeight()) <= 50) {
+        if (car.calcPercentLoad() + (pack.getScheme().replaceAll("0", "").length() * 100) / (car.getWidth() * car.getHeight()) <= 50) {
             car.loadPack(pack);
         }
     }
