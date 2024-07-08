@@ -2,7 +2,8 @@ package com.ansekolesnikov.cargologistic.utils;
 
 import com.ansekolesnikov.cargologistic.enums.*;
 
-public class EntityUtils {
+public class EntityUtils { //todo это не utils. Больше похоже на Enumы. Надо сделать их отдельными классами ,
+    // а так же сделать не через case а через енамы с значениями
     public static AlgorithmEnum getAlgorithmEnum(String algorithm) {
         return switch (algorithm.toLowerCase()) {
             case "max" -> AlgorithmEnum.MAX;

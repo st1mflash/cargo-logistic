@@ -24,7 +24,8 @@ public class TelegramStateMachine {
     private final ViewFileService viewFileService;
     private final LoadFileService loadFileService;
     private final LoadListService loadListService;
-
+    //todo не читабильно. Думаю лучше сделать фабрику, добавить доп параметр, который определеяет с чем связано (с машиной, с товаром...)
+    // в итоге выйдет что у тебя будут классы разделенные по бизнес логике.
     public TelegramState changeStateByMessage(TelegramState telegramState, String message) {
         switch (message) {
             case ButtonConstant.BTN_UPDATE_NAME_PACK,

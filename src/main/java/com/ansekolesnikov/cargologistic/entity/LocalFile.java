@@ -20,7 +20,7 @@ public class LocalFile {
     private String path;
     private String content;
     private static final Logger LOGGER = Logger.getLogger(LocalFile.class.getName());
-
+    //todo методы лучше вынести в какой нибудь LocalFileService
     public List<JSONObject> importListJsonCars() {
         List<JSONObject> listJSONObj = new ArrayList<>();
         String[] arrClearContent = content

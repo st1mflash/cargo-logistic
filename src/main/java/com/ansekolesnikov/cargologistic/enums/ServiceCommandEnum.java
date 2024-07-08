@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.enums;
 
-public enum ServiceCommandEnum {
+public enum ServiceCommandEnum { //todo нигде не используется, зачем он нужен?
     INFO,
     LOAD_FILE,
     LOAD_LIST,

@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Car extends CarModelEntity {
     private String[][] cargo;
     private int idCar;
-
+//todo методы лучше вынести в какой нибудь CarService
     public void loadPack(Pack pack) {
         if (width >= pack.getWidth()) {
             String stringLoadAddress = findLoadPackAddress(pack);

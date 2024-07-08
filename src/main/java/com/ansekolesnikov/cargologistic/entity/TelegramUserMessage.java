@@ -11,5 +11,5 @@ public class TelegramUserMessage {
     private Message message;
     private Long chatId;
     private String text;
-    private ServiceCommandEnum command;
+    private ServiceCommandEnum command;  //todo нигде не используется, зачем он нужен?
 }

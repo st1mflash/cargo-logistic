@@ -32,7 +32,7 @@ public class RequestString {
 
     private CarModelParameterEnum carModelParameterName;
     private PackModelParameterEnum packModelParameterName;
-
+    //todo методы лучше вынести в отдельный маппер. И то отду дозаполнять
     public RequestString(Class serviceClass, String request) {
         this.request = request;
         if (serviceClass == CarModelService.class) {
