@@ -2,22 +2,19 @@ package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.dto.CarModelDto;
-import com.ansekolesnikov.cargologistic.entity.CarModelEntity;
-import com.ansekolesnikov.cargologistic.entity.RequestString;
+import com.ansekolesnikov.cargologistic.entity.*;
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.DatabaseOperationEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
+import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service

@@ -35,6 +35,8 @@ public class LoadFileService implements IRunnableByStringService {
     private final PackModelMapper packModelMapper;
     private final LocalFileMapper localFileMapper;
     private final LoadFileServiceValidation loadFileServiceValidation;
+    private final CarService carService;
+    private final LocalFileService localFileService;
     private static final Logger LOGGER = Logger.getLogger(LoadFileService.class.getName());
 
     @Override
@@ -74,7 +76,7 @@ public class LoadFileService implements IRunnableByStringService {
         StringBuilder result = new StringBuilder();
         if (listCars != null) {
             for (Car car : listCars) {
-                result.append(car.toStringCarCargoScheme()).append("\n");
+                result.append(carService.toStringCarCargoScheme(car)).append("\n");
             }
         }
         return result.toString();
@@ -82,7 +84,7 @@ public class LoadFileService implements IRunnableByStringService {
 
     public List<Pack> importPacksFromFileSortedByWidth(LocalFile localFile) {
         return Objects
-                .requireNonNull(localFile.importPacksFromFile(packModelRepository, packModelMapper))
+                .requireNonNull(localFileService.importPacksFromFile(localFile, packModelRepository, packModelMapper))
                 .stream()
                 .sorted(Comparator.comparingInt(Pack::getWidth).reversed())
                 .toList();

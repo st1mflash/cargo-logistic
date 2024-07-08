@@ -16,8 +16,8 @@ public interface CarModelMapper {
     @Mapping(target = "cargo", expression = "java(getEmptyCargoCarScheme(carModelEntity.getWidth(), carModelEntity.getHeight()))")
     Car toCar(CarModelEntity carModelEntity);
     @Mapping(target = "idCar", expression = "java(Integer.parseInt(jsonObj.getString(\"id\")))")
-    @Mapping(target = "width", expression = "java(6)")
-    @Mapping(target = "height", expression = "java(6)")
+    @Mapping(target = "width", constant = "6")
+    @Mapping(target = "height", constant = "6")
     @Mapping(target = "cargo", expression = "java(getCarCargoSchemeByString(jsonObj.getString(\"cargo\"), 6, 6))")
     Car toCar(JSONObject jsonObj);
 

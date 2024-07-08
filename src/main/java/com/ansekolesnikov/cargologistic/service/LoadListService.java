@@ -24,6 +24,7 @@ public class LoadListService implements IRunnableByStringService {
     private final LoaderPackToCarSelectorService loaderPackToCarSelectorService;
     private final CarModelMapper carModelMapper;
     private final PackModelMapper packModelMapper;
+    private final CarService carService;
 
     private static final Logger LOGGER = Logger.getLogger(LoadListService.class.getName());
 
@@ -82,7 +83,7 @@ public class LoadListService implements IRunnableByStringService {
 
         if (listCars != null) {
             for (Car car : listCars) {
-                result.append(car.toStringCarCargoScheme()).append("\n");
+                result.append(carService.toStringCarCargoScheme(car)).append("\n");
             }
         }
         return result.toString();

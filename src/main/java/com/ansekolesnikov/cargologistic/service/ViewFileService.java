@@ -23,6 +23,8 @@ public class ViewFileService implements IRunnableByStringService {
     private final PackModelRepository packModelRepository;
     private final CarModelMapper carModelMapper;
     private final LocalFileMapper localFileMapper;
+    private final CarService carService;
+    private final LocalFileService localFileService;
 
     @Override
     public String run(RequestString request) {
@@ -37,7 +39,7 @@ public class ViewFileService implements IRunnableByStringService {
     }
 
     public String toStringCarsFromFile(LocalFile localFile) {
-        List<Car> importedCarList = localFile.importCarsFromFile(carModelMapper);
+        List<Car> importedCarList = localFileService.importCarsFromFile(localFile, carModelMapper);
         if (importedCarList != null) {
             return toStringListCars(importedCarList);
         } else {
@@ -48,7 +50,7 @@ public class ViewFileService implements IRunnableByStringService {
     public String toStringListCars(List<Car> carList) {
         StringBuilder result = new StringBuilder();
         for (Car car : carList) {
-            result.append(car.toStringCarInfo(packModelRepository));
+            result.append(carService.toStringCarInfo(car, packModelRepository));
         }
         return result.toString();
     }

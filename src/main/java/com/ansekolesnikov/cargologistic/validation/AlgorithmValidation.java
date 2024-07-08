@@ -4,6 +4,7 @@ import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Component;
 
 @Getter
@@ -18,10 +19,7 @@ public class AlgorithmValidation {
     }
 
     private boolean isExist(AlgorithmEnum algorithm) {
-        if (algorithm == AlgorithmEnum.MAX
-                || algorithm == AlgorithmEnum.HALF
-                || algorithm == AlgorithmEnum.TYPE
-        ) {
+        if (EnumUtils.isValidEnum(AlgorithmEnum.class, algorithm.name())) {
             return true;
         } else {
             logErrorMessage = MessageConstant.UNKNOWN_ALGORITHM + " " + algorithm;
@@ -29,5 +27,4 @@ public class AlgorithmValidation {
             return false;
         }
     }
-
 }
