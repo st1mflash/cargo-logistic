@@ -3,9 +3,7 @@ package com.ansekolesnikov.cargologistic.algorithms;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.Pack;
 import com.ansekolesnikov.cargologistic.interfaces.ILoadAlgorithm;
-import com.ansekolesnikov.cargologistic.service.CarModelService;
 import com.ansekolesnikov.cargologistic.service.CarService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

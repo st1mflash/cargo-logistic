@@ -9,7 +9,6 @@ import com.ansekolesnikov.cargologistic.interfaces.ICarModelService;
 import com.ansekolesnikov.cargologistic.interfaces.IRunnableByStringService;
 import com.ansekolesnikov.cargologistic.mappers.CarModelMapper;
 import com.ansekolesnikov.cargologistic.repository.CarModelRepository;
-import com.ansekolesnikov.cargologistic.repository.PackModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;

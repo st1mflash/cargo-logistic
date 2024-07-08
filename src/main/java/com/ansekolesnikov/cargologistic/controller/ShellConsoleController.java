@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.controller;
 
-import com.ansekolesnikov.cargologistic.entity.RequestString;
+import com.ansekolesnikov.cargologistic.mappers.RequestStringMapper;
 import com.ansekolesnikov.cargologistic.service.LoadFileService;
 import com.ansekolesnikov.cargologistic.service.ViewFileService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,7 @@ import org.springframework.shell.standard.ShellOption;
 public class ShellConsoleController {
     private final ViewFileService viewFileCargoService;
     private final LoadFileService loadFileCargoService;
+    private final RequestStringMapper requestStringMapper;
 
     private static final Logger LOGGER = Logger.getLogger(ShellConsoleController.class.getName());
 
@@ -25,7 +26,7 @@ public class ShellConsoleController {
     ) {
         LOGGER.info("Запрос загрузки из файла '" + fileName + "' алгоритмом '" + algorithm.toLowerCase() + "' в " + countCars + " ед. транспорта.");
         return loadFileCargoService.run(
-                new RequestString(
+                requestStringMapper.toRequestString(
                         loadFileCargoService.getClass(),
                         Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
                                 fileName + " " +
@@ -39,7 +40,7 @@ public class ShellConsoleController {
     public String view_file(@ShellOption String fileName) {
         LOGGER.info("Запрос отображения информации о грузовиках из файла '" + fileName + "'");
         return viewFileCargoService.run(
-                new RequestString(
+                requestStringMapper.toRequestString(
                         viewFileCargoService.getClass(),
                         Thread.currentThread().getStackTrace()[1].getMethodName() + " " +
                                 fileName
