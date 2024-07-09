@@ -130,7 +130,6 @@ public class TelegramStateMachine {
         updateState(telegramState, newState);
     }
 
-
     private void updateStateRequest(TelegramState telegramState, StateEnum newState) {
         switch (newState) {
             case GET_LIST_PACK -> telegramState.setRequestString(PACK_LIST);

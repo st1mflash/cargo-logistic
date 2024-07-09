@@ -28,11 +28,11 @@ public class TelegramBotController extends TelegramLongPollingBot {
         try {
             Long userId = update.getMessage().getFrom().getId();
             TelegramState telegramState = telegramBotService.updateState(
-                    update.getMessage().getText(),
-                    telegramBotService.loadOrCreateState(userId, userStates)
+                    telegramBotService.loadCurrentState(userId, userStates),
+                    update.getMessage().getText()
             );
 
-            sendMessage(userId, loadStatePage(telegramState));
+            sendMessage(userId, loadPageByState(telegramState));
         } catch (Exception e) {
             LOGGER.error(e);
             sendMessage(
@@ -75,7 +75,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
         }
     }
 
-    private SendMessage loadStatePage(TelegramState telegramState) {
+    private SendMessage loadPageByState(TelegramState telegramState) {
         return telegramState.getPage().loadPage(telegramState);
     }
 }

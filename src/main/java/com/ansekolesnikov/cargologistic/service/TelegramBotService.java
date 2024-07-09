@@ -101,8 +101,7 @@ public class TelegramBotService {
                 pack delete [ID посылки]""";
     }
 
-
-    public TelegramState loadOrCreateState(Long userId, Map<Long, TelegramState> map) {
+    public TelegramState loadCurrentState(Long userId, Map<Long, TelegramState> map) {
         if(map.get(userId) != null) {
             return map.get(userId);
         } else {
@@ -112,7 +111,7 @@ public class TelegramBotService {
         }
     }
 
-    public TelegramState updateState(String message, TelegramState telegramState) {
+    public TelegramState updateState(TelegramState telegramState, String message) {
         return telegramStateMachine.changeStateByMessage(telegramState, message);
     }
 }
