@@ -5,7 +5,7 @@ import com.ansekolesnikov.cargologistic.enums.StateEnum;
 import com.ansekolesnikov.cargologistic.interfaces.ITelegramUserStateService;
 import com.ansekolesnikov.cargologistic.mappers.ButtonMapper;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
-import com.ansekolesnikov.cargologistic.states.TelegramStateParams;
+import com.ansekolesnikov.cargologistic.states.TelegramUserStateParams;
 import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import static com.ansekolesnikov.cargologistic.constants.CommandConstant.*;
 @RequiredArgsConstructor
 @Service
 public class TelegramUserUserStateService implements ITelegramUserStateService {
-    private final TelegramStateParams telegramStateParams;
+    private final TelegramUserStateParams telegramUserStateParams;
     private final TelegramPages telegramPages;
     private final ButtonMapper buttonMapper;
 
@@ -149,9 +149,9 @@ public class TelegramUserUserStateService implements ITelegramUserStateService {
 
     private void updateUserState(TelegramUserState userState, StateEnum state) {
         userState.setState(state);
-        userState.setPage(telegramStateParams.getPageForState(state));
+        userState.setPage(telegramUserStateParams.getPageForState(state));
         if (state != StateEnum.RESULT) {
-            userState.setService(telegramStateParams.getServiceForState(state));
+            userState.setService(telegramUserStateParams.getServiceForState(state));
         }
         updateCommandByUserState(userState, state);
     }
