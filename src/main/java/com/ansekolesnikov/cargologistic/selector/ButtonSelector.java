@@ -1,17 +1,17 @@
-package com.ansekolesnikov.cargologistic.mappers;
+package com.ansekolesnikov.cargologistic.selector;
 
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.StateEnum;
-import org.mapstruct.Mapper;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static com.ansekolesnikov.cargologistic.constants.ButtonConstant.*;
 
+@NoArgsConstructor
 @Component
-@Mapper
-public interface ButtonMapper {
-    default String toCommandParameter(String buttonName) {
+public class ButtonSelector {
+    public String toCommandParameter(String buttonName) {
         return switch (buttonName) {
             case BTN_UPDATE_NAME_CAR -> CarModelParameterEnum.NAME.name().toLowerCase();
             case BTN_UPDATE_WIDTH_CAR -> CarModelParameterEnum.WIDTH.name().toLowerCase();
@@ -25,7 +25,7 @@ public interface ButtonMapper {
         };
     }
 
-    default StateEnum toNextStateEnum(String buttonName) {
+    public StateEnum toNextStateEnum(String buttonName) {
         return switch (buttonName) {
             case BTN_PACK_LIST -> StateEnum.GET_LIST_PACK;
             case BTN_CAR_LIST -> StateEnum.GET_LIST_CAR;

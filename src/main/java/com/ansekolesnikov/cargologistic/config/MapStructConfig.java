@@ -24,11 +24,6 @@ public class MapStructConfig {
     }
 
     @Bean
-    public ButtonMapper buttonMapper() {
-        return Mappers.getMapper(ButtonMapper.class);
-    }
-
-    @Bean
     public RequestStringMapper requestStringMapper() {
         return Mappers.getMapper(RequestStringMapper.class);
     }

@@ -3,7 +3,7 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.enums.StateEnum;
 import com.ansekolesnikov.cargologistic.factory.TelegramUserStateFactory;
 import com.ansekolesnikov.cargologistic.interfaces.ITelegramUserStateService;
-import com.ansekolesnikov.cargologistic.mappers.ButtonMapper;
+import com.ansekolesnikov.cargologistic.selector.ButtonSelector;
 import com.ansekolesnikov.cargologistic.states.TelegramUserStateParams;
 import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import static com.ansekolesnikov.cargologistic.constants.CommandConstant.*;
 public class TelegramUserStateService implements ITelegramUserStateService {
     private final TelegramUserStateParams telegramUserStateParams;
     private final TelegramUserStateFactory telegramUserStateFactory;
-    private final ButtonMapper buttonMapper;
+    private final ButtonSelector buttonSelector;
 
     private final Map<Long, TelegramUserState> userStates = new HashMap<>();
 
@@ -43,8 +43,8 @@ public class TelegramUserStateService implements ITelegramUserStateService {
     public void updateByMessageWithAppendCommand(TelegramUserState userState, Message message) {
         StateEnum nextState = userState.getState().nextState();
         String commandParameter = (
-                buttonMapper.toCommandParameter(message.getText()) == null ?
-                        message.getText() : buttonMapper.toCommandParameter(message.getText()));
+                buttonSelector.toCommandParameter(message.getText()) == null ?
+                        message.getText() : buttonSelector.toCommandParameter(message.getText()));
         updateUserStateWithAppendCommand(userState, nextState, commandParameter);
     }
 

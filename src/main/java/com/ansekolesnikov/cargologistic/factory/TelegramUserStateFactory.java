@@ -1,6 +1,6 @@
 package com.ansekolesnikov.cargologistic.factory;
 
-import com.ansekolesnikov.cargologistic.mappers.ButtonMapper;
+import com.ansekolesnikov.cargologistic.selector.ButtonSelector;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
 import com.ansekolesnikov.cargologistic.service.TelegramUserStateService;
 import com.ansekolesnikov.cargologistic.states.TelegramUserState;
@@ -13,12 +13,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Component
 public class TelegramUserStateFactory {
-    private final ButtonMapper buttonMapper;
+    private final ButtonSelector buttonSelector;
     private final TelegramPages telegramPages;
 
     public TelegramUserState updateUserState(TelegramUserStateService telegramUserStateService, TelegramUserState userState, Message message) {
         if (telegramUserStateService.isButtonWithoutAppendCommand(message)) {
-            telegramUserStateService.updateUserState(userState, buttonMapper.toNextStateEnum(message.getText()));
+            telegramUserStateService.updateUserState(userState, buttonSelector.toNextStateEnum(message.getText()));
         } else {
             telegramUserStateService.updateByMessageWithAppendCommand(userState, message);
         }
