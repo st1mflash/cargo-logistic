@@ -37,7 +37,7 @@ public class TelegramUserStateService implements ITelegramUserStateService {
 
     @Override
     public TelegramUserState loadUserState(Long userId) {
-        if (userStates.get(userId) != null) {
+        if (userStates.containsKey(userId)) {
             return userStates.get(userId);
         } else {
             TelegramUserState telegramUserState = new TelegramUserState();
@@ -45,6 +45,11 @@ public class TelegramUserStateService implements ITelegramUserStateService {
             userStates.put(userId, telegramUserState);
             return telegramUserState;
         }
+    }
+
+    @Override
+    public boolean isExistUserStateById(Long userId) {
+        return userStates.containsKey(userId);
     }
 
     private void updateByMessageWithAppendCommand(TelegramUserState userState, Message message) {

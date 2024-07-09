@@ -24,10 +24,15 @@ public class TelegramBotController extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         try {
             Long userId = update.getMessage().getFrom().getId();
-            TelegramUserState telegramUserState = userStateService.updateUserState(
-                    userStateService.loadUserState(userId),
-                    update.getMessage()
-            );
+            TelegramUserState telegramUserState;
+            if (userStateService.isExistUserStateById(userId)) {
+                telegramUserState = userStateService.updateUserState(
+                        userStateService.loadUserState(userId),
+                        update.getMessage()
+                );
+            } else {
+                telegramUserState = userStateService.loadUserState(userId);
+            }
             sendMessage(userId, loadPageByState(telegramUserState));
         } catch (Exception e) {
             LOGGER.error(e);

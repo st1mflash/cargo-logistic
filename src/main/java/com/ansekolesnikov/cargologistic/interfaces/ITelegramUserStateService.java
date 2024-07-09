@@ -7,4 +7,6 @@ public interface ITelegramUserStateService {
     TelegramUserState updateUserState(TelegramUserState userState, Message message);
 
     TelegramUserState loadUserState(Long userId);
+
+    boolean isExistUserStateById(Long userId);
 }
