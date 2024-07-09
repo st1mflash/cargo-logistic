@@ -1,7 +1,8 @@
 package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
-import com.ansekolesnikov.cargologistic.states.TelegramState;
+import com.ansekolesnikov.cargologistic.service.TelegramUserUserStateService;
+import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.jvnet.hk2.annotations.Service;
@@ -10,29 +11,24 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RequiredArgsConstructor
 @Service
 public class TelegramBotController extends TelegramLongPollingBot {
     private final TelegramBotService telegramBotService;
+    private final TelegramUserUserStateService userStateService;
     private final String BOT_TOKEN;
     private final String BOT_USERNAME;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
-
-    private final Map<Long, TelegramState> userStates = new HashMap<>();
 
     @Override
     public void onUpdateReceived(Update update) {
         try {
             Long userId = update.getMessage().getFrom().getId();
-            TelegramState telegramState = telegramBotService.updateState(
-                    telegramBotService.loadCurrentState(userId, userStates),
-                    update.getMessage().getText()
+            TelegramUserState telegramUserState = userStateService.updateUserStateByMessage(
+                    userStateService.loadUserState(userId),
+                    update.getMessage()
             );
-
-            sendMessage(userId, loadPageByState(telegramState));
+            sendMessage(userId, loadPageByState(telegramUserState));
         } catch (Exception e) {
             LOGGER.error(e);
             sendMessage(
@@ -75,7 +71,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
         }
     }
 
-    private SendMessage loadPageByState(TelegramState telegramState) {
-        return telegramState.getPage().loadPage(telegramState);
+    private SendMessage loadPageByState(TelegramUserState telegramUserState) {
+        return telegramUserState.getPage().loadPage(telegramUserState);
     }
 }

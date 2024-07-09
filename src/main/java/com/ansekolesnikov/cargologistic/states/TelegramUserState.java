@@ -6,13 +6,13 @@ import com.ansekolesnikov.cargologistic.pages.ITelegramPage;
 import lombok.Data;
 
 @Data
-public class TelegramState {
+public class TelegramUserState {
+    private String command;
+    private StateEnum state;
     private ITelegramPage page;
-    private String requestString;
-    private StateEnum currentState;
     private IRunnableByStringService service;
 
-    public TelegramState(ITelegramPage page) {
+    public TelegramUserState(ITelegramPage page) {
         this.page = page;
     }
 }

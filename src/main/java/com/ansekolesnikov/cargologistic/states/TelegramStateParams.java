@@ -18,7 +18,7 @@ public class TelegramStateParams {
     private final LoadFileService loadFileService;
     private final LoadListService loadListService;
 
-    public ITelegramPage getPage(StateEnum state) {
+    public ITelegramPage getPageForState(StateEnum state) {
         return switch (state) {
             case RESULT,
                  GET_LIST_PACK,
@@ -60,7 +60,7 @@ public class TelegramStateParams {
         };
     }
 
-    public IRunnableByStringService getService(StateEnum state) {
+    public IRunnableByStringService getServiceForState(StateEnum state) {
         return switch (state) {
             case RESULT -> null;
             case GET_LIST_PACK,

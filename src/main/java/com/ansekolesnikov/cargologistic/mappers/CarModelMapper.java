@@ -12,9 +12,12 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface CarModelMapper {
     CarModelDto toDto(CarModelEntity carModelEntity);
+
     CarModelEntity toEntity(CarModelDto carModelDto);
+
     @Mapping(target = "cargo", expression = "java(getEmptyCargoCarScheme(carModelEntity.getWidth(), carModelEntity.getHeight()))")
     Car toCar(CarModelEntity carModelEntity);
+
     @Mapping(target = "idCar", expression = "java(Integer.parseInt(jsonObj.getString(\"id\")))")
     @Mapping(target = "width", constant = "6")
     @Mapping(target = "height", constant = "6")

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface PackModelMapper {
     PackModelDto toDto(PackModelEntity packModelEntity);
+
     PackModelEntity toEntity(PackModelDto packModelDto);
+
     @Mapping(target = "arrScheme", expression = "java(getEmptyPackScheme(packModelEntity.getScheme(), packModelEntity.getCode(), packModelEntity.getWidth(), packModelEntity.getHeight()))")
     Pack toPack(PackModelEntity packModelEntity);
 

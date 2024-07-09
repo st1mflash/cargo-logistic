@@ -1,11 +1,11 @@
 package com.ansekolesnikov.cargologistic.mappers;
 
-import static com.ansekolesnikov.cargologistic.constants.ButtonConstant.*;
-
 import com.ansekolesnikov.cargologistic.enums.CarModelParameterEnum;
 import com.ansekolesnikov.cargologistic.enums.PackModelParameterEnum;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
+
+import static com.ansekolesnikov.cargologistic.constants.ButtonConstant.*;
 
 @Component
 @Mapper

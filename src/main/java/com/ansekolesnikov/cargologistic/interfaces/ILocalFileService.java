@@ -11,5 +11,6 @@ import java.util.List;
 
 public interface ILocalFileService {
     List<Car> importCarsFromFile(LocalFile localFile, CarModelMapper carModelMapper);
+
     List<Pack> importPacksFromFile(LocalFile localFile, PackModelRepository packModelRepository, PackModelMapper packModelMapper);
 }

@@ -3,8 +3,6 @@ package com.ansekolesnikov.cargologistic.service;
 import com.ansekolesnikov.cargologistic.constants.MessageConstant;
 import com.ansekolesnikov.cargologistic.controller.TelegramBotController;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
-import com.ansekolesnikov.cargologistic.states.TelegramState;
-import com.ansekolesnikov.cargologistic.states.TelegramStateMachine;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-
-import java.util.Map;
 
 @Getter
 @Setter
@@ -26,7 +22,7 @@ public class TelegramBotService {
     private final PackModelService packModelService;
     private final CarModelService carModelService;
     private final TelegramPages telegramPages;
-    private final TelegramStateMachine telegramStateMachine;
+    private final TelegramUserUserStateService telegramUserStateService;
     private String telegramBotToken;
     private String telegramBotUsername;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
@@ -38,7 +34,7 @@ public class TelegramBotService {
             PackModelService packModelService,
             CarModelService carModelService,
             TelegramPages telegramPages,
-            TelegramStateMachine telegramStateMachine,
+            TelegramUserUserStateService telegramUserStateService,
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
@@ -48,12 +44,12 @@ public class TelegramBotService {
         this.packModelService = packModelService;
         this.carModelService = carModelService;
         this.telegramPages = telegramPages;
-        this.telegramStateMachine = telegramStateMachine;
+        this.telegramUserStateService = telegramUserStateService;
 
         try {
             new TelegramBotsApi(DefaultBotSession.class)
                     .registerBot(
-                            new TelegramBotController(this, telegramBotToken, telegramBotUsername)
+                            new TelegramBotController(this, telegramUserStateService, telegramBotToken, telegramBotUsername)
                     );
         } catch (TelegramApiException e) {
             LOGGER.error(MessageConstant.TELEGRAM_START_ERROR + e);
@@ -99,19 +95,5 @@ public class TelegramBotService {
 
                 Удаление модели посылки:
                 pack delete [ID посылки]""";
-    }
-
-    public TelegramState loadCurrentState(Long userId, Map<Long, TelegramState> map) {
-        if(map.get(userId) != null) {
-            return map.get(userId);
-        } else {
-            TelegramState telegramState = new TelegramState(telegramPages.getTelegramMenuPage());
-            map.put(userId, telegramState);
-            return telegramState;
-        }
-    }
-
-    public TelegramState updateState(TelegramState telegramState, String message) {
-        return telegramStateMachine.changeStateByMessage(telegramState, message);
     }
 }

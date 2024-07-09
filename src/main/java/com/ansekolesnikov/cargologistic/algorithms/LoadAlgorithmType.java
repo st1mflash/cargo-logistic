@@ -13,6 +13,7 @@ import java.util.Objects;
 @Component
 public class LoadAlgorithmType implements ILoadAlgorithm {
     private final CarService carService;
+
     @Override
     public void load(Car car, Pack pack) {
         if (Objects.equals(car.getCargo()[0][0], String.valueOf(pack.getCode()))

@@ -29,7 +29,7 @@ public class MapStructConfig {
     }
 
     @Bean
-    public RequestStringMapper requestStringMapper () {
+    public RequestStringMapper requestStringMapper() {
         return Mappers.getMapper(RequestStringMapper.class);
     }
 }

@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.pages;
 
 import com.ansekolesnikov.cargologistic.mappers.RequestStringMapper;
-import com.ansekolesnikov.cargologistic.states.TelegramState;
+import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,14 +13,14 @@ public class TelegramResultPage implements ITelegramPage {
     private final RequestStringMapper requestStringMapper;
 
     @Override
-    public SendMessage loadPage(TelegramState telegramState) {
-        SendMessage message = telegramMenuPage.loadPage(telegramState);
+    public SendMessage loadPage(TelegramUserState telegramUserState) {
+        SendMessage message = telegramMenuPage.loadPage(telegramUserState);
         message.setParseMode("Markdown");
         message.setText("```Ответ:\n" +
-                telegramState.getService().run(
+                telegramUserState.getService().run(
                         requestStringMapper.toRequestString(
-                                telegramState.getService().getClass(),
-                                telegramState.getRequestString())) + "```"
+                                telegramUserState.getService().getClass(),
+                                telegramUserState.getCommand())) + "```"
         );
         return message;
     }

@@ -1,9 +1,9 @@
 package com.ansekolesnikov.cargologistic.validation;
 
 import com.ansekolesnikov.cargologistic.constants.MessageConstant;
-import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import com.ansekolesnikov.cargologistic.entity.Car;
 import com.ansekolesnikov.cargologistic.entity.LocalFile;
+import com.ansekolesnikov.cargologistic.enums.AlgorithmEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
@@ -35,8 +35,9 @@ public class LoadFileServiceValidation {
         }
         return true;
     }
+
     public boolean isValidCountCars(List<Car> listCar, int countCars) {
-        if(listCar.size() > countCars) {
+        if (listCar.size() > countCars) {
             LOGGER.error(MessageConstant.CAR_NOT_ENOUGH_ERROR + " Требуется минимум " + listCar.size() + ", а указано " + countCars);
             userErrorMessage = MessageConstant.CAR_NOT_ENOUGH_ERROR;
             return false;

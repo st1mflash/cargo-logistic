@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PackModelRepository extends JpaRepository<PackModelEntity, Integer> {
     PackModelEntity findByName(String name);
+
     PackModelEntity findByCode(Character code);
 }
