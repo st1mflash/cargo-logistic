@@ -1,7 +1,7 @@
 package com.ansekolesnikov.cargologistic.controller;
 
 import com.ansekolesnikov.cargologistic.service.TelegramBotService;
-import com.ansekolesnikov.cargologistic.service.TelegramUserUserStateService;
+import com.ansekolesnikov.cargologistic.service.TelegramUserStateService;
 import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
@@ -15,7 +15,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Service
 public class TelegramBotController extends TelegramLongPollingBot {
     private final TelegramBotService telegramBotService;
-    private final TelegramUserUserStateService userStateService;
+    private final TelegramUserStateService userStateService;
     private final String BOT_TOKEN;
     private final String BOT_USERNAME;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotController.class.getName());
@@ -24,7 +24,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         try {
             Long userId = update.getMessage().getFrom().getId();
-            TelegramUserState telegramUserState = userStateService.updateUserStateByMessage(
+            TelegramUserState telegramUserState = userStateService.updateUserState(
                     userStateService.loadUserState(userId),
                     update.getMessage()
             );

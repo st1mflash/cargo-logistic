@@ -22,7 +22,7 @@ public class TelegramBotService {
     private final PackModelService packModelService;
     private final CarModelService carModelService;
     private final TelegramPages telegramPages;
-    private final TelegramUserUserStateService telegramUserStateService;
+    private final TelegramUserStateService telegramUserStateService;
     private String telegramBotToken;
     private String telegramBotUsername;
     private static final Logger LOGGER = Logger.getLogger(TelegramBotService.class.getName());
@@ -34,7 +34,7 @@ public class TelegramBotService {
             PackModelService packModelService,
             CarModelService carModelService,
             TelegramPages telegramPages,
-            TelegramUserUserStateService telegramUserStateService,
+            TelegramUserStateService telegramUserStateService,
             @Value("${telegram.bot.username}") String telegramBotUsername,
             @Value("${telegram.bot.token}") String telegramBotToken
     ) {
