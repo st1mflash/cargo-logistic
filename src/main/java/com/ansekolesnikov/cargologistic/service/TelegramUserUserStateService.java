@@ -41,7 +41,8 @@ public class TelegramUserUserStateService implements ITelegramUserStateService {
         if (userStates.get(userId) != null) {
             return userStates.get(userId);
         } else {
-            TelegramUserState telegramUserState = new TelegramUserState(telegramPages.getTelegramMenuPage());
+            TelegramUserState telegramUserState = new TelegramUserState();
+            telegramUserState.setPage(telegramPages.getTelegramMenuPage());
             userStates.put(userId, telegramUserState);
             return telegramUserState;
         }

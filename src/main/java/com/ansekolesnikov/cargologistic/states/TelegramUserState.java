@@ -11,8 +11,4 @@ public class TelegramUserState {
     private StateEnum state;
     private ITelegramPage page;
     private IRunnableByStringService service;
-
-    public TelegramUserState(ITelegramPage page) {
-        this.page = page;
-    }
 }
