@@ -29,7 +29,7 @@ public class TelegramUserUserStateService implements ITelegramUserStateService {
 
     @Override
     public TelegramUserState updateUserStateByMessage(TelegramUserState userState, Message message) {
-        if (isButton(message)) {
+        if (isButtonMessage(message)) {
             return updateUserStateByButton(userState, message);
         } else {
             return updateUserStateByText(userState, message);
@@ -48,7 +48,7 @@ public class TelegramUserUserStateService implements ITelegramUserStateService {
         }
     }
 
-    private boolean isButton(Message message) {
+    private boolean isButtonMessage(Message message) {
         Class<ButtonConstant> constantsClass = ButtonConstant.class;
         String messageText = message.getText();
         try {
