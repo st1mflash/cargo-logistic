@@ -25,7 +25,7 @@ public class TelegramUserStateFactory {
         return userState;
     }
 
-    public TelegramUserState loadUserState(Map<Long, TelegramUserState> userStates, Long userId) {
+    public TelegramUserState createOrReturnUserState(Map<Long, TelegramUserState> userStates, Long userId) {
         if (userStates.containsKey(userId)) {
             return userStates.get(userId);
         } else {

@@ -26,13 +26,13 @@ public class TelegramUserStateService implements ITelegramUserStateService {
     private final Map<Long, TelegramUserState> userStates = new HashMap<>();
 
     @Override
-    public TelegramUserState updateUserState(TelegramUserState userState, Message message) {
-        return telegramUserStateFactory.updateUserState(this, userState, message);
+    public TelegramUserState loadUserState(Long userId) {
+        return telegramUserStateFactory.createOrReturnUserState(userStates, userId);
     }
 
     @Override
-    public TelegramUserState loadUserState(Long userId) {
-        return telegramUserStateFactory.loadUserState(userStates, userId);
+    public TelegramUserState updateUserState(TelegramUserState userState, Message message) {
+        return telegramUserStateFactory.updateUserState(this, userState, message);
     }
 
     @Override
