@@ -1,9 +1,9 @@
 package com.ansekolesnikov.cargologistic.service;
 
 import com.ansekolesnikov.cargologistic.enums.StateEnum;
+import com.ansekolesnikov.cargologistic.factory.TelegramUserStateFactory;
 import com.ansekolesnikov.cargologistic.interfaces.ITelegramUserStateService;
 import com.ansekolesnikov.cargologistic.mappers.ButtonMapper;
-import com.ansekolesnikov.cargologistic.pages.TelegramPages;
 import com.ansekolesnikov.cargologistic.states.TelegramUserStateParams;
 import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.RequiredArgsConstructor;
@@ -20,31 +20,19 @@ import static com.ansekolesnikov.cargologistic.constants.CommandConstant.*;
 @Service
 public class TelegramUserStateService implements ITelegramUserStateService {
     private final TelegramUserStateParams telegramUserStateParams;
-    private final TelegramPages telegramPages;
+    private final TelegramUserStateFactory telegramUserStateFactory;
     private final ButtonMapper buttonMapper;
 
     private final Map<Long, TelegramUserState> userStates = new HashMap<>();
 
     @Override
     public TelegramUserState updateUserState(TelegramUserState userState, Message message) {
-        if(isButtonWithoutAppendCommand(message)) {
-            updateUserState(userState, buttonMapper.toNextStateEnum(message.getText()));
-        } else {
-            updateByMessageWithAppendCommand(userState, message);
-        }
-        return userState;
+        return telegramUserStateFactory.updateUserState(this, userState, message);
     }
 
     @Override
     public TelegramUserState loadUserState(Long userId) {
-        if (userStates.containsKey(userId)) {
-            return userStates.get(userId);
-        } else {
-            TelegramUserState telegramUserState = new TelegramUserState();
-            telegramUserState.setPage(telegramPages.getTelegramMenuPage());
-            userStates.put(userId, telegramUserState);
-            return telegramUserState;
-        }
+        return telegramUserStateFactory.loadUserState(userStates, userId);
     }
 
     @Override
@@ -52,7 +40,7 @@ public class TelegramUserStateService implements ITelegramUserStateService {
         return userStates.containsKey(userId);
     }
 
-    private void updateByMessageWithAppendCommand(TelegramUserState userState, Message message) {
+    public void updateByMessageWithAppendCommand(TelegramUserState userState, Message message) {
         StateEnum nextState = userState.getState().nextState();
         String commandParameter = (
                 buttonMapper.toCommandParameter(message.getText()) == null ?
@@ -60,7 +48,7 @@ public class TelegramUserStateService implements ITelegramUserStateService {
         updateUserStateWithAppendCommand(userState, nextState, commandParameter);
     }
 
-    private boolean isButtonWithoutAppendCommand(Message message) {
+    public boolean isButtonWithoutAppendCommand(Message message) {
         return switch (message.getText()) {
             case BTN_PACK_LIST,
                  BTN_CAR_LIST,
@@ -79,7 +67,7 @@ public class TelegramUserStateService implements ITelegramUserStateService {
         };
     }
 
-    private void updateUserState(TelegramUserState userState, StateEnum state) {
+    public void updateUserState(TelegramUserState userState, StateEnum state) {
         userState.setState(state);
         userState.setPage(telegramUserStateParams.getPageForState(state));
         if (state != StateEnum.RESULT) {
