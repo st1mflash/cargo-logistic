@@ -47,7 +47,8 @@ public class TelegramUserStateService implements ITelegramUserStateService {
                         message.getText() : buttonSelector.toCommandParameter(message.getText()));
         updateUserStateWithAppendCommand(userState, nextState, commandParameter);
     }
-
+//todo почему бы не сделать enum с значениями. И не очень понимаю, почему этот метод здесь.
+// Кроме того можно в енаме запилить метод по значениям
     public boolean isButtonWithoutAppendCommand(Message message) {
         return switch (message.getText()) {
             case BTN_PACK_LIST,

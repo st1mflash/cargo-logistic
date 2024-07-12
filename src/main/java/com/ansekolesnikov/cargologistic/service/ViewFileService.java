@@ -29,6 +29,7 @@ public class ViewFileService implements IRunnableByStringService {
     @Override
     public String run(RequestString request) {
         LocalFile localFile = localFileMapper.toLocalFile(PATH_IMPORT_CAR + request.getFileName());
+        //todo почему через новую сущность
         ViewFileValidation fileValidation = new ViewFileValidation();
 
         if (fileValidation.isValid(localFile)) {
@@ -37,18 +38,21 @@ public class ViewFileService implements IRunnableByStringService {
             return fileValidation.getUserErrorMessage();
         }
     }
-
+    //todo почему паблик?
     public String toStringCarsFromFile(LocalFile localFile) {
         List<Car> importedCarList = localFileService.importCarsFromFile(localFile, carModelMapper);
         if (importedCarList != null) {
             return toStringListCars(importedCarList);
         } else {
-            return MessageConstant.EMPTY_CAR_FILE;
+            return MessageConstant.EMPTY_CAR_FILE; //todo гораздо читабельней было бы если бы ты сделал быстрый выход.
+            // То есть убрать else и просто если он пустой выкидывай ошибку
         }
     }
+    //todo почему паблик?
 
     public String toStringListCars(List<Car> carList) {
         StringBuilder result = new StringBuilder();
+        //todo сделай через stream
         for (Car car : carList) {
             result.append(carService.toStringCarInfo(car, packModelRepository));
         }
