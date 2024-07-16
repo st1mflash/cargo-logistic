@@ -1,5 +1,7 @@
 package com.ansekolesnikov.cargologistic.constants;
 
+import org.telegram.telegrambots.meta.api.objects.Message;
+
 public class ButtonConstant {
     public static final String BTN_PACK_LIST = "Посылки";
     public static final String BTN_CAR_LIST = "Машины";
@@ -28,4 +30,23 @@ public class ButtonConstant {
     public static final String BTN_ALGORITHM_MAX = "Максимально";
     public static final String BTN_ALGORITHM_HALF = "Половина кузова";
     public static final String BTN_ALGORITHM_TYPE = "По типу посылки";
+
+    public static boolean isButtonWithoutAppendCommand(Message message) {
+        return switch (message.getText()) {
+            case BTN_PACK_LIST,
+                 BTN_CAR_LIST,
+                 BTN_GET_PACK,
+                 BTN_GET_CAR,
+                 BTN_INSERT_PACK,
+                 BTN_INSERT_CAR,
+                 BTN_DELETE_PACK,
+                 BTN_DELETE_CAR,
+                 BTN_UPDATE_PACK,
+                 BTN_UPDATE_CAR,
+                 BTN_LOAD_FILE,
+                 BTN_LOAD_LIST,
+                 BTN_VIEW_FILE -> true;
+            default -> false;
+        };
+    }
 }

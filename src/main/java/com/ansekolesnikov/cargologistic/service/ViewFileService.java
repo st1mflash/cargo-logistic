@@ -25,33 +25,22 @@ public class ViewFileService implements IRunnableByStringService {
     private final LocalFileMapper localFileMapper;
     private final CarService carService;
     private final LocalFileService localFileService;
+    private final ViewFileValidation viewFileValidation;
 
     @Override
     public String run(RequestString request) {
         LocalFile localFile = localFileMapper.toLocalFile(PATH_IMPORT_CAR + request.getFileName());
-        ViewFileValidation fileValidation = new ViewFileValidation();
-
-        if (fileValidation.isValid(localFile)) {
-            return toStringCarsFromFile(localFile);
-        } else {
-            return fileValidation.getUserErrorMessage();
-        }
+        return (viewFileValidation.isValid(localFile) ? toStringCarsFromFile(localFile) : viewFileValidation.getUserErrorMessage());
     }
 
-    public String toStringCarsFromFile(LocalFile localFile) {
+    private String toStringCarsFromFile(LocalFile localFile) {
         List<Car> importedCarList = localFileService.importCarsFromFile(localFile, carModelMapper);
-        if (importedCarList != null) {
-            return toStringListCars(importedCarList);
-        } else {
-            return MessageConstant.EMPTY_CAR_FILE;
-        }
+        return (localFileService.importCarsFromFile(localFile, carModelMapper) != null ? toStringListCars(importedCarList) : MessageConstant.EMPTY_CAR_FILE);
     }
 
-    public String toStringListCars(List<Car> carList) {
+    private String toStringListCars(List<Car> carList) {
         StringBuilder result = new StringBuilder();
-        for (Car car : carList) {
-            result.append(carService.toStringCarInfo(car, packModelRepository));
-        }
+        carList.forEach(car -> result.append(carService.toStringCarInfo(car, packModelRepository)));
         return result.toString();
     }
 }

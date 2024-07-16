@@ -1,5 +1,6 @@
 package com.ansekolesnikov.cargologistic.factory;
 
+import com.ansekolesnikov.cargologistic.constants.ButtonConstant;
 import com.ansekolesnikov.cargologistic.selector.ButtonSelector;
 import com.ansekolesnikov.cargologistic.pages.TelegramPages;
 import com.ansekolesnikov.cargologistic.service.TelegramUserStateService;
@@ -17,7 +18,7 @@ public class TelegramUserStateFactory {
     private final TelegramPages telegramPages;
 
     public TelegramUserState updateUserState(TelegramUserStateService telegramUserStateService, TelegramUserState userState, Message message) {
-        if (telegramUserStateService.isButtonWithoutAppendCommand(message)) {
+        if (ButtonConstant.isButtonWithoutAppendCommand(message)) {
             telegramUserStateService.updateUserState(userState, buttonSelector.toNextStateEnum(message.getText()));
         } else {
             telegramUserStateService.updateByMessageWithAppendCommand(userState, message);

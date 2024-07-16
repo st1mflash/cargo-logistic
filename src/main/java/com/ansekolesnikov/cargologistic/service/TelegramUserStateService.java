@@ -48,25 +48,6 @@ public class TelegramUserStateService implements ITelegramUserStateService {
         updateUserStateWithAppendCommand(userState, nextState, commandParameter);
     }
 
-    public boolean isButtonWithoutAppendCommand(Message message) {
-        return switch (message.getText()) {
-            case BTN_PACK_LIST,
-                 BTN_CAR_LIST,
-                 BTN_GET_PACK,
-                 BTN_GET_CAR,
-                 BTN_INSERT_PACK,
-                 BTN_INSERT_CAR,
-                 BTN_DELETE_PACK,
-                 BTN_DELETE_CAR,
-                 BTN_UPDATE_PACK,
-                 BTN_UPDATE_CAR,
-                 BTN_LOAD_FILE,
-                 BTN_LOAD_LIST,
-                 BTN_VIEW_FILE -> true;
-            default -> false;
-        };
-    }
-
     public void updateUserState(TelegramUserState userState, StateEnum state) {
         userState.setState(state);
         userState.setPage(telegramUserStateParams.getPageForState(state));
