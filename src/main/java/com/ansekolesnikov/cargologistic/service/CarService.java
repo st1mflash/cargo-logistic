@@ -94,8 +94,7 @@ public class CarService implements ICarService {
         return fullInfoString.toString();
     }
 
-    @Override
-    public int calculateCountPackInCarByCode(Car car, Character code, PackModelRepository packModelRepository) {
+    private int calculateCountPackInCarByCode(Car car, Character code, PackModelRepository packModelRepository) {
         PackModelEntity packModelEntity = packModelRepository.findByCode(code);
         int packSize = packModelEntity.getScheme().replaceAll("0", "").length();
         return Arrays.deepToString(car.getCargo()).replaceAll("[^" + code + "]", "").length() / packSize;

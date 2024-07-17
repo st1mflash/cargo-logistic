@@ -12,6 +12,4 @@ public interface ICarService {
     String toStringCarCargoScheme(Car car);
 
     String toStringCarInfo(Car car, PackModelRepository packModelRepository);
-
-    int calculateCountPackInCarByCode(Car car, Character code, PackModelRepository packModelRepository);
 }

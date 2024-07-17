@@ -71,7 +71,7 @@ public class LoadFileService implements IRunnableByStringService {
         }
     }
 
-    public String toStringCarsInfo(List<Car> listCars) {
+    private String toStringCarsInfo(List<Car> listCars) {
         StringBuilder result = new StringBuilder();
         if (listCars != null) {
             for (Car car : listCars) {
@@ -81,7 +81,7 @@ public class LoadFileService implements IRunnableByStringService {
         return result.toString();
     }
 
-    public List<Pack> importPacksFromFileSortedByWidth(LocalFile localFile) {
+    private List<Pack> importPacksFromFileSortedByWidth(LocalFile localFile) {
         return Objects
                 .requireNonNull(localFileService.importPacksFromFile(localFile, packModelRepository, packModelMapper))
                 .stream()
@@ -89,7 +89,7 @@ public class LoadFileService implements IRunnableByStringService {
                 .toList();
     }
 
-    public List<Car> loadCars(List<Pack> packList, int countCars, AlgorithmEnum algorithm) {
+    private List<Car> loadCars(List<Pack> packList, int countCars, AlgorithmEnum algorithm) {
         CarModelEntity defaultCarModelEntity = carModelRepository.findById(1).orElse(null);
         int localCarCount = countCars;
         List<Car> listCars = new ArrayList<>();
