@@ -8,8 +8,4 @@ CREATE TABLE IF NOT EXISTS public.pack_model
     scheme_height integer NOT NULL,
     CONSTRAINT pack_pkey PRIMARY KEY (id)
 )
-
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.pack_model
-    OWNER to postgres;

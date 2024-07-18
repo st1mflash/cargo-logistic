@@ -6,8 +6,4 @@ CREATE TABLE IF NOT EXISTS public.car_model
     cargo_height integer NOT NULL,
     CONSTRAINT car_pkey PRIMARY KEY (id)
 )
-
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.car_model
-    OWNER to postgres;
