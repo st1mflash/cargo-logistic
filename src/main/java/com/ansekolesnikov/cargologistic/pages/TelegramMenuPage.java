@@ -4,8 +4,10 @@ import com.ansekolesnikov.cargologistic.constants.ButtonConstant;
 import com.ansekolesnikov.cargologistic.states.TelegramUserState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
@@ -17,42 +19,20 @@ public class TelegramMenuPage implements ITelegramPage {
     @Override
     public SendMessage loadPage(TelegramUserState telegramUserState) {
         SendMessage message = new SendMessage();
-        message.setText("Выберите опцию:");
-        message.enableHtml(true);
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(true);
-        List<KeyboardRow> keyboardRows = new ArrayList<>();
-        KeyboardRow keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_PACK_LIST);
-        keyboardRow.add(ButtonConstant.BTN_CAR_LIST);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_GET_PACK);
-        keyboardRow.add(ButtonConstant.BTN_GET_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_INSERT_PACK);
-        keyboardRow.add(ButtonConstant.BTN_INSERT_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_UPDATE_PACK);
-        keyboardRow.add(ButtonConstant.BTN_UPDATE_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_DELETE_PACK);
-        keyboardRow.add(ButtonConstant.BTN_DELETE_CAR);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_LOAD_FILE);
-        keyboardRow.add(ButtonConstant.BTN_LOAD_LIST);
-        keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
-        keyboardRow.add(ButtonConstant.BTN_VIEW_FILE);
-        keyboardRows.add(keyboardRow);
-        replyKeyboardMarkup.setKeyboard(keyboardRows);
 
-        message.setReplyMarkup(replyKeyboardMarkup);
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        InlineKeyboardButton button = new InlineKeyboardButton();
+        button.setText("testtt");
+        button.setUrl("https://www.yourminiappurl.com");
+        row.add(String.valueOf(button));
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        message.setReplyMarkup(keyboardMarkup);
+        message.setParseMode(ParseMode.HTML);
+
+        //message.setReplyMarkup(replyKeyboardMarkup);
         return message;
     }
 }
