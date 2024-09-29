@@ -37,7 +37,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
             Message message = update.getMessage();
 
 
-            if (message != null && message.hasText()) {
+            if (message != null && message.hasText() && message.getText().equals("1")) {
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setChatId(message.getChatId());
                 sendMessage.setText("Нажмите на кнопку, чтобы открыть внешнюю страницу приложения");
@@ -48,7 +48,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
                 InlineKeyboardButton button = new InlineKeyboardButton();
                 button.setText("Открыть Mini Apps приложение");
                 //button.setCallbackData("https://google.com/");
-                button.setWebApp(new WebAppInfo("https://google.com/"));
+                button.setWebApp(new WebAppInfo("https://websim.ai/c/LqfyDVT3cmD5wurgK"));
                 row.add(button);
                 rows.add(row);
                 inlineKeyboardMarkup.setKeyboard(rows);
